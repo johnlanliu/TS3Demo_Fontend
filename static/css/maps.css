@@ -1,0 +1,300 @@
+/** map **/
+ul,li{
+	list-style:none;
+	margin:0;
+	padding:0;
+}
+.iconMarker, .poiMarker{
+	height:1px;
+	border : none;
+	position : absolute;
+	text-align:center;
+	cursor: pointer;
+	z-index:999;
+}
+.iconMarkerPortrait{
+	width:24px;
+	margin:auto;
+	z-index: 100;
+}
+.iconMarkerPortrait img{
+	z-index: 100;
+}
+.iconMarkerContent{
+	white-space:nowrap;
+	min-width:25px;
+	background-color:rgb(103, 194, 58);
+	color:#FDECEC;
+	border-radius: 5px;
+	height: 20px;
+	line-height: 20px;
+	padding:0px 2px;
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.iconMarkerArrow{
+	width:100%;
+	height:8px;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+.infowindowPanel label {
+	font-weight: bold;
+}
+.infowindowPanel span.vc {
+	margin-left: 5px;
+}
+.infowindowPanel li {
+	line-height: 1.5em;
+}
+
+
+/*充电在线*/
+.poiMarker .iconMarkerArrow{
+	background-image: url('images/delta_blue.png');
+}
+.poiMarker .iconMarkerContent{
+	background-color:#9191E6;
+}
+
+/**
+ * 颜色值对应表		red:EE2424, green:33cc66, yellow:fbb100, gray:a9a4a4
+ */
+/*充电在线*/
+.onlineCharging .iconMarkerArrow{
+	background-image: url('images/delta_green.png');
+}
+.onlineCharging .iconMarkerContent{
+	background-color:rgb(103, 194, 58);
+}
+/*断电在线*/
+.onlineNotCharging .iconMarkerArrow{
+	background-image: url('images/delta_yellow.png');
+}
+.onlineNotCharging .iconMarkerContent{
+	background-color:#fbb100;
+}
+/*离线*/
+.offline .iconMarkerArrow{
+	background-image: url('images/delta_gray.png');
+}
+.offline .iconMarkerContent{
+	color:#fff;
+	background-color:#a9a4a4;
+}
+
+
+/**红色**/
+/*充电在线*/
+.redMarker{
+	font-size:10px;
+	font-weight:lighter;
+}
+/*充电在线*/
+.redMarker.onlineCharging .iconMarkerArrow{
+	background-image: url('images/delta_red.png');
+}
+.redMarker.onlineCharging .iconMarkerContent{
+	background-color:rgb(103, 194, 58);
+}
+/*断电在线*/
+.redMarker.onlineNotCharging .iconMarkerArrow{
+	background-image: url('images/delta_yellow.png');
+}
+.redMarker.onlineNotCharging .iconMarkerContent{
+	background-color:#fbb100;
+}
+/*离线*/
+.redMarker.offline .iconMarkerArrow{
+	background-image: url('images/delta_gray.png');
+}
+.redMarker.offline .iconMarkerContent{
+	color:#fff;
+	background-color:#a9a4a4;
+}
+
+/**绿色**/
+/*充电在线*/
+.greenMarker{
+	font-size:14px;
+	font-weight:600;
+}
+.greenMarker.onlineCharging .iconMarkerArrow{
+	background-image: url('images/delta_green.png');
+}
+.greenMarker.onlineCharging .iconMarkerContent{
+	background-color:#33cc66;
+}
+/*断电在线*/
+.greenMarker.onlineNotCharging .iconMarkerArrow{
+	background-image: url('images/delta_yellow.png');
+}
+.greenMarker.onlineNotCharging .iconMarkerContent{
+	background-color:#fbb100;
+}
+/*离线*/
+.greenMarker.offline .iconMarkerArrow{
+	background-image: url('images/delta_gray.png');
+}
+.greenMarker.offline .iconMarkerContent{
+	color:#fff;
+	background-color:#a9a4a4;
+}
+
+
+/**绿色字体  green:72ff00, yellow:fffa66, gray:d6d6d6**/
+/*充电在线*/
+.greenFontMarker .iconMarkerContent{
+	height:10px;
+	margin-top: 10px;
+}
+.greenFontMarker{
+	font-size:14px;
+	font-weight:600;
+}
+.greenFontMarker.onlineCharging .iconMarkerArrow{
+	background-image: none;
+}
+.greenFontMarker.onlineCharging .iconMarkerContent{
+	background-color:transparent;
+	color:#72ff00;
+	text-shadow:1px 0 0 #131313,0 1px 0 #131313,-1px 0 0 #131313, 0 -1px 0 #131313;
+}
+/*断电在线*/
+.greenFontMarker.onlineNotCharging .iconMarkerArrow{
+	background-image: none;
+}
+.greenFontMarker.onlineNotCharging .iconMarkerContent{
+	background-color:transparent;
+	color:#fffa66;
+	text-shadow:1px 0 0 #131313,0 1px 0 #131313,-1px 0 0 #131313, 0 -1px 0 #131313;
+}
+/*离线*/
+.greenFontMarker.offline .iconMarkerArrow{
+	background-image: none;
+}
+.greenFontMarker.offline .iconMarkerContent{
+	background-color:transparent;
+	color:#d6d6d6;
+	text-shadow:1px 0 0 #131313,0 1px 0 #131313,-1px 0 0 #131313, 0 -1px 0 #131313;
+}
+
+
+.iconMarkerPortrait{
+	height:18px;
+	background-image: none;
+}
+.iconMarkerPortrait .icon{
+	width:24px;
+    background: transparent;
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF)"; /* IE8 */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF);   /* IE6 & 7 */
+}
+/*google地址解析*/
+.geocodeAddressItem {
+	background-color: #CFE5FA;
+	background-image:url("images/accordion.png");
+	border:1px #CFE5FA solid;
+	border-top: none;
+	height:20px;
+	width:200px;
+	padding:5px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow:ellipsis;
+	-o-text-overflow:ellipsis;
+	-icab-text-overflow: ellipsis;
+	-khtml-text-overflow: ellipsis;
+	-moz-text-overflow: ellipsis;
+	-webkit-text-overflow: ellipsis;
+	color:#666;
+	font-size:14px;
+}
+.addressPane, .distancePane{
+	font-size:14px;
+	padding:0px 5px;
+}
+.distancePane{
+	border-radius:6px;
+	height:100px;
+	padding:5px;
+	background:#F3F9FF;
+	filter:alpha(opacity=90);
+	-moz-opacity:0.90;
+	opacity:0.90;
+}
+.addressPane .addressInput, .distancePane .startLocationInput, .distancePane  .endLocationInput {
+	width:160px;
+}
+.addressPane .resultList{
+}
+
+
+
+
+.mapLayersBtn {
+	overflow: hidden; text-align: center; color: black;
+	font-family: Roboto, Arial, sans-serif; user-select: none; font-size: 11px; background-color: white;
+	padding: 8px; border-radius: 2px; -webkit-background-clip: padding-box;
+	background-clip: padding-box; box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px;
+	cursor: pointer;
+}
+.layerList{
+  width: 100px;
+  position: relative;
+  z-index: 1000;
+  background: white;
+  max-height: 80%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+}
+.layerList li{
+  padding: 5px 5px 0px;
+  height: 24px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.layer-wrap {
+	position: relative;
+	z-index: 1000;
+	width: 100px;
+}
+
+.layer-wrap .layer-btn {
+	display: inline-block;
+	width: 100px;
+	background: white;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+}
+
+.layer {
+	height: 0;
+	background: white;
+}
+
+.layer li {
+	display: none;
+	padding: 5px 5px 0px;
+	height: 24px;
+	font-size: 14px;
+	cursor: pointer;
+}
+
+.layer label {
+	cursor: pointer;
+}
+
+.layer-wrap:hover .layer {
+	height: 120px;
+}
+
+.layer-wrap:hover .layer li {
+	display: block;
+}

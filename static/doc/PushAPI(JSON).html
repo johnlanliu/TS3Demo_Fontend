@@ -1,0 +1,2902 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word"
+xmlns:dt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"
+xmlns:m="http://schemas.microsoft.com/office/2004/12/omml"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<meta name=ProgId content=Word.Document>
+<meta name=Generator content="Microsoft Word 15">
+<meta name=Originator content="Microsoft Word 15">
+<link rel=File-List href="TrackerServer2%20Push%20API.files/filelist.xml">
+<link rel=Edit-Time-Data href="TrackerServer2%20Push%20API.files/editdata.mso">
+<!--[if !mso]>
+<style>
+v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style>
+<![endif]--><!--[if gte mso 9]><xml>
+ <o:DocumentProperties>
+  <o:Author>深圳安行致远技术有限公司</o:Author>
+  <o:LastAuthor>Ganjiang Liu</o:LastAuthor>
+  <o:Revision>2</o:Revision>
+  <o:TotalTime>3</o:TotalTime>
+  <o:LastPrinted>2019-02-01T01:05:00Z</o:LastPrinted>
+  <o:Created>2019-02-01T01:07:00Z</o:Created>
+  <o:LastSaved>2019-02-01T01:07:00Z</o:LastSaved>
+  <o:Pages>7</o:Pages>
+  <o:Words>542</o:Words>
+  <o:Characters>3092</o:Characters>
+  <o:Company>Microsoft</o:Company>
+  <o:Lines>25</o:Lines>
+  <o:Paragraphs>7</o:Paragraphs>
+  <o:CharactersWithSpaces>3627</o:CharactersWithSpaces>
+  <o:Version>16.00</o:Version>
+ </o:DocumentProperties>
+ <o:CustomDocumentProperties>
+  <o:KSOProductBuildVer dt:dt="string">1033-10.2.0.7587</o:KSOProductBuildVer>
+ </o:CustomDocumentProperties>
+</xml><![endif]-->
+<link rel=dataStoreItem href="TrackerServer2%20Push%20API.files/item0001.xml"
+target="TrackerServer2%20Push%20API.files/props002.xml">
+<link rel=dataStoreItem href="TrackerServer2%20Push%20API.files/item0003.xml"
+target="TrackerServer2%20Push%20API.files/props004.xml">
+<link rel=themeData href="TrackerServer2%20Push%20API.files/themedata.thmx">
+<link rel=colorSchemeMapping
+href="TrackerServer2%20Push%20API.files/colorschememapping.xml">
+<!--[if gte mso 9]><xml>
+ <w:WordDocument>
+  <w:SpellingState>Clean</w:SpellingState>
+  <w:GrammarState>Clean</w:GrammarState>
+  <w:TrackMoves>false</w:TrackMoves>
+  <w:TrackFormatting/>
+  <w:DrawingGridVerticalSpacing>7.8 磅</w:DrawingGridVerticalSpacing>
+  <w:ValidateAgainstSchemas>false</w:ValidateAgainstSchemas>
+  <w:SaveIfXMLInvalid>false</w:SaveIfXMLInvalid>
+  <w:IgnoreMixedContent>false</w:IgnoreMixedContent>
+  <w:AlwaysShowPlaceholderText>false</w:AlwaysShowPlaceholderText>
+  <w:DoNotUnderlineInvalidXML/>
+  <w:DoNotPromoteQF/>
+  <w:LidThemeOther>EN-US</w:LidThemeOther>
+  <w:LidThemeAsian>ZH-CN</w:LidThemeAsian>
+  <w:LidThemeComplexScript>X-NONE</w:LidThemeComplexScript>
+  <w:Compatibility>
+   <w:SpaceForUL/>
+   <w:BalanceSingleByteDoubleByteWidth/>
+   <w:DoNotLeaveBackslashAlone/>
+   <w:ULTrailSpace/>
+   <w:AdjustLineHeightInTable/>
+   <w:BreakWrappedTables/>
+   <w:SnapToGridInCell/>
+   <w:WrapTextWithPunct/>
+   <w:UseAsianBreakRules/>
+   <w:UseWord2010TableStyleRules/>
+   <w:DontGrowAutofit/>
+   <w:SplitPgBreakAndParaMark/>
+   <w:UseFELayout/>
+  </w:Compatibility>
+  <w:DoNotOptimizeForBrowser/>
+  <m:mathPr>
+   <m:mathFont m:val="Cambria Math"/>
+   <m:brkBin m:val="before"/>
+   <m:brkBinSub m:val="&#45;-"/>
+   <m:smallFrac/>
+   <m:dispDef/>
+   <m:lMargin m:val="0"/>
+   <m:rMargin m:val="0"/>
+   <m:defJc m:val="centerGroup"/>
+   <m:wrapIndent m:val="1440"/>
+   <m:intLim m:val="subSup"/>
+   <m:naryLim m:val="undOvr"/>
+  </m:mathPr></w:WordDocument>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:LatentStyles DefLockedState="false" DefUnhideWhenUsed="false"
+  DefSemiHidden="false" DefQFormat="false" LatentStyleCount="375">
+  <w:LsdException Locked="false" QFormat="true" Name="Normal"/>
+  <w:LsdException Locked="false" QFormat="true" Name="heading 1"/>
+  <w:LsdException Locked="false" QFormat="true" Name="heading 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   QFormat="true" Name="heading 4"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   QFormat="true" Name="heading 5"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   QFormat="true" Name="heading 6"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   QFormat="true" Name="heading 7"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   QFormat="true" Name="heading 8"/>
+  <w:LsdException Locked="false" QFormat="true" Name="heading 9"/>
+  <w:LsdException Locked="false" Priority="39" QFormat="true" Name="toc 1"/>
+  <w:LsdException Locked="false" Priority="39" QFormat="true" Name="toc 2"/>
+  <w:LsdException Locked="false" Priority="39" Name="toc 3"/>
+  <w:LsdException Locked="false" QFormat="true" Name="toc 4"/>
+  <w:LsdException Locked="false" QFormat="true" Name="toc 5"/>
+  <w:LsdException Locked="false" QFormat="true" Name="toc 6"/>
+  <w:LsdException Locked="false" QFormat="true" Name="toc 7"/>
+  <w:LsdException Locked="false" QFormat="true" Name="toc 8"/>
+  <w:LsdException Locked="false" QFormat="true" Name="toc 9"/>
+  <w:LsdException Locked="false" QFormat="true" Name="header"/>
+  <w:LsdException Locked="false" Priority="99" QFormat="true" Name="footer"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   QFormat="true" Name="caption"/>
+  <w:LsdException Locked="false" QFormat="true" Name="line number"/>
+  <w:LsdException Locked="false" Priority="1" SemiHidden="true"
+   UnhideWhenUsed="true" Name="Default Paragraph Font"/>
+  <w:LsdException Locked="false" QFormat="true" Name="Date"/>
+  <w:LsdException Locked="false" Priority="99" QFormat="true" Name="Hyperlink"/>
+  <w:LsdException Locked="false" Priority="99" SemiHidden="true"
+   UnhideWhenUsed="true" Name="HTML Top of Form"/>
+  <w:LsdException Locked="false" Priority="99" SemiHidden="true"
+   UnhideWhenUsed="true" Name="HTML Bottom of Form"/>
+  <w:LsdException Locked="false" Priority="99" SemiHidden="true"
+   UnhideWhenUsed="true" QFormat="true" Name="Normal Table"/>
+  <w:LsdException Locked="false" Priority="99" SemiHidden="true"
+   UnhideWhenUsed="true" Name="No List"/>
+  <w:LsdException Locked="false" Priority="99" SemiHidden="true"
+   UnhideWhenUsed="true" Name="Outline List 1"/>
+  <w:LsdException Locked="false" Priority="99" SemiHidden="true"
+   UnhideWhenUsed="true" Name="Outline List 2"/>
+  <w:LsdException Locked="false" Priority="99" SemiHidden="true"
+   UnhideWhenUsed="true" Name="Outline List 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Simple 1"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Simple 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Simple 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Classic 1"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Classic 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Classic 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Classic 4"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Colorful 1"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Colorful 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Colorful 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Columns 1"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Columns 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Columns 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Columns 4"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Columns 5"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Grid 1"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Grid 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Grid 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Grid 4"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Grid 5"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Grid 6"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Grid 7"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Grid 8"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table List 1"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table List 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table List 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table List 4"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table List 5"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table List 6"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table List 7"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table List 8"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table 3D effects 1"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table 3D effects 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table 3D effects 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Contemporary"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Elegant"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Professional"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Subtle 1"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Subtle 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Web 1"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Web 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Web 3"/>
+  <w:LsdException Locked="false" QFormat="true" Name="Balloon Text"/>
+  <w:LsdException Locked="false" QFormat="true" Name="Table Grid"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Theme"/>
+  <w:LsdException Locked="false" Priority="99" SemiHidden="true"
+   Name="Placeholder Text"/>
+  <w:LsdException Locked="false" Priority="99" Name="No Spacing"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 1"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 1"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 1"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 1"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 1"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 1"/>
+  <w:LsdException Locked="false" Priority="99" SemiHidden="true" Name="Revision"/>
+  <w:LsdException Locked="false" QFormat="true" Name="List Paragraph"/>
+  <w:LsdException Locked="false" Priority="99" Name="Quote"/>
+  <w:LsdException Locked="false" Priority="99" Name="Intense Quote"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 1"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 1"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 1"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 1"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 1"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 1"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 1"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 1"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 2"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 2"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 2"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 2"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 2"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 2"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 2"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 2"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 2"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 2"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 2"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 2"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 2"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 2"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 3"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 3"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 3"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 3"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 3"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 3"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 3"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 3"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 3"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 3"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 3"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 3"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 3"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 3"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 4"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 4"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 4"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 4"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 4"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 4"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 4"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 4"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 4"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 4"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 4"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 4"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 4"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 4"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 5"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 5"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 5"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 5"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 5"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 5"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 5"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 5"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 5"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 5"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 5"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 5"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 5"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 5"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 6"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 6"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 6"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 6"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 6"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 6"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 6"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 6"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 6"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 6"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 6"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 6"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 6"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 6"/>
+  <w:LsdException Locked="false" Priority="19" QFormat="true"
+   Name="Subtle Emphasis"/>
+  <w:LsdException Locked="false" Priority="21" QFormat="true"
+   Name="Intense Emphasis"/>
+  <w:LsdException Locked="false" Priority="31" QFormat="true"
+   Name="Subtle Reference"/>
+  <w:LsdException Locked="false" Priority="32" QFormat="true"
+   Name="Intense Reference"/>
+  <w:LsdException Locked="false" Priority="33" QFormat="true" Name="Book Title"/>
+  <w:LsdException Locked="false" Priority="37" SemiHidden="true"
+   UnhideWhenUsed="true" Name="Bibliography"/>
+  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
+   UnhideWhenUsed="true" QFormat="true" Name="TOC Heading"/>
+  <w:LsdException Locked="false" Priority="41" Name="Plain Table 1"/>
+  <w:LsdException Locked="false" Priority="42" Name="Plain Table 2"/>
+  <w:LsdException Locked="false" Priority="43" Name="Plain Table 3"/>
+  <w:LsdException Locked="false" Priority="44" Name="Plain Table 4"/>
+  <w:LsdException Locked="false" Priority="45" Name="Plain Table 5"/>
+  <w:LsdException Locked="false" Priority="40" Name="Grid Table Light"/>
+  <w:LsdException Locked="false" Priority="46" Name="Grid Table 1 Light"/>
+  <w:LsdException Locked="false" Priority="47" Name="Grid Table 2"/>
+  <w:LsdException Locked="false" Priority="48" Name="Grid Table 3"/>
+  <w:LsdException Locked="false" Priority="49" Name="Grid Table 4"/>
+  <w:LsdException Locked="false" Priority="50" Name="Grid Table 5 Dark"/>
+  <w:LsdException Locked="false" Priority="51" Name="Grid Table 6 Colorful"/>
+  <w:LsdException Locked="false" Priority="52" Name="Grid Table 7 Colorful"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="Grid Table 1 Light Accent 1"/>
+  <w:LsdException Locked="false" Priority="47" Name="Grid Table 2 Accent 1"/>
+  <w:LsdException Locked="false" Priority="48" Name="Grid Table 3 Accent 1"/>
+  <w:LsdException Locked="false" Priority="49" Name="Grid Table 4 Accent 1"/>
+  <w:LsdException Locked="false" Priority="50" Name="Grid Table 5 Dark Accent 1"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="Grid Table 6 Colorful Accent 1"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="Grid Table 7 Colorful Accent 1"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="Grid Table 1 Light Accent 2"/>
+  <w:LsdException Locked="false" Priority="47" Name="Grid Table 2 Accent 2"/>
+  <w:LsdException Locked="false" Priority="48" Name="Grid Table 3 Accent 2"/>
+  <w:LsdException Locked="false" Priority="49" Name="Grid Table 4 Accent 2"/>
+  <w:LsdException Locked="false" Priority="50" Name="Grid Table 5 Dark Accent 2"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="Grid Table 6 Colorful Accent 2"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="Grid Table 7 Colorful Accent 2"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="Grid Table 1 Light Accent 3"/>
+  <w:LsdException Locked="false" Priority="47" Name="Grid Table 2 Accent 3"/>
+  <w:LsdException Locked="false" Priority="48" Name="Grid Table 3 Accent 3"/>
+  <w:LsdException Locked="false" Priority="49" Name="Grid Table 4 Accent 3"/>
+  <w:LsdException Locked="false" Priority="50" Name="Grid Table 5 Dark Accent 3"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="Grid Table 6 Colorful Accent 3"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="Grid Table 7 Colorful Accent 3"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="Grid Table 1 Light Accent 4"/>
+  <w:LsdException Locked="false" Priority="47" Name="Grid Table 2 Accent 4"/>
+  <w:LsdException Locked="false" Priority="48" Name="Grid Table 3 Accent 4"/>
+  <w:LsdException Locked="false" Priority="49" Name="Grid Table 4 Accent 4"/>
+  <w:LsdException Locked="false" Priority="50" Name="Grid Table 5 Dark Accent 4"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="Grid Table 6 Colorful Accent 4"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="Grid Table 7 Colorful Accent 4"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="Grid Table 1 Light Accent 5"/>
+  <w:LsdException Locked="false" Priority="47" Name="Grid Table 2 Accent 5"/>
+  <w:LsdException Locked="false" Priority="48" Name="Grid Table 3 Accent 5"/>
+  <w:LsdException Locked="false" Priority="49" Name="Grid Table 4 Accent 5"/>
+  <w:LsdException Locked="false" Priority="50" Name="Grid Table 5 Dark Accent 5"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="Grid Table 6 Colorful Accent 5"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="Grid Table 7 Colorful Accent 5"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="Grid Table 1 Light Accent 6"/>
+  <w:LsdException Locked="false" Priority="47" Name="Grid Table 2 Accent 6"/>
+  <w:LsdException Locked="false" Priority="48" Name="Grid Table 3 Accent 6"/>
+  <w:LsdException Locked="false" Priority="49" Name="Grid Table 4 Accent 6"/>
+  <w:LsdException Locked="false" Priority="50" Name="Grid Table 5 Dark Accent 6"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="Grid Table 6 Colorful Accent 6"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="Grid Table 7 Colorful Accent 6"/>
+  <w:LsdException Locked="false" Priority="46" Name="List Table 1 Light"/>
+  <w:LsdException Locked="false" Priority="47" Name="List Table 2"/>
+  <w:LsdException Locked="false" Priority="48" Name="List Table 3"/>
+  <w:LsdException Locked="false" Priority="49" Name="List Table 4"/>
+  <w:LsdException Locked="false" Priority="50" Name="List Table 5 Dark"/>
+  <w:LsdException Locked="false" Priority="51" Name="List Table 6 Colorful"/>
+  <w:LsdException Locked="false" Priority="52" Name="List Table 7 Colorful"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="List Table 1 Light Accent 1"/>
+  <w:LsdException Locked="false" Priority="47" Name="List Table 2 Accent 1"/>
+  <w:LsdException Locked="false" Priority="48" Name="List Table 3 Accent 1"/>
+  <w:LsdException Locked="false" Priority="49" Name="List Table 4 Accent 1"/>
+  <w:LsdException Locked="false" Priority="50" Name="List Table 5 Dark Accent 1"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="List Table 6 Colorful Accent 1"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="List Table 7 Colorful Accent 1"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="List Table 1 Light Accent 2"/>
+  <w:LsdException Locked="false" Priority="47" Name="List Table 2 Accent 2"/>
+  <w:LsdException Locked="false" Priority="48" Name="List Table 3 Accent 2"/>
+  <w:LsdException Locked="false" Priority="49" Name="List Table 4 Accent 2"/>
+  <w:LsdException Locked="false" Priority="50" Name="List Table 5 Dark Accent 2"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="List Table 6 Colorful Accent 2"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="List Table 7 Colorful Accent 2"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="List Table 1 Light Accent 3"/>
+  <w:LsdException Locked="false" Priority="47" Name="List Table 2 Accent 3"/>
+  <w:LsdException Locked="false" Priority="48" Name="List Table 3 Accent 3"/>
+  <w:LsdException Locked="false" Priority="49" Name="List Table 4 Accent 3"/>
+  <w:LsdException Locked="false" Priority="50" Name="List Table 5 Dark Accent 3"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="List Table 6 Colorful Accent 3"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="List Table 7 Colorful Accent 3"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="List Table 1 Light Accent 4"/>
+  <w:LsdException Locked="false" Priority="47" Name="List Table 2 Accent 4"/>
+  <w:LsdException Locked="false" Priority="48" Name="List Table 3 Accent 4"/>
+  <w:LsdException Locked="false" Priority="49" Name="List Table 4 Accent 4"/>
+  <w:LsdException Locked="false" Priority="50" Name="List Table 5 Dark Accent 4"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="List Table 6 Colorful Accent 4"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="List Table 7 Colorful Accent 4"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="List Table 1 Light Accent 5"/>
+  <w:LsdException Locked="false" Priority="47" Name="List Table 2 Accent 5"/>
+  <w:LsdException Locked="false" Priority="48" Name="List Table 3 Accent 5"/>
+  <w:LsdException Locked="false" Priority="49" Name="List Table 4 Accent 5"/>
+  <w:LsdException Locked="false" Priority="50" Name="List Table 5 Dark Accent 5"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="List Table 6 Colorful Accent 5"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="List Table 7 Colorful Accent 5"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="List Table 1 Light Accent 6"/>
+  <w:LsdException Locked="false" Priority="47" Name="List Table 2 Accent 6"/>
+  <w:LsdException Locked="false" Priority="48" Name="List Table 3 Accent 6"/>
+  <w:LsdException Locked="false" Priority="49" Name="List Table 4 Accent 6"/>
+  <w:LsdException Locked="false" Priority="50" Name="List Table 5 Dark Accent 6"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="List Table 6 Colorful Accent 6"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="List Table 7 Colorful Accent 6"/>
+  <w:LsdException Locked="false" Priority="99" SemiHidden="true"
+   UnhideWhenUsed="true" Name="Mention"/>
+  <w:LsdException Locked="false" Priority="99" SemiHidden="true"
+   UnhideWhenUsed="true" Name="Smart Hyperlink"/>
+  <w:LsdException Locked="false" Priority="99" SemiHidden="true"
+   UnhideWhenUsed="true" Name="Hashtag"/>
+  <w:LsdException Locked="false" Priority="99" SemiHidden="true"
+   UnhideWhenUsed="true" Name="Unresolved Mention"/>
+ </w:LatentStyles>
+</xml><![endif]-->
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:宋体;
+	panose-1:2 1 6 0 3 1 1 1 1 1;
+	mso-font-alt:SimSun;
+	mso-font-charset:134;
+	mso-generic-font-family:auto;
+	mso-font-pitch:variable;
+	mso-font-signature:3 680460288 22 0 262145 0;}
+@font-face
+	{font-family:PMingLiU;
+	panose-1:2 1 6 1 0 1 1 1 1 1;
+	mso-font-alt:PMingLiU;
+	mso-font-charset:136;
+	mso-generic-font-family:roman;
+	mso-font-pitch:variable;
+	mso-font-signature:-1610611969 684719354 22 0 1048577 0;}
+@font-face
+	{font-family:黑体;
+	panose-1:2 1 6 9 6 1 1 1 1 1;
+	mso-font-alt:SimHei;
+	mso-font-charset:134;
+	mso-generic-font-family:modern;
+	mso-font-pitch:fixed;
+	mso-font-signature:-2147482945 953122042 22 0 262145 0;}
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;
+	mso-font-charset:0;
+	mso-generic-font-family:roman;
+	mso-font-pitch:variable;
+	mso-font-signature:-536869121 1107305727 33554432 0 415 0;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;
+	mso-font-charset:0;
+	mso-generic-font-family:swiss;
+	mso-font-pitch:variable;
+	mso-font-signature:-536859905 -1073732485 9 0 511 0;}
+@font-face
+	{font-family:"Calibri Light";
+	panose-1:2 15 3 2 2 2 4 3 2 4;
+	mso-font-charset:0;
+	mso-generic-font-family:swiss;
+	mso-font-pitch:variable;
+	mso-font-signature:-536859905 -1073732485 9 0 511 0;}
+@font-face
+	{font-family:Cambria;
+	panose-1:2 4 5 3 5 4 6 3 2 4;
+	mso-font-charset:0;
+	mso-generic-font-family:roman;
+	mso-font-pitch:variable;
+	mso-font-signature:-536869121 1107305727 33554432 0 415 0;}
+@font-face
+	{font-family:"\@宋体";
+	panose-1:2 1 6 0 3 1 1 1 1 1;
+	mso-font-charset:134;
+	mso-generic-font-family:auto;
+	mso-font-pitch:variable;
+	mso-font-signature:3 680460288 22 0 262145 0;}
+@font-face
+	{font-family:"\@黑体";
+	panose-1:2 1 6 0 3 1 1 1 1 1;
+	mso-font-charset:134;
+	mso-generic-font-family:modern;
+	mso-font-pitch:fixed;
+	mso-font-signature:-2147482945 953122042 22 0 262145 0;}
+@font-face
+	{font-family:"\@PMingLiU";
+	panose-1:2 1 6 1 0 1 1 1 1 1;
+	mso-font-charset:136;
+	mso-generic-font-family:roman;
+	mso-font-pitch:variable;
+	mso-font-signature:-1610611969 684719354 22 0 1048577 0;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-parent:"";
+	margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:8.0pt;
+	margin-left:0cm;
+	text-align:justify;
+	text-justify:inter-ideograph;
+	line-height:107%;
+	mso-pagination:none;
+	font-size:10.5pt;
+	mso-bidi-font-size:12.0pt;
+	font-family:"Times New Roman",serif;
+	mso-fareast-font-family:宋体;
+	mso-font-kerning:1.0pt;}
+h1
+	{mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-link:"标题 1 字符";
+	mso-style-next:正文;
+	margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:8.0pt;
+	margin-left:0cm;
+	text-align:justify;
+	text-justify:inter-ideograph;
+	line-height:240%;
+	mso-pagination:lines-together;
+	page-break-after:avoid;
+	mso-outline-level:1;
+	font-size:18.0pt;
+	mso-bidi-font-size:22.0pt;
+	font-family:"Times New Roman",serif;
+	mso-font-kerning:22.0pt;}
+h2
+	{mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-link:"标题 2 字符";
+	mso-style-next:正文;
+	margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:8.0pt;
+	margin-left:0cm;
+	text-align:justify;
+	text-justify:inter-ideograph;
+	line-height:172%;
+	mso-pagination:lines-together;
+	page-break-after:avoid;
+	mso-outline-level:2;
+	font-size:14.0pt;
+	mso-bidi-font-size:16.0pt;
+	font-family:"Times New Roman",serif;
+	mso-fareast-font-family:黑体;
+	mso-font-kerning:1.0pt;}
+h3
+	{mso-style-unhide:no;
+	mso-style-next:正文;
+	margin-top:13.0pt;
+	margin-right:0cm;
+	margin-bottom:13.0pt;
+	margin-left:0cm;
+	text-align:justify;
+	text-justify:inter-ideograph;
+	line-height:173%;
+	mso-pagination:lines-together;
+	page-break-after:avoid;
+	mso-outline-level:3;
+	font-size:11.0pt;
+	mso-bidi-font-size:16.0pt;
+	font-family:"Times New Roman",serif;
+	mso-font-kerning:1.0pt;}
+p.MsoHeading9, li.MsoHeading9, div.MsoHeading9
+	{mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-link:"标题 9 字符";
+	mso-style-next:正文;
+	margin-top:12.0pt;
+	margin-right:0cm;
+	margin-bottom:3.2pt;
+	margin-left:0cm;
+	text-align:justify;
+	text-justify:inter-ideograph;
+	line-height:133%;
+	mso-pagination:lines-together;
+	page-break-after:avoid;
+	mso-outline-level:9;
+	font-size:10.5pt;
+	font-family:"Calibri Light",sans-serif;
+	mso-fareast-font-family:宋体;
+	mso-bidi-font-family:"Times New Roman";
+	mso-font-kerning:1.0pt;}
+p.MsoToc1, li.MsoToc1, div.MsoToc1
+	{mso-style-priority:39;
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-next:正文;
+	margin-top:6.0pt;
+	margin-right:0cm;
+	margin-bottom:6.0pt;
+	margin-left:0cm;
+	line-height:107%;
+	mso-pagination:none;
+	font-size:10.0pt;
+	font-family:"Times New Roman",serif;
+	mso-fareast-font-family:宋体;
+	text-transform:uppercase;
+	mso-font-kerning:1.0pt;
+	font-weight:bold;}
+p.MsoToc2, li.MsoToc2, div.MsoToc2
+	{mso-style-priority:39;
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-next:正文;
+	margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:8.0pt;
+	margin-left:10.5pt;
+	line-height:107%;
+	mso-pagination:none;
+	font-size:10.0pt;
+	font-family:"Times New Roman",serif;
+	mso-fareast-font-family:宋体;
+	font-variant:small-caps;
+	mso-font-kerning:1.0pt;}
+p.MsoToc3, li.MsoToc3, div.MsoToc3
+	{mso-style-priority:39;
+	mso-style-unhide:no;
+	mso-style-next:正文;
+	margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:8.0pt;
+	margin-left:21.0pt;
+	line-height:107%;
+	mso-pagination:none;
+	font-size:10.0pt;
+	font-family:"Times New Roman",serif;
+	mso-fareast-font-family:宋体;
+	mso-font-kerning:1.0pt;
+	font-style:italic;}
+p.MsoToc4, li.MsoToc4, div.MsoToc4
+	{mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-next:正文;
+	margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:8.0pt;
+	margin-left:31.5pt;
+	line-height:107%;
+	mso-pagination:none;
+	font-size:9.0pt;
+	font-family:"Times New Roman",serif;
+	mso-fareast-font-family:宋体;
+	mso-font-kerning:1.0pt;}
+p.MsoToc5, li.MsoToc5, div.MsoToc5
+	{mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-next:正文;
+	margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:8.0pt;
+	margin-left:42.0pt;
+	line-height:107%;
+	mso-pagination:none;
+	font-size:9.0pt;
+	font-family:"Times New Roman",serif;
+	mso-fareast-font-family:宋体;
+	mso-font-kerning:1.0pt;}
+p.MsoToc6, li.MsoToc6, div.MsoToc6
+	{mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-next:正文;
+	margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:8.0pt;
+	margin-left:52.5pt;
+	line-height:107%;
+	mso-pagination:none;
+	font-size:9.0pt;
+	font-family:"Times New Roman",serif;
+	mso-fareast-font-family:宋体;
+	mso-font-kerning:1.0pt;}
+p.MsoToc7, li.MsoToc7, div.MsoToc7
+	{mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-next:正文;
+	margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:8.0pt;
+	margin-left:63.0pt;
+	line-height:107%;
+	mso-pagination:none;
+	font-size:9.0pt;
+	font-family:"Times New Roman",serif;
+	mso-fareast-font-family:宋体;
+	mso-font-kerning:1.0pt;}
+p.MsoToc8, li.MsoToc8, div.MsoToc8
+	{mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-next:正文;
+	margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:8.0pt;
+	margin-left:73.5pt;
+	line-height:107%;
+	mso-pagination:none;
+	font-size:9.0pt;
+	font-family:"Times New Roman",serif;
+	mso-fareast-font-family:宋体;
+	mso-font-kerning:1.0pt;}
+p.MsoToc9, li.MsoToc9, div.MsoToc9
+	{mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-next:正文;
+	margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:8.0pt;
+	margin-left:84.0pt;
+	line-height:107%;
+	mso-pagination:none;
+	font-size:9.0pt;
+	font-family:"Times New Roman",serif;
+	mso-fareast-font-family:宋体;
+	mso-font-kerning:1.0pt;}
+p.MsoHeader, li.MsoHeader, div.MsoHeader
+	{mso-style-unhide:no;
+	mso-style-qformat:yes;
+	margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:8.0pt;
+	margin-left:0cm;
+	text-align:center;
+	line-height:107%;
+	mso-pagination:none;
+	tab-stops:center 207.65pt right 415.3pt;
+	layout-grid-mode:char;
+	border:none;
+	mso-border-bottom-alt:solid windowtext .75pt;
+	padding:0cm;
+	mso-padding-alt:0cm 0cm 1.0pt 0cm;
+	font-size:9.0pt;
+	font-family:"Times New Roman",serif;
+	mso-fareast-font-family:宋体;
+	mso-font-kerning:1.0pt;}
+p.MsoFooter, li.MsoFooter, div.MsoFooter
+	{mso-style-priority:99;
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-link:"页脚 字符";
+	margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:8.0pt;
+	margin-left:0cm;
+	line-height:107%;
+	mso-pagination:none;
+	tab-stops:center 207.65pt right 415.3pt;
+	layout-grid-mode:char;
+	font-size:9.0pt;
+	font-family:"Times New Roman",serif;
+	mso-fareast-font-family:宋体;
+	mso-font-kerning:1.0pt;}
+p.MsoDate, li.MsoDate, div.MsoDate
+	{mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-link:"日期 字符";
+	mso-style-next:正文;
+	margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:8.0pt;
+	margin-left:5.0pt;
+	mso-para-margin-top:0cm;
+	mso-para-margin-right:0cm;
+	mso-para-margin-bottom:8.0pt;
+	mso-para-margin-left:25.0gd;
+	text-align:justify;
+	text-justify:inter-ideograph;
+	line-height:107%;
+	mso-pagination:none;
+	font-size:10.5pt;
+	mso-bidi-font-size:12.0pt;
+	font-family:"Times New Roman",serif;
+	mso-fareast-font-family:宋体;
+	mso-font-kerning:1.0pt;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-parent:"";
+	color:#0368A8;
+	text-decoration:none;
+	text-underline:none;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-unhide:no;
+	color:#954F72;
+	mso-themecolor:followedhyperlink;
+	text-decoration:underline;
+	text-underline:single;}
+p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
+	{mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-link:"批注框文本 字符";
+	margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:8.0pt;
+	margin-left:0cm;
+	text-align:justify;
+	text-justify:inter-ideograph;
+	line-height:107%;
+	mso-pagination:none;
+	font-size:9.0pt;
+	font-family:"Times New Roman",serif;
+	mso-fareast-font-family:宋体;
+	mso-font-kerning:1.0pt;}
+p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph
+	{mso-style-unhide:no;
+	mso-style-qformat:yes;
+	margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:8.0pt;
+	margin-left:0cm;
+	text-align:justify;
+	text-justify:inter-ideograph;
+	text-indent:21.0pt;
+	mso-char-indent-count:2.0;
+	line-height:107%;
+	mso-pagination:none;
+	font-size:10.5pt;
+	mso-bidi-font-size:12.0pt;
+	font-family:"Times New Roman",serif;
+	mso-fareast-font-family:宋体;
+	mso-font-kerning:1.0pt;}
+span.paramtd12
+	{mso-style-name:param_td12;
+	mso-style-unhide:no;
+	mso-style-qformat:yes;}
+span.9
+	{mso-style-name:"标题 9 字符";
+	mso-style-noshow:yes;
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-locked:yes;
+	mso-style-parent:"";
+	mso-style-link:"标题 9";
+	mso-ansi-font-size:10.5pt;
+	mso-bidi-font-size:10.5pt;
+	font-family:"Calibri Light",sans-serif;
+	mso-ascii-font-family:"Calibri Light";
+	mso-fareast-font-family:宋体;
+	mso-hansi-font-family:"Calibri Light";
+	mso-bidi-font-family:"Times New Roman";
+	mso-font-kerning:1.0pt;}
+span.1
+	{mso-style-name:"标题 1 字符";
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-locked:yes;
+	mso-style-parent:"";
+	mso-style-link:"标题 1";
+	mso-ansi-font-size:18.0pt;
+	mso-bidi-font-size:22.0pt;
+	mso-font-kerning:22.0pt;
+	font-weight:bold;}
+span.a
+	{mso-style-name:"批注框文本 字符";
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-locked:yes;
+	mso-style-parent:"";
+	mso-style-link:批注框文本;
+	mso-ansi-font-size:9.0pt;
+	mso-bidi-font-size:9.0pt;
+	mso-font-kerning:1.0pt;}
+span.a0
+	{mso-style-name:"日期 字符";
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-locked:yes;
+	mso-style-parent:"";
+	mso-style-link:日期;
+	mso-ansi-font-size:10.5pt;
+	mso-bidi-font-size:12.0pt;
+	mso-font-kerning:1.0pt;}
+span.a1
+	{mso-style-name:"页脚 字符";
+	mso-style-priority:99;
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-locked:yes;
+	mso-style-parent:"";
+	mso-style-link:页脚;
+	mso-ansi-font-size:9.0pt;
+	mso-bidi-font-size:9.0pt;
+	mso-font-kerning:1.0pt;}
+span.bodytextnarrow1
+	{mso-style-name:bodytextnarrow1;
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-parent:"";
+	mso-ansi-font-size:10.0pt;
+	mso-bidi-font-size:10.0pt;
+	font-family:"Arial",sans-serif;
+	mso-ascii-font-family:Arial;
+	mso-hansi-font-family:Arial;
+	mso-bidi-font-family:Arial;
+	color:#606060;}
+p.TOC1, li.TOC1, div.TOC1
+	{mso-style-name:"TOC 标题1";
+	mso-style-priority:39;
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-parent:"标题 1";
+	mso-style-next:正文;
+	margin-top:24.0pt;
+	margin-right:0cm;
+	margin-bottom:8.0pt;
+	margin-left:0cm;
+	line-height:115%;
+	mso-pagination:widow-orphan lines-together;
+	page-break-after:avoid;
+	font-size:14.0pt;
+	font-family:"Cambria",serif;
+	mso-fareast-font-family:宋体;
+	mso-bidi-font-family:"Times New Roman";
+	color:#365F91;
+	font-weight:bold;}
+p.10, li.10, div.10
+	{mso-style-name:列出段落1;
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:8.0pt;
+	margin-left:0cm;
+	text-align:justify;
+	text-justify:inter-ideograph;
+	text-indent:21.0pt;
+	mso-char-indent-count:2.0;
+	line-height:107%;
+	mso-pagination:none;
+	font-size:10.5pt;
+	mso-bidi-font-size:11.0pt;
+	font-family:"Calibri",sans-serif;
+	mso-fareast-font-family:宋体;
+	mso-bidi-font-family:"Times New Roman";
+	mso-font-kerning:1.0pt;}
+p.a2, li.a2, div.a2
+	{mso-style-name:封面标准文稿编辑信息;
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-parent:"";
+	margin-top:9.0pt;
+	margin-right:0cm;
+	margin-bottom:8.0pt;
+	margin-left:0cm;
+	text-align:center;
+	line-height:9.0pt;
+	mso-line-height-rule:exactly;
+	mso-pagination:widow-orphan;
+	font-size:10.5pt;
+	mso-bidi-font-size:10.0pt;
+	font-family:宋体;
+	mso-hansi-font-family:"Times New Roman";
+	mso-bidi-font-family:"Times New Roman";}
+p.reader-word-layer, li.reader-word-layer, div.reader-word-layer
+	{mso-style-name:reader-word-layer;
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-margin-top-alt:auto;
+	margin-right:0cm;
+	mso-margin-bottom-alt:auto;
+	margin-left:0cm;
+	line-height:107%;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:宋体;
+	mso-bidi-font-family:宋体;}
+p.11, li.11, div.11
+	{mso-style-name:样式1;
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-parent:"标题 2";
+	mso-style-link:"样式1 字符";
+	margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:8.0pt;
+	margin-left:21.0pt;
+	text-indent:-21.0pt;
+	line-height:172%;
+	mso-pagination:lines-together;
+	page-break-after:avoid;
+	mso-outline-level:2;
+	font-size:14.0pt;
+	font-family:"Times New Roman",serif;
+	mso-fareast-font-family:黑体;
+	mso-font-kerning:1.0pt;
+	font-weight:bold;}
+p.TableTitle, li.TableTitle, div.TableTitle
+	{mso-style-name:"Table Title";
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-link:"Table Title 字符";
+	margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:8.0pt;
+	margin-left:0cm;
+	line-height:107%;
+	mso-pagination:none;
+	font-size:10.5pt;
+	font-family:"Times New Roman",serif;
+	mso-fareast-font-family:宋体;
+	mso-font-kerning:1.0pt;
+	font-weight:bold;
+	mso-bidi-font-weight:normal;}
+span.2
+	{mso-style-name:"标题 2 字符";
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-locked:yes;
+	mso-style-link:"标题 2";
+	mso-ansi-font-size:14.0pt;
+	mso-bidi-font-size:16.0pt;
+	font-family:黑体;
+	mso-fareast-font-family:黑体;
+	mso-font-kerning:1.0pt;
+	font-weight:bold;}
+span.12
+	{mso-style-name:"样式1 字符";
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-locked:yes;
+	mso-style-parent:"标题 2 字符";
+	mso-style-link:样式1;
+	mso-ansi-font-size:14.0pt;
+	mso-bidi-font-size:14.0pt;
+	font-family:黑体;
+	mso-fareast-font-family:黑体;
+	mso-font-kerning:1.0pt;
+	font-weight:bold;}
+p.3, li.3, div.3
+	{mso-style-name:标题3;
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-link:"标题3 字符";
+	margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:8.0pt;
+	margin-left:18.0pt;
+	text-indent:-18.0pt;
+	line-height:107%;
+	mso-pagination:none;
+	mso-list:l0 level1 lfo1;
+	font-size:11.0pt;
+	font-family:"Times New Roman",serif;
+	mso-fareast-font-family:宋体;
+	mso-font-kerning:1.0pt;
+	font-weight:bold;
+	mso-bidi-font-weight:normal;}
+span.TableTitle0
+	{mso-style-name:"Table Title 字符";
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-locked:yes;
+	mso-style-link:"Table Title";
+	mso-ansi-font-size:10.5pt;
+	mso-bidi-font-size:10.5pt;
+	mso-font-kerning:1.0pt;
+	font-weight:bold;
+	mso-bidi-font-weight:normal;}
+p.Tablebody, li.Tablebody, div.Tablebody
+	{mso-style-name:"Table body";
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-link:"Table body 字符";
+	margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:8.0pt;
+	margin-left:0cm;
+	line-height:107%;
+	mso-pagination:none;
+	font-size:10.0pt;
+	font-family:"Times New Roman",serif;
+	mso-fareast-font-family:宋体;
+	mso-font-kerning:1.0pt;}
+span.30
+	{mso-style-name:"标题3 字符";
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-locked:yes;
+	mso-style-link:标题3;
+	mso-ansi-font-size:11.0pt;
+	mso-bidi-font-size:11.0pt;
+	mso-font-kerning:1.0pt;
+	font-weight:bold;
+	mso-bidi-font-weight:normal;}
+span.Tablebody0
+	{mso-style-name:"Table body 字符";
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-locked:yes;
+	mso-style-link:"Table body";
+	mso-font-kerning:1.0pt;}
+span.SpellE
+	{mso-style-name:"";
+	mso-spl-e:yes;}
+span.GramE
+	{mso-style-name:"";
+	mso-gram-e:yes;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	mso-default-props:yes;
+	font-size:10.0pt;
+	mso-ansi-font-size:10.0pt;
+	mso-bidi-font-size:10.0pt;
+	mso-fareast-font-family:宋体;}
+.MsoPapDefault
+	{mso-style-type:export-only;
+	margin-bottom:8.0pt;
+	line-height:107%;}
+ /* Page Definitions */
+ @page
+	{mso-page-border-surround-header:no;
+	mso-page-border-surround-footer:no;
+	mso-footnote-separator:url("TrackerServer2%20Push%20API.files/header.htm") fs;
+	mso-footnote-continuation-separator:url("TrackerServer2%20Push%20API.files/header.htm") fcs;
+	mso-endnote-separator:url("TrackerServer2%20Push%20API.files/header.htm") es;
+	mso-endnote-continuation-separator:url("TrackerServer2%20Push%20API.files/header.htm") ecs;}
+@page WordSection1
+	{size:595.3pt 841.9pt;
+	margin:72.0pt 36.0pt 72.0pt 52.75pt;
+	mso-header-margin:42.55pt;
+	mso-footer-margin:49.6pt;
+	border-top:none;
+	border-left:solid white 1.0pt;
+	border-bottom:none;
+	border-right:solid white 1.0pt;
+	mso-border-left-alt:solid white .5pt;
+	mso-border-right-alt:solid white .5pt;
+	padding:0cm 24.0pt 0cm 24.0pt;
+	mso-even-header:url("TrackerServer2%20Push%20API.files/header.htm") eh1;
+	mso-header:url("TrackerServer2%20Push%20API.files/header.htm") h1;
+	mso-footer:url("TrackerServer2%20Push%20API.files/header.htm") f1;
+	mso-first-header:url("TrackerServer2%20Push%20API.files/header.htm") fh1;
+	mso-paper-source:0;
+	layout-grid:15.6pt;}
+div.WordSection1
+	{page:WordSection1;}
+@page WordSection2
+	{size:595.3pt 841.9pt;
+	margin:72.0pt 36.0pt 72.0pt 52.75pt;
+	mso-header-margin:42.55pt;
+	mso-footer-margin:49.6pt;
+	border-top:none;
+	border-left:solid white 1.0pt;
+	border-bottom:none;
+	border-right:solid white 1.0pt;
+	mso-border-left-alt:solid white .5pt;
+	mso-border-right-alt:solid white .5pt;
+	padding:0cm 24.0pt 0cm 24.0pt;
+	mso-even-header:url("TrackerServer2%20Push%20API.files/header.htm") eh1;
+	mso-header:url("TrackerServer2%20Push%20API.files/header.htm") h1;
+	mso-footer:url("TrackerServer2%20Push%20API.files/header.htm") f1;
+	mso-first-header:url("TrackerServer2%20Push%20API.files/header.htm") fh1;
+	mso-paper-source:0;
+	layout-grid:15.6pt;}
+div.WordSection2
+	{page:WordSection2;}
+ /* List Definitions */
+ @list l0
+	{mso-list-id:295961244;
+	mso-list-template-ids:295961244;}
+@list l0:level1
+	{mso-level-style-link:标题3;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:18.0pt;
+	text-indent:-18.0pt;
+	mso-ansi-font-size:12.0pt;
+	mso-bidi-font-size:12.0pt;
+	font-family:"Times New Roman",serif;}
+@list l0:level2
+	{mso-level-number-format:alpha-lower;
+	mso-level-text:"%2\)";
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:42.0pt;
+	text-indent:-21.0pt;}
+@list l0:level3
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:right;
+	margin-left:63.0pt;
+	text-indent:-21.0pt;}
+@list l0:level4
+	{mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:84.0pt;
+	text-indent:-21.0pt;}
+@list l0:level5
+	{mso-level-number-format:alpha-lower;
+	mso-level-text:"%5\)";
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:105.0pt;
+	text-indent:-21.0pt;}
+@list l0:level6
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:right;
+	margin-left:126.0pt;
+	text-indent:-21.0pt;}
+@list l0:level7
+	{mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:147.0pt;
+	text-indent:-21.0pt;}
+@list l0:level8
+	{mso-level-number-format:alpha-lower;
+	mso-level-text:"%8\)";
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:168.0pt;
+	text-indent:-21.0pt;}
+@list l0:level9
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:right;
+	margin-left:189.0pt;
+	text-indent:-21.0pt;}
+ol
+	{margin-bottom:0cm;}
+ul
+	{margin-bottom:0cm;}
+-->
+</style>
+<!--[if gte mso 10]>
+<style>
+ /* Style Definitions */
+ table.MsoNormalTable
+	{mso-style-name:普通表格;
+	mso-tstyle-rowband-size:0;
+	mso-tstyle-colband-size:0;
+	mso-style-noshow:yes;
+	mso-style-priority:99;
+	mso-style-parent:"";
+	mso-padding-alt:0cm 5.4pt 0cm 5.4pt;
+	mso-para-margin-top:0cm;
+	mso-para-margin-right:0cm;
+	mso-para-margin-bottom:8.0pt;
+	mso-para-margin-left:0cm;
+	line-height:107%;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman",serif;}
+table.MsoTableGrid
+	{mso-style-name:网格型;
+	mso-tstyle-rowband-size:0;
+	mso-tstyle-colband-size:0;
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	border:solid windowtext 1.0pt;
+	mso-border-alt:solid windowtext .5pt;
+	mso-padding-alt:0cm 5.4pt 0cm 5.4pt;
+	mso-border-insideh:.5pt solid windowtext;
+	mso-border-insidev:.5pt solid windowtext;
+	mso-para-margin-top:0cm;
+	mso-para-margin-right:0cm;
+	mso-para-margin-bottom:8.0pt;
+	mso-para-margin-left:0cm;
+	line-height:107%;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman",serif;}
+</style>
+<![endif]--><!--[if gte mso 9]><xml>
+ <o:shapedefaults v:ext="edit" spidmax="2058"/>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <o:shapelayout v:ext="edit">
+  <o:idmap v:ext="edit" data="1"/>
+ </o:shapelayout></xml><![endif]-->
+</head>
+
+<body lang=EN-US link="#0368A8" vlink="#954F72" style='tab-interval:21.0pt;
+text-justify-trim:punctuation'>
+
+<div class=WordSection1 style='layout-grid:15.6pt'>
+
+<p class=MsoNormal align=left style='text-align:left'><b style='mso-bidi-font-weight:
+normal'><span style='font-size:22.0pt;line-height:107%;font-family:宋体'><o:p>&nbsp;</o:p></span></b></p>
+
+<p class=MsoNormal align=left style='text-align:left'><b style='mso-bidi-font-weight:
+normal'><span style='font-size:22.0pt;line-height:107%;font-family:宋体'><o:p>&nbsp;</o:p></span></b></p>
+
+<p class=MsoNormal align=left style='text-align:left'><b style='mso-bidi-font-weight:
+normal'><span style='font-size:22.0pt;line-height:107%;font-family:宋体'><o:p>&nbsp;</o:p></span></b></p>
+
+<p class=MsoNormal align=left style='text-align:left'><b style='mso-bidi-font-weight:
+normal'><span style='font-size:22.0pt;line-height:107%;font-family:宋体'><o:p>&nbsp;</o:p></span></b></p>
+
+<p class=MsoNormal align=left style='text-align:left'><b style='mso-bidi-font-weight:
+normal'><span style='font-size:18.0pt;line-height:107%;font-family:宋体'><o:p>&nbsp;</o:p></span></b></p>
+
+<p class=MsoNormal align=center style='text-align:center'><b style='mso-bidi-font-weight:
+normal'><span style='font-size:36.0pt;line-height:107%;font-family:宋体'>Tracker
+Server Push API<o:p></o:p></span></b></p>
+
+<p class=MsoNormal align=center style='text-align:center'><b style='mso-bidi-font-weight:
+normal'><span style='font-size:24.0pt;line-height:107%;font-family:宋体'>(JSON
+Format)<o:p></o:p></span></b></p>
+
+<p class=MsoNormal align=center style='text-align:center'><b style='mso-bidi-font-weight:
+normal'><span style='font-size:24.0pt;line-height:107%;font-family:宋体'>V1.1<o:p></o:p></span></b></p>
+
+<p class=MsoNormal align=left style='text-align:left'><b style='mso-bidi-font-weight:
+normal'><span style='font-size:16.0pt;line-height:107%;font-family:宋体'><o:p>&nbsp;</o:p></span></b></p>
+
+<p class=MsoNormal align=left style='text-align:left'><b style='mso-bidi-font-weight:
+normal'><span style='font-size:16.0pt;line-height:107%;font-family:宋体'><o:p>&nbsp;</o:p></span></b></p>
+
+<p class=MsoNormal align=left style='text-align:left'><b style='mso-bidi-font-weight:
+normal'><span style='font-size:16.0pt;line-height:107%;font-family:宋体'><o:p>&nbsp;</o:p></span></b></p>
+
+<div align=center>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=600
+ style='border-collapse:collapse;mso-table-layout-alt:fixed;border:none;
+ mso-border-alt:solid windowtext .5pt;mso-yfti-tbllook:1184;mso-padding-alt:
+ 0cm 5.4pt 0cm 5.4pt;mso-border-insideh:.5pt solid windowtext;mso-border-insidev:
+ .5pt solid windowtext'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;height:14.45pt'>
+  <td width=84 style='width:62.7pt;border:solid windowtext 1.0pt;mso-border-alt:
+  solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.45pt'>
+  <p class=MsoNormal align=left style='text-align:left'><a name="OLE_LINK2"><b
+  style='mso-bidi-font-weight:normal'><span style='mso-bidi-font-size:10.5pt;
+  line-height:107%;font-family:宋体'>Versions<o:p></o:p></span></b></a></p>
+  </td>
+  <span style='mso-bookmark:OLE_LINK2'></span>
+  <td width=112 style='width:84.35pt;border:solid windowtext 1.0pt;border-left:
+  none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:14.45pt'>
+  <p class=MsoNormal align=left style='text-align:left'><span style='mso-bookmark:
+  OLE_LINK2'><b style='mso-bidi-font-weight:normal'><span style='mso-bidi-font-size:
+  10.5pt;line-height:107%;font-family:宋体'>Modify Date<o:p></o:p></span></b></span></p>
+  </td>
+  <span style='mso-bookmark:OLE_LINK2'></span>
+  <td width=233 style='width:174.8pt;border:solid windowtext 1.0pt;border-left:
+  none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:14.45pt'>
+  <p class=MsoNormal align=left style='text-align:left'><span style='mso-bookmark:
+  OLE_LINK2'><b style='mso-bidi-font-weight:normal'><span style='mso-bidi-font-size:
+  10.5pt;line-height:107%;font-family:宋体'>Detail<o:p></o:p></span></b></span></p>
+  </td>
+  <span style='mso-bookmark:OLE_LINK2'></span>
+  <td width=170 style='width:127.8pt;border:solid windowtext 1.0pt;border-left:
+  none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:14.45pt'>
+  <p class=MsoNormal align=left style='text-align:left'><span style='mso-bookmark:
+  OLE_LINK2'><b style='mso-bidi-font-weight:normal'><span style='mso-bidi-font-size:
+  10.5pt;line-height:107%;font-family:宋体'>Remark<o:p></o:p></span></b></span></p>
+  </td>
+  <span style='mso-bookmark:OLE_LINK2'></span>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=84 style='width:62.7pt;border:solid windowtext 1.0pt;border-top:
+  none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'><span style='mso-bookmark:OLE_LINK2'></span>
+  <p class=MsoNormal align=left style='text-align:left'><span style='mso-bookmark:
+  OLE_LINK2'><span style='mso-bidi-font-size:10.5pt;line-height:107%;
+  font-family:宋体'><o:p>&nbsp;</o:p></span></span></p>
+  </td>
+  <span style='mso-bookmark:OLE_LINK2'></span>
+  <td width=112 style='width:84.35pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'><span
+  style='mso-bookmark:OLE_LINK2'></span>
+  <p class=MsoNormal align=left style='text-align:left'><span style='mso-bookmark:
+  OLE_LINK2'><span style='mso-bidi-font-size:10.5pt;line-height:107%;
+  font-family:宋体'><o:p>&nbsp;</o:p></span></span></p>
+  </td>
+  <span style='mso-bookmark:OLE_LINK2'></span>
+  <td width=233 style='width:174.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'><span
+  style='mso-bookmark:OLE_LINK2'></span>
+  <p class=MsoNormal align=left style='text-align:left'><span style='mso-bookmark:
+  OLE_LINK2'><span style='mso-bidi-font-size:10.5pt;line-height:107%;
+  font-family:宋体'><o:p>&nbsp;</o:p></span></span></p>
+  </td>
+  <span style='mso-bookmark:OLE_LINK2'></span>
+  <td width=170 style='width:127.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'><span
+  style='mso-bookmark:OLE_LINK2'></span>
+  <p class=MsoNormal align=left style='text-align:left'><span style='mso-bookmark:
+  OLE_LINK2'><span style='mso-bidi-font-size:10.5pt;line-height:107%;
+  font-family:宋体'><o:p>&nbsp;</o:p></span></span></p>
+  </td>
+  <span style='mso-bookmark:OLE_LINK2'></span>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=84 style='width:62.7pt;border:solid windowtext 1.0pt;border-top:
+  none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal align=left style='text-align:left'><span style='mso-bidi-font-size:
+  10.5pt;line-height:107%;font-family:宋体'>V1.0<o:p></o:p></span></p>
+  </td>
+  <td width=112 style='width:84.35pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal align=left style='text-align:left'><span style='mso-bidi-font-size:
+  10.5pt;line-height:107%;font-family:宋体'>2018-05-13<o:p></o:p></span></p>
+  </td>
+  <td width=233 style='width:174.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal align=left style='text-align:left'><span style='mso-bidi-font-size:
+  10.5pt;line-height:107%;font-family:宋体'>Created<o:p></o:p></span></p>
+  </td>
+  <td width=170 style='width:127.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal align=left style='text-align:left'><span style='mso-bidi-font-size:
+  10.5pt;line-height:107%;font-family:宋体'>John Liu<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;height:40.05pt'>
+  <td width=84 style='width:62.7pt;border:solid windowtext 1.0pt;border-top:
+  none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:40.05pt'>
+  <p class=MsoNormal align=left style='text-align:left'><span style='mso-bidi-font-size:
+  10.5pt;line-height:107%;font-family:宋体'>V1.1<o:p></o:p></span></p>
+  </td>
+  <td width=112 style='width:84.35pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:40.05pt'>
+  <p class=MsoNormal align=left style='text-align:left'><span style='mso-bidi-font-size:
+  10.5pt;line-height:107%;font-family:宋体'>2019-01-31<o:p></o:p></span></p>
+  </td>
+  <td width=233 style='width:174.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:40.05pt'>
+  <p class=MsoNormal align=left style='text-align:left'><span style='mso-bidi-font-size:
+  10.5pt;line-height:107%;font-family:宋体'>Revised<o:p></o:p></span></p>
+  </td>
+  <td width=170 style='width:127.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:40.05pt'>
+  <p class=MsoNormal align=left style='text-align:left'><span style='mso-bidi-font-size:
+  10.5pt;line-height:107%;font-family:宋体'>Noam Zeng<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;height:40.05pt'>
+  <td width=84 style='width:62.7pt;border:solid windowtext 1.0pt;border-top:
+  none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:40.05pt'>
+  <p class=MsoNormal align=left style='text-align:left'><span style='mso-bidi-font-size:
+  10.5pt;line-height:107%;font-family:宋体'><o:p>&nbsp;</o:p></span></p>
+  </td>
+  <td width=112 style='width:84.35pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:40.05pt'>
+  <p class=MsoNormal align=left style='text-align:left'><span style='mso-bidi-font-size:
+  10.5pt;line-height:107%;font-family:宋体'><o:p>&nbsp;</o:p></span></p>
+  </td>
+  <td width=233 style='width:174.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:40.05pt'>
+  <p class=MsoNormal align=left style='text-align:left'><span style='mso-bidi-font-size:
+  10.5pt;line-height:107%;font-family:宋体'><o:p>&nbsp;</o:p></span></p>
+  </td>
+  <td width=170 style='width:127.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:40.05pt'>
+  <p class=MsoNormal align=left style='text-align:left'><span style='mso-bidi-font-size:
+  10.5pt;line-height:107%;font-family:宋体'><o:p>&nbsp;</o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5;mso-yfti-lastrow:yes;height:40.05pt'>
+  <td width=84 style='width:62.7pt;border:solid windowtext 1.0pt;border-top:
+  none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:40.05pt'>
+  <p class=MsoNormal align=left style='text-align:left'><span style='mso-bidi-font-size:
+  10.5pt;line-height:107%;font-family:宋体'><o:p>&nbsp;</o:p></span></p>
+  </td>
+  <td width=112 style='width:84.35pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:40.05pt'>
+  <p class=MsoNormal align=left style='text-align:left'><span style='mso-bidi-font-size:
+  10.5pt;line-height:107%;font-family:宋体'><o:p>&nbsp;</o:p></span></p>
+  </td>
+  <td width=233 style='width:174.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:40.05pt'>
+  <p class=MsoNormal align=left style='text-align:left'><span style='mso-bidi-font-size:
+  10.5pt;line-height:107%;font-family:宋体'><o:p>&nbsp;</o:p></span></p>
+  </td>
+  <td width=170 style='width:127.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:40.05pt'>
+  <p class=MsoNormal align=left style='text-align:left'><span style='mso-bidi-font-size:
+  10.5pt;line-height:107%;font-family:宋体'><o:p>&nbsp;</o:p></span></p>
+  </td>
+ </tr>
+</table>
+
+</div>
+
+<p class=TOC1><o:p>&nbsp;</o:p></p>
+
+<p class=MsoNormal align=left style='text-align:left'><o:p>&nbsp;</o:p></p>
+
+<span style='font-size:10.5pt;mso-bidi-font-size:12.0pt;line-height:107%;
+font-family:"Times New Roman",serif;mso-fareast-font-family:宋体;mso-font-kerning:
+1.0pt;mso-ansi-language:EN-US;mso-fareast-language:ZH-CN;mso-bidi-language:
+AR-SA'><br clear=all style='mso-special-character:line-break;page-break-before:
+always'>
+</span>
+
+<p class=MsoNormal align=left style='text-align:left'><o:p>&nbsp;</o:p></p>
+
+<p class=MsoNormal align=center style='text-align:center'><b><span
+style='font-size:24.0pt;mso-bidi-font-size:28.0pt;line-height:107%'>Index<o:p></o:p></span></b></p>
+
+<p class=MsoNormal align=left style='text-align:left'><o:p>&nbsp;</o:p></p>
+
+<p class=MsoToc1 style='tab-stops:right dotted 506.55pt'><!--[if supportFields]><span
+style='mso-element:field-begin'></span><span
+style='mso-spacerun:yes'>&nbsp;</span>TOC \o &quot;1-3&quot; \h \z \u <span
+style='mso-element:field-separator'></span><![endif]--><a href="#_Toc22777"><span
+style='color:windowtext'>Introduction<span style='mso-tab-count:1 dotted'>............................................................................................................................................. </span></span><!--[if supportFields]><span
+style='color:windowtext'><span style='mso-element:field-begin'></span> PAGEREF
+_Toc22777 <span style='mso-element:field-separator'></span></span><![endif]--><span
+style='color:windowtext'><span style='mso-no-proof:yes'>4</span></span><!--[if supportFields]><span
+style='color:windowtext'><span style='mso-element:field-end'></span></span><![endif]--></a></p>
+
+<p class=MsoToc1 style='tab-stops:right dotted 506.55pt'><span lang=ZH-CN
+style='mso-ansi-language:ZH-CN'><a href="#_Toc24950"><span lang=EN-US
+style='color:windowtext;mso-ansi-language:EN-US'>Data Packets<span
+style='mso-tab-count:1 dotted'>............................................................................................................................................... </span></span><!--[if supportFields]><span
+lang=EN-US style='color:windowtext;mso-ansi-language:EN-US'><span
+style='mso-element:field-begin'></span> PAGEREF _Toc24950 <span
+style='mso-element:field-separator'></span></span><![endif]--><span lang=EN-US
+style='color:windowtext;mso-ansi-language:EN-US'><span style='mso-no-proof:
+yes'>4</span></span><!--[if supportFields]><span lang=EN-US style='color:windowtext;
+mso-ansi-language:EN-US'><span style='mso-element:field-end'></span></span><![endif]--></a></span></p>
+
+<p class=MsoToc2 style='tab-stops:right dotted 506.55pt'><span lang=ZH-CN
+style='mso-ansi-language:ZH-CN;mso-bidi-font-weight:bold'><a href="#_Toc31669"><span
+lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:107%;color:windowtext;
+mso-ansi-language:EN-US;mso-bidi-font-weight:normal'>uPulse</span><span
+lang=EN-US style='color:windowtext;mso-ansi-language:EN-US;mso-bidi-font-weight:
+normal'><span style='mso-tab-count:1 dotted'>............................................................................................................................................................ </span><span
+style='mso-field-code:" PAGEREF _Toc31669 "'><span style='mso-no-proof:yes'>4</span></span></span></a></span></p>
+
+<p class=MsoToc2 style='tab-stops:right dotted 506.55pt'><span lang=ZH-CN
+style='mso-ansi-language:ZH-CN;mso-bidi-font-weight:bold'><a href="#_Toc9031"><span
+lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:107%;color:windowtext;
+mso-ansi-language:EN-US;mso-bidi-font-weight:normal'>uRpLoc</span><span
+lang=EN-US style='color:windowtext;mso-ansi-language:EN-US;mso-bidi-font-weight:
+normal'><span style='mso-tab-count:1 dotted'>........................................................................................................................................................... </span><span
+style='mso-field-code:" PAGEREF _Toc9031 "'><span style='mso-no-proof:yes'>5</span></span></span></a></span></p>
+
+<p class=MsoToc1 style='tab-stops:right dotted 506.55pt'><span lang=ZH-CN
+style='mso-ansi-language:ZH-CN'><a href="#_Toc21843"><span lang=EN-US
+style='mso-bidi-font-size:18.0pt;line-height:107%;color:windowtext;mso-ansi-language:
+EN-US'>ErrorCode</span><span lang=EN-US style='color:windowtext;mso-ansi-language:
+EN-US'><span style='mso-tab-count:1 dotted'>................................................................................................................................................... </span></span><!--[if supportFields]><span
+lang=EN-US style='color:windowtext;mso-ansi-language:EN-US'><span
+style='mso-element:field-begin'></span> PAGEREF _Toc21843 <span
+style='mso-element:field-separator'></span></span><![endif]--><span lang=EN-US
+style='color:windowtext;mso-ansi-language:EN-US'><span style='mso-no-proof:
+yes'>5</span></span><!--[if supportFields]><span lang=EN-US style='color:windowtext;
+mso-ansi-language:EN-US'><span style='mso-element:field-end'></span></span><![endif]--></a></span></p>
+
+<p class=MsoToc1 style='tab-stops:right dotted 506.55pt'><span lang=ZH-CN
+style='mso-ansi-language:ZH-CN'><a href="#_Toc25046"><span lang=EN-US
+style='mso-bidi-font-size:18.0pt;line-height:107%;color:windowtext;mso-ansi-language:
+EN-US'>Objects</span><span lang=EN-US style='color:windowtext;mso-ansi-language:
+EN-US'><span style='mso-tab-count:1 dotted'>........................................................................................................................................................... </span></span><!--[if supportFields]><span
+lang=EN-US style='color:windowtext;mso-ansi-language:EN-US'><span
+style='mso-element:field-begin'></span> PAGEREF _Toc25046 <span
+style='mso-element:field-separator'></span></span><![endif]--><span lang=EN-US
+style='color:windowtext;mso-ansi-language:EN-US'><span style='mso-no-proof:
+yes'>6</span></span><!--[if supportFields]><span lang=EN-US style='color:windowtext;
+mso-ansi-language:EN-US'><span style='mso-element:field-end'></span></span><![endif]--></a></span></p>
+
+<p class=MsoToc2 style='tab-stops:right dotted 506.55pt'><span lang=ZH-CN
+style='mso-ansi-language:ZH-CN;mso-bidi-font-weight:bold'><a href="#_Toc15748"><span
+lang=EN-US style='color:windowtext;mso-ansi-language:EN-US;mso-bidi-font-weight:
+normal'>#Pulse<span style='mso-tab-count:1 dotted'>............................................................................................................................................................. </span><span
+style='mso-field-code:" PAGEREF _Toc15748 "'><span style='mso-no-proof:yes'>6</span></span></span></a></span></p>
+
+<p class=MsoToc2 style='tab-stops:right dotted 506.55pt'><span lang=ZH-CN
+style='mso-ansi-language:ZH-CN;mso-bidi-font-weight:bold'><a href="#_Toc11079"><span
+lang=EN-US style='color:windowtext;mso-ansi-language:EN-US;mso-bidi-font-weight:
+normal'>#</span><span lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:
+107%;color:windowtext;mso-ansi-language:EN-US;mso-bidi-font-weight:normal'>RpLoc</span><span
+lang=EN-US style='color:windowtext;mso-ansi-language:EN-US;mso-bidi-font-weight:
+normal'><span style='mso-tab-count:1 dotted'>........................................................................................................................................................... </span><span
+style='mso-field-code:" PAGEREF _Toc11079 "'><span style='mso-no-proof:yes'>6</span></span></span></a></span></p>
+
+<p class=MsoToc2 style='tab-stops:right dotted 506.55pt'><span lang=ZH-CN
+style='mso-ansi-language:ZH-CN;mso-bidi-font-weight:bold'><a href="#_Toc4680"><span
+lang=EN-US style='color:windowtext;mso-ansi-language:EN-US;mso-bidi-font-weight:
+normal'>#Status<span style='mso-tab-count:1 dotted'>........................................................................................................................................................... </span><span
+style='mso-field-code:" PAGEREF _Toc4680 "'><span style='mso-no-proof:yes'>7</span></span></span></a></span></p>
+
+<p class=MsoToc2 style='tab-stops:right dotted 506.55pt'><span lang=ZH-CN
+style='mso-ansi-language:ZH-CN;mso-bidi-font-weight:bold'><a href="#_Toc29785"><span
+lang=EN-US style='color:windowtext;mso-ansi-language:EN-US;mso-bidi-font-weight:
+normal'>#GPS<span style='mso-tab-count:1 dotted'>................................................................................................................................................................ </span><span
+style='mso-field-code:" PAGEREF _Toc29785 "'><span style='mso-no-proof:yes'>7</span></span></span></a></span></p>
+
+<p class=MsoToc2 style='tab-stops:right dotted 506.55pt'><span lang=ZH-CN
+style='mso-ansi-language:ZH-CN;mso-bidi-font-weight:bold'><a href="#_Toc20762"><span
+lang=EN-US style='color:windowtext;mso-ansi-language:EN-US;mso-bidi-font-weight:
+normal'>#Statistic<span style='mso-tab-count:1 dotted'>....................................................................................................................................................... </span><span
+style='mso-field-code:" PAGEREF _Toc20762 "'><span style='mso-no-proof:yes'>7</span></span></span></a></span></p>
+
+<p class=MsoNormal align=left style='text-align:left'><!--[if supportFields]><span
+lang=ZH-CN style='mso-ansi-language:ZH-CN;mso-bidi-font-weight:bold'><span
+style='mso-element:field-end'></span></span><![endif]--></p>
+
+</div>
+
+<span style='font-size:10.5pt;mso-bidi-font-size:12.0pt;line-height:107%;
+font-family:"Times New Roman",serif;mso-fareast-font-family:宋体;mso-font-kerning:
+1.0pt;mso-ansi-language:EN-US;mso-fareast-language:ZH-CN;mso-bidi-language:
+AR-SA'><br clear=all style='page-break-before:always;mso-break-type:section-break'>
+</span>
+
+<div class=WordSection2 style='layout-grid:15.6pt'>
+
+<h1 align=left style='text-align:left'><a name="_Toc410133250"></a><a
+name="_Toc410133248"></a><a name="_Toc22777"><span style='mso-bookmark:_Toc410133248'><span
+style='mso-bookmark:_Toc410133250'>Introduction</span></span></a><span
+style='mso-bookmark:_Toc410133248'><span style='mso-bookmark:_Toc410133250'></span></span></h1>
+
+<p class=MsoNormal><span style='mso-bookmark:_Toc410133248'><span
+style='mso-bookmark:_Toc410133250'><o:p>&nbsp;</o:p></span></span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span style='mso-bookmark:_Toc410133248'><span
+style='mso-bookmark:_Toc410133250'>Once the PUSH endpoints have been set up in
+the <span class=SpellE>Anytrek</span> Management System, the <span
+class=SpellE>TrackerServer</span> will automatically forward all the data
+packets from the devices. The protocol can be either HTTP or TCP, the contents
+are the all same. There will be two kinds of data packets: <span class=SpellE>uPulse</span>
+and <span class=SpellE>uRpLoc</span>, the first one for heartbeats and the
+second one for location reports.</span></span></p>
+
+<h1 align=left style='text-align:left'><a name="_Toc24950">Data Packets</a></h1>
+
+<h2 align=left style='margin-left:21.0pt;text-align:left;text-indent:-21.0pt'><a
+name="_Toc31669"></a><span class=SpellE><span style='mso-bookmark:_Toc31669'><span
+style='mso-bidi-font-size:14.0pt;line-height:172%'>uPulse</span></span></span><span
+style='mso-bookmark:_Toc31669'></span></h2>
+
+<p class=3 style='mso-list:l0 level1 lfo1'><![if !supportLists]><span
+style='font-size:12.0pt;line-height:107%;mso-fareast-font-family:"Times New Roman"'><span
+style='mso-list:Ignore'>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]>Description<span style='font-size:14.0pt;
+line-height:107%;font-family:宋体'><o:p></o:p></span></p>
+
+<p class=MsoNormal align=left style='text-align:left;text-indent:18.0pt'>Heartbeat
+packet from devices.<b style='mso-bidi-font-weight:normal'><span
+style='font-size:14.0pt;line-height:107%;font-family:宋体'><o:p></o:p></span></b></p>
+
+<p class=3 style='mso-list:l0 level1 lfo1'><![if !supportLists]><span
+style='font-size:12.0pt;line-height:107%;mso-fareast-font-family:"Times New Roman"'><span
+style='mso-list:Ignore'>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]>HTTP/TCP Content Example</p>
+
+<p class=MsoNormal align=left style='margin-left:18.0pt;text-align:left'>{</p>
+
+<p class=MsoNormal align=left style='margin-left:18.0pt;text-align:left;
+text-indent:20.8pt'>&quot;c&quot;:&quot;<span class=SpellE>uPulse</span>&quot;,</p>
+
+<p class=MsoNormal align=left style='margin-left:18.0pt;text-align:left;
+text-indent:20.8pt'>&quot;id&quot;:&quot;86217603644154&quot;,</p>
+
+<p class=MsoNormal align=left style='margin-left:18.0pt;text-align:left;
+text-indent:20.8pt'>&quot;psw&quot;:&quot;000000&quot;,</p>
+
+<p class=MsoNormal align=left style='margin-left:18.0pt;text-align:left;
+text-indent:20.8pt'>&quot;ver&quot;:32,</p>
+
+<p class=MsoNormal align=left style='margin-left:18.0pt;text-align:left;
+text-indent:20.8pt'>&quot;t&quot;:&quot;20180613140456&quot;,</p>
+
+<p class=MsoNormal align=left style='margin-left:18.0pt;text-align:left;
+text-indent:20.8pt'>&quot;infoIndex&quot;:7,&quot;settingIndex&quot;:1,</p>
+
+<p class=MsoNormal align=left style='margin-left:18.0pt;text-align:left;
+text-indent:20.8pt'>&quot;<span class=SpellE>sta</span><span class=GramE>&quot;:{</span>&quot;bat&quot;:3.982526,&quot;wir&quot;:0,&quot;charging&quot;:0,&quot;acc&quot;:1},</p>
+
+<p class=MsoNormal align=left style='margin-left:18.0pt;text-align:left;
+text-indent:20.8pt'>&quot;<span class=SpellE>cid</span><span class=GramE>&quot;:{</span>&quot;system&quot;:&quot;gsm&quot;,&quot;mcc&quot;:0,&quot;mnc&quot;:0,&quot;lac&quot;:0,&quot;cid&quot;:0}</p>
+
+<p class=MsoNormal align=left style='margin-left:18.0pt;text-align:left'>}</p>
+
+<p class=3 style='mso-list:l0 level1 lfo1'><![if !supportLists]><span
+style='font-size:12.0pt;line-height:107%;mso-fareast-font-family:"Times New Roman"'><span
+style='mso-list:Ignore'>3.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]>HTTP/TCP Response (Optional)<span
+style='font-size:14.0pt;line-height:107%'><o:p></o:p></span></p>
+
+<p class=MsoNormal align=left style='margin-left:18.0pt;text-align:left'>{<span
+class=SpellE><span class=GramE>ErrorCode</span></span><span class=GramE>:#</span><span
+class=SpellE>ErrorCode</span>}<b style='mso-bidi-font-weight:normal'><span
+style='font-size:14.0pt;line-height:107%;font-family:宋体'><o:p></o:p></span></b></p>
+
+<h2 align=left style='text-align:left'><a name="_Toc9031"></a><span
+class=SpellE><span style='mso-bookmark:_Toc9031'><span style='mso-bidi-font-size:
+14.0pt;line-height:172%'>uRpLoc</span></span></span><span style='mso-bookmark:
+_Toc9031'></span><span style='mso-bidi-font-size:14.0pt;line-height:172%'><o:p></o:p></span></h2>
+
+<p class=3 style='mso-list:l0 level1 lfo2'><![if !supportLists]><span
+style='font-size:12.0pt;line-height:107%;mso-fareast-font-family:"Times New Roman"'><span
+style='mso-list:Ignore'>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]>Description<span style='font-size:14.0pt;
+line-height:107%;font-family:宋体'><o:p></o:p></span></p>
+
+<p class=MsoNormal align=left style='text-align:left;text-indent:18.0pt'>Location
+report packet from devices.<b style='mso-bidi-font-weight:normal'><span
+style='font-size:14.0pt;line-height:107%;font-family:宋体'><o:p></o:p></span></b></p>
+
+<p class=3 style='mso-list:l0 level1 lfo1'><![if !supportLists]><span
+style='font-size:12.0pt;line-height:107%;mso-fareast-font-family:"Times New Roman"'><span
+style='mso-list:Ignore'>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]>HTTP/TCP Content Example<span style='font-size:
+14.0pt;line-height:107%;font-family:宋体'><o:p></o:p></span></p>
+
+<p class=MsoNormal align=left style='margin-left:18.0pt;text-align:left'>{</p>
+
+<p class=MsoNormal align=left style='margin-left:18.0pt;text-align:left;
+text-indent:20.8pt'>&quot;<span style='mso-bidi-font-size:10.5pt;line-height:
+107%'>c&quot;:&quot;<span class=SpellE>uRpLoc</span>&quot;,<o:p></o:p></span></p>
+
+<p class=MsoNormal align=left style='margin-left:18.0pt;text-align:left;
+text-indent:20.8pt'><span style='mso-bidi-font-size:10.5pt;line-height:107%'>&quot;id&quot;:&quot;86217603644154&quot;,<o:p></o:p></span></p>
+
+<p class=MsoNormal align=left style='margin-left:18.0pt;text-align:left;
+text-indent:20.8pt'><span style='mso-bidi-font-size:10.5pt;line-height:107%'>&quot;psw&quot;:&quot;000000&quot;,<o:p></o:p></span></p>
+
+<p class=MsoNormal align=left style='margin-left:18.0pt;text-align:left;
+text-indent:20.8pt'><span style='mso-bidi-font-size:10.5pt;line-height:107%'>&quot;ver&quot;:32,<o:p></o:p></span></p>
+
+<p class=MsoNormal align=left style='margin-left:18.0pt;text-align:left;
+text-indent:20.8pt'><span style='mso-bidi-font-size:10.5pt;line-height:107%'>&quot;t&quot;:&quot;20180613183630&quot;,<o:p></o:p></span></p>
+
+<p class=MsoNormal align=left style='margin-left:18.0pt;text-align:left;
+text-indent:20.8pt'><span style='mso-bidi-font-size:10.5pt;line-height:107%'>&quot;infoIndex&quot;:7,
+&quot;settingIndex&quot;:1,<o:p></o:p></span></p>
+
+<p class=MsoNormal align=left style='margin-left:18.0pt;text-align:left;
+text-indent:20.8pt'><span style='mso-bidi-font-size:10.5pt;line-height:107%'>&quot;gps<span
+class=GramE>&quot;:{</span>&quot;lng&quot;:&quot;-117.557159&quot;,&quot;spd&quot;:0,&quot;alt&quot;:0,&quot;hdg&quot;:0,&quot;lat&quot;:&quot;34.063046&quot;},<o:p></o:p></span></p>
+
+<p class=MsoNormal align=left style='margin-left:18.0pt;text-align:left;
+text-indent:20.8pt'><span style='mso-bidi-font-size:10.5pt;line-height:107%'>&quot;<span
+class=SpellE>sta</span><span class=GramE>&quot;:{</span>&quot;acc&quot;:1,&quot;wir&quot;:43,&quot;current&quot;:0,&quot;bat&quot;:73,&quot;charging&quot;:0},<o:p></o:p></span></p>
+
+<p class=MsoNormal align=left style='margin-left:18.0pt;text-align:left;
+text-indent:20.8pt'><span style='mso-bidi-font-size:10.5pt;line-height:107%'>&quot;statistic<span
+class=GramE>&quot;:{</span>&quot;originalEvent&quot;:0,&quot;event&quot;:0,&quot;mileage&quot;:396}<o:p></o:p></span></p>
+
+<p class=MsoNormal align=left style='margin-left:18.0pt;text-align:left'>}</p>
+
+<p class=3 style='mso-list:l0 level1 lfo1'><![if !supportLists]><span
+style='font-size:12.0pt;line-height:107%;mso-fareast-font-family:"Times New Roman"'><span
+style='mso-list:Ignore'>3.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]>HTTP/TCP Response (Optional)<span
+style='font-size:14.0pt;line-height:107%;font-family:宋体'><o:p></o:p></span></p>
+
+<p class=MsoNormal align=left style='text-align:left;text-indent:18.0pt'>{<span
+class=SpellE><span class=GramE>ErrorCode</span></span><span class=GramE>:#</span><span
+class=SpellE>ErrorCode</span>}<b style='mso-bidi-font-weight:normal'><span
+style='font-size:14.0pt;line-height:107%;font-family:宋体'><o:p></o:p></span></b></p>
+
+<h1 align=left style='text-align:left'><a name="_Toc21843"></a><span
+class=SpellE><span style='mso-bookmark:_Toc21843'><span style='mso-bidi-font-size:
+18.0pt;line-height:240%'>ErrorCode</span></span></span><span style='mso-bookmark:
+_Toc21843'></span></h1>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=664
+ style='margin-left:18.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid windowtext .5pt;mso-yfti-tbllook:1184;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt;mso-border-insideh:.5pt solid windowtext;
+ mso-border-insidev:.5pt solid windowtext'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=153 valign=top style='width:115.0pt;border:solid windowtext 1.0pt;
+  mso-border-alt:solid windowtext .5pt;background:#F2F2F2;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=TableTitle>Error Code</p>
+  </td>
+  <td width=510 valign=top style='width:382.7pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#F2F2F2;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=TableTitle>Description</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=153 valign=top style='width:115.0pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>200</p>
+  </td>
+  <td width=510 valign=top style='width:382.7pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>OK</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=153 valign=top style='width:115.0pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>400-01</p>
+  </td>
+  <td width=510 valign=top style='width:382.7pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>invalid parameter or empty for required parameter</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=153 valign=top style='width:115.0pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>400-02</p>
+  </td>
+  <td width=510 valign=top style='width:382.7pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>Device ID does not exist</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td width=153 valign=top style='width:115.0pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>400-03</p>
+  </td>
+  <td width=510 valign=top style='width:382.7pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>Device ID is not activated</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5;mso-yfti-lastrow:yes'>
+  <td width=153 valign=top style='width:115.0pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>500-01</p>
+  </td>
+  <td width=510 valign=top style='width:382.7pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>System Error</p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal align=left style='text-align:left'><o:p>&nbsp;</o:p></p>
+
+<p class=MsoNormal align=left style='text-align:left'><o:p>&nbsp;</o:p></p>
+
+<p class=MsoNormal align=left style='text-align:left'><o:p>&nbsp;</o:p></p>
+
+<h1 align=left style='text-align:left'><a name="_Toc25046"><span
+style='mso-bidi-font-size:18.0pt;line-height:240%'>Objects</span></a></h1>
+
+<h2><a name="_Toc15748">#Pulse</a></h2>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=664
+ style='margin-left:18.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid windowtext .5pt;mso-yfti-tbllook:1184;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt;mso-border-insideh:.5pt solid windowtext;
+ mso-border-insidev:.5pt solid windowtext'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=134 valign=top style='width:100.8pt;border:solid windowtext 1.0pt;
+  mso-border-alt:solid windowtext .5pt;background:#F2F2F2;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=TableTitle>Field</p>
+  </td>
+  <td width=134 valign=top style='width:100.25pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#F2F2F2;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=TableTitle>Type</p>
+  </td>
+  <td width=83 valign=top style='width:62.15pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#F2F2F2;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=TableTitle>Length</p>
+  </td>
+  <td width=313 valign=top style='width:234.5pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#F2F2F2;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=TableTitle>Description</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=134 valign=top style='width:100.8pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>c</p>
+  </td>
+  <td width=134 valign=top style='width:100.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>String</p>
+  </td>
+  <td width=83 valign=top style='width:62.15pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody><o:p>&nbsp;</o:p></p>
+  </td>
+  <td width=313 valign=top style='width:234.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>“<span class=SpellE>uPulse</span>”</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=134 valign=top style='width:100.8pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>id</p>
+  </td>
+  <td width=134 valign=top style='width:100.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>String</p>
+  </td>
+  <td width=83 valign=top style='width:62.15pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>14</p>
+  </td>
+  <td width=313 valign=top style='width:234.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>Device ID</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=134 valign=top style='width:100.8pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody><span class=SpellE>psw</span></p>
+  </td>
+  <td width=134 valign=top style='width:100.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>String</p>
+  </td>
+  <td width=83 valign=top style='width:62.15pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>6</p>
+  </td>
+  <td width=313 valign=top style='width:234.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>Tracker password </p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td width=134 valign=top style='width:100.8pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody><span class=SpellE>ver</span></p>
+  </td>
+  <td width=134 valign=top style='width:100.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>Integer</p>
+  </td>
+  <td width=83 valign=top style='width:62.15pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody><o:p>&nbsp;</o:p></p>
+  </td>
+  <td width=313 valign=top style='width:234.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>Firmware Version</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5'>
+  <td width=134 valign=top style='width:100.8pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>t</p>
+  </td>
+  <td width=134 valign=top style='width:100.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>String</p>
+  </td>
+  <td width=83 valign=top style='width:62.15pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody><o:p>&nbsp;</o:p></p>
+  </td>
+  <td width=313 valign=top style='width:234.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>UTC Time: <span class=SpellE>yyyyMMddHHmmss</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6'>
+  <td width=134 valign=top style='width:100.8pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody><span class=SpellE>infoIndex</span></p>
+  </td>
+  <td width=134 valign=top style='width:100.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>Integer</p>
+  </td>
+  <td width=83 valign=top style='width:62.15pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody><o:p>&nbsp;</o:p></p>
+  </td>
+  <td width=313 valign=top style='width:234.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>Update index of device info</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:7'>
+  <td width=134 valign=top style='width:100.8pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody><span class=SpellE>settingIndex</span></p>
+  </td>
+  <td width=134 valign=top style='width:100.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>Integer</p>
+  </td>
+  <td width=83 valign=top style='width:62.15pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody><o:p>&nbsp;</o:p></p>
+  </td>
+  <td width=313 valign=top style='width:234.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>Update index of device setting </p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:8;mso-yfti-lastrow:yes'>
+  <td width=134 valign=top style='width:100.8pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody><span class=SpellE>sta</span></p>
+  </td>
+  <td width=134 valign=top style='width:100.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>#Status</p>
+  </td>
+  <td width=83 valign=top style='width:62.15pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody><o:p>&nbsp;</o:p></p>
+  </td>
+  <td width=313 valign=top style='width:234.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>Status object, see #Status</p>
+  </td>
+ </tr>
+</table>
+
+<h2 align=left style='text-align:left'><a name="_Toc11079">#</a><span
+style='mso-bookmark:_Toc11079'><span class=SpellE><span style='mso-bidi-font-size:
+14.0pt;line-height:172%'>RpLoc</span></span></span></h2>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=664
+ style='margin-left:18.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid windowtext .5pt;mso-yfti-tbllook:1184;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt;mso-border-insideh:.5pt solid windowtext;
+ mso-border-insidev:.5pt solid windowtext'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=134 valign=top style='width:100.8pt;border:solid windowtext 1.0pt;
+  mso-border-alt:solid windowtext .5pt;background:#F2F2F2;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=TableTitle>Field</p>
+  </td>
+  <td width=134 valign=top style='width:100.25pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#F2F2F2;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=TableTitle>Type</p>
+  </td>
+  <td width=84 valign=top style='width:62.8pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#F2F2F2;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=TableTitle>Length</p>
+  </td>
+  <td width=312 valign=top style='width:233.85pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#F2F2F2;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=TableTitle>Description</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=134 valign=top style='width:100.8pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>c</p>
+  </td>
+  <td width=134 valign=top style='width:100.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>String</p>
+  </td>
+  <td width=84 valign=top style='width:62.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody><o:p>&nbsp;</o:p></p>
+  </td>
+  <td width=312 valign=top style='width:233.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>“<span class=SpellE>uRpLoc</span>”</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=134 valign=top style='width:100.8pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>id</p>
+  </td>
+  <td width=134 valign=top style='width:100.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>String</p>
+  </td>
+  <td width=84 valign=top style='width:62.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>14</p>
+  </td>
+  <td width=312 valign=top style='width:233.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>Device ID</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=134 valign=top style='width:100.8pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody><span class=SpellE>psw</span></p>
+  </td>
+  <td width=134 valign=top style='width:100.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>String</p>
+  </td>
+  <td width=84 valign=top style='width:62.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>6</p>
+  </td>
+  <td width=312 valign=top style='width:233.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>Tracker password </p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td width=134 valign=top style='width:100.8pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody><span class=SpellE>ver</span></p>
+  </td>
+  <td width=134 valign=top style='width:100.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>Integer</p>
+  </td>
+  <td width=84 valign=top style='width:62.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody><o:p>&nbsp;</o:p></p>
+  </td>
+  <td width=312 valign=top style='width:233.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>Firmware Version</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5'>
+  <td width=134 valign=top style='width:100.8pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>t</p>
+  </td>
+  <td width=134 valign=top style='width:100.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>String</p>
+  </td>
+  <td width=84 valign=top style='width:62.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody><o:p>&nbsp;</o:p></p>
+  </td>
+  <td width=312 valign=top style='width:233.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>UTC Time: <span class=SpellE>yyyyMMddHHmmss</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6'>
+  <td width=134 valign=top style='width:100.8pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody><span class=SpellE>infoIndex</span></p>
+  </td>
+  <td width=134 valign=top style='width:100.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>Integer</p>
+  </td>
+  <td width=84 valign=top style='width:62.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody><o:p>&nbsp;</o:p></p>
+  </td>
+  <td width=312 valign=top style='width:233.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>Update index of device info</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:7'>
+  <td width=134 valign=top style='width:100.8pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody><span class=SpellE>settingIndex</span></p>
+  </td>
+  <td width=134 valign=top style='width:100.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>Integer</p>
+  </td>
+  <td width=84 valign=top style='width:62.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody><o:p>&nbsp;</o:p></p>
+  </td>
+  <td width=312 valign=top style='width:233.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>Update index of device setting</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:8'>
+  <td width=134 valign=top style='width:100.8pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody><span class=SpellE>sta</span></p>
+  </td>
+  <td width=134 valign=top style='width:100.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>#Status</p>
+  </td>
+  <td width=84 valign=top style='width:62.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody><o:p>&nbsp;</o:p></p>
+  </td>
+  <td width=312 valign=top style='width:233.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>Status object, see #Status</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:9'>
+  <td width=134 valign=top style='width:100.8pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody><span class=SpellE>gps</span></p>
+  </td>
+  <td width=134 valign=top style='width:100.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>#GPS</p>
+  </td>
+  <td width=84 valign=top style='width:62.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody><o:p>&nbsp;</o:p></p>
+  </td>
+  <td width=312 valign=top style='width:233.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>GPS object</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:10;mso-yfti-lastrow:yes'>
+  <td width=134 valign=top style='width:100.8pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>statistic</p>
+  </td>
+  <td width=134 valign=top style='width:100.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>#Statistic</p>
+  </td>
+  <td width=84 valign=top style='width:62.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody><o:p>&nbsp;</o:p></p>
+  </td>
+  <td width=312 valign=top style='width:233.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>Statistic data generated from the device</p>
+  </td>
+ </tr>
+</table>
+
+<h2 align=left style='text-align:left'><a name="_Toc4680">#Status</a></h2>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=664
+ style='margin-left:18.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid windowtext .5pt;mso-yfti-tbllook:1184;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt;mso-border-insideh:.5pt solid windowtext;
+ mso-border-insidev:.5pt solid windowtext'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=134 valign=top style='width:100.8pt;border:solid windowtext 1.0pt;
+  mso-border-alt:solid windowtext .5pt;background:#F2F2F2;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=TableTitle>Field</p>
+  </td>
+  <td width=134 valign=top style='width:100.25pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#F2F2F2;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=TableTitle>Type</p>
+  </td>
+  <td width=84 valign=top style='width:62.8pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#F2F2F2;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=TableTitle>Length</p>
+  </td>
+  <td width=312 valign=top style='width:233.85pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#F2F2F2;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=TableTitle>Description</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=134 valign=top style='width:100.8pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody><span class=SpellE>wir</span></p>
+  </td>
+  <td width=134 valign=top style='width:100.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>int</p>
+  </td>
+  <td width=84 valign=top style='width:62.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody><o:p>&nbsp;</o:p></p>
+  </td>
+  <td width=312 valign=top style='width:233.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>Wireless signal strength, in percentage</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=134 valign=top style='width:100.8pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>current</p>
+  </td>
+  <td width=134 valign=top style='width:100.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>float</p>
+  </td>
+  <td width=84 valign=top style='width:62.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody><o:p>&nbsp;</o:p></p>
+  </td>
+  <td width=312 valign=top style='width:233.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>Battery recharging current in mA</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=134 valign=top style='width:100.8pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>bat</p>
+  </td>
+  <td width=134 valign=top style='width:100.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>int</p>
+  </td>
+  <td width=84 valign=top style='width:62.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody><o:p>&nbsp;</o:p></p>
+  </td>
+  <td width=312 valign=top style='width:233.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>Battery voltage in V</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td width=134 valign=top style='width:100.8pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>charging</p>
+  </td>
+  <td width=134 valign=top style='width:100.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>int</p>
+  </td>
+  <td width=84 valign=top style='width:62.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody><o:p>&nbsp;</o:p></p>
+  </td>
+  <td width=312 valign=top style='width:233.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>0: battery not charging, 1: battery charging</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5;mso-yfti-lastrow:yes'>
+  <td width=134 valign=top style='width:100.8pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>temperature</p>
+  </td>
+  <td width=134 valign=top style='width:100.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>int</p>
+  </td>
+  <td width=84 valign=top style='width:62.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody><o:p>&nbsp;</o:p></p>
+  </td>
+  <td width=312 valign=top style='width:233.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>Temperature sensor value, in Celsius</p>
+  </td>
+ </tr>
+</table>
+
+<h2 align=left style='text-align:left'><a name="_Toc29785">#GPS</a></h2>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=664
+ style='margin-left:18.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid windowtext .5pt;mso-yfti-tbllook:1184;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt;mso-border-insideh:.5pt solid windowtext;
+ mso-border-insidev:.5pt solid windowtext'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=134 valign=top style='width:100.8pt;border:solid windowtext 1.0pt;
+  mso-border-alt:solid windowtext .5pt;background:#F2F2F2;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=TableTitle>Field</p>
+  </td>
+  <td width=134 valign=top style='width:100.25pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#F2F2F2;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=TableTitle>Type</p>
+  </td>
+  <td width=84 valign=top style='width:62.8pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#F2F2F2;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=TableTitle>Length</p>
+  </td>
+  <td width=312 valign=top style='width:233.85pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#F2F2F2;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=TableTitle>Description</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=134 valign=top style='width:100.8pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody><span class=SpellE>lat</span></p>
+  </td>
+  <td width=134 valign=top style='width:100.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>double</p>
+  </td>
+  <td width=84 valign=top style='width:62.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody><o:p>&nbsp;</o:p></p>
+  </td>
+  <td width=312 valign=top style='width:233.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>Latitude</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=134 valign=top style='width:100.8pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody><span class=SpellE>lng</span></p>
+  </td>
+  <td width=134 valign=top style='width:100.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>double</p>
+  </td>
+  <td width=84 valign=top style='width:62.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody><o:p>&nbsp;</o:p></p>
+  </td>
+  <td width=312 valign=top style='width:233.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>Longitude</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=134 valign=top style='width:100.8pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody><span class=SpellE>spd</span></p>
+  </td>
+  <td width=134 valign=top style='width:100.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>int</p>
+  </td>
+  <td width=84 valign=top style='width:62.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody><o:p>&nbsp;</o:p></p>
+  </td>
+  <td width=312 valign=top style='width:233.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>Speed in km per hour</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td width=134 valign=top style='width:100.8pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody><span class=SpellE>hdg</span></p>
+  </td>
+  <td width=134 valign=top style='width:100.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>int</p>
+  </td>
+  <td width=84 valign=top style='width:62.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody><o:p>&nbsp;</o:p></p>
+  </td>
+  <td width=312 valign=top style='width:233.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>Heading, 0~360, start from North direction </p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5;mso-yfti-lastrow:yes'>
+  <td width=134 valign=top style='width:100.8pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>alt</p>
+  </td>
+  <td width=134 valign=top style='width:100.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>int</p>
+  </td>
+  <td width=84 valign=top style='width:62.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody><o:p>&nbsp;</o:p></p>
+  </td>
+  <td width=312 valign=top style='width:233.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>Altitude in meter</p>
+  </td>
+ </tr>
+</table>
+
+<h2 align=left style='text-align:left'><a name="_Toc20762">#Statistic</a></h2>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=664
+ style='margin-left:18.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid windowtext .5pt;mso-yfti-tbllook:1184;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt;mso-border-insideh:.5pt solid windowtext;
+ mso-border-insidev:.5pt solid windowtext'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=134 valign=top style='width:100.8pt;border:solid windowtext 1.0pt;
+  mso-border-alt:solid windowtext .5pt;background:#F2F2F2;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=TableTitle>Field</p>
+  </td>
+  <td width=134 valign=top style='width:100.25pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#F2F2F2;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=TableTitle>Type</p>
+  </td>
+  <td width=84 valign=top style='width:62.8pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#F2F2F2;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=TableTitle>Length</p>
+  </td>
+  <td width=312 valign=top style='width:233.85pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#F2F2F2;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=TableTitle>Description</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=134 valign=top style='width:100.8pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody><span class=SpellE>originalEvent</span></p>
+  </td>
+  <td width=134 valign=top style='width:100.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>int</p>
+  </td>
+  <td width=84 valign=top style='width:62.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody><o:p>&nbsp;</o:p></p>
+  </td>
+  <td width=312 valign=top style='width:233.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>0: idle, <span class=GramE>1:driving</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=134 valign=top style='width:100.8pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>event</p>
+  </td>
+  <td width=134 valign=top style='width:100.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>int</p>
+  </td>
+  <td width=84 valign=top style='width:62.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody><o:p>&nbsp;</o:p></p>
+  </td>
+  <td width=312 valign=top style='width:233.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>Reserved for future use</p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
+  <td width=134 valign=top style='width:100.8pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>mileage</p>
+  </td>
+  <td width=134 valign=top style='width:100.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>int</p>
+  </td>
+  <td width=84 valign=top style='width:62.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody><o:p>&nbsp;</o:p></p>
+  </td>
+  <td width=312 valign=top style='width:233.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=Tablebody>Total mileage in meters since last reset </p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
+
+</div>
+
+</body>
+
+</html>

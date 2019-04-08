@@ -1,0 +1,18 @@
+{
+  "extends": "eslint-config-cobish",
+  "parser": "babel-eslint",
+  "plugins": ["vue"],
+  "env": {
+    "es6": true
+  },
+  "parserOptions": {
+    "sourceType": "module"
+  },
+  "globals": {
+    "PUBLIC": true
+  },
+  "rules": {
+    "no-console": "warn",
+    "camelcase": "off"
+  }
+}
