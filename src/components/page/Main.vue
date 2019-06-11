@@ -14,6 +14,12 @@
         <el-tab-pane lazy v-if="permsUserView" :label="$t('main.users')">
           <user-list></user-list>
         </el-tab-pane>
+        <el-tab-pane lazy label="Order">
+          <order-list></order-list>
+        </el-tab-pane>
+        <el-tab-pane lazy label="Payment">
+            <payment-list></payment-list>
+        </el-tab-pane>
       </el-tabs>
     </el-main>
   </el-container>
@@ -22,7 +28,9 @@
 <script>
   import OrgTree from '../module/organization/OrgTree.vue';
   import DeviceList from '../module/device/DeviceList.vue';
+  import OrderList from '../module/order/OrderList.vue';
   import UserList from '../module/user/UserList.vue';
+  import PaymentList from '../module/payment/PaymentList.vue';
   import OrgDashboard from '../module/organization/OrgDashboard.vue';
   import {handlePerms} from '@/utils/perms.js';
   import store from '@/store/index';
@@ -55,7 +63,9 @@
       OrgTree,
       DeviceList,
       UserList,
-      OrgDashboard
+      OrgDashboard,
+      OrderList,
+      PaymentList
     },
 
     computed: {
