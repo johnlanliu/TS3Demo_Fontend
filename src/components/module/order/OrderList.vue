@@ -28,11 +28,12 @@
               <el-button class="inline" type="primary" @click="search" style="margin-left:10px;">Search</el-button>
           </el-form-item>
           <el-form-item label style="float:right;">
-              <el-button v-if="permsAdd" class="inline" type="primary" @click="add()">+Add </el-button>
+              <el-button v-if="permsAdd" class="inline" type="primary" @click="handleAdd()">+Add </el-button>
           </el-form-item>
 <!--          <el-form-item label style="float:right;">-->
 <!--              <el-button v-if="permsAdd" class="inline" type="primary" @click="addUser()">+Add  Account</el-button>-->
 <!--          </el-form-item>-->
+          <add-order-form ref="addOrderForm" :form="form"></add-order-form>
       </el-form>
       <el-table
           ref="orderListTable"
@@ -54,12 +55,6 @@
           <el-table-column label="Due Date" prop="dueDate" width="120"></el-table-column>
           <el-table-column label="Tracking No." prop="trackingNo" width="120"></el-table-column>
           <el-table-column label="Sales" prop="sales" width="120"></el-table-column>
-<!--          <el-table-column label="Activated" prop="roleName" width="100">-->
-<!--              <template slot-scope="scope">-->
-<!--                  <span v-if="scope.row.activated==0" style="color: red;">N</span>-->
-<!--                  <span v-else style="color: green;">Y</span>-->
-<!--              </template>-->
-<!--          </el-table-column>-->
           <el-table-column label="Create Time" prop="createTime" :formatter="formatDate" width="120"></el-table-column>
           <el-table-column fixed="right" label="Action" width="160" v-if="permsEdit || permsVoid">
               <template slot-scope="scope">
@@ -98,19 +93,22 @@
   import { exceptionUtil } from '@/utils/exceptionUtil.js';
   import { getStore } from '@/config/mUtils';
   import { mapState } from 'vuex';
+  import AddOrderForm from './AddOrderForm.vue';
 
   export default {
     mixins: [exceptionUtil, timeMixins],
     components: {
-
+      AddOrderForm
     },
     data() {
       return {
         userSearchForm: {},
+        dialogVisible: false,
         loading: false,
         permsAdd: true,
         permsEdit: true,
         permsVoid: true,
+        form: {},
         tableData: [{
           orderId: 1,
           customer: 'sun express',
@@ -185,8 +183,8 @@
       search() {
         alert(1);
       },
-      add() {
-        alert(2);
+      handleAdd() {
+        this.$refs.addOrderForm.showDialog();
       },
       handleCommand(command) {
         alert('clicked');

@@ -221,21 +221,6 @@ export default {
       this.$refs.editUserForm.showDialog();
     },
     async handleEdit(row) {
-      let { orgId, phone, roleId, roleName, userId, username, email, activated } = row;
-      this.form = { orgId, phone, roleId, roleName, userId, username, email, activated };
-      // this.form = JSON.parse(JSON.stringify(this.form));
-      const res = await getOrgById({
-        orgId: this.orgId
-      });
-      if (!res.errorCode) {
-        this.form.orgName = res.orgName;
-      } else {
-        // 错误码处理
-        this.exceptionHandle(res.errorCode);
-      }
-      this.form.password = '';
-      this.resetPassword = false;
-      this.form = JSON.parse(JSON.stringify(this.form));
       this.$refs.editUserForm.showDialog();
     },
     handleSelect(indexs) {
