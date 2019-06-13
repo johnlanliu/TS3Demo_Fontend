@@ -116,8 +116,8 @@ export default {
     return {
       loading: false,
       isOpen: false,
-        taxRate: 15,
-        total: 2515,
+      taxRate: 15,
+      total: 2515,
       tableData: [{
         product: 'VT1611R30',
         quantity: 10,
@@ -151,7 +151,7 @@ export default {
       this.$refs.productDetailForm.showDialog();
     },
     handleSave() {
-        alert('save');
+      alert('save');
     }
   },
 
