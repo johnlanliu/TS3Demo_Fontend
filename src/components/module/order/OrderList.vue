@@ -47,9 +47,21 @@
           style="width: 100%;"
       >
           <el-table-column fixed label="Order ID" prop="orderId" width="100"></el-table-column>
+          <el-table-column fixed label="Type" prop="type" width="130" >
+              <template scope="scope">
+                  <span style="color:green;">{{scope.row.type}}</span>
+              </template>
+          </el-table-column>
           <el-table-column fixed label="Customer" prop="customer" width="160"></el-table-column>
-          <el-table-column fixed label="Description" prop="description" width="160"></el-table-column>
-          <el-table-column label="Status" prop="status" width="160"></el-table-column>
+          <el-table-column label="Description" prop="description" width="160"></el-table-column>
+          <el-table-column label="Status" prop="status" width="160">
+              <template scope="scope">
+                  <span v-if="scope.row.status==='shipped'" style="color:green;">{{scope.row.status}}</span>
+                  <span v-else-if="scope.row.status==='delivered'" style="color:green;">{{scope.row.status}}</span>
+                  <span v-else-if="scope.row.status==='cancelled'" style="color:red;">{{scope.row.status}}</span>
+                  <span v-else>{{scope.row.status}}</span>
+              </template>
+          </el-table-column>
           <el-table-column label="Invoice No." prop="invoiceNo" width="200"></el-table-column>
           <el-table-column label="Invoice Date" prop="invoiceDate" width="200"></el-table-column>
           <el-table-column label="Due Date" prop="dueDate" width="120"></el-table-column>
@@ -60,11 +72,11 @@
               <template slot-scope="scope">
                   <el-dropdown size="mini" type="text" @command="handleCommand">
                   <span class="el-dropdown-link">
-                  View<i class="el-icon-arrow-down el-icon--right"></i>
+                  Action<i class="el-icon-arrow-down el-icon--right"></i>
                   </span>
                       <el-dropdown-menu slot="dropdown">
-                          <el-dropdown-item command="a">Edit</el-dropdown-item>
-                          <el-dropdown-item command="b">Void</el-dropdown-item>
+                          <el-dropdown-item command="a">View</el-dropdown-item>
+                          <el-dropdown-item command="b">Edit</el-dropdown-item>
 
                       </el-dropdown-menu>
                   </el-dropdown>
@@ -111,6 +123,7 @@
         form: {},
         tableData: [{
           orderId: 1,
+          type: 'evaluation',
           customer: 'sun express',
           description: 'VT1U1*10',
           status: 'shipped',
@@ -121,9 +134,10 @@
           sales: 'Salvador'
         }, {
           orderId: 2,
+          type: 'purchase',
           customer: 'BRT',
           description: 'VT1711*10',
-          status: 'pending',
+          status: 'cancelled',
           invoiceNo: '86368539',
           invoiceDate: 'May 1, 2019',
           dueDate: 'May 15, 2019',
@@ -135,11 +149,11 @@
           status: ''
         },
         statusList: [{
-          status: 'refund',
-          label: 'refund'
+          status: 'delivered',
+          label: 'delivered'
         }, {
-          status: 'void',
-          label: 'void'
+          status: 'cancelled',
+          label: 'cancelled'
         }, {
           status: 'shipped',
           label: 'shipped'
@@ -225,6 +239,9 @@
 
   .searchForm .el-input, .searchForm .el-select{
     width: 140px !important;
+  }
+  .types {
+      color: green;
   }
 
   .device-table {

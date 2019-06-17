@@ -4,7 +4,7 @@
         :center="true"
         top="15vh"
         :visible.sync="isOpen"
-        append-to-body="true"
+        append-to-body=true
         @close="resetFields">
         <div class="confirmationPage">
             <el-form ref="form" :model="form" style="margin-left: 100px">

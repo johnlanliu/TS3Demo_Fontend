@@ -4,72 +4,51 @@
         :center="true"
         top="15vh"
         :visible.sync="isOpen"
-        append-to-body="true"
+        append-to-body=true
         @close="resetFields">
         <div class="product code">
             <el-form ref="form" :model="form" size="mini">
-                <el-form-item label="1. Product Code"></el-form-item>
-                <el-form-item style="padding-left: 100px">
-                    <el-table
-                        ref="productCodeTable"
-                        :data="optionsCode"
-                        v-loading="loading"
-                        border
-                        stripe
-                        highlight-current-row
-                        :height="tableHeight"
-                        :row-key="row => row.index"
-                        style="width:351px;"
-                    >
-                        <el-table-column fixed type="selection" width="50" v-model="optionsPickedCode"></el-table-column>
-                        <el-table-column fixed label="Product" prop="op" width="300" style="position: center"></el-table-column>
-                    </el-table>
-                </el-form-item>
-                <el-button type="primary" style="margin-left: 100px" @click="handleNext()">Next</el-button>
-                <el-form-item label="2. Product Detail"></el-form-item>
-                <el-form-item style="padding-left: 100px">
-                    <el-table
-                        ref="productDetailTable"
-                        :data="optionsDetail"
-                        v-loading="loading"
-                        border
-                        stripe
-                        highlight-current-row
-                        :height="tableHeight"
-                        :row-key="row => row.index"
-                        style="width:351px"
-                    >
-                        <el-table-column fixed type="selection" width="50" v-model="optionsPickedDetail"></el-table-column>
-                        <el-table-column fixed label="Product" prop="det" width="300" style="position: center"></el-table-column>
-                    </el-table>
-                </el-form-item>
-                <el-button type="primary" style="margin-left: 100px" @click="handleNext()">Next</el-button>
-                <confirmation-form ref="confirmationForm"></confirmation-form>
-                <el-form-item label="3. QTY, Price"></el-form-item>
-                <el-form-item label="QTY" style="margin-left: 100px">
-                    <el-input v-model="form3.QTY" style="width: 80px; float: right; margin-right: 380px"></el-input>
-                </el-form-item>
-                <el-form-item label="Price" style="margin-left: 100px">
-                    <el-input v-model="form3.price" style="width: 80px; float: right; margin-right: 380px"></el-input>
-                </el-form-item>
-                <el-form-item label="Service Fee" style="margin-left: 100px">
-                    <el-input v-model="form3.serviceFee" style="width: 80px; float: right; margin-right: 380px"></el-input>
-                </el-form-item>
-                <el-form-item label="Tax" style="margin-left: 100px">
-                    <el-select
-                        v-model="tax"
-                        filterable
-                        default-first-option="true"
-                        style="width: 80px; float: right; margin-right: 380px">
-                        <el-option
-                            v-for="choice in choices"
-                            :key="choice.value"
-                            :label="choice.label"
-                            :value="choice.value"
-                        ></el-option>
-                    </el-select>
-                </el-form-item>
-                <el-button type="primary" style="margin-left: 100px" @click="handleSave()">Save</el-button>
+                <el-collapse v-model="activeName" accordion>
+                    <el-collapse-item title="1. Product Code" name="1">
+                        <el-checkbox-group v-model="optionsPickedCode" :max="1">
+                            <el-checkbox v-for="option in optionsCode" :label="option.op" style="display: block">
+                            </el-checkbox>
+                            <el-button type="primary" style="margin-left: 100px" @click="handleNext()">Next</el-button>
+                        </el-checkbox-group>
+                    </el-collapse-item>
+                    <el-collapse-item title="2. Product Details" name="2">
+                        <el-checkbox-group v-model="optionsPickedDetail" :max="1">
+                            <el-checkbox v-for="option in optionsDetail" :label="option.det" style="display: block">
+                            </el-checkbox>
+                            <el-button type="primary" style="margin-left: 100px" @click="handleNext()">Next</el-button>
+                        </el-checkbox-group>
+                    </el-collapse-item>
+                    <el-collapse-item title="3. QTY, Price" name="3">
+                        <el-form ref="form" :model="form3" size="mini">
+                            <el-form-item label="QTY">
+                                <el-input v-model="form3.QTY" style="width: 80px; float: right; margin-right: 520px"></el-input>
+                            </el-form-item>
+                            <el-form-item label="Price">
+                                <el-input v-model="form3.price" style="width: 80px; float: right; margin-right: 520px"></el-input>
+                            </el-form-item>
+                            <el-form-item label="Service Fee">
+                                <el-input v-model="form3.serviceFee" style="width: 80px; float: right; margin-right: 520px"></el-input>
+                            </el-form-item>
+                            <el-form-item label="Tax">
+                                <el-select v-model="form3.tax" default-first-option=true
+                                           style="width: 80px; float: right; margin-right: 520px">
+                                    <el-option
+                                        v-for="x in form3.choices"
+                                        :key="x.value"
+                                        :label="x.label"
+                                        :value="x.value">
+                                    </el-option>
+                                </el-select>
+                            </el-form-item>
+                        </el-form>
+                        <el-button type="primary" style="margin-left: 104px" @click="handleSave()">Save</el-button>
+                    </el-collapse-item>
+                </el-collapse>
                 <confirmation-form ref="confirmationForm"></confirmation-form>
             </el-form>
         </div>
@@ -92,7 +71,7 @@
         isOpen: false,
         optionsPickedCode: [],
         optionsPickedDetail: [],
-        tax: '',
+        activeName: '1',
         optionsCode: [{
           op: '4" TrackLight (UT1611)'
         }, {
@@ -113,19 +92,20 @@
         }, {
           det: '4G, Amber (A40)'
         }],
-        choices: [{
-          value: 'Yes',
-          label: 'Yes'
-        }, {
-          value: 'No',
-          label: 'No'
-        }],
         tableData: [{
         }],
         form3: {
           QTY: '',
           price: '',
           serviceFee: '',
+          choices: [{
+            value: 'Yes',
+            label: 'Yes'
+          }, {
+            value: 'No',
+            label: 'No'
+          }],
+          tax: 'Yes',
         },
       };
     },
@@ -134,17 +114,24 @@
         this.isOpen = true;
       },
       resetFields() {
+        this.activeName = '1';
+        this.optionsPickedDetail = [];
+        this.optionsPickedCode = [];
+        this.form3 = {};
+        this.form3.tax = 'Yes';
         this.$refs.form.resetFields();
       },
       handleCommand(command) {
         alert('clicked');
       },
       handleNext() {
-        this.$refs.confirmationForm.showDialog();
+        let tempNum = Number(this.activeName);
+        let nextNum = tempNum + 1;
+        this.activeName = nextNum.toString();
       },
       handleSave() {
         this.$refs.confirmationForm.showDialog();
-      }
+      },
     },
   };
 </script>

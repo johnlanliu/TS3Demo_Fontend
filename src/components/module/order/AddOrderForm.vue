@@ -9,38 +9,26 @@
             <el-form ref="form" :model="form" label-width="150px" size="mini">
                 <el-form-item label="Company Info"></el-form-item>
                 <br>
-                <el-col span="20" offset="3">
-                    <el-form-item label="Billing for Company">
-                        <el-input v-model="form.billing"></el-input>
-                    </el-form-item>
-                </el-col>
+                <el-form-item label="Billing for Company" style="">
+                    <el-input v-model="form.billing" style="float:right; margin-right: 120px"></el-input>
+                </el-form-item>
                 <el-form-item label="Shipping Info"></el-form-item>
                 <br>
-                <el-col span="20" offset="3">
-                    <el-form-item label="Company Name">
-                        <el-input v-model="form.companyName"></el-input>
-                    </el-form-item>
-                </el-col>
-                <el-col span="20" offset="3">
-                    <el-form-item label="Contact">
-                        <el-input v-model="form.contact"></el-input>
-                    </el-form-item>
-                </el-col>
-                <el-col span="20" offset="3">
-                    <el-form-item label="Email">
-                        <el-input v-model="form.email"></el-input>
-                    </el-form-item>
-                </el-col>
-                <el-col span="20" offset="3">
-                    <el-form-item label="Shipping Address">
-                        <el-input v-model="form.shippingAddress"></el-input>
-                    </el-form-item>
-                </el-col>
-                <el-col span="20" offset="3">
-                    <el-form-item label="Payment Term">
-                        <el-input v-model="form.paymentTerm"></el-input>
-                    </el-form-item>
-                </el-col>
+                <el-form-item label="Company Name">
+                    <el-input v-model="form.companyName" style="float:right; margin-right: 120px"></el-input>
+                </el-form-item>
+                <el-form-item label="Contact">
+                    <el-input v-model="form.contact" style="float:right; margin-right: 120px"></el-input>
+                </el-form-item>
+                <el-form-item label="Email">
+                    <el-input v-model="form.email" style="float:right; margin-right: 120px"></el-input>
+                </el-form-item>
+                <el-form-item label="Shipping Address">
+                    <el-input v-model="form.shippingAddress" style="float:right; margin-right: 120px"></el-input>
+                </el-form-item>
+                <el-form-item label="Payment Term">
+                    <el-input v-model="form.paymentTerm" style="float:right; margin-right: 120px"></el-input>
+                </el-form-item>
                 <el-form-item label="Order Details"></el-form-item>
                 <br>
                 <el-table
@@ -142,6 +130,7 @@ export default {
       this.isOpen = true;
     },
     resetFields() {
+      this.form={};
       this.$refs.form.resetFields();
     },
     handleCommand(command) {
