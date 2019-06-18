@@ -19,35 +19,75 @@
             </el-form-item>
             <el-form-item label="Billing Info" style="font-weight: 900;"></el-form-item>
             <el-form-item label="Company: ">
-                <p v-model="billing">{{ billing }}</p>
+                <el-input
+                        placeholder="Please input"
+                        v-model="input"
+                        :disabled="true">
+                </el-input>
             </el-form-item>
             <el-form-item label="Contact: ">
-                <p v-model="billingContact">{{ billingContact }}</p>
+                <el-input
+                        placeholder="Please input"
+                        v-model="input"
+                        :disabled="true">
+                </el-input>
             </el-form-item>
             <el-form-item label="Phone Number: ">
-                <p v-model="billingPhone">{{ billingPhone }}</p>
+                <el-input
+                        placeholder="Please input"
+                        v-model="input"
+                        :disabled="true">
+                </el-input>
             </el-form-item>
             <el-form-item label="Email: ">
-                <p v-model="billingEmail">{{ billingEmail }}</p>
+                <el-input
+                        placeholder="Please input"
+                        v-model="input"
+                        :disabled="true">
+                </el-input>
             </el-form-item>
             <el-form-item label="Address: ">
-                <p v-model="billingAddress">{{ billingAddress }}</p>
+                <el-input
+                        placeholder="Please input"
+                        v-model="input"
+                        :disabled="true">
+                </el-input>
             </el-form-item>
             <el-form-item label="Shipping Info" style="font-weight: 900;"></el-form-item>
             <el-form-item label="Company: ">
-                <p v-model="companyName">{{ companyName }}</p>
+                <el-input
+                        placeholder="Please input"
+                        v-model="input"
+                        :disabled="true">
+                </el-input>
             </el-form-item>
             <el-form-item label="Contact: ">
-                <p v-model="contact">{{ contact }}</p>
+                <el-input
+                        placeholder="Please input"
+                        v-model="input"
+                        :disabled="true">
+                </el-input>
             </el-form-item>
             <el-form-item label="Phone Number: ">
-                <p v-model="phone">{{ phone }}</p>
+                <el-input
+                        placeholder="Please input"
+                        v-model="input"
+                        :disabled="true">
+                </el-input>
             </el-form-item>
             <el-form-item label="Email: ">
-                <p v-model="email">{{ email }}</p>
+                <el-input
+                        placeholder="Please input"
+                        v-model="input"
+                        :disabled="true">
+                </el-input>
             </el-form-item>
             <el-form-item label="Address: ">
-                <p v-model="shippingAddress">{{ shippingAddress }}</p>
+                <el-input
+                        placeholder="Please input"
+                        v-model="input"
+                        :disabled="true">
+                </el-input>
             </el-form-item>
             <el-form-item label="Payment Term">
                 <el-select v-model="invoiceForm.paymentTerm" placeholder="Select">
@@ -58,6 +98,9 @@
                         :value="option.label">
                     </el-option>
                 </el-select>
+            </el-form-item>
+            <el-form-item label="Invoice #">
+                <el-input v-model="invoiceForm.invoiceNumber" style="width: 150px"></el-input>
             </el-form-item>
         </el-form>
     </el-dialog>
@@ -78,6 +121,7 @@ export default {
       invoiceForm: {
         invoiceType: '',
         paymentTerm: '',
+        invoiceNumber: '',
       },
       invoiceTypes: [],
       paymentOptions: [{

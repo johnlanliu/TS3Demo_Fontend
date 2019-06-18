@@ -61,6 +61,7 @@
                           <el-dropdown-item command="c">Void</el-dropdown-item>
                       </el-dropdown-menu>
                   </el-dropdown>
+                  <invoice-review-form ref="invoiceReviewForm"></invoice-review-form>
               </template>
           </el-table-column>
       </el-table>
@@ -86,16 +87,18 @@
   import { exceptionUtil } from '@/utils/exceptionUtil.js';
   import { getStore } from '@/config/mUtils';
   import { mapState } from 'vuex';
+  import InvoiceReviewForm from './InvoiceReviewForm.vue';
 
   export default {
     mixins: [exceptionUtil, timeMixins],
     components: {
-
+      InvoiceReviewForm
     },
     data() {
       return {
         userSearchForm: {},
         loading: false,
+        command: '',
         permsAdd: true,
         permsEdit: true,
         permsVoid: true,
@@ -174,8 +177,10 @@
         alert(2);
       },
       handleCommand(command) {
-        alert('clicked');
-      }
+        if(command==='a') {
+          this.$refs.invoiceReviewForm.showDialog();
+        }
+      },
     }
   };
 </script>
