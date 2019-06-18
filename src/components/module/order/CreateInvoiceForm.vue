@@ -17,44 +17,38 @@
                     </el-option>
                 </el-select>
             </el-form-item>
-            <el-row>
-                <el-col :span="10">
-                    <el-form-item label="Billing Info" style="font-weight: 900;"></el-form-item>
-                    <el-form-item label="Company: ">
-                        <p v-model="billing">{{ billing }}</p>
-                    </el-form-item>
-                    <el-form-item label="Contact: ">
-                        <p v-model="billingContact">{{ billingContact }}</p>
-                    </el-form-item>
-                    <el-form-item label="Phone Number: ">
-                        <p v-model="billingPhone">{{ billingPhone }}</p>
-                    </el-form-item>
-                    <el-form-item label="Email: ">
-                        <p v-model="billingEmail">{{ billingEmail }}</p>
-                    </el-form-item>
-                    <el-form-item label="Address: ">
-                        <p v-model="billingAddress">{{ billingAddress }}</p>
-                    </el-form-item>
-                </el-col>
-                <el-col :span="10">
-                    <el-form-item label="Shipping Info" style="font-weight: 900;"></el-form-item>
-                    <el-form-item label="Company: ">
-                        <p v-model="companyName">{{ companyName }}</p>
-                    </el-form-item>
-                    <el-form-item label="Contact: ">
-                        <p v-model="contact">{{ contact }}</p>
-                    </el-form-item>
-                    <el-form-item label="Phone Number: ">
-                        <p v-model="phone">{{ phone }}</p>
-                    </el-form-item>
-                    <el-form-item label="Email: ">
-                        <p v-model="email">{{ email }}</p>
-                    </el-form-item>
-                    <el-form-item label="Address: ">
-                        <p v-model="shippingAddress">{{ shippingAddress }}</p>
-                    </el-form-item>
-                </el-col>
-            </el-row>
+            <el-form-item label="Billing Info" style="font-weight: 900;"></el-form-item>
+            <el-form-item label="Company: ">
+                <p v-model="billing">{{ billing }}</p>
+            </el-form-item>
+            <el-form-item label="Contact: ">
+                <p v-model="billingContact">{{ billingContact }}</p>
+            </el-form-item>
+            <el-form-item label="Phone Number: ">
+                <p v-model="billingPhone">{{ billingPhone }}</p>
+            </el-form-item>
+            <el-form-item label="Email: ">
+                <p v-model="billingEmail">{{ billingEmail }}</p>
+            </el-form-item>
+            <el-form-item label="Address: ">
+                <p v-model="billingAddress">{{ billingAddress }}</p>
+            </el-form-item>
+            <el-form-item label="Shipping Info" style="font-weight: 900;"></el-form-item>
+            <el-form-item label="Company: ">
+                <p v-model="companyName">{{ companyName }}</p>
+            </el-form-item>
+            <el-form-item label="Contact: ">
+                <p v-model="contact">{{ contact }}</p>
+            </el-form-item>
+            <el-form-item label="Phone Number: ">
+                <p v-model="phone">{{ phone }}</p>
+            </el-form-item>
+            <el-form-item label="Email: ">
+                <p v-model="email">{{ email }}</p>
+            </el-form-item>
+            <el-form-item label="Address: ">
+                <p v-model="shippingAddress">{{ shippingAddress }}</p>
+            </el-form-item>
             <el-form-item label="Payment Term">
                 <el-select v-model="invoiceForm.paymentTerm" placeholder="Select">
                     <el-option
@@ -174,7 +168,7 @@ export default {
         taxRate: '',
         total: '',
         shippingFee: '',
-        note: '',
+          note: '',
       },
       tableData: [{
         product: 'VT1611R30',

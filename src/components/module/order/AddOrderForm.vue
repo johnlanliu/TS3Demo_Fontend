@@ -7,6 +7,16 @@
         @closed="resetFields">
         <div class="form-box">
             <el-form ref="form" :model="form" label-width="150px" size="mini">
+                <el-form-item label="Order Type">
+                    <el-select v-model="form.orderType" placeholder="Select">
+                        <el-option
+                            v-for="option in orderOptions"
+                            :key="option.value"
+                            :label="option.value"
+                            :value="option.label">
+                        </el-option>
+                    </el-select>
+                </el-form-item>
                 <el-form-item label="Billing Info"></el-form-item>
                 <br>
                 <el-form-item label="Company" style="">
@@ -190,9 +200,20 @@ export default {
         email: '',
         phone: '',
         shippingAddress: '',
+        orderType: '',
         paymentTerm: '',
         note: '',
       },
+      orderOptions: [{
+        value: 'evaluation',
+        label: 'evaluation',
+      }, {
+        value: 'purchase',
+        label: 'purchase',
+      }, {
+        value: 'RMA',
+        label: 'RMA',
+      }],
       paymentOptions: [{
         value: 'Net15',
         label: 'Net15',
@@ -223,7 +244,6 @@ export default {
       }
     };
   },
-
   methods: {
     showDialog() {
       this.isOpen = true;

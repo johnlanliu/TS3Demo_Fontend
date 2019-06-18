@@ -84,6 +84,7 @@
 
                       </el-dropdown-menu>
                   </el-dropdown>
+                  <order-review-form ref="orderReviewForm"></order-review-form>
               </template>
           </el-table-column>
       </el-table>
@@ -110,11 +111,13 @@
   import { getStore } from '@/config/mUtils';
   import { mapState } from 'vuex';
   import AddOrderForm from './AddOrderForm.vue';
+  import OrderReviewForm from './OrderReviewForm.vue';
 
   export default {
     mixins: [exceptionUtil, timeMixins],
     components: {
-      AddOrderForm
+      AddOrderForm,
+      OrderReviewForm
     },
     data() {
       return {
@@ -205,7 +208,10 @@
         this.$refs.addOrderForm.showDialog();
       },
       handleCommand(command) {
-        alert('clicked');
+        if(command==='a') {
+          this.$refs.orderReviewForm.showDialog();
+        }
+
       }
     }
   };
