@@ -15,7 +15,7 @@
               <el-input v-model="orderSearchForm.number" @change="search"></el-input>
           </el-form-item>
           <el-form-item label="Status:">
-              <el-select v-model="orderSearchForm.status" placeholder="All" clearable @change="search">
+              <el-select v-model="orderSearchForm.status" placeholder="All" clearable @change="search" value="">
                   <el-option
                       v-for="item in statusList"
                       :key="item.status"
@@ -48,14 +48,14 @@
       >
           <el-table-column fixed label="Order ID" prop="orderId" width="100"></el-table-column>
           <el-table-column fixed label="Type" prop="type" width="130" >
-              <template scope="scope">
+              <template slot-scope="scope">
                   <span style="color:green;">{{scope.row.type}}</span>
               </template>
           </el-table-column>
           <el-table-column fixed label="Customer" prop="customer" width="160"></el-table-column>
           <el-table-column label="Description" prop="description" width="160"></el-table-column>
           <el-table-column label="Status" prop="status" width="160">
-              <template scope="scope">
+              <template slot-scope="scope">
                   <span v-if="scope.row.status==='shipped'" style="color:green;">{{scope.row.status}}</span>
                   <span v-else-if="scope.row.status==='delivered'" style="color:green;">{{scope.row.status}}</span>
                   <span v-else-if="scope.row.status==='cancelled'" style="color:red;">{{scope.row.status}}</span>
@@ -65,7 +65,11 @@
           <el-table-column label="Invoice No." prop="invoiceNo" width="200"></el-table-column>
           <el-table-column label="Invoice Date" prop="invoiceDate" width="200"></el-table-column>
           <el-table-column label="Due Date" prop="dueDate" width="120"></el-table-column>
-          <el-table-column label="Tracking No." prop="trackingNo" width="120"></el-table-column>
+          <el-table-column label="Tracking No." prop="trackingNo" width="120">
+              <template slot-scope="scope">
+                  <a href="https://www.anytrek.com/">{{scope.row.trackingNo}}</a>
+              </template>
+          </el-table-column>
           <el-table-column label="Sales" prop="sales" width="120"></el-table-column>
           <el-table-column label="Create Time" prop="createTime" :formatter="formatDate" width="120"></el-table-column>
           <el-table-column fixed="right" label="Action" width="160" v-if="permsEdit || permsVoid">

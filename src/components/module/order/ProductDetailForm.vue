@@ -4,21 +4,29 @@
         :center="true"
         top="15vh"
         :visible.sync="isOpen"
-        append-to-body=true
+        append-to-body="append"
         @close="resetFields">
         <div class="product code">
-            <el-form ref="form" :model="form" size="mini">
+            <el-form ref="form" :model="form3" size="mini">
                 <el-collapse v-model="activeName" accordion>
                     <el-collapse-item title="1. Product Code" name="1">
                         <el-checkbox-group v-model="optionsPickedCode" :max="1">
-                            <el-checkbox v-for="option in optionsCode" :label="option.op" style="display: block">
+                            <el-checkbox v-for="option in optionsCode"
+                                         :label="option.op"
+                                         :value="option.op"
+                                         :key="option.label"
+                                         style="display: block">
                             </el-checkbox>
                             <el-button type="primary" style="margin-left: 100px" @click="handleNext()">Next</el-button>
                         </el-checkbox-group>
                     </el-collapse-item>
                     <el-collapse-item title="2. Product Details" name="2">
                         <el-checkbox-group v-model="optionsPickedDetail" :max="1">
-                            <el-checkbox v-for="option in optionsDetail" :label="option.det" style="display: block">
+                            <el-checkbox v-for="option in optionsDetail"
+                                         :label="option.det"
+                                         :value="option.det"
+                                         :key="option.label"
+                                         style="display: block">
                             </el-checkbox>
                             <el-button type="primary" style="margin-left: 100px" @click="handleNext()">Next</el-button>
                         </el-checkbox-group>
@@ -69,28 +77,38 @@
       return {
         loading: false,
         isOpen: false,
+        append: true,
         optionsPickedCode: [],
         optionsPickedDetail: [],
         activeName: '1',
         optionsCode: [{
-          op: '4" TrackLight (UT1611)'
+          op: '4" TrackLight (UT1611)',
+          label: '4" TrackLight (UT1611)'
         }, {
-          op: '6" TrackLight (UT1711)'
+          op: '6" TrackLight (UT1711)',
+          label: '6" TrackLight (UT1711)'
         }, {
-          op: 'Thermotrack (UT1702)'
+          op: 'Thermotrack (UT1702)',
+          label: 'Thermotrack (UT1702)'
         }],
         optionsDetail: [{
-          det: '3G, Red (R30)'
+          det: '3G, Red (R30)',
+          label: '3G, Red (R30)'
         }, {
-          det: '4G, Red (R40)'
+          det: '4G, Red (R40)',
+          label: '4G, Red (R40)'
         }, {
-          det: '3G, Clear (C30)'
+          det: '3G, Clear (C30)',
+          label: '3G, Clear (C30)'
         }, {
-          det: '4G, Clear (C40)'
+          det: '4G, Clear (C40)',
+          label: '4G, Clear (C40)'
         }, {
-          det: '3G, Amber (A30)'
+          det: '3G, Amber (A30)',
+          label: '3G, Amber (A30)'
         }, {
-          det: '4G, Amber (A40)'
+          det: '4G, Amber (A40)',
+          label: '4G, Amber (A40)'
         }],
         tableData: [{
         }],
