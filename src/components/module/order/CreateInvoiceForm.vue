@@ -6,7 +6,7 @@
             :visible.sync="isOpen"
             append-to-body="append"
             @closed="resetFields">
-        <el-form ref="form" :model="invoiceForm" size="mini">
+        <el-form ref="form" :model="invoiceForm" size="mini" style="margin-left: 30px">
             <el-form-item label="Invoice Type">
                 <el-select v-model="invoiceForm.invoiceType" placeholder="select">
                     <el-option
@@ -17,39 +17,115 @@
                     </el-option>
                 </el-select>
             </el-form-item>
+            <div class="invoiceSpacing">
             <el-form-item label="Billing Info" style="font-weight: 900;"></el-form-item>
-            <el-form-item label="Company: ">
-                <p v-model="billing">{{ billing }}</p>
-            </el-form-item>
-            <el-form-item label="Contact: ">
-                <p v-model="billingContact">{{ billingContact }}</p>
-            </el-form-item>
-            <el-form-item label="Phone Number: ">
-                <p v-model="billingPhone">{{ billingPhone }}</p>
-            </el-form-item>
-            <el-form-item label="Email: ">
-                <p v-model="billingEmail">{{ billingEmail }}</p>
-            </el-form-item>
-            <el-form-item label="Address: ">
-                <p v-model="billingAddress">{{ billingAddress }}</p>
-            </el-form-item>
-            <el-form-item label="Shipping Info" style="font-weight: 900;"></el-form-item>
-            <el-form-item label="Company: ">
-                <p v-model="companyName">{{ companyName }}</p>
-            </el-form-item>
-            <el-form-item label="Contact: ">
-                <p v-model="contact">{{ contact }}</p>
-            </el-form-item>
-            <el-form-item label="Phone Number: ">
-                <p v-model="phone">{{ phone }}</p>
-            </el-form-item>
-            <el-form-item label="Email: ">
-                <p v-model="email">{{ email }}</p>
-            </el-form-item>
-            <el-form-item label="Address: ">
-                <p v-model="shippingAddress">{{ shippingAddress }}</p>
-            </el-form-item>
-            <el-form-item label="Payment Term">
+            <el-row>
+                <el-col :span="10">
+                    <el-form-item label="Company: "></el-form-item>
+                    <el-input
+                        size="mini"
+                        style="width: 300px"
+                        placeholder="Please input"
+                        v-model="input"
+                        :disabled="true">
+                    </el-input>
+                </el-col>
+                <el-col :span="12">
+                    <el-form-item label="Contact: "></el-form-item>
+                    <el-input
+                        size="mini"
+                        style="width: 300px"
+                        placeholder="Please input"
+                        v-model="input"
+                        :disabled="true">
+                    </el-input>
+                </el-col>
+            </el-row>
+            <el-row>
+                <el-col :span="10">
+                    <el-form-item label="Phone Number: "></el-form-item>
+                    <el-input
+                        size="mini"
+                        style="width: 300px"
+                        placeholder="Please input"
+                        v-model="input"
+                        :disabled="true">
+                    </el-input>
+                </el-col>
+                <el-col :span="12">
+                    <el-form-item label="Email: "></el-form-item>
+                    <el-input
+                        size="mini"
+                        style="width: 300px"
+                        placeholder="Please input"
+                        v-model="input"
+                        :disabled="true">
+                    </el-input>
+                </el-col>
+            </el-row>
+            <el-form-item label="Address: "></el-form-item>
+            <el-input
+                size="mini"
+                style="width: 630px"
+                placeholder="Please input"
+                v-model="input"
+                :disabled="true">
+            </el-input>
+            <el-form-item label="Shipping Info" style="font-weight: 900; padding-top: 10px"></el-form-item>
+            <el-row>
+                <el-col :span="10">
+                    <el-form-item label="Company: "></el-form-item>
+                    <el-input
+                        size="mini"
+                        style="width: 300px"
+                        placeholder="Please input"
+                        v-model="input"
+                        :disabled="true">
+                    </el-input>
+                </el-col>
+                <el-col :span="12">
+                    <el-form-item label="Contact: "></el-form-item>
+                    <el-input
+                        size="mini"
+                        style="width: 300px"
+                        placeholder="Please input"
+                        v-model="input"
+                        :disabled="true">
+                    </el-input>
+                </el-col>
+            </el-row>
+            <el-row>
+                <el-col :span="10">
+                    <el-form-item label="Phone Number: "></el-form-item>
+                    <el-input
+                        size="mini"
+                        style="width: 300px"
+                        placeholder="Please input"
+                        v-model="input"
+                        :disabled="true">
+                    </el-input>
+                </el-col>
+                <el-col :span="12">
+                    <el-form-item label="Email: "></el-form-item>
+                    <el-input
+                        size="mini"
+                        style="width: 300px"
+                        placeholder="Please input"
+                        v-model="input"
+                        :disabled="true">
+                    </el-input>
+                </el-col>
+            </el-row>
+            <el-form-item label="Address: "></el-form-item>
+            <el-input
+                size="mini"
+                style="width: 630px"
+                placeholder="Please input"
+                v-model="input"
+                :disabled="true">
+            </el-input>
+            </div>
+            <el-form-item label="Payment Term" style="padding-top: 10px">
                 <el-select v-model="invoiceForm.paymentTerm" placeholder="Select">
                     <el-option
                             v-for="option in paymentOptions"
@@ -154,6 +230,7 @@
     },
     data: function() {
       return {
+        labelPosition: 'right',
         isOpen: false,
         loading: false,
         append: true,
@@ -201,6 +278,13 @@
   };
 </script>
 
+<style>
+    .invoiceSpacing > .el-form-item {
+        border-spacing: 0px;
+    }
+</style>
+
 <style scoped>
+
 
 </style>

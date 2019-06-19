@@ -111,7 +111,7 @@
         isOpen: false,
         loading: false,
         labelPosition: 'left',
-        form:{
+        form: {
           billTo: '',
           shipTo: '',
         }
