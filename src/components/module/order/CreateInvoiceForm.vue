@@ -1,19 +1,19 @@
 <template>
     <el-dialog
-        :title="'Invoice'"
-        :center="true"
-        top="15vh"
-        :visible.sync="isOpen"
-        append-to-body="append"
-        @closed="resetFields">
+            :title="'Invoice'"
+            :center="true"
+            top="15vh"
+            :visible.sync="isOpen"
+            append-to-body="append"
+            @closed="resetFields">
         <el-form ref="form" :model="invoiceForm" size="mini">
             <el-form-item label="Invoice Type">
                 <el-select v-model="invoiceForm.invoiceType" placeholder="select">
                     <el-option
-                        v-for="type in invoiceTypes"
-                        :key="type.value"
-                        :value="type.value"
-                        :label="type.label">
+                            v-for="type in invoiceTypes"
+                            :key="type.value"
+                            :value="type.value"
+                            :label="type.label">
                     </el-option>
                 </el-select>
             </el-form-item>
@@ -52,10 +52,10 @@
             <el-form-item label="Payment Term">
                 <el-select v-model="invoiceForm.paymentTerm" placeholder="Select">
                     <el-option
-                        v-for="option in paymentOptions"
-                        :key="option.value"
-                        :label="option.value"
-                        :value="option.label">
+                            v-for="option in paymentOptions"
+                            :key="option.value"
+                            :label="option.value"
+                            :value="option.label">
                     </el-option>
                 </el-select>
             </el-form-item>
@@ -146,59 +146,60 @@
 </template>
 
 <script>
-import AddOrderForm from './AddOrderForm.vue';
-export default {
-  name: 'CreateInvoiceForm',
-  components: {
-    AddOrderForm
-  },
-  data: function() {
-    return {
-      isOpen: false,
-      loading: false,
-      append: true,
-      invoiceForm: {
-        invoiceType: '',
-        paymentTerm: '',
-        invoiceNumber: '',
-        invoiceDate: '',
-        dueDate: '',
-        shippingVia: '',
-        trackingNo: '',
-        taxRate: '',
-        total: '',
-        shippingFee: '',
+  import AddOrderForm from './AddOrderForm.vue';
+  export default {
+    name: 'CreateInvoiceForm',
+    components: {
+      AddOrderForm
+    },
+    data: function() {
+      return {
+        isOpen: false,
+        loading: false,
+        append: true,
+        invoiceForm: {
+          invoiceType: '',
+          paymentTerm: '',
+          invoiceNumber: '',
+          invoiceDate: '',
+          dueDate: '',
+          shippingVia: '',
+          trackingNo: '',
+          taxRate: '',
+          total: '',
+          shippingFee: '',
           note: '',
+        },
+        tableData: [{
+          product: 'VT1611R30',
+          quantity: 10,
+          rate: 250,
+          amount: 2500,
+          tax: 'Y',
+        }],
+        invoiceTypes: [],
+        paymentOptions: [{
+          value: 'Net15',
+          label: 'Net15',
+        }, {
+          value: 'Net30',
+          label: 'Net30',
+        }],
+      };
+    },
+    methods: {
+      showDialog() {
+        this.isOpen = true;
       },
-      tableData: [{
-        product: 'VT1611R30',
-        quantity: 10,
-        rate: 250,
-        amount: 2500,
-        tax: 'Y',
-      }],
-      invoiceTypes: [],
-      paymentOptions: [{
-        value: 'Net15',
-        label: 'Net15',
-      }, {
-        value: 'Net30',
-        label: 'Net30',
-      }],
-    };
-  },
-  methods: {
-    showDialog() {
-      this.isOpen = true;
-    },
-    resetFields() {
-      this.$refs.form.resetFields();
-    },
-    handleCommand() {
+      resetFields() {
+        this.$refs.form.resetFields();
+      },
+      handleCommand() {
         alert('clicked');
+      }
+
     }
-  }
-};
+  };
 </script>
 
 <style scoped>
