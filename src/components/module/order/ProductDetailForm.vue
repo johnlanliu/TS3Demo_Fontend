@@ -8,56 +8,102 @@
         @close="resetFields">
         <div class="product code">
             <el-form ref="form" :model="form3" size="mini">
-                <el-collapse v-model="activeName" accordion>
-                    <el-collapse-item title="1. Product Code" name="1">
-                        <el-checkbox-group v-model="optionsPickedCode" :max="1">
-                            <el-checkbox v-for="option in optionsCode"
-                                         :label="option.op"
-                                         :value="option.op"
-                                         :key="option.label"
-                                         style="display: block">
-                            </el-checkbox>
-                            <el-button type="primary" style="margin-left: 100px" @click="handleNext()">Next</el-button>
-                        </el-checkbox-group>
+                <el-collapse v-model="form3.activeName" accordion>
+                    <el-collapse-item  name="1">
+                        <template slot="title">
+                            Type<span v-if="form3.productName !== ''" class="productName">: {{ form3.productName }}</span>
+                        </template>
+                        <el-row>
+                            <el-col :span="8">
+                                <el-form-item>
+                                    <el-button type="primary" @click="handleNameClick('4&quot; TrackLight (UT1611)')">4" TrackLight</el-button>
+                                </el-form-item>
+                            </el-col>
+                            <el-col :span="8">
+                                <el-form-item>
+                                    <el-button type="primary" @click="handleNameClick('6&quot; TrackLight (UT1711)')">6" TrackLight</el-button>
+                                </el-form-item>
+                            </el-col>
+                            <el-col :span="8">
+                                <el-form-item>
+                                    <el-button type="primary" @click="handleNameClick('In Dash GPS (UT1508)')">In Dash GPS</el-button>
+                                </el-form-item>
+                            </el-col>
+                            <el-col :span="8">
+                                <el-form-item>
+                                    <el-button type="primary" @click="handleNameClick('5&quot; ThermoTrack (UT1702)')">5" ThermoTrack</el-button>
+                                </el-form-item>
+                            </el-col>
+                            <el-col :span="8">
+                                <el-form-item>
+                                    <el-button type="primary" @click="handleNameClick('6&quot; ThermoTrack (UT1802)')">6" ThermoTrack</el-button>
+                                </el-form-item>
+                            </el-col>
+                        </el-row>
                     </el-collapse-item>
-                    <el-collapse-item title="2. Product Details" name="2">
-                        <el-checkbox-group v-model="optionsPickedDetail" :max="1">
-                            <el-checkbox v-for="option in optionsDetail"
-                                         :label="option.det"
-                                         :value="option.det"
-                                         :key="option.label"
-                                         style="display: block">
-                            </el-checkbox>
-                            <el-button type="primary" style="margin-left: 100px" @click="handleNext()">Next</el-button>
-                        </el-checkbox-group>
+                    <el-collapse-item  name="2" disabled="form3.isTrackLight">
+                        <template slot="title">
+                            Network<span v-if="form3.network !== ''" class="network">: {{ form3.network }}</span>
+                        </template>
+                        <el-row>
+                            <el-col :span="8">
+                                <el-form-item>
+                                    <el-button type="warning" @click="handleNetworkClick('3G')">3G</el-button>
+                                </el-form-item>
+                            </el-col>
+                            <el-col :span="8">
+                                <el-form-item>
+                                    <el-button type="warning" @click="handleNetworkClick('4G')">4G</el-button>
+                                </el-form-item>
+                            </el-col>
+                        </el-row>
                     </el-collapse-item>
-                    <el-collapse-item title="3. QTY, Price" name="3">
-                        <el-form ref="form" :model="form3" size="mini">
-                            <el-form-item label="QTY">
-                                <el-input v-model="form3.QTY" style="width: 80px; float: right; margin-right: 520px"></el-input>
-                            </el-form-item>
-                            <el-form-item label="Price">
-                                <el-input v-model="form3.price" style="width: 80px; float: right; margin-right: 520px"></el-input>
-                            </el-form-item>
-                            <el-form-item label="Service Fee">
-                                <el-input v-model="form3.serviceFee" style="width: 80px; float: right; margin-right: 520px"></el-input>
-                            </el-form-item>
-                            <el-form-item label="Tax">
-                                <el-select v-model="form3.tax" default-first-option=true
-                                           style="width: 80px; float: right; margin-right: 520px">
-                                    <el-option
-                                        v-for="x in form3.choices"
-                                        :key="x.value"
-                                        :label="x.label"
-                                        :value="x.value">
-                                    </el-option>
-                                </el-select>
-                            </el-form-item>
-                        </el-form>
-                        <el-button type="primary" style="margin-left: 104px" @click="handleSave()">Save</el-button>
+                    <el-collapse-item  name="3" disabled="form3.isTrackLight">
+                        <template slot="title">
+                            Color<span v-if="form3.color !== ''" class="color">: {{ form3.color }}</span>
+                        </template>
+                        <el-row>
+                            <el-col :span="8">
+                                <el-form-item>
+                                    <el-button type="danger" @click="handleColorClick('Red')">Red</el-button>
+                                </el-form-item>
+                            </el-col>
+                            <el-col :span="8">
+                                <el-form-item>
+                                    <el-button type="warning" @click="handleColorClick('Amber')">Amber</el-button>
+                                </el-form-item>
+                            </el-col>
+                            <el-col :span="8">
+                                <el-form-item>
+                                    <el-button @click="handleColorClick('Clear')">Clear</el-button>
+                                </el-form-item>
+                            </el-col>
+                        </el-row>
+                    </el-collapse-item>
+                    <el-collapse-item title="Price" name="4">
+                        <el-row>
+                            <el-col :span="10" :offset="6">
+                                <el-form ref="form" :model="form3" size="mini" align="right">
+                                    <el-form-item label="Unit Price $">
+                                        <el-input v-model="form3.price" style="width: 150px; "></el-input>
+                                    </el-form-item>
+                                    <el-form-item label="Quantity">
+                                        <el-input-number
+                                                v-model="form3.QTY"
+                                                controls-position="right"
+                                                :min="1"
+                                                style="width: 150px">
+                                        </el-input-number>
+                                    </el-form-item>
+                                    <el-form-item label="Service Plan $">
+                                        <el-input v-model="form3.servicePlan" style="width: 150px"></el-input>
+                                    </el-form-item>
+                                </el-form>
+                            </el-col>
+                        </el-row>
+                        <el-button type="primary" style="float: right">Add</el-button>
                     </el-collapse-item>
                 </el-collapse>
-                <confirmation-form ref="confirmationForm"></confirmation-form>
             </el-form>
         </div>
     </el-dialog>
@@ -78,44 +124,17 @@
         loading: false,
         isOpen: false,
         append: true,
-        optionsPickedCode: [],
-        optionsPickedDetail: [],
-        activeName: '1',
-        optionsCode: [{
-          op: '4" TrackLight (UT1611)',
-          label: '4" TrackLight (UT1611)'
-        }, {
-          op: '6" TrackLight (UT1711)',
-          label: '6" TrackLight (UT1711)'
-        }, {
-          op: 'Thermotrack (UT1702)',
-          label: 'Thermotrack (UT1702)'
-        }],
-        optionsDetail: [{
-          det: '3G, Red (R30)',
-          label: '3G, Red (R30)'
-        }, {
-          det: '4G, Red (R40)',
-          label: '4G, Red (R40)'
-        }, {
-          det: '3G, Clear (C30)',
-          label: '3G, Clear (C30)'
-        }, {
-          det: '4G, Clear (C40)',
-          label: '4G, Clear (C40)'
-        }, {
-          det: '3G, Amber (A30)',
-          label: '3G, Amber (A30)'
-        }, {
-          det: '4G, Amber (A40)',
-          label: '4G, Amber (A40)'
-        }],
         tableData: [{
         }],
         form3: {
+          productName: '',
+          activeName: '1',
+          isTrackLight: false,
+          network: '',
+          color: '',
           QTY: '',
           price: '',
-          serviceFee: '',
+          servicePlan: '',
           choices: [{
             value: 'Yes',
             label: 'Yes'
@@ -132,24 +151,46 @@
         this.isOpen = true;
       },
       resetFields() {
-        this.activeName = '1';
-        this.optionsPickedDetail = [];
-        this.optionsPickedCode = [];
-        this.form3 = {};
+        this.form3.activeName = '1';
+        this.form3.isTrackLight = false;
+        this.form3.productName = '';
+        this.form3.QTY = '';
+        this.form3.price = '';
+        this.form3.serviceFee = '';
+        this.form3.network = '';
         this.form3.tax = 'Yes';
         this.$refs.form.resetFields();
       },
       handleCommand(command) {
         alert('clicked');
       },
-      handleNext() {
-        let tempNum = Number(this.activeName);
-        let nextNum = tempNum + 1;
-        this.activeName = nextNum.toString();
+      handleNext(number) {
+        let tempNum = Number(this.form3.activeName);
+        let nextNum = tempNum + number;
+        this.form3.activeName = nextNum.toString();
       },
       handleSave() {
         this.$refs.confirmationForm.showDialog();
       },
+      handleNameClick(num) {
+        this.form3.productName = num;
+        if (num !== '4" TrackLight (UT1611)' && num !== '6" TrackLight (UT1711)') {
+          this.form3.isTrackLight = true;
+          this.form3.network = '';
+          this.form3.color = '';
+          this.handleNext(3);
+        } else {
+          this.handleNext(1);
+        }
+      },
+      handleNetworkClick(speed) {
+        this.form3.network = speed;
+        this.handleNext(1);
+      },
+      handleColorClick(color) {
+        this.form3.color = color;
+        this.handleNext(1);
+      }
     },
   };
 </script>
