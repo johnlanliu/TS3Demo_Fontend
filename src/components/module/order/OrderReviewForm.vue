@@ -76,9 +76,9 @@
                     </el-table-column>
                 </el-table>
                 <el-row>
-                    <el-col :span="8" offset="16">
+                    <el-col :span="10" offset="15">
                         <el-form-item label="Tax: " style="font-weight: 900"> ${{ form.tax }}</el-form-item>
-                        <el-form-item label="Total: " style="font-weight: 900">${{ form.total }}plus shipping fee</el-form-item>
+                        <el-form-item label="Total: " style="font-weight: 900">${{ form.total }} plus shipping fee</el-form-item>
                         <el-button type="primary">cancel order</el-button>
                     </el-col>
                 </el-row>
@@ -104,7 +104,7 @@
           billTo: '',
           shipTo: '',
           tax: '_______',
-          total: '____________',
+          total: '_______',
         }
       };
     },

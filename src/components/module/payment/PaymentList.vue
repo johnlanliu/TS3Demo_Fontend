@@ -30,6 +30,10 @@
           <el-form-item label>
               <el-button class="inline" type="primary" @click="search" style="margin-left:10px;">Search</el-button>
           </el-form-item>
+          <el-form-item>
+              <el-button class="inline" type="primary" @click="handleAdd()" style="margin-left:200px">+ Add</el-button>
+          </el-form-item>
+          <create-invoice-form ref="createInvoiceForm"></create-invoice-form>
       </el-form>
       <el-table
           ref="paymentListTable"
@@ -88,11 +92,13 @@
   import { getStore } from '@/config/mUtils';
   import { mapState } from 'vuex';
   import InvoiceReviewForm from './InvoiceReviewForm.vue';
+  import CreateInvoiceForm from '../order/CreateInvoiceForm.vue';
 
   export default {
     mixins: [exceptionUtil, timeMixins],
     components: {
-      InvoiceReviewForm
+      InvoiceReviewForm,
+      CreateInvoiceForm
     },
     data() {
       return {
@@ -172,6 +178,9 @@
     methods: {
       search() {
         alert(1);
+      },
+      handleAdd() {
+        this.$refs.createInvoiceForm.showDialog();
       },
       add() {
         alert(2);
