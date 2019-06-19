@@ -274,6 +274,7 @@
       handleCommand() {
         alert('clicked');
       }
+
     }
   };
 </script>

@@ -120,8 +120,7 @@
                     </el-input>
                 </el-form-item>
                 <br>
-                <hr width="117%" noshade size="5px">
-                <br>
+
                 <el-form ref="form" :model="customerServiceForm" label-width="150px" size="mini">
                     <el-form-item label="Status:">
                         <el-select v-model="customerServiceForm.status" placeholder="select">
