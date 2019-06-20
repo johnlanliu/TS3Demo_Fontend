@@ -48,12 +48,12 @@
                         <el-row>
                             <el-col :span="2">
                                 <el-form-item>
-                                    <el-button type="warning" style="50px" @click="handleNetworkClick('3G')">3G</el-button>
+                                    <el-button type="warning" style="width: 50px" @click="handleNetworkClick('3G')">3G</el-button>
                                 </el-form-item>
                             </el-col>
                             <el-col :span="2">
                                 <el-form-item>
-                                    <el-button type="warning" style="50px" @click="handleNetworkClick('4G')">4G</el-button>
+                                    <el-button type="warning" style="width: 50px" @click="handleNetworkClick('4G')">4G</el-button>
                                 </el-form-item>
                             </el-col>
                         </el-row>
@@ -109,146 +109,141 @@
                 </el-collapse>
             </el-form>
         </div>
-        <accessory-detail-form ref="accessoryDetailForm"></accessory-detail-form>
+        <accessory-detail-form ref="accessoryDetailForm" :form="form3" :form4="form4"></accessory-detail-form>
     </el-dialog>
 </template>
 
 <script>
-  import ConfirmationForm from './ConfirmationForm.vue';
-  import AccessoryDetailForm from './AccessoryDetailForm.vue';
-
-  export default {
-    name: 'ProductDetailForm',
-    tableHeight: window.innerHeight - 162,
-    productCodeData: [],
-    components: {
-      ConfirmationForm,
-        AccessoryDetailForm,
-    },
-    data: function() {
-      return {
-        loading: false,
-        isOpen: false,
-        append: true,
-        tableData: [{
+import AccessoryDetailForm from './AccessoryDetailForm.vue';
+import ConfirmationForm from './ConfirmationForm.vue';
+export default {
+  name: 'ProductDetailForm',
+  productCodeData: [],
+  components: {
+    ConfirmationForm,
+    AccessoryDetailForm,
+  },
+  data: function() {
+    return {
+      loading: false,
+      isOpen: false,
+      append: true,
+      tableData: [{
+      }],
+      form3: {
+        productName: 'Type',
+        activeName: '1',
+        isTrackLight: true,
+        namePicked: false,
+        networkPicked: false,
+        showPrice: false,
+        network: 'Network',
+        color: 'Color',
+        QTY: '',
+        price: '',
+        servicePlan: '',
+        choices: [{
+          value: 'Yes',
+          label: 'Yes'
+        }, {
+          value: 'No',
+          label: 'No'
         }],
-        form3: {
-          productName: 'Type',
-          activeName: '1',
-          isTrackLight: true,
-          namePicked: false,
-          networkPicked: false,
-          showPrice: false,
-          network: 'Network',
-          color: 'Color',
-          QTY: '',
-          price: '',
-          servicePlan: '',
-          choices: [{
-            value: 'Yes',
-            label: 'Yes'
-          }, {
-            value: 'No',
-            label: 'No'
-          }],
-          tax: 'Yes',
-        },
-      };
+        tax: 'Yes',
+      },
+    };
+  },
+  methods: {
+    showDialog() {
+      this.isOpen = true;
     },
-    methods: {
-      showDialog() {
-        this.isOpen = true;
-      },
-      resetFields() {
-        this.form3.activeName = '1';
-        this.form3.isTrackLight = true;
-        this.form3.productName = 'Type';
-        this.form3.QTY = '';
-        this.form3.price = '';
-        this.form3.servicePlan = '';
-        this.form3.network = 'Network';
-        this.form3.color = 'Color';
-        this.form3.tax = 'Yes';
-        this.form3.namePicked = false;
-        this.form3.networkPicked = false;
-        this.form3.showPrice = false;
-        this.$refs.form.resetFields();
-      },
-      handleCommand(command) {
-        alert('clicked');
-      },
-      handleNext(number) {
-        let tempNum = Number(this.form3.activeName);
-        let nextNum = tempNum + number;
-        this.form3.activeName = nextNum.toString();
-      },
-      handleSave() {
-        this.$refs.confirmationForm.showDialog();
-      },
-      handleNameClick(num) {
-        if (this.form3.productName === 'Type') {
+    resetFields() {
+      this.form3.activeName = '1';
+      this.form3.isTrackLight = true;
+      this.form3.productName = 'Type';
+      this.form3.QTY = '';
+      this.form3.price = '';
+      this.form3.servicePlan = '';
+      this.form3.network = 'Network';
+      this.form3.color = 'Color';
+      this.form3.tax = 'Yes';
+      this.form3.namePicked = false;
+      this.form3.networkPicked = false;
+      this.form3.showPrice = false;
+      this.$refs.form.resetFields();
+    },
+    handleNext(number) {
+      let tempNum = Number(this.form3.activeName);
+      let nextNum = tempNum + number;
+      this.form3.activeName = nextNum.toString();
+    },
+    handleSave() {
+      this.$refs.confirmationForm.showDialog();
+    },
+    handleNameClick(num) {
+      if (this.form3.productName === 'Type') {
+        this.form3.productName = num;
+        if (num !== '4" TrackLight (UT1611)' && num !== '6" TrackLight (UT1711)') {
+          this.form3.showPrice = true;
+          this.form3.isTrackLight = false;
+          this.form3.network = '';
+          this.form3.color = '';
+          this.handleNext(3);
+        } else {
+          this.form3.namePicked = true;
+          this.form3.isTrackLight = true;
+          this.form3.network = 'Network';
+          this.form3.color = 'Color';
+          this.handleNext(1);
+        }
+      } else {
+        if (this.form3.productName !== '4" TrackLight (UT1611)' && this.form3.productName !== '6" TrackLight (UT1711)') {
+          this.resetFields();
           this.form3.productName = num;
           if (num !== '4" TrackLight (UT1611)' && num !== '6" TrackLight (UT1711)') {
             this.form3.showPrice = true;
             this.form3.isTrackLight = false;
-            this.form3.network = '';
-            this.form3.color = '';
             this.handleNext(3);
           } else {
             this.form3.namePicked = true;
             this.form3.isTrackLight = true;
-            this.form3.network = 'Network';
-            this.form3.color = 'Color';
             this.handleNext(1);
           }
         } else {
-          if (this.form3.productName !== '4" TrackLight (UT1611)' && this.form3.productName !== '6" TrackLight (UT1711)') {
+          if (num !== '4" TrackLight (UT1611)' && num !== '6" TrackLight (UT1711)') {
             this.resetFields();
             this.form3.productName = num;
-            if (num !== '4" TrackLight (UT1611)' && num !== '6" TrackLight (UT1711)') {
-              this.form3.showPrice = true;
-              this.form3.isTrackLight = false;
-              this.handleNext(3);
-            } else {
-              this.form3.namePicked = true;
-              this.form3.isTrackLight = true;
-              this.handleNext(1);
-            }
+            this.form3.showPrice = true;
+            this.form3.isTrackLight = false;
+            this.handleNext(3);
           } else {
-            if (num !== '4" TrackLight (UT1611)' && num !== '6" TrackLight (UT1711)') {
-              this.resetFields();
-              this.form3.productName = num;
-              this.form3.showPrice = true;
-              this.form3.isTrackLight = false;
-              this.handleNext(3);
+            if (this.form3.productName === num) {
+              this.handleNext(1);
             } else {
-              if (this.form3.productName === num) {
-                this.handleNext(1);
-              } else {
-                this.form3.productName = num;
-                this.form3.price = '';
-                this.form3.QTY = '';
-                this.form3.servicePlan = '';
-              }
+              this.form3.productName = num;
+              this.form3.price = '';
+              this.form3.QTY = '';
+              this.form3.servicePlan = '';
             }
           }
         }
-      },
-      handleNetworkClick(speed) {
-        this.form3.network = speed;
-        this.form3.networkPicked = true;
-        this.handleNext(1);
-      },
-      handleColorClick(color) {
-        this.form3.color = color;
-        this.form3.showPrice = true;
-        this.handleNext(1);
-      },
-      handleAccessories() {
-        this.$refs.accessoryDetailForm.showDialog();
-      },
+      }
     },
-  };
+    handleNetworkClick(speed) {
+      this.form3.network = speed;
+      this.form3.networkPicked = true;
+      this.handleNext(1);
+    },
+    handleColorClick(color) {
+      this.form3.color = color;
+      this.form3.showPrice = true;
+      this.handleNext(1);
+    },
+      // handleAccessories() {
+      //   this.$refs.accessoryDetailForm.showDialog();
+      // },
+  },
+};
 </script>
 
 
