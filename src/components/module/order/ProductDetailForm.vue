@@ -11,7 +11,7 @@
                 <el-collapse v-model="form3.activeName" accordion>
                     <el-collapse-item  name="1">
                         <template slot="title">
-                            Type<span v-if="form3.productName !== ''" class="productName">: {{ form3.productName }}</span>
+                            {{ form3.productName }}
                         </template>
                         <el-row>
                             <el-col :span="8">
@@ -41,46 +41,46 @@
                             </el-col>
                         </el-row>
                     </el-collapse-item>
-                    <el-collapse-item  name="2" disabled="form3.isTrackLight">
+                    <el-collapse-item  v-if="form3.isTrackLight && form3.namePicked" name="2" disabled="form3.isTrackLight">
                         <template slot="title">
-                            Network<span v-if="form3.network !== ''" class="network">: {{ form3.network }}</span>
+                            {{ form3.network }}
                         </template>
                         <el-row>
-                            <el-col :span="8">
+                            <el-col :span="2">
                                 <el-form-item>
-                                    <el-button type="warning" @click="handleNetworkClick('3G')">3G</el-button>
+                                    <el-button type="warning" style="50px" @click="handleNetworkClick('3G')">3G</el-button>
                                 </el-form-item>
                             </el-col>
-                            <el-col :span="8">
+                            <el-col :span="2">
                                 <el-form-item>
-                                    <el-button type="warning" @click="handleNetworkClick('4G')">4G</el-button>
+                                    <el-button type="warning" style="50px" @click="handleNetworkClick('4G')">4G</el-button>
                                 </el-form-item>
                             </el-col>
                         </el-row>
                     </el-collapse-item>
-                    <el-collapse-item  name="3" disabled="form3.isTrackLight">
+                    <el-collapse-item  v-if="form3.isTrackLight && form3.networkPicked" name="3" disabled="form3.isTrackLight" >
                         <template slot="title">
-                            Color<span v-if="form3.color !== ''" class="color">: {{ form3.color }}</span>
+                            {{ form3.color }}
                         </template>
                         <el-row>
-                            <el-col :span="8">
+                            <el-col :span="3">
                                 <el-form-item>
-                                    <el-button type="danger" @click="handleColorClick('Red')">Red</el-button>
+                                    <el-button type="danger" style="width: 70px" @click="handleColorClick('Red')">Red</el-button>
                                 </el-form-item>
                             </el-col>
-                            <el-col :span="8">
+                            <el-col :span="3">
                                 <el-form-item>
-                                    <el-button type="warning" @click="handleColorClick('Amber')">Amber</el-button>
+                                    <el-button type="warning" style="width: 70px" @click="handleColorClick('Amber')">Amber</el-button>
                                 </el-form-item>
                             </el-col>
-                            <el-col :span="8">
+                            <el-col :span="3">
                                 <el-form-item>
-                                    <el-button @click="handleColorClick('Clear')">Clear</el-button>
+                                    <el-button style="width: 70px" @click="handleColorClick('Clear')">Clear</el-button>
                                 </el-form-item>
                             </el-col>
                         </el-row>
                     </el-collapse-item>
-                    <el-collapse-item title="Price" name="4">
+                    <el-collapse-item title="Price" v-if="form3.showPrice" name="4">
                         <el-row>
                             <el-col :span="10" :offset="6">
                                 <el-form ref="form" :model="form3" size="mini" align="right">
@@ -99,9 +99,9 @@
                                         <el-input v-model="form3.servicePlan" style="width: 150px"></el-input>
                                     </el-form-item>
                                 </el-form>
+                                <el-button type="primary" style="float: right">Add</el-button>
                             </el-col>
                         </el-row>
-                        <el-button type="primary" style="float: right">Add</el-button>
                     </el-collapse-item>
                 </el-collapse>
             </el-form>
@@ -127,11 +127,15 @@
         tableData: [{
         }],
         form3: {
-          productName: '',
+          productName: 'Type',
           activeName: '1',
-          isTrackLight: false,
-          network: '',
-          color: '',
+          isTrackLight: true,
+          namePicked: false,
+          colorPicked: false,
+          networkPicked: false,
+          showPrice: false,
+          network: 'Network',
+          color: 'Color',
           QTY: '',
           price: '',
           servicePlan: '',
@@ -152,13 +156,18 @@
       },
       resetFields() {
         this.form3.activeName = '1';
-        this.form3.isTrackLight = false;
-        this.form3.productName = '';
+        this.form3.isTrackLight = true;
+        this.form3.productName = 'Type';
         this.form3.QTY = '';
         this.form3.price = '';
         this.form3.serviceFee = '';
-        this.form3.network = '';
+        this.form3.network = 'Network';
+        this.form3.color = 'Color';
         this.form3.tax = 'Yes';
+        this.form3.namePicked = false;
+        this.form3.networkPicked = false;
+        this.form3.colorPicked = false;
+        this.form3.showPrice = false;
         this.$refs.form.resetFields();
       },
       handleCommand(command) {
@@ -175,20 +184,28 @@
       handleNameClick(num) {
         this.form3.productName = num;
         if (num !== '4" TrackLight (UT1611)' && num !== '6" TrackLight (UT1711)') {
-          this.form3.isTrackLight = true;
+          this.form3.showPrice = true;
+          this.form3.isTrackLight = false;
           this.form3.network = '';
           this.form3.color = '';
           this.handleNext(3);
         } else {
+          this.form3.namePicked = true;
+          this.form3.isTrackLight = true;
+          this.form3.network = 'Network';
+          this.form3.color = 'Color';
           this.handleNext(1);
         }
       },
       handleNetworkClick(speed) {
         this.form3.network = speed;
+        this.form3.networkPicked = true;
         this.handleNext(1);
       },
       handleColorClick(color) {
         this.form3.color = color;
+        this.form3.colorPicked = true;
+        this.form3.showPrice = true;
         this.handleNext(1);
       }
     },
