@@ -109,13 +109,14 @@
                 </el-collapse>
             </el-form>
         </div>
-        <accessory-detail-form ref="accessoryDetailForm" :form="form3" :form4="form4"></accessory-detail-form>
+        <accessory-detail-form ref="accessoryDetailForm"></accessory-detail-form>
     </el-dialog>
 </template>
 
 <script>
-import AccessoryDetailForm from './AccessoryDetailForm.vue';
 import ConfirmationForm from './ConfirmationForm.vue';
+import AccessoryDetailForm from './AccessoryDetailForm.vue';
+
 export default {
   name: 'ProductDetailForm',
   productCodeData: [],
@@ -123,6 +124,9 @@ export default {
     ConfirmationForm,
     AccessoryDetailForm,
   },
+    // props: {
+    //   passedName: this.form3.productName
+    // },
   data: function() {
     return {
       loading: false,
@@ -239,9 +243,9 @@ export default {
       this.form3.showPrice = true;
       this.handleNext(1);
     },
-      // handleAccessories() {
-      //   this.$refs.accessoryDetailForm.showDialog();
-      // },
+      handleAccessories() {
+        this.$refs.accessoryDetailForm.showDialog();
+    }
   },
 };
 </script>

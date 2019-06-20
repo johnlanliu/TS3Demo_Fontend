@@ -7,78 +7,81 @@
             append-to-body="append"
             @close="resetFields">
         <div class="accessoryCode">
-            <el-form ref="form" :model="form4" size="mini">
+            <el-form ref="form" :model="form4" size="mini" style="text-align: center">
                 <el-row>
                     <el-col :span="6">
                         <el-form-item>
-                            <el-button type="primary" @click="handleNameClick('LA17011')">4" TrackLight</el-button>
+                            <el-button type="primary" style="width: 100px" @click="handleNameClick('LA17011')">LA17011</el-button>
                         </el-form-item>
                     </el-col>
                     <el-col :span="6">
                         <el-form-item>
-                            <el-button type="primary" @click="handleNameClick('LA17021')">4" TrackLight</el-button>
+                            <el-button type="primary" style="width: 100px" @click="handleNameClick('LA17021')">LA17021</el-button>
                         </el-form-item>
                     </el-col>
                     <el-col :span="6">
                         <el-form-item>
-                            <el-button type="primary" @click="handleNameClick('LA16111')">4" TrackLight</el-button>
+                            <el-button type="primary" style="width: 100px" @click="handleNameClick('LA16111')">LA16111</el-button>
                         </el-form-item>
                     </el-col>
                     <el-col :span="6">
                         <el-form-item>
-                            <el-button type="primary" @click="handleNameClick('LA17031')">4" TrackLight</el-button>
+                            <el-button type="primary" style="width: 100px" @click="handleNameClick('LA17031')">LA17031</el-button>
                         </el-form-item>
                     </el-col>
                     <el-col :span="6">
                         <el-form-item>
-                            <el-button type="primary" @click="handleNameClick('LA17041')">4" TrackLight</el-button>
+                            <el-button type="primary" style="width: 100px" @click="handleNameClick('LA17041')">LA17041</el-button>
                         </el-form-item>
                     </el-col>
                     <el-col :span="6">
                         <el-form-item>
-                            <el-button type="primary" @click="handleNameClick('LA17081')">4" TrackLight</el-button>
+                            <el-button type="primary" style="width: 100px" @click="handleNameClick('LA17081')">LA17081</el-button>
                         </el-form-item>
                     </el-col>
                     <el-col :span="6">
                         <el-form-item>
-                            <el-button type="primary" @click="handleNameClick('LA17051')">4" TrackLight</el-button>
+                            <el-button type="primary" style="width: 100px" @click="handleNameClick('LA17051')">LA17051</el-button>
                         </el-form-item>
                     </el-col>
                     <el-col :span="6">
                         <el-form-item>
-                            <el-button type="primary" @click="handleNameClick('LA16121 Roo')">4" TrackLight</el-button>
+                            <el-button type="primary" style="width: 100px" @click="handleNameClick('LA16121 Roo')">LA16121 Roo</el-button>
                         </el-form-item>
                     </el-col>
                     <el-col :span="6">
                         <el-form-item>
-                            <el-button type="primary" @click="handleNameClick('LA16121 Coo')">4" TrackLight</el-button>
+                            <el-button type="primary" style="width: 100px" @click="handleNameClick('LA16121 Coo')">LA16121 Coo</el-button>
                         </el-form-item>
                     </el-col>
                     <el-col :span="6">
                         <el-form-item>
-                            <el-button type="primary" @click="handleNameClick('LA17121 Roo')">4" TrackLight</el-button>
+                            <el-button type="primary" style="width: 100px" @click="handleNameClick('LA17121 Roo')">LA17121 Roo</el-button>
                         </el-form-item>
                     </el-col>
                     <el-col :span="6">
                         <el-form-item>
-                            <el-button type="primary" @click="handleNameClick('LA17121 Aoo')">4" TrackLight</el-button>
+                            <el-button type="primary" style="width: 100px" @click="handleNameClick('LA17121 Aoo')">LA17121 Aoo</el-button>
                         </el-form-item>
                     </el-col>
                     <el-col :span="6">
                         <el-form-item>
-                            <el-button type="primary" @click="handleNameClick('LA17121 Coo')">4" TrackLight</el-button>
+                            <el-button type="primary" style="width: 100px" @click="handleNameClick('LA17121 Coo')">LA17121 Coo</el-button>
                         </el-form-item>
                     </el-col>
                     <el-col :span="6">
                         <el-form-item>
-                            <el-button type="primary" @click="handleNameClick('BP17021')">4" TrackLight</el-button>
+                            <el-button type="primary" style="width: 100px" @click="handleNameClick('BP17021')">BP17021</el-button>
                         </el-form-item>
                     </el-col>
                     <el-col :span="6">
                         <el-form-item>
-                            <el-button type="primary" @click="handleNameClick('BP18021')">4" TrackLight</el-button>
+                            <el-button type="primary" style="width: 100px" @click="handleNameClick('BP18021')">BP18021</el-button>
                         </el-form-item>
                     </el-col>
+                </el-row>
+                <el-row>
+                    <el-button type="primary" style="float: right">Add</el-button>
                 </el-row>
             </el-form>
         </div>
@@ -86,7 +89,6 @@
 </template>
 
 <script>
-// import { productName } from './ProductDetailForm.Vue';
 
 export default {
   name: 'AccessoryDetailForm',
@@ -99,7 +101,7 @@ export default {
     };
   },
     props: {
-        form: [Object]
+        name: [String]
       },
   methods: {
     showDialog() {
