@@ -109,7 +109,7 @@
                 </el-collapse>
             </el-form>
         </div>
-        <accessory-detail-form ref="accessoryDetailForm"></accessory-detail-form>
+        <accessory-detail-form ref="accessoryDetailForm" v-bind:product="this.form3.productName"></accessory-detail-form>
     </el-dialog>
 </template>
 
@@ -124,9 +124,6 @@ export default {
     ConfirmationForm,
     AccessoryDetailForm,
   },
-    // props: {
-    //   passedName: this.form3.productName
-    // },
   data: function() {
     return {
       loading: false,
@@ -243,8 +240,8 @@ export default {
       this.form3.showPrice = true;
       this.handleNext(1);
     },
-      handleAccessories() {
-        this.$refs.accessoryDetailForm.showDialog();
+    handleAccessories() {
+      this.$refs.accessoryDetailForm.showDialog();
     }
   },
 };
