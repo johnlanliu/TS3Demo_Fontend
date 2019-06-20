@@ -8,7 +8,7 @@
         @close="resetFields">
         <div class="product code">
             <el-form ref="form" :model="form3" size="mini">
-                <el-collapse v-model="form3.activeName" accordion @change="handleChange()">
+                <el-collapse v-model="form3.activeName" accordion>
                     <el-collapse-item  name="1">
                         <template slot="title">
                             {{ form3.productName }}
@@ -100,7 +100,7 @@
                                     </el-form-item>
                                 </el-form>
                                 <el-row>
-                                    <el-button type="primary" @click="handleAccessories()">+ Accessories</el-button>
+                                    <el-button type="primary" @click="handleAccessories()">+ Add Accessories</el-button>
                                     <el-button type="primary" style="float: right">Add</el-button>
                                 </el-row>
                             </el-col>
@@ -109,18 +109,21 @@
                 </el-collapse>
             </el-form>
         </div>
+        <accessory-detail-form ref="accessoryDetailForm"></accessory-detail-form>
     </el-dialog>
 </template>
 
 <script>
-  import ConfirmationForm from './ConfirmationForm';
+  import ConfirmationForm from './ConfirmationForm.vue';
+  import AccessoryDetailForm from './AccessoryDetailForm.vue';
 
   export default {
     name: 'ProductDetailForm',
     tableHeight: window.innerHeight - 162,
     productCodeData: [],
     components: {
-      ConfirmationForm
+      ConfirmationForm,
+        AccessoryDetailForm,
     },
     data: function() {
       return {
@@ -241,17 +244,9 @@
         this.form3.showPrice = true;
         this.handleNext(1);
       },
-      // handleChange() {
-      //   if (this.form3.activeName === '1') {
-      //     this.form3.namePicked = false;
-      //     this.form3.networkPicked = false;
-      //     this.form3.showPrice = false;
-      //     this.form3.productName = 'Type';
-      //     this.form3.price = '';
-      //     this.form3.QTY = '';
-      //     this.form3.servicePlan = '';
-      //   }
-      // }
+      handleAccessories() {
+        this.$refs.accessoryDetailForm.showDialog();
+      },
     },
   };
 </script>
