@@ -8,7 +8,7 @@
         @close="resetFields">
         <div class="product code">
             <el-form ref="form" :model="form3" size="mini">
-                <el-collapse v-model="form3.activeName" accordion>
+                <el-collapse v-model="form3.activeName" accordion @change="handleChange()">
                     <el-collapse-item  name="1">
                         <template slot="title">
                             {{ form3.productName }}
@@ -99,7 +99,10 @@
                                         <el-input v-model="form3.servicePlan" style="width: 150px"></el-input>
                                     </el-form-item>
                                 </el-form>
-                                <el-button type="primary" style="float: right">Add</el-button>
+                                <el-row>
+                                    <el-button type="primary" @click="handleAccessories()">+ Accessories</el-button>
+                                    <el-button type="primary" style="float: right">Add</el-button>
+                                </el-row>
                             </el-col>
                         </el-row>
                     </el-collapse-item>
@@ -131,7 +134,6 @@
           activeName: '1',
           isTrackLight: true,
           namePicked: false,
-          colorPicked: false,
           networkPicked: false,
           showPrice: false,
           network: 'Network',
@@ -160,13 +162,12 @@
         this.form3.productName = 'Type';
         this.form3.QTY = '';
         this.form3.price = '';
-        this.form3.serviceFee = '';
+        this.form3.servicePlan = '';
         this.form3.network = 'Network';
         this.form3.color = 'Color';
         this.form3.tax = 'Yes';
         this.form3.namePicked = false;
         this.form3.networkPicked = false;
-        this.form3.colorPicked = false;
         this.form3.showPrice = false;
         this.$refs.form.resetFields();
       },
@@ -182,19 +183,52 @@
         this.$refs.confirmationForm.showDialog();
       },
       handleNameClick(num) {
-        this.form3.productName = num;
-        if (num !== '4" TrackLight (UT1611)' && num !== '6" TrackLight (UT1711)') {
-          this.form3.showPrice = true;
-          this.form3.isTrackLight = false;
-          this.form3.network = '';
-          this.form3.color = '';
-          this.handleNext(3);
+        if (this.form3.productName === 'Type') {
+          this.form3.productName = num;
+          if (num !== '4" TrackLight (UT1611)' && num !== '6" TrackLight (UT1711)') {
+            this.form3.showPrice = true;
+            this.form3.isTrackLight = false;
+            this.form3.network = '';
+            this.form3.color = '';
+            this.handleNext(3);
+          } else {
+            this.form3.namePicked = true;
+            this.form3.isTrackLight = true;
+            this.form3.network = 'Network';
+            this.form3.color = 'Color';
+            this.handleNext(1);
+          }
         } else {
-          this.form3.namePicked = true;
-          this.form3.isTrackLight = true;
-          this.form3.network = 'Network';
-          this.form3.color = 'Color';
-          this.handleNext(1);
+          if (this.form3.productName !== '4" TrackLight (UT1611)' && this.form3.productName !== '6" TrackLight (UT1711)') {
+            this.resetFields();
+            this.form3.productName = num;
+            if (num !== '4" TrackLight (UT1611)' && num !== '6" TrackLight (UT1711)') {
+              this.form3.showPrice = true;
+              this.form3.isTrackLight = false;
+              this.handleNext(3);
+            } else {
+              this.form3.namePicked = true;
+              this.form3.isTrackLight = true;
+              this.handleNext(1);
+            }
+          } else {
+            if (num !== '4" TrackLight (UT1611)' && num !== '6" TrackLight (UT1711)') {
+              this.resetFields();
+              this.form3.productName = num;
+              this.form3.showPrice = true;
+              this.form3.isTrackLight = false;
+              this.handleNext(3);
+            } else {
+              if (this.form3.productName === num) {
+                this.handleNext(1);
+              } else {
+                this.form3.productName = num;
+                this.form3.price = '';
+                this.form3.QTY = '';
+                this.form3.servicePlan = '';
+              }
+            }
+          }
         }
       },
       handleNetworkClick(speed) {
@@ -204,10 +238,20 @@
       },
       handleColorClick(color) {
         this.form3.color = color;
-        this.form3.colorPicked = true;
         this.form3.showPrice = true;
         this.handleNext(1);
-      }
+      },
+      // handleChange() {
+      //   if (this.form3.activeName === '1') {
+      //     this.form3.namePicked = false;
+      //     this.form3.networkPicked = false;
+      //     this.form3.showPrice = false;
+      //     this.form3.productName = 'Type';
+      //     this.form3.price = '';
+      //     this.form3.QTY = '';
+      //     this.form3.servicePlan = '';
+      //   }
+      // }
     },
   };
 </script>
