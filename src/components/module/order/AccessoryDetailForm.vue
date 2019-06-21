@@ -104,7 +104,7 @@
                             <el-button type="primary" style="float: right">Add</el-button>
                         </el-row>
                     </el-collapse-item>
-                    <el-collapse-item title="Price" v-if="form4.showPrice" name="4">
+                    <el-collapse-item title="Price" v-if="form4.showPrice" name="2">
                         <el-row>
                             <el-col :span="10" :offset="6">
                                 <el-form ref="form" :model="form4" size="mini" align="right">
@@ -121,7 +121,6 @@
                                     </el-form-item>
                                 </el-form>
                                 <el-row>
-                                    <el-button type="primary" style="float: left" @click="handleAccessories()">+ Add Accessories</el-button>
                                     <el-button type="primary" style="float: right">Add</el-button>
                                 </el-row>
                             </el-col>
@@ -146,6 +145,7 @@ export default {
         accessoryName: 'Type',
           activeName: '1',
           QTY: '',
+          namePicked: false,
           showPrice: false,
       },
     };
@@ -176,9 +176,26 @@ export default {
         this.form4.activeName = '1';
         this.form4.accessoryName = 'Type';
         this.form4.QTY = '';
+        this.form4.namePicked = false;
+        this.form4.showPrice = false;
       this.$refs.form.resetFields();
     },
+      handleNext(number) {
+          let tempNum = Number(this.form4.activeName);
+          let nextNum = tempNum + number;
+          this.form3.activeName = nextNum.toString();
+      },
       handleNameClick(num) {
+          if (this.form4.accessoryName === 'Type') {
+              this.form4.productName = num;
+              this.form4.showPrice = true;
+              this.handleNext(2);
+          } else {
+              this.resetFields();
+              this.form4.productName = num;
+              this.form4.showPrice = true;
+              this.handleNext(2);
+          }
       },
   },
 };
