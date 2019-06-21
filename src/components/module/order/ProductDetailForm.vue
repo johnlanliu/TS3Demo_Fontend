@@ -7,7 +7,7 @@
         append-to-body="append"
         @close="resetFields">
         <div class="product code">
-            <el-form ref="form" :model="form3" size="mini">
+            <el-form ref="form" :model="form3" size="mini" style="text-align: center">
                 <el-collapse v-model="form3.activeName" accordion>
                     <el-collapse-item  name="1">
                         <template slot="title">
@@ -16,27 +16,27 @@
                         <el-row>
                             <el-col :span="8">
                                 <el-form-item>
-                                    <el-button type="primary" @click="handleNameClick('4&quot; TrackLight (UT1611)')">4" TrackLight</el-button>
+                                    <el-button type="primary" style="width: 120px" @click="handleNameClick('4&quot; TrackLight (UT1611)')">4" TrackLight</el-button>
                                 </el-form-item>
                             </el-col>
                             <el-col :span="8">
                                 <el-form-item>
-                                    <el-button type="primary" @click="handleNameClick('6&quot; TrackLight (UT1711)')">6" TrackLight</el-button>
+                                    <el-button type="primary" style="width: 120px" @click="handleNameClick('6&quot; TrackLight (UT1711)')">6" TrackLight</el-button>
                                 </el-form-item>
                             </el-col>
                             <el-col :span="8">
                                 <el-form-item>
-                                    <el-button type="primary" @click="handleNameClick('In Dash GPS (UT1508)')">In Dash GPS</el-button>
+                                    <el-button type="primary" style="width: 120px" @click="handleNameClick('In Dash GPS (UT1508)')">In Dash GPS</el-button>
                                 </el-form-item>
                             </el-col>
                             <el-col :span="8">
                                 <el-form-item>
-                                    <el-button type="primary" @click="handleNameClick('5&quot; ThermoTrack (UT1702)')">5" ThermoTrack</el-button>
+                                    <el-button type="primary" style="width: 120px" @click="handleNameClick('5&quot; ThermoTrack (UT1702)')">5" ThermoTrack</el-button>
                                 </el-form-item>
                             </el-col>
                             <el-col :span="8">
                                 <el-form-item>
-                                    <el-button type="primary" @click="handleNameClick('6&quot; ThermoTrack (UT1802)')">6" ThermoTrack</el-button>
+                                    <el-button type="primary" style="width: 120px" @click="handleNameClick('6&quot; ThermoTrack (UT1802)')">6" ThermoTrack</el-button>
                                 </el-form-item>
                             </el-col>
                         </el-row>
@@ -100,7 +100,7 @@
                                     </el-form-item>
                                 </el-form>
                                 <el-row>
-                                    <el-button type="primary" @click="handleAccessories()">+ Add Accessories</el-button>
+                                    <el-button type="primary" style="float: left" @click="handleAccessories()">+ Add Accessories</el-button>
                                     <el-button type="primary" style="float: right">Add</el-button>
                                 </el-row>
                             </el-col>
