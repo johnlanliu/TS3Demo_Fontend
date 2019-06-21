@@ -153,10 +153,10 @@ export default {
   },
   computed: {
     shown: function() {
-      if (this.product === '4" TrackLight (UT1611)' || this.product === '6" TrackLight (UT1711)') {
+      if (this.product === '4" TrackLight (VT1611)' || this.product === '6" TrackLight (VT1711)') {
         return 1;
-      } else if (this.product === 'In Dash GPS (UT1508)' || this.product === '5" ThermoTrack (UT1702)'
-          || this.product === '6" ThermoTrack (UT1802)') {
+      } else if (this.product === 'In Dash GPS (VT1508)' || this.product === '5" ThermoTrack (VT1702)'
+          || this.product === '6" ThermoTrack (VT1802)') {
         return 2;
       } else {
         return 0;

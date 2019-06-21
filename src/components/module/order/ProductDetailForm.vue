@@ -16,27 +16,27 @@
                         <el-row>
                             <el-col :span="8">
                                 <el-form-item>
-                                    <el-button type="primary" style="width: 120px" @click="handleNameClick('4&quot; TrackLight (UT1611)')">4" TrackLight</el-button>
+                                    <el-button type="primary" style="width: 120px" @click="handleNameClick('4&quot; TrackLight (VT1611)')">4" TrackLight</el-button>
                                 </el-form-item>
                             </el-col>
                             <el-col :span="8">
                                 <el-form-item>
-                                    <el-button type="primary" style="width: 120px" @click="handleNameClick('6&quot; TrackLight (UT1711)')">6" TrackLight</el-button>
+                                    <el-button type="primary" style="width: 120px" @click="handleNameClick('6&quot; TrackLight (VT1711)')">6" TrackLight</el-button>
                                 </el-form-item>
                             </el-col>
                             <el-col :span="8">
                                 <el-form-item>
-                                    <el-button type="primary" style="width: 120px" @click="handleNameClick('In Dash GPS (UT1508)')">In Dash GPS</el-button>
+                                    <el-button type="primary" style="width: 120px" @click="handleNameClick('In Dash GPS (VT1508)')">In Dash GPS</el-button>
                                 </el-form-item>
                             </el-col>
                             <el-col :span="8">
                                 <el-form-item>
-                                    <el-button type="primary" style="width: 120px" @click="handleNameClick('5&quot; ThermoTrack (UT1702)')">5" ThermoTrack</el-button>
+                                    <el-button type="primary" style="width: 120px" @click="handleNameClick('5&quot; ThermoTrack (VT1702)')">5" ThermoTrack</el-button>
                                 </el-form-item>
                             </el-col>
                             <el-col :span="8">
                                 <el-form-item>
-                                    <el-button type="primary" style="width: 120px" @click="handleNameClick('6&quot; ThermoTrack (UT1802)')">6" ThermoTrack</el-button>
+                                    <el-button type="primary" style="width: 120px" @click="handleNameClick('6&quot; ThermoTrack (VT1802)')">6" ThermoTrack</el-button>
                                 </el-form-item>
                             </el-col>
                         </el-row>
@@ -184,7 +184,7 @@ export default {
     handleNameClick(num) {
       if (this.form3.productName === 'Type') {
         this.form3.productName = num;
-        if (num !== '4" TrackLight (UT1611)' && num !== '6" TrackLight (UT1711)') {
+        if (num !== '4" TrackLight (VT1611)' && num !== '6" TrackLight (VT1711)') {
           this.form3.showPrice = true;
           this.form3.isTrackLight = false;
           this.form3.network = '';
@@ -198,10 +198,10 @@ export default {
           this.handleNext(1);
         }
       } else {
-        if (this.form3.productName !== '4" TrackLight (UT1611)' && this.form3.productName !== '6" TrackLight (UT1711)') {
+        if (this.form3.productName !== '4" TrackLight (VT1611)' && this.form3.productName !== '6" TrackLight (VT1711)') {
           this.resetFields();
           this.form3.productName = num;
-          if (num !== '4" TrackLight (UT1611)' && num !== '6" TrackLight (UT1711)') {
+          if (num !== '4" TrackLight (VT1611)' && num !== '6" TrackLight (VT1711)') {
             this.form3.showPrice = true;
             this.form3.isTrackLight = false;
             this.handleNext(3);
@@ -211,7 +211,7 @@ export default {
             this.handleNext(1);
           }
         } else {
-          if (num !== '4" TrackLight (UT1611)' && num !== '6" TrackLight (UT1711)') {
+          if (num !== '4" TrackLight (VT1611)' && num !== '6" TrackLight (VT1711)') {
             this.resetFields();
             this.form3.productName = num;
             this.form3.showPrice = true;
