@@ -16,26 +16,41 @@
                         <el-row>
                             <el-col :span="8">
                                 <el-form-item>
+                                    <button type="default" id="VT1611"
+                                            @click="handleNameClick('4&quot; TrackLight (VT1611)')"
+                                    ><img src="./pic/Product/VT1611.jpg" alt="VT1611" width="120" height="120"/></button>
                                     <el-button type="primary" style="width: 120px" @click="handleNameClick('4&quot; TrackLight (VT1611)')">4" TrackLight</el-button>
                                 </el-form-item>
                             </el-col>
                             <el-col :span="8">
                                 <el-form-item>
+                                    <button type="default" id="VT1711"
+                                            @click="handleNameClick('6&quot; TrackLight (VT1711)')"
+                                    ><img src="./pic/Product/VT1711.jpg" alt="VT1711" width="120" height="120"/></button>
                                     <el-button type="primary" style="width: 120px" @click="handleNameClick('6&quot; TrackLight (VT1711)')">6" TrackLight</el-button>
                                 </el-form-item>
                             </el-col>
                             <el-col :span="8">
                                 <el-form-item>
+                                    <button type="default" id="VT1508"
+                                            @click="handleNameClick('In Dash GPS (VT1508)')"
+                                    ><img src="./pic/Product/VT1508.jpg" alt="VT1508" width="120" height="120"/></button>
                                     <el-button type="primary" style="width: 120px" @click="handleNameClick('In Dash GPS (VT1508)')">In Dash GPS</el-button>
                                 </el-form-item>
                             </el-col>
                             <el-col :span="8">
                                 <el-form-item>
+                                    <button type="default" id="VT1702"
+                                            @click="handleNameClick('5&quot; ThermoTrack (VT1702)')"
+                                    ><img src="./pic/Product/VT1702.jpg" alt="VT1702" width="120" height="120"/></button>
                                     <el-button type="primary" style="width: 120px" @click="handleNameClick('5&quot; ThermoTrack (VT1702)')">5" ThermoTrack</el-button>
                                 </el-form-item>
                             </el-col>
                             <el-col :span="8">
                                 <el-form-item>
+                                    <button type="default" id="VT1802"
+                                            @click="handleNameClick('6&quot; ThermoTrack (VT1802)')"
+                                    ><img src="./pic/Product/VT1802.jpg" alt="VT802" width="120" height="120"></button>
                                     <el-button type="primary" style="width: 120px" @click="handleNameClick('6&quot; ThermoTrack (VT1802)')">6" ThermoTrack</el-button>
                                 </el-form-item>
                             </el-col>
@@ -225,6 +240,7 @@ export default {
               this.form3.price = '';
               this.form3.QTY = '';
               this.form3.servicePlan = '';
+              this.handleNext(1);
             }
           }
         }
@@ -249,5 +265,9 @@ export default {
 
 
 <style scoped>
+    /*img {*/
+    /*    border-style: solid;*/
+    /*    border-width: 1px;*/
+    /*}*/
 
 </style>
