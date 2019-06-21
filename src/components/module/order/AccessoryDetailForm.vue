@@ -59,31 +59,31 @@
                             <el-col v-if="shown === 0 || shown === 1" :span="6">
                                 <el-form-item>
                                     <el-button
-                                               type="primary" style="width: 100px" @click="handleNameClick('LA16121 Roo')">LA16121 Roo</el-button>
+                                               type="primary" style="width: 100px" @click="handleNameClick('LA16121 R00')">LA16121 R00</el-button>
                                 </el-form-item>
                             </el-col>
                             <el-col v-if="shown === 0 || shown === 1" :span="6">
                                 <el-form-item>
                                     <el-button
-                                               type="primary" style="width: 100px" @click="handleNameClick('LA16121 Coo')">LA16121 Coo</el-button>
+                                               type="primary" style="width: 100px" @click="handleNameClick('LA16121 C00')">LA16121 C00</el-button>
                                 </el-form-item>
                             </el-col>
                             <el-col v-if="shown === 0 || shown === 1" :span="6">
                                 <el-form-item>
                                     <el-button
-                                               type="primary" style="width: 100px" @click="handleNameClick('LA17121 Roo')">LA17121 Roo</el-button>
+                                               type="primary" style="width: 100px" @click="handleNameClick('LA17121 R00')">LA17121 R00</el-button>
                                 </el-form-item>
                             </el-col>
                             <el-col v-if="shown === 0 || shown === 1" :span="6">
                                 <el-form-item>
                                     <el-button
-                                               type="primary" style="width: 100px" @click="handleNameClick('LA17121 Aoo')">LA17121 Aoo</el-button>
+                                               type="primary" style="width: 100px" @click="handleNameClick('LA17121 A00')">LA17121 A00</el-button>
                                 </el-form-item>
                             </el-col>
                             <el-col v-if="shown === 0 || shown === 1" :span="6">
                                 <el-form-item>
                                     <el-button
-                                               type="primary" style="width: 100px" @click="handleNameClick('LA17121 Coo')">LA17121 Coo</el-button>
+                                               type="primary" style="width: 100px" @click="handleNameClick('LA17121 C00')">LA17121 C00</el-button>
                                 </el-form-item>
                             </el-col>
                             <el-col v-if="shown === 0 || shown === 2" :span="6">
