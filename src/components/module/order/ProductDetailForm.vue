@@ -18,7 +18,7 @@
                                 <el-form-item>
                                     <button type="default" class="containerButton"
                                             @click="handleNameClick('4&quot; TrackLight (VT1611)')">
-                                        <img src="./pic/Product/VT1611.jpg" alt="VT1611" width="120" height="120" class="image"/>
+                                        <img src="./pic/Product/VT1611.png" alt="VT1611" width="120" height="120" class="image"/>
                                         <div class="overlay">4" TrackLight</div>
                                     </button>
 
@@ -28,7 +28,7 @@
                                 <el-form-item>
                                     <button type="default" class="containerButton"
                                             @click="handleNameClick('6&quot; TrackLight (VT1711)')">
-                                        <img src="./pic/Product/VT1711.jpg" alt="VT1711" width="120" height="120" class="image"/>
+                                        <img src="./pic/Product/VT1711.png" alt="VT1711" width="120" height="120" class="image"/>
                                         <div class="overlay">6" TrackLight</div>
                                     </button>
                                 </el-form-item>
@@ -37,7 +37,7 @@
                                 <el-form-item>
                                     <button type="default" class="containerButton"
                                             @click="handleNameClick('In Dash GPS (VT1508)')">
-                                        <img src="./pic/Product/VT1508.jpg" alt="VT1508" width="120" height="120" class="image"/>
+                                        <img src="./pic/Product/VT1508.png" alt="VT1508" width="120" height="120" class="image"/>
                                         <div class="overlay">In Dash GPS</div>
                                     </button>
                                 </el-form-item>
@@ -46,7 +46,7 @@
                                 <el-form-item>
                                     <button type="default" class="containerButton"
                                             @click="handleNameClick('5&quot; ThermoTrack (VT1702)')">
-                                        <img src="./pic/Product/VT1702.jpg" alt="VT1702" width="120" height="120" class="image"/>
+                                        <img src="./pic/Product/VT1702.png" alt="VT1702" width="120" height="120" class="image"/>
                                         <div class="overlay">5" ThermoTrack</div>
                                     </button>
                                 </el-form-item>
@@ -55,7 +55,7 @@
                                 <el-form-item>
                                     <button type="default" class="containerButton"
                                             @click="handleNameClick('6&quot; ThermoTrack (VT1802)')">
-                                        <img src="./pic/Product/VT1802.jpg" alt="VT802" width="120" height="120" class="image">
+                                        <img src="./pic/Product/VT1802.png" alt="VT802" width="120" height="120" class="image">
                                         <div class="overlay">6" ThermoTrack</div>
                                     </button>
                                 </el-form-item>
