@@ -232,7 +232,6 @@ export default {
           }
         } else {
           if (num !== '4" TrackLight (VT1611)' && num !== '6" TrackLight (VT1711)') {
-            //this.resetFields();
             this.form3.productName = num;
             this.form3.showPrice = true;
             this.form3.isTrackLight = false;

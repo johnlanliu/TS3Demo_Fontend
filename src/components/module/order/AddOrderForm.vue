@@ -4,9 +4,10 @@
         :center="true"
         top="15vh"
         :visible.sync="isOpen"
-        @closed="resetFields">
+        @closed="resetFields"
+        width="50%">
         <div class="form-box">
-            <el-form ref="form" :model="form" size="mini">
+            <el-form ref="form" :model="form" size="mini" style="margin: 0; padding: 0">
                 <el-form-item label="Order Type">
                     <el-select v-model="form.orderType" placeholder="Select">
                         <el-option
@@ -17,8 +18,8 @@
                         </el-option>
                     </el-select>
                 </el-form-item>
-                <el-row>
-                    <el-col :span="12">
+                <el-row style="margin: 0; padding: 0">
+                    <el-col>
                         <el-form-item label="Billing Info"></el-form-item>
                         <el-form-item label="Company Name" style="">
                             <el-input v-model="form.billing" style="float:right; margin-right: 120px; width: 180px"></el-input>
@@ -36,7 +37,7 @@
                             <el-input v-model="form.billingAddress" style="float:right; margin-right: 120px; width: 180px"></el-input>
                         </el-form-item>
                     </el-col>
-                    <el-col :span="12">
+                    <el-col :span="16">
                         <el-form-item label="Shipping Info">
                             <el-checkbox v-model="sameAsBilling"
                                          style="display: inline"
@@ -72,7 +73,8 @@
                         </el-option>
                     </el-select>
                 </el-form-item>
-                <el-form-item label="Order Details"></el-form-item>
+                <br>
+                <el-form-item label="Order Details" style="font-weight: 900"></el-form-item>
                 <br>
                 <el-table
                     ref="orderDetailTable"
@@ -106,11 +108,10 @@
                     <p v-model="total">${{ total }} plus shipping fee</p>
                 </el-form-item>
                 <br>
-                <el-form-item label="Note:">
+                <el-form-item label="Note:" style="display: block; margin-left: 30px; margin-right: 30px">
                     <el-input
                         type="textarea"
                         :rows="2"
-                        width="170px"
                         placeholder="notes"
                         v-model="form.note"
                         >
@@ -118,9 +119,9 @@
                 </el-form-item>
                 <br>
 
-                <el-form ref="form" :model="customerServiceForm" label-width="150px" size="mini">
+                <el-form ref="form" :model="customerServiceForm" size="mini">
                     <el-form-item label="Status:">
-                        <el-select v-model="customerServiceForm.status" placeholder="select">
+                        <el-select v-model="customerServiceForm.status" placeholder="select" style="width: 150px">
                             <el-option
                                 v-for="option in statusOptions"
                                 :key="option.status"
@@ -129,32 +130,43 @@
                             ></el-option>
                         </el-select>
                     </el-form-item>
-                    <el-form-item label="Invoice #">
-                        <el-input v-model="customerServiceForm.invoiceNumber" style="float:right; margin-right: 120px"></el-input>
-                    </el-form-item>
-                    <el-form-item label="Invoice Date">
-                        <el-input v-model="customerServiceForm.invoiceDate" style="float:right; margin-right: 120px"></el-input>
-                    </el-form-item>
-                    <el-form-item label="Shipping Via">
-                        <el-input v-model="customerServiceForm.shippingVia" style="float:right; margin-right: 120px"></el-input>
-                    </el-form-item>
-                    <el-form-item label="Tracking Number">
-                        <el-input v-model="customerServiceForm.trackingNumber" style="float:right; margin-right: 120px"></el-input>
-                    </el-form-item>
-                    <el-form-item label="Shipping Fee">
-                        <el-input v-model="customerServiceForm.shippingFee" style="float:right; margin-right: 120px"></el-input>
-                    </el-form-item>
-                    <el-form-item>
-                        <el-button type="primary" >Cancel Order</el-button>
-                    </el-form-item>
-                    <el-form-item>
-                        <el-button type="primary" @click="handleCreateInvoice()">Submit and Create Invoice</el-button>
-                    </el-form-item>
+                    <el-row>
+                        <el-col :span="8">
+                            <el-form-item label="Invoice #">
+                                <el-input v-model="customerServiceForm.invoiceNumber" style="float:right; margin-right: 120px; width: 150px"></el-input>
+                            </el-form-item>
+                            <el-form-item label="Invoice Date">
+                                <el-input v-model="customerServiceForm.invoiceDate" style="float:right; margin-right: 120px; width: 150px"></el-input>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="8">
+                            <el-form-item label="Shipping Via">
+                                <el-input v-model="customerServiceForm.shippingVia" style="float:right; margin-right: 120px; width: 150px"></el-input>
+                            </el-form-item>
+                            <el-form-item label="Tracking Number">
+                                <el-input v-model="customerServiceForm.trackingNumber" style="float:right; margin-right: 120px; width: 150px"></el-input>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="8">
+                            <el-form-item label="Shipping Fee">
+                                <el-input v-model="customerServiceForm.shippingFee" style="float:right; margin-right: 120px; width: 150px"></el-input>
+                            </el-form-item>
+                        </el-col>
+                    </el-row>
+                    <el-row>
+                        <el-form-item>
+                            <el-button type="primary" style="margin-right: 20px">Cancel Order</el-button>
+                        </el-form-item>
+                        <el-form-item>
+                            <el-button type="primary" @click="handleCreateInvoice()">Submit and Create Invoice</el-button>
+                        </el-form-item>
+                    </el-row>
                 </el-form>
             </el-form>
         </div>
         <create-invoice-form ref="createInvoiceForm"></create-invoice-form>
         <product-detail-form ref="productDetailForm"></product-detail-form>
+        <accessory-detail-form ref="accessoryDetailForm"></accessory-detail-form>
     </el-dialog>
 </template>
 
@@ -165,11 +177,13 @@ import { exceptionUtil } from '@/utils/exceptionUtil.js';
 import { mapActions, mapState } from 'vuex';
 import ProductDetailForm from './ProductDetailForm.vue';
 import CreateInvoiceForm from './CreateInvoiceForm.vue';
+import AccessoryDetailForm from './AccessoryDetailForm.vue';
 export default {
   name: 'AddOrderForm',
   components: {
     ProductDetailForm,
-    CreateInvoiceForm
+    CreateInvoiceForm,
+    AccessoryDetailForm
   },
   data: function() {
     return {
@@ -278,6 +292,9 @@ export default {
         this.form.email = '';
         this.form.shippingAddress = '';
       }
+    },
+    handleAddAccessories() {
+      this.$refs.accessoryDetailForm.showDialog();
     }
   },
 
