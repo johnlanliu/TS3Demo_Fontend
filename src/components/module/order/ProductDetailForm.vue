@@ -16,46 +16,45 @@
                         <el-row>
                             <el-col :span="8">
                                 <el-form-item>
-                                    <button type="default" class="containerButton"
+                                    <button type="default" class="containerButton" style="width: 180px; height: 120px"
                                             @click="handleNameClick('4&quot; TrackLight (VT1611)')">
-                                        <img src="./pic/Product/VT1611.png" alt="VT1611" width="120" height="120" class="image"/>
+                                        <img src="./pic/Product/VT1611.png" alt="VT1611" class="image"/>
                                         <div class="overlay">4" TrackLight</div>
                                     </button>
-
                                 </el-form-item>
                             </el-col>
                             <el-col :span="8">
                                 <el-form-item>
-                                    <button type="default" class="containerButton"
+                                    <button type="default" class="containerButton" style="width: 180px; height: 120px"
                                             @click="handleNameClick('6&quot; TrackLight (VT1711)')">
-                                        <img src="./pic/Product/VT1711.png" alt="VT1711" width="120" height="120" class="image"/>
+                                        <img src="./pic/Product/VT1711.png" alt="VT1711" class="image"/>
                                         <div class="overlay">6" TrackLight</div>
                                     </button>
                                 </el-form-item>
                             </el-col>
                             <el-col :span="8">
                                 <el-form-item>
-                                    <button type="default" class="containerButton"
+                                    <button type="default" class="containerButton" style="width: 180px; height: 120px"
                                             @click="handleNameClick('In Dash GPS (VT1508)')">
-                                        <img src="./pic/Product/VT1508.png" alt="VT1508" width="120" height="120" class="image"/>
+                                        <img src="./pic/Product/VT1508.png" alt="VT1508" class="image"/>
                                         <div class="overlay">In Dash GPS</div>
                                     </button>
                                 </el-form-item>
                             </el-col>
                             <el-col :span="8">
                                 <el-form-item>
-                                    <button type="default" class="containerButton"
+                                    <button type="default" class="containerButton" style="width: 180px; height: 120px"
                                             @click="handleNameClick('5&quot; ThermoTrack (VT1702)')">
-                                        <img src="./pic/Product/VT1702.png" alt="VT1702" width="120" height="120" class="image"/>
+                                        <img src="./pic/Product/VT1702.png" alt="VT1702" class="image"/>
                                         <div class="overlay">5" ThermoTrack</div>
                                     </button>
                                 </el-form-item>
                             </el-col>
                             <el-col :span="8">
                                 <el-form-item>
-                                    <button type="default" class="containerButton"
+                                    <button type="default" class="containerButton" style="width: 180px; height: 120px"
                                             @click="handleNameClick('6&quot; ThermoTrack (VT1802)')">
-                                        <img src="./pic/Product/VT1802.png" alt="VT802" width="120" height="120" class="image">
+                                        <img src="./pic/Product/VT1802.png" alt="VT802" class="image">
                                         <div class="overlay">6" ThermoTrack</div>
                                     </button>
                                 </el-form-item>
@@ -271,10 +270,6 @@ export default {
 
 
 <style scoped>
-    /*img {*/
-    /*    border-style: solid;*/
-    /*    border-width: 1px;*/
-    /*}*/
     .containerButton {
         position: relative;
         width: 50%;
@@ -283,10 +278,11 @@ export default {
 
     .image {
         display: block;
-        width: 100%;
+        width: 50%;
         height: auto;
         /*transition: .5s ease;*/
         opacity: 1;
+        padding-left: 45px;
 
     }
 
@@ -300,8 +296,8 @@ export default {
         /*transition: .5s ease;*/
         opacity:1;
         color: white;
-        font-size: 12px;
-        padding: 10px 20px 10px 20px;
+        font-size: 15px;
+        padding: 5px 30px 6px 31px;
         text-align: center;
     }
 

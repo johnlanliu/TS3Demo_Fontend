@@ -16,86 +16,129 @@
                         <el-row>
                             <el-col v-if="shown === 0 || shown === 1" :span="6">
                                 <el-form-item>
-                                    <el-button
-                                               type="primary" style="width: 100px" @click="handleNameClick('LA17011')">LA17011</el-button>
+
+                                    <button class="containerButton" style="width: 150px; height: 100px"
+                                               type="default" @click="handleNameClick('LA17011')">
+                                        <img src="./pic/Accessories/LA17011.png" alt="LA17011" class="image"/>
+                                        <div class="overlay">4" TrackLight</div>
+                                    </button>
                                 </el-form-item>
                             </el-col>
                             <el-col v-if="shown === 0 || shown === 1" :span="6">
                                 <el-form-item>
-                                    <el-button
-                                               type="primary" style="width: 100px" @click="handleNameClick('LA17021')">LA17021</el-button>
+                                    <button class="containerButton" style="width: 150px; height: 100px"
+                                               type="default" @click="handleNameClick('LA17021')">
+                                        <img src="./pic/Accessories/la17021.png" alt="la17021" class="image"/>
+                                        <div class="overlay">4" TrackLight</div>
+                                    </button>
                                 </el-form-item>
                             </el-col>
                             <el-col v-if="shown === 0 || shown === 1" :span="6">
                                 <el-form-item>
-                                    <el-button
-                                               type="primary" style="width: 100px" @click="handleNameClick('LA16111')">LA16111</el-button>
+                                    <button class="containerButton" style="width: 150px; height: 100px"
+                                               type="default" @click="handleNameClick('LA16111')">
+                                        <img src="./pic/Accessories/LA16111.png" alt="LA1611" class="image"/>
+                                        <div class="overlay">4" TrackLight</div>
+                                    </button>
                                 </el-form-item>
                             </el-col>
                             <el-col v-if="shown === 0 || shown === 1" :span="6">
                                 <el-form-item>
-                                    <el-button
-                                               type="primary" style="width: 100px" @click="handleNameClick('LA17031')">LA17031</el-button>
+                                    <button class="containerButton" style="width: 150px; height: 100px"
+                                               type="default" @click="handleNameClick('LA17031')">
+                                        <img src="./pic/Accessories/la17031.png" alt="la17031" class="image"/>
+                                        <div class="overlay">4" TrackLight</div>
+                                    </button>
                                 </el-form-item>
                             </el-col>
                             <el-col v-if="shown === 0 || shown === 1" :span="6">
                                 <el-form-item>
-                                    <el-button
-                                               type="primary" style="width: 100px" @click="handleNameClick('LA17041')">LA17041</el-button>
+                                    <button class="containerButton" style="width: 150px; height: 100px"
+                                               type="default" @click="handleNameClick('LA17041')">
+                                        <img src="./pic/Accessories/LA17041.png" alt="LA17041" class="image"/>
+                                        <div class="overlay">4" TrackLight</div>
+                                    </button>
                                 </el-form-item>
                             </el-col>
                             <el-col v-if="shown === 0 || shown === 1" :span="6">
                                 <el-form-item>
-                                    <el-button
-                                               type="primary" style="width: 100px" @click="handleNameClick('LA17081')">LA17081</el-button>
+                                    <button class="containerButton" style="width: 150px; height: 100px"
+                                               type="default" @click="handleNameClick('LA17081')">
+                                        <img src="./pic/Accessories/LA17081.png" alt="LA17081" class="image"/>
+                                        <div class="overlay">4" TrackLight</div>
+                                    </button>
                                 </el-form-item>
                             </el-col>
                             <el-col v-if="shown === 0 || shown === 1" :span="6">
                                 <el-form-item>
-                                    <el-button
-                                               type="primary" style="width: 100px" @click="handleNameClick('LA17051')">LA17051</el-button>
+                                    <button class="containerButton" style="width: 150px; height: 100px"
+                                               type="default" @click="handleNameClick('LA17051')">
+                                        <img src="./pic/Accessories/LA17051.png" alt="LA17051" class="image"/>
+                                        <div class="overlay">4" TrackLight</div>
+                                    </button>
                                 </el-form-item>
                             </el-col>
-                            <el-col v-if="shown === 0 || shown === 1" :span="6">
+<!--                            <el-col v-if="shown === 0 || shown === 1" :span="6">-->
+<!--                                <el-form-item>-->
+<!--                                    <button class="containerButton" style="width: 180px; height: 120px"-->
+<!--                                               type="default" @click="handleNameClick('LA16121 R00')">-->
+<!--                                        <img src="./pic/Product/VT1611.png" alt="VT1611" width="120" height="120" class="image"/>-->
+<!--                                        <div class="overlay">4" TrackLight</div>-->
+<!--                                    </button>-->
+<!--                                </el-form-item>-->
+<!--                            </el-col>-->
+<!--                            <el-col v-if="shown === 0 || shown === 1" :span="6">-->
+<!--                                <el-form-item>-->
+<!--                                    <button class="containerButton" style="width: 180px; height: 120px"-->
+<!--                                               type="default" @click="handleNameClick('LA16121 C00')">-->
+<!--                                        <img src="./pic/Product/VT1611.png" alt="VT1611" width="120" height="120" class="image"/>-->
+<!--                                        <div class="overlay">4" TrackLight</div>-->
+<!--                                    </button>-->
+<!--                                </el-form-item>-->
+<!--                            </el-col>-->
+<!--                            <el-col v-if="shown === 0 || shown === 1" :span="6">-->
+<!--                                <el-form-item>-->
+<!--                                    <button class="containerButton" style="width: 180px; height: 120px"-->
+<!--                                               type="default" @click="handleNameClick('LA17121 R00')">-->
+<!--                                        <img src="./pic/Product/VT1611.png" alt="VT1611" width="120" height="120" class="image"/>-->
+<!--                                        <div class="overlay">4" TrackLight</div>-->
+<!--                                    </button>-->
+<!--                                </el-form-item>-->
+<!--                            </el-col>-->
+<!--                            <el-col v-if="shown === 0 || shown === 1" :span="6">-->
+<!--                                <el-form-item>-->
+<!--                                    <button class="containerButton" style="width: 180px; height: 120px"-->
+<!--                                               type="default" @click="handleNameClick('LA17121 A00')">-->
+<!--                                        <img src="./pic/Product/VT1611.png" alt="VT1611" width="120" height="120" class="image"/>-->
+<!--                                        <div class="overlay">4" TrackLight</div>-->
+<!--                                    </button>-->
+<!--                                </el-form-item>-->
+<!--                            </el-col>-->
+<!--                            <el-col v-if="shown === 0 || shown === 1" :span="6">-->
+<!--                                <el-form-item>-->
+<!--                                    <button class="containerButton" style="width: 180px; height: 120px"-->
+<!--                                               type="default" @click="handleNameClick('LA17121 C00')">-->
+<!--                                        <img src="./pic/Product/VT1611.png" alt="VT1611" width="120" height="120" class="image"/>-->
+<!--                                        <div class="overlay">4" TrackLight</div>-->
+<!--                                    </button>-->
+<!--                                </el-form-item>-->
+<!--                            </el-col>-->
+                            <el-col v-if="shown === 0 || shown === 2" :span="6">
                                 <el-form-item>
-                                    <el-button
-                                               type="primary" style="width: 100px" @click="handleNameClick('LA16121 R00')">LA16121 R00</el-button>
-                                </el-form-item>
-                            </el-col>
-                            <el-col v-if="shown === 0 || shown === 1" :span="6">
-                                <el-form-item>
-                                    <el-button
-                                               type="primary" style="width: 100px" @click="handleNameClick('LA16121 C00')">LA16121 C00</el-button>
-                                </el-form-item>
-                            </el-col>
-                            <el-col v-if="shown === 0 || shown === 1" :span="6">
-                                <el-form-item>
-                                    <el-button
-                                               type="primary" style="width: 100px" @click="handleNameClick('LA17121 R00')">LA17121 R00</el-button>
-                                </el-form-item>
-                            </el-col>
-                            <el-col v-if="shown === 0 || shown === 1" :span="6">
-                                <el-form-item>
-                                    <el-button
-                                               type="primary" style="width: 100px" @click="handleNameClick('LA17121 A00')">LA17121 A00</el-button>
-                                </el-form-item>
-                            </el-col>
-                            <el-col v-if="shown === 0 || shown === 1" :span="6">
-                                <el-form-item>
-                                    <el-button
-                                               type="primary" style="width: 100px" @click="handleNameClick('LA17121 C00')">LA17121 C00</el-button>
+                                    <button class="containerButton" style="width: 150px; height: 100px"
+                                                type="default" @click="handleNameClick('BP17021')">
+                                        <img src="./pic/Accessories/BP17021.png" alt="BP17021" class="image"/>
+                                        <div class="overlay">4" TrackLight</div>
+                                    </button>
                                 </el-form-item>
                             </el-col>
                             <el-col v-if="shown === 0 || shown === 2" :span="6">
                                 <el-form-item>
-                                    <el-button
-                                               type="primary" style="width: 100px" @click="handleNameClick('BP17021')">BP17021</el-button>
-                                </el-form-item>
-                            </el-col>
-                            <el-col v-if="shown === 0 || shown === 2" :span="6">
-                                <el-form-item>
-                                    <el-button
-                                            type="primary" style="width: 100px" @click="handleNameClick('BP18021')">BP18021</el-button>
+                                    <button class="containerButton" style="width: 150px; height: 100px"
+                                                type="default" @click="handleNameClick('BP18021')">
+                                        <img src="./pic/Accessories/BP18021.png" alt="BP18021" class="image"/>
+                                        <div class="overlay">4" TrackLight</div>
+                                    </button>
                                 </el-form-item>
                             </el-col>
                         </el-row>
@@ -196,5 +239,42 @@ export default {
 </script>
 
 <style scoped>
+    .containerButton {
+        position: relative;
+        width: 50%;
+        max-width: 300px;
+    }
+
+    .image {
+        display: block;
+        width: 50%;
+        height: auto;
+        /*transition: .5s ease;*/
+        opacity: 1;
+        padding-left: 38px;
+    }
+
+    .overlay {
+        position: relative;
+        bottom: 0;
+        background: rgb(0, 0, 0);
+        background: rgba(0, 0, 0, 0.5); /* Black see-through */
+        color: #f1f1f1;
+        width: 59%;
+        /*transition: .5s ease;*/
+        opacity:1;
+        color: white;
+        font-size: 12px;
+        padding: 5px 30px 4px 31px;
+        text-align: center;
+    }
+
+
+    .containerButton:hover .image {
+        opacity: 0.75;
+    }
+    .containerButton:hover .overlay {
+        opacity: 0.75;
+    }
 
 </style>
