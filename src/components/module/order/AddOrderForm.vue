@@ -178,7 +178,7 @@
                     </tr>
                 </table>
                 <el-form ref="form" :model="customerServiceForm" size="mini">
-                    <table class="secondaryForm" style="width: 100%; text-align">
+                    <table class="secondaryForm" style="width: 100%; text-align: right">
                         <tr>
                             <td>
                                 <el-form-item label="Status:">

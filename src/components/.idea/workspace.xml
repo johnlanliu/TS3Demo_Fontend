@@ -20,7 +20,7 @@
         <entry file="file://$PROJECT_DIR$/module/order/AddOrderForm.vue">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="328">
-              <caret line="180" column="79" selection-start-line="180" selection-start-column="79" selection-end-line="180" selection-end-column="79" />
+              <caret line="180" column="86" selection-start-line="180" selection-start-column="86" selection-end-line="180" selection-end-column="86" />
               <folding>
                 <element signature="n#style#0;n#el-form#0;n#div#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#el-checkbox#0;n#el-form-item#0;n#td#1;n#tr#0;n#table#0;n#el-form#0;n#div#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
@@ -212,12 +212,12 @@
       <workItem from="1560881758670" duration="136000" />
       <workItem from="1560964056480" duration="8093000" />
       <workItem from="1561049968071" duration="12513000" />
-      <workItem from="1561139820350" duration="24648000" />
+      <workItem from="1561139820350" duration="24930000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="45390000" />
+    <option name="totallyTimeSpent" value="45672000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1440" height="835" extended-state="6" />
@@ -410,7 +410,7 @@
     <entry file="file://$PROJECT_DIR$/module/order/AddOrderForm.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="328">
-          <caret line="180" column="79" selection-start-line="180" selection-start-column="79" selection-end-line="180" selection-end-column="79" />
+          <caret line="180" column="86" selection-start-line="180" selection-start-column="86" selection-end-line="180" selection-end-column="86" />
           <folding>
             <element signature="n#style#0;n#el-form#0;n#div#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#el-checkbox#0;n#el-form-item#0;n#td#1;n#tr#0;n#table#0;n#el-form#0;n#div#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
