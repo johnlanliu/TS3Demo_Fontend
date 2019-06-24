@@ -150,7 +150,7 @@
                             <el-form-item label="Note:" style="display: block; margin-left: 30px; margin-right: 30px">
                                 <el-input
                                         type="textarea"
-                                        :rows="4"
+                                        :rows="2"
                                         placeholder="notes"
                                         v-model="form.note"
                                 >
@@ -178,7 +178,7 @@
                     </tr>
                 </table>
                 <el-form ref="form" :model="customerServiceForm" size="mini">
-                    <table class="secondaryForm" style="width: 100%; text-align: right">
+                    <table class="secondaryForm" style="width: 100%; text-align">
                         <tr>
                             <td>
                                 <el-form-item label="Status:">
