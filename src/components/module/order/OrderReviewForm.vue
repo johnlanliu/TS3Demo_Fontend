@@ -8,8 +8,8 @@
         @close="resetFields"
         >
         <div class="form-box">
-            <el-form ref="form":label-position="labelPosition" :model="form" size="mini" style="padding-right: 0">
-                <el-row>
+            <el-form ref="form":label-position="labelPosition" :model="form" size="mini">
+                <el-row style="padding-left: 50px">
                     <el-col :span="12">
                         <el-form-item label="Bill to" style="font-weight: 900"></el-form-item>
                         <el-form-item label="Company: ">
@@ -41,10 +41,8 @@
                         </el-form-item>
                     </el-col>
                 </el-row>
-                <el-form-item label="Order Type: " style="font-weight: 900"></el-form-item>
-                <el-col :span="8" :offset="2">
-                    <el-form-item label="Item" style="font-weight: 900"></el-form-item>
-                </el-col>
+                <el-form-item label="Order Type: " style="font-weight: 900; padding-left: 50px"></el-form-item>
+                <el-form-item label="Item" style="font-weight: 900; padding-left: 50px"></el-form-item>
                 <el-table
                     ref="orderDetailTable"
                     :data="tableData"
