@@ -16,11 +16,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/module/order/ProductDetailForm.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2025">
-              <caret line="56" column="88" selection-start-line="56" selection-start-column="88" selection-end-line="56" selection-end-column="88" />
+            <state relative-caret-position="-2519">
+              <caret line="121" column="92" selection-start-line="121" selection-start-column="92" selection-end-line="121" selection-end-column="92" />
               <folding>
                 <element signature="n#style#0;n#el-form#0;n#div#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#button#0;n#el-form-item#0;n#el-col#0;n#el-row#0;n#el-collapse-item#0;n#el-collapse#0;n#el-form#0;n#div#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
@@ -36,19 +36,21 @@
                 <element signature="n#style#0;n#el-input#0;n#el-form-item#0;n#el-form#0;n#el-col#0;n#el-row#0;n#el-collapse-item#3;n#el-collapse#0;n#el-form#0;n#div#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#el-input-number#0;n#el-form-item#1;n#el-form#0;n#el-col#0;n#el-row#0;n#el-collapse-item#3;n#el-collapse#0;n#el-form#0;n#div#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#el-input#0;n#el-form-item#2;n#el-form#0;n#el-col#0;n#el-row#0;n#el-collapse-item#3;n#el-collapse#0;n#el-form#0;n#div#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#el-input#0;n#el-form-item#1;n#el-form-item#3;n#el-form#0;n#el-col#0;n#el-row#0;n#el-collapse-item#3;n#el-collapse#0;n#el-form#0;n#div#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#el-input-number#0;n#el-form-item#2;n#el-form-item#3;n#el-form#0;n#el-col#0;n#el-row#0;n#el-collapse-item#3;n#el-collapse#0;n#el-form#0;n#div#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#el-button#0;n#el-row#0;n#el-col#0;n#el-row#0;n#el-collapse-item#3;n#el-collapse#0;n#el-form#0;n#div#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#el-button#1;n#el-row#0;n#el-col#0;n#el-row#0;n#el-collapse-item#3;n#el-collapse#0;n#el-form#0;n#div#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
-                <element signature="e#8078#8132#0" expanded="true" />
+                <element signature="e#8182#8236#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/module/order/AccessoryDetailForm.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="253" column="24" selection-start-line="253" selection-start-column="24" selection-end-line="253" selection-end-column="24" />
+            <state relative-caret-position="498">
+              <caret line="271" column="24" selection-start-line="271" selection-start-column="24" selection-end-line="271" selection-end-column="24" />
               <folding>
                 <element signature="n#style#0;n#el-form#0;n#div#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#button#0;n#el-form-item#0;n#el-col#0;n#el-row#0;n#el-collapse-item#0;n#el-collapse#0;n#el-form#0;n#div#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
@@ -76,6 +78,7 @@
       <find>productdetail</find>
       <find>primary</find>
       <find>el-button</find>
+      <find>accessoryAdded</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -220,12 +223,12 @@
       <workItem from="1560881758670" duration="136000" />
       <workItem from="1560964056480" duration="8093000" />
       <workItem from="1561049968071" duration="12513000" />
-      <workItem from="1561139820350" duration="12249000" />
+      <workItem from="1561139820350" duration="21253000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="32991000" />
+    <option name="totallyTimeSpent" value="41995000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1440" height="835" extended-state="6" />
@@ -236,7 +239,7 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49880952" weight="0.39005235" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49880952" weight="0.46204188" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -351,32 +354,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/module/order/AccessoryDetailForm.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="253" column="24" selection-start-line="253" selection-start-column="24" selection-end-line="253" selection-end-column="24" />
-          <folding>
-            <element signature="n#style#0;n#el-form#0;n#div#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#button#0;n#el-form-item#0;n#el-col#0;n#el-row#0;n#el-collapse-item#0;n#el-collapse#0;n#el-form#0;n#div#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#button#0;n#el-form-item#0;n#el-col#1;n#el-row#0;n#el-collapse-item#0;n#el-collapse#0;n#el-form#0;n#div#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#button#0;n#el-form-item#0;n#el-col#2;n#el-row#0;n#el-collapse-item#0;n#el-collapse#0;n#el-form#0;n#div#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#button#0;n#el-form-item#0;n#el-col#3;n#el-row#0;n#el-collapse-item#0;n#el-collapse#0;n#el-form#0;n#div#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#button#0;n#el-form-item#0;n#el-col#4;n#el-row#0;n#el-collapse-item#0;n#el-collapse#0;n#el-form#0;n#div#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#button#0;n#el-form-item#0;n#el-col#5;n#el-row#0;n#el-collapse-item#0;n#el-collapse#0;n#el-form#0;n#div#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#button#0;n#el-form-item#0;n#el-col#6;n#el-row#0;n#el-collapse-item#0;n#el-collapse#0;n#el-form#0;n#div#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#button#0;n#el-form-item#0;n#el-col#0;n#el-col#6;n#el-row#0;n#el-collapse-item#0;n#el-collapse#0;n#el-form#0;n#div#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#button#0;n#el-form-item#0;n#el-col#1;n#el-col#6;n#el-row#0;n#el-collapse-item#0;n#el-collapse#0;n#el-form#0;n#div#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#el-input#0;n#el-form-item#0;n#el-form#0;n#el-col#0;n#el-row#0;n#el-collapse-item#1;n#el-collapse#0;n#el-form#0;n#div#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#el-input-number#0;n#el-form-item#1;n#el-form#0;n#el-col#0;n#el-row#0;n#el-collapse-item#1;n#el-collapse#0;n#el-form#0;n#div#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#el-button#0;n#el-row#0;n#el-col#0;n#el-row#0;n#el-collapse-item#1;n#el-collapse#0;n#el-form#0;n#div#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/module/order/ProductDetailForm.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2025">
-          <caret line="56" column="88" selection-start-line="56" selection-start-column="88" selection-end-line="56" selection-end-column="88" />
+        <state relative-caret-position="-2519">
+          <caret line="121" column="92" selection-start-line="121" selection-start-column="92" selection-end-line="121" selection-end-column="92" />
           <folding>
             <element signature="n#style#0;n#el-form#0;n#div#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#button#0;n#el-form-item#0;n#el-col#0;n#el-row#0;n#el-collapse-item#0;n#el-collapse#0;n#el-form#0;n#div#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
@@ -392,9 +373,33 @@
             <element signature="n#style#0;n#el-input#0;n#el-form-item#0;n#el-form#0;n#el-col#0;n#el-row#0;n#el-collapse-item#3;n#el-collapse#0;n#el-form#0;n#div#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#el-input-number#0;n#el-form-item#1;n#el-form#0;n#el-col#0;n#el-row#0;n#el-collapse-item#3;n#el-collapse#0;n#el-form#0;n#div#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#el-input#0;n#el-form-item#2;n#el-form#0;n#el-col#0;n#el-row#0;n#el-collapse-item#3;n#el-collapse#0;n#el-form#0;n#div#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#el-input#0;n#el-form-item#1;n#el-form-item#3;n#el-form#0;n#el-col#0;n#el-row#0;n#el-collapse-item#3;n#el-collapse#0;n#el-form#0;n#div#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#el-input-number#0;n#el-form-item#2;n#el-form-item#3;n#el-form#0;n#el-col#0;n#el-row#0;n#el-collapse-item#3;n#el-collapse#0;n#el-form#0;n#div#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#el-button#0;n#el-row#0;n#el-col#0;n#el-row#0;n#el-collapse-item#3;n#el-collapse#0;n#el-form#0;n#div#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#el-button#1;n#el-row#0;n#el-col#0;n#el-row#0;n#el-collapse-item#3;n#el-collapse#0;n#el-form#0;n#div#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="e#8078#8132#0" expanded="true" />
+            <element signature="e#8182#8236#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/module/order/AccessoryDetailForm.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="498">
+          <caret line="271" column="24" selection-start-line="271" selection-start-column="24" selection-end-line="271" selection-end-column="24" />
+          <folding>
+            <element signature="n#style#0;n#el-form#0;n#div#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#button#0;n#el-form-item#0;n#el-col#0;n#el-row#0;n#el-collapse-item#0;n#el-collapse#0;n#el-form#0;n#div#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#button#0;n#el-form-item#0;n#el-col#1;n#el-row#0;n#el-collapse-item#0;n#el-collapse#0;n#el-form#0;n#div#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#button#0;n#el-form-item#0;n#el-col#2;n#el-row#0;n#el-collapse-item#0;n#el-collapse#0;n#el-form#0;n#div#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#button#0;n#el-form-item#0;n#el-col#3;n#el-row#0;n#el-collapse-item#0;n#el-collapse#0;n#el-form#0;n#div#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#button#0;n#el-form-item#0;n#el-col#4;n#el-row#0;n#el-collapse-item#0;n#el-collapse#0;n#el-form#0;n#div#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#button#0;n#el-form-item#0;n#el-col#5;n#el-row#0;n#el-collapse-item#0;n#el-collapse#0;n#el-form#0;n#div#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#button#0;n#el-form-item#0;n#el-col#6;n#el-row#0;n#el-collapse-item#0;n#el-collapse#0;n#el-form#0;n#div#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#button#0;n#el-form-item#0;n#el-col#0;n#el-col#6;n#el-row#0;n#el-collapse-item#0;n#el-collapse#0;n#el-form#0;n#div#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#button#0;n#el-form-item#0;n#el-col#1;n#el-col#6;n#el-row#0;n#el-collapse-item#0;n#el-collapse#0;n#el-form#0;n#div#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#el-input#0;n#el-form-item#0;n#el-form#0;n#el-col#0;n#el-row#0;n#el-collapse-item#1;n#el-collapse#0;n#el-form#0;n#div#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#el-input-number#0;n#el-form-item#1;n#el-form#0;n#el-col#0;n#el-row#0;n#el-collapse-item#1;n#el-collapse#0;n#el-form#0;n#div#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#el-button#0;n#el-row#0;n#el-col#0;n#el-row#0;n#el-collapse-item#1;n#el-collapse#0;n#el-form#0;n#div#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>

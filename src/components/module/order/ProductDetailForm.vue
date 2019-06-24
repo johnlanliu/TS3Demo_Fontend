@@ -118,6 +118,20 @@
                                     <el-form-item label="Service Plan $">
                                         <el-input v-model="form3.servicePlan" style="width: 150px"></el-input>
                                     </el-form-item>
+                                    <el-form-item v-if="form3.accPicked" label="Accessory ">
+                                        <el-form-item align="center" style="padding-right: 30px">{{ form3.accName }}</el-form-item>
+                                        <el-form-item>
+                                            <el-input v-model="form3.accPrice" style="width: 150px;"></el-input>
+                                        </el-form-item>
+                                        <el-form-item>
+                                            <el-input-number
+                                                    v-model="form3.accQty"
+                                                    controls-position="right"
+                                                    :min="form3.accQty"
+                                                    style="width: 150px">
+                                            </el-input-number>
+                                        </el-form-item>
+                                    </el-form-item>
                                 </el-form>
                                 <el-row>
                                     <el-button type="primary" style="float: left" @click="handleAccessories()">+ Add Accessories</el-button>
@@ -129,7 +143,7 @@
                 </el-collapse>
             </el-form>
         </div>
-        <accessory-detail-form ref="accessoryDetailForm" v-bind:product="this.form3.productName"></accessory-detail-form>
+        <accessory-detail-form ref="accessoryDetailForm" v-bind:product="this.form3.productName" @accessoryAdded="getAccessoryInfo"></accessory-detail-form>
     </el-dialog>
 </template>
 
@@ -162,6 +176,10 @@ export default {
         color: 'Color',
         QTY: '',
         price: '',
+          accName: '',
+          accPrice: '',
+          accQty: 1,
+          accPicked: false,
         servicePlan: '',
         choices: [{
           value: 'Yes',
@@ -191,6 +209,10 @@ export default {
       this.form3.namePicked = false;
       this.form3.networkPicked = false;
       this.form3.showPrice = false;
+      this.form3.accName = '';
+      this.form3.accPrice = '';
+      this.form3.accQty = '';
+      this.form3.accPicked = false;
       this.$refs.form.resetFields();
     },
     handleNext(number) {
@@ -262,7 +284,13 @@ export default {
     },
     handleAccessories() {
       this.$refs.accessoryDetailForm.showDialog();
-    }
+    },
+      getAccessoryInfo(n, p, q) {
+        this.form3.accPicked = true;
+        this.form3.accName = n;
+        this.form3.accPrice = p;
+        this.form3.accQty = q;
+      },
   },
 };
 </script>

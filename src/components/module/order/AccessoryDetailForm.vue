@@ -16,65 +16,64 @@
                         <el-row>
                             <el-col v-if="shown === 0 || shown === 1" :span="6">
                                 <el-form-item>
-
-                                    <button class="containerButton" style="width: 150px; height: 100px"
+                                    <button class="containerButton" style="width: 150px; height: 120px"
                                                type="default" @click="handleNameClick('LA17011')">
                                         <img src="./pic/Accessories/LA17011.png" alt="LA17011" class="image"/>
-                                        <div class="overlay">4" TrackLight</div>
+                                        <div class="overlay">TrackLight 3PL Adapter Cable</div>
                                     </button>
                                 </el-form-item>
                             </el-col>
                             <el-col v-if="shown === 0 || shown === 1" :span="6">
                                 <el-form-item>
-                                    <button class="containerButton" style="width: 150px; height: 100px"
+                                    <button class="containerButton" style="width: 150px; height: 120px"
                                                type="default" @click="handleNameClick('LA17021')">
                                         <img src="./pic/Accessories/la17021.png" alt="la17021" class="image"/>
-                                        <div class="overlay">4" TrackLight</div>
+                                        <div class="overlay">TrackLight Grote Adapter Cable</div>
                                     </button>
                                 </el-form-item>
                             </el-col>
                             <el-col v-if="shown === 0 || shown === 1" :span="6">
                                 <el-form-item>
-                                    <button class="containerButton" style="width: 150px; height: 100px"
+                                    <button class="containerButton" style="width: 150px; height: 120px"
                                                type="default" @click="handleNameClick('LA16111')">
                                         <img src="./pic/Accessories/LA16111.png" alt="LA1611" class="image"/>
-                                        <div class="overlay">4" TrackLight</div>
+                                        <div class="overlay">TrackLight Hardshell Pigtail</div>
                                     </button>
                                 </el-form-item>
                             </el-col>
                             <el-col v-if="shown === 0 || shown === 1" :span="6">
                                 <el-form-item>
-                                    <button class="containerButton" style="width: 150px; height: 100px"
+                                    <button class="containerButton" style="width: 150px; height: 120px"
                                                type="default" @click="handleNameClick('LA17031')">
                                         <img src="./pic/Accessories/la17031.png" alt="la17031" class="image"/>
-                                        <div class="overlay">4" TrackLight</div>
+                                        <div class="overlay">Perma-Lok Retaining Ring</div>
                                     </button>
                                 </el-form-item>
                             </el-col>
                             <el-col v-if="shown === 0 || shown === 1" :span="6">
                                 <el-form-item>
-                                    <button class="containerButton" style="width: 150px; height: 100px"
+                                    <button class="containerButton" style="width: 150px; height: 120px"
                                                type="default" @click="handleNameClick('LA17041')">
                                         <img src="./pic/Accessories/LA17041.png" alt="LA17041" class="image"/>
-                                        <div class="overlay">4" TrackLight</div>
+                                        <div class="overlay">Metal Ring for Perma-Lok</div>
                                     </button>
                                 </el-form-item>
                             </el-col>
                             <el-col v-if="shown === 0 || shown === 1" :span="6">
                                 <el-form-item>
-                                    <button class="containerButton" style="width: 150px; height: 100px"
+                                    <button class="containerButton" style="width: 150px; height: 120px"
                                                type="default" @click="handleNameClick('LA17081')">
                                         <img src="./pic/Accessories/LA17081.png" alt="LA17081" class="image"/>
-                                        <div class="overlay">4" TrackLight</div>
+                                        <div class="overlay">Plastic Retaining Flange</div>
                                     </button>
                                 </el-form-item>
                             </el-col>
                             <el-col v-if="shown === 0 || shown === 1" :span="6">
                                 <el-form-item>
-                                    <button class="containerButton" style="width: 150px; height: 100px"
+                                    <button class="containerButton" style="width: 150px; height: 120px"
                                                type="default" @click="handleNameClick('LA17051')">
                                         <img src="./pic/Accessories/LA17051.png" alt="LA17051" class="image"/>
-                                        <div class="overlay">4" TrackLight</div>
+                                        <div class="overlay">Test Cable</div>
                                     </button>
                                 </el-form-item>
                             </el-col>
@@ -83,7 +82,7 @@
 <!--                                    <button class="containerButton" style="width: 180px; height: 120px"-->
 <!--                                               type="default" @click="handleNameClick('LA16121 R00')">-->
 <!--                                        <img src="./pic/Product/VT1611.png" alt="VT1611" width="120" height="120" class="image"/>-->
-<!--                                        <div class="overlay">4" TrackLight</div>-->
+<!--                                        <div class="overlay">Decoy 4" Round Red Lens</div>-->
 <!--                                    </button>-->
 <!--                                </el-form-item>-->
 <!--                            </el-col>-->
@@ -92,7 +91,7 @@
 <!--                                    <button class="containerButton" style="width: 180px; height: 120px"-->
 <!--                                               type="default" @click="handleNameClick('LA16121 C00')">-->
 <!--                                        <img src="./pic/Product/VT1611.png" alt="VT1611" width="120" height="120" class="image"/>-->
-<!--                                        <div class="overlay">4" TrackLight</div>-->
+<!--                                        <div class="overlay">Decoy 4" Round Clear Lens</div>-->
 <!--                                    </button>-->
 <!--                                </el-form-item>-->
 <!--                            </el-col>-->
@@ -101,7 +100,7 @@
 <!--                                    <button class="containerButton" style="width: 180px; height: 120px"-->
 <!--                                               type="default" @click="handleNameClick('LA17121 R00')">-->
 <!--                                        <img src="./pic/Product/VT1611.png" alt="VT1611" width="120" height="120" class="image"/>-->
-<!--                                        <div class="overlay">4" TrackLight</div>-->
+<!--                                        <div class="overlay">Decoy 6" Oval Red Lens</div>-->
 <!--                                    </button>-->
 <!--                                </el-form-item>-->
 <!--                            </el-col>-->
@@ -110,7 +109,7 @@
 <!--                                    <button class="containerButton" style="width: 180px; height: 120px"-->
 <!--                                               type="default" @click="handleNameClick('LA17121 A00')">-->
 <!--                                        <img src="./pic/Product/VT1611.png" alt="VT1611" width="120" height="120" class="image"/>-->
-<!--                                        <div class="overlay">4" TrackLight</div>-->
+<!--                                        <div class="overlay">Decoy 6" Oval Amber Lens</div>-->
 <!--                                    </button>-->
 <!--                                </el-form-item>-->
 <!--                            </el-col>-->
@@ -119,25 +118,25 @@
 <!--                                    <button class="containerButton" style="width: 180px; height: 120px"-->
 <!--                                               type="default" @click="handleNameClick('LA17121 C00')">-->
 <!--                                        <img src="./pic/Product/VT1611.png" alt="VT1611" width="120" height="120" class="image"/>-->
-<!--                                        <div class="overlay">4" TrackLight</div>-->
+<!--                                        <div class="overlay">Decoy 6" Oval Clear Lens</div>-->
 <!--                                    </button>-->
 <!--                                </el-form-item>-->
 <!--                            </el-col>-->
                             <el-col v-if="shown === 0 || shown === 2" :span="6">
                                 <el-form-item>
-                                    <button class="containerButton" style="width: 150px; height: 100px"
+                                    <button class="containerButton" style="width: 150px; height: 120px"
                                                 type="default" @click="handleNameClick('BP17021')">
                                         <img src="./pic/Accessories/BP17021.png" alt="BP17021" class="image"/>
-                                        <div class="overlay">4" TrackLight</div>
+                                        <div class="overlay">Battery Pack 7.2V 6000mAH</div>
                                     </button>
                                 </el-form-item>
                             </el-col>
                             <el-col v-if="shown === 0 || shown === 2" :span="6">
                                 <el-form-item>
-                                    <button class="containerButton" style="width: 150px; height: 100px"
+                                    <button class="containerButton" style="width: 150px; height: 120px"
                                                 type="default" @click="handleNameClick('BP18021')">
                                         <img src="./pic/Accessories/BP18021.png" alt="BP18021" class="image"/>
-                                        <div class="overlay">4" TrackLight</div>
+                                        <div class="overlay">Battery Pack 3.7V 9000mAH</div>
                                     </button>
                                 </el-form-item>
                             </el-col>
@@ -160,7 +159,7 @@
                                     </el-form-item>
                                 </el-form>
                                 <el-row>
-                                    <el-button type="primary" style="float: right">Add</el-button>
+                                    <el-button type="primary" style="float: right" @click="handleAddClick()">Add</el-button>
                                 </el-row>
                             </el-col>
                         </el-row>
@@ -172,7 +171,6 @@
 </template>
 
 <script>
-
 export default {
   name: 'AccessoryDetailForm',
   data: function() {
@@ -183,6 +181,7 @@ export default {
       form4: {
         accessoryName: 'Type',
         activeName: '1',
+          price: '',
         QTY: '',
         showPrice: false,
       },
@@ -213,6 +212,7 @@ export default {
     resetFields() {
       this.form4.activeName = '1';
       this.form4.accessoryName = 'Type';
+      this.form4.price = '';
       this.form4.QTY = '';
       this.form4.showPrice = false;
       this.$refs.form.resetFields();
@@ -234,6 +234,10 @@ export default {
         this.handleNext(1);
       }
     },
+      handleAddClick(event) {
+        this.$emit('accessoryAdded', this.form4.accessoryName, this.form4.price, this.form4.QTY);
+        this.isOpen = false;
+      }
   },
 };
 </script>
@@ -261,11 +265,12 @@ export default {
         background: rgba(0, 0, 0, 0.5); /* Black see-through */
         color: #f1f1f1;
         width: 59%;
+        height: 29%;
         /*transition: .5s ease;*/
         opacity:1;
         color: white;
-        font-size: 12px;
-        padding: 5px 30px 4px 31px;
+        font-size: 10.93px;
+        padding: 5px 30px 5px 31px;
         text-align: center;
     }
 
