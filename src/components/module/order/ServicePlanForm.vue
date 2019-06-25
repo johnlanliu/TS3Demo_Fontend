@@ -86,15 +86,15 @@
             amount: 0,
             total: 0,
           },
-            formRules: {
-              amount: [
+          formRules: {
+            amount: [
                   { required: true, message: 'Please fill in the amount' },
-                  {
-                      pattern: /^\d+(,\d{3})*(\.\d{1,2})?$/,
-                      message: 'Must be a valid price'
-                  },
-              ],
-            },
+              {
+                pattern: /^\d+(,\d{3})*(\.\d{1,2})?$/,
+                message: 'Must be a valid price'
+              },
+            ],
+          },
         };
       },
       methods: {
