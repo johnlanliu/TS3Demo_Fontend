@@ -15,27 +15,27 @@
                     <el-row>
                         <el-col :span="8">
                             <el-form-item>
-                                <el-button type="primary" @click="handlePlanPick('One Month')">1 Month</el-button>
+                                <el-button type="primary" style="width: 160px" @click="handlePlanPick('One Month')">1 Month</el-button>
                             </el-form-item>
                         </el-col>
                         <el-col :span="8">
                             <el-form-item>
-                                <el-button type="primary" @click="handlePlanPick('Three Months')">3 Month</el-button>
+                                <el-button type="primary" style="width: 160px" @click="handlePlanPick('Three Months')">3 Month</el-button>
                             </el-form-item>
                         </el-col>
                         <el-col :span="8">
                             <el-form-item>
-                                <el-button type="primary" @click="handlePlanPick('Six Months')">6 Month (3% discount)</el-button>
+                                <el-button type="primary" style="width: 160px" @click="handlePlanPick('Six Months')">6 Month (3% discount)</el-button>
                             </el-form-item>
                         </el-col>
                         <el-col :span="8">
                             <el-form-item>
-                                <el-button type="primary" @click="handlePlanPick('One Year')">1 Year (6% discount)</el-button>
+                                <el-button type="primary" style="width: 160px" @click="handlePlanPick('One Year')">1 Year (6% discount)</el-button>
                             </el-form-item>
                         </el-col>
                         <el-col :span="8">
                             <el-form-item>
-                                <el-button type="primary" @click="handlePlanPick('Installation Fee')">Installation Fee</el-button>
+                                <el-button type="primary" style="width: 160px" @click="handlePlanPick('Installation Fee')">Installation Fee</el-button>
                             </el-form-item>
                         </el-col>
                     </el-row>
