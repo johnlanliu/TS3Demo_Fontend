@@ -7,8 +7,8 @@
         @closed="resetFields"
         width="50%">
         <div class="form-box">
-            <el-form ref="form" :model="form" size="mini" style="margin: 0;">
-                <el-form-item label="Order Type">
+            <el-form ref="form" :model="form" size="mini" :rules="formRules" style="margin: 0; padding-left: 10px">
+                <el-form-item label="Order Type" prop="orderType">
                     <el-select v-model="form.orderType" placeholder="Select">
                         <el-option
                             v-for="option in orderOptions"
@@ -33,66 +33,66 @@
                     </tr>
                     <tr>
                         <td>
-                            <el-form-item label="Company Name: ">
+                            <el-form-item label="Company Name: " prop="billing">
                                 <el-input v-model="form.billing"></el-input>
                             </el-form-item>
                         </td>
                         <td>
-                            <el-form-item label="Company Name: ">
+                            <el-form-item label="Company Name: " prop="companyName">
                                 <el-input v-model="form.companyName"></el-input>
                             </el-form-item>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <el-form-item label="Contact: " style="">
+                            <el-form-item label="Contact: " prop="billingContact">
                                 <el-input v-model="form.billingContact"></el-input>
                             </el-form-item>
                         </td>
                         <td>
-                            <el-form-item label="Contact: ">
+                            <el-form-item label="Contact: " prop="contact">
                                 <el-input v-model="form.contact"></el-input>
                             </el-form-item>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <el-form-item label="Phone Number: " style="">
+                            <el-form-item label="Phone Number: " prop="billingPhone">
                                 <el-input v-model="form.billingPhone"></el-input>
                             </el-form-item>
                         </td>
                         <td>
-                            <el-form-item label="Phone Number: ">
+                            <el-form-item label="Phone Number: " prop="phone">
                                 <el-input v-model="form.phone"></el-input>
                             </el-form-item>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <el-form-item label="Email: ">
+                            <el-form-item label="Email: " prop="billingEmail">
                                 <el-input v-model="form.billingEmail"></el-input>
                             </el-form-item>
                         </td>
                         <td>
-                            <el-form-item label="Email: ">
+                            <el-form-item label="Email: " prop="email">
                                 <el-input v-model="form.email"></el-input>
                             </el-form-item>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <el-form-item label="Billing Address: " style="">
+                            <el-form-item label="Billing Address: " prop="billingAddress">
                                 <el-input v-model="form.billingAddress"></el-input>
                             </el-form-item>
                         </td>
                         <td>
-                            <el-form-item label="Shipping Address: ">
+                            <el-form-item label="Shipping Address: " prop="shippingAddress">
                                 <el-input v-model="form.shippingAddress"></el-input>
                             </el-form-item>
                         </td>
                     </tr>
                 </table>
-                <el-form-item label="Payment Term">
+                <el-form-item label="Payment Term" prop="paymentTerm">
                     <el-select v-model="form.paymentTerm" placeholder="Select">
                         <el-option
                             v-for="option in paymentOptions"
@@ -147,7 +147,7 @@
                 <table style="width: 100%">
                     <tr>
                         <td>
-                            <el-form-item label="Note:" style="display: block; margin-left: 30px; margin-right: 30px">
+                            <el-form-item label="Note:" style="display: block; margin-left: 30px; margin-right: 30px" prop="note">
                                 <el-input
                                         type="textarea"
                                         :rows="2"
@@ -177,11 +177,11 @@
                         </td>
                     </tr>
                 </table>
-                <el-form ref="form" :model="customerServiceForm" size="mini">
+                <el-form ref="form" :model="customerServiceForm" :rules="formRules" size="mini">
                     <table class="secondaryForm" style="width: 100%; text-align: right">
                         <tr>
                             <td>
-                                <el-form-item label="Status:">
+                                <el-form-item label="Status:" prop="status">
                                     <el-select v-model="customerServiceForm.status" placeholder="select" style="width: 150px">
                                         <el-option
                                                 v-for="option in statusOptions"
@@ -193,31 +193,31 @@
                                 </el-form-item>
                             </td>
                             <td>
-                                <el-form-item label="Shipping Fee">
+                                <el-form-item label="Shipping Fee" prop="shippingFee">
                                     <el-input v-model="customerServiceForm.shippingFee"></el-input>
                                 </el-form-item>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <el-form-item label="Invoice #">
+                                <el-form-item label="Invoice #" prop="invoiceNumber">
                                     <el-input v-model="customerServiceForm.invoiceNumber"></el-input>
                                 </el-form-item>
                             </td>
                             <td>
-                                <el-form-item label="Invoice Date">
+                                <el-form-item label="Invoice Date" prop="invoiceDate">
                                     <el-input v-model="customerServiceForm.invoiceDate"></el-input>
                                 </el-form-item>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <el-form-item label="Shipping Via">
+                                <el-form-item label="Shipping Via" prop="shippingVia">
                                     <el-input v-model="customerServiceForm.shippingVia"></el-input>
                                 </el-form-item>
                             </td>
                             <td>
-                                <el-form-item label="Tracking Number">
+                                <el-form-item label="Tracking Number" prop="trackingNumber">
                                     <el-input v-model="customerServiceForm.trackingNumber"></el-input>
                                 </el-form-item>
                             </td>
@@ -232,7 +232,7 @@
                             </td>
                             <td>
                                 <el-form-item>
-                                    <el-button type="primary" @click="handleCreateInvoice()">Submit and Create Invoice</el-button>
+                                    <el-button type="primary" @click="handleCreateInvoice('form', 'customerServiceForm')">Submit and Create Invoice</el-button>
                                 </el-form-item>
                             </td>
                         </tr>
@@ -328,7 +328,102 @@ export default {
         shippingVia: '',
         trackingNumber: '',
         shippingFee: '',
-      }
+      },
+        formRules: {
+            orderType: [
+                { required: true, message: 'Please select an order type', trigger: 'change' }
+            ],
+            billing: [
+                { required: true, message: 'Please fill in the company name' },
+                { min: 1, message: 'Please fill in the company name'},
+                {
+                    pattern: /^[A-Za-z0-9]+$/,
+                    message: 'Special characters are not allowed'
+                }
+            ],
+            companyName: [
+                { required: true, message: 'Please fill in the company name' },
+                { min: 1, message: 'Please fill in your company name'},
+                {
+                    pattern: /^[A-Za-z0-9]+$/,
+                    message: 'Special characters are not allowed'
+                }
+            ],
+            billingContact: [
+                {required: true, message: 'Please fill in the contact name' },
+                { min: 1, message: 'Please fill in your contact name'},
+                {
+                    pattern: /^[A-Za-z0-9]+$/,
+                    message: 'Special characters are not allowed'
+                }
+            ],
+            contact: [
+                {required: true, message: 'Please fill in the contact name' },
+                { min: 1, message: 'Please fill in your contact name'},
+                {
+                    pattern: /^[A-Za-z0-9]+$/,
+                    message: 'Special characters are not allowed'
+                }
+            ],
+            billingPhone: [
+                {required: true, message: 'Please fill in the phone number' },
+                {
+                    pattern: /^(1?(-?\d{3})-?)?(\d{3})(-?\d{4})$/,
+                    message: 'Must be a valid phone number'
+                }
+            ],
+            phone: [
+                {required: true, message: 'Please fill in the phone number' },
+                {
+                    pattern: /^(1?(-?\d{3})-?)?(\d{3})(-?\d{4})$/,
+                    message: 'Must be a valid phone number'
+                }
+            ],
+            billingEmail: [
+                { required: true, message: 'Please fill in the email address' },
+                {
+                    pattern: /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,
+                    message: 'Must be a valid email address'
+                }
+            ],
+            email: [
+                { required: true, message: 'Please fill in the email address' },
+                {
+                    pattern: /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,
+                    message: 'Must be a valid email address'
+                }
+            ],
+            billingAddress: [
+                { required: true, message: 'Please fill in the billing address' },
+            ],
+            shippingAddress: [
+                { required: true, message: 'Please fill in the shipping address' },
+            ],
+            paymentTerm: [
+                { required: true, message: 'Please select a payment term', trigger: 'change' }
+            ],
+            // note: [
+            //     { max: 200, message: 'Maximum character limit: 200' }
+            // ],
+            status: [
+                { required: true, message: 'Please select a status', trigger: 'change' }
+            ],
+            invoiceNumber: [
+
+            ],
+            invoiceDate: [
+
+            ],
+            shippingVia: [
+
+            ],
+            trackingNumber: [
+
+            ],
+            shippingFee: [
+
+            ],
+        },
     };
   },
   methods: {
@@ -367,8 +462,21 @@ export default {
     handleAddDevice() {
       this.$refs.productDetailForm.showDialog();
     },
-    handleCreateInvoice() {
-      this.$refs.createInvoiceForm.showDialog();
+    handleCreateInvoice(form1, form2) {
+        this.$refs[form1].validate((valid1) => {
+            if (valid1) {
+                this.$refs[form2].validate((valid2) => {
+                    if (valid2) {
+                        this.$refs.createInvoiceForm.showDialog();
+                    }
+                    else {
+                        console.log('error: invalid fields');
+                    }
+                });
+            } else {
+                console.log('error: invalid fields');
+            }
+        });
     },
     handleSave() {
       alert('save');
