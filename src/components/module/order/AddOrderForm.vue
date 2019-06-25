@@ -468,11 +468,11 @@ export default {
     handleCreateInvoice(form1, form2) {
       this.$refs[form1].validate((valid1) => {
         if (valid1) {
-            this.$refs[form2].validate((valid2) => {
-                if (valid2) {
-                    this.$refs.createInvoiceForm.showDialog();
-                }
-            });
+          this.$refs[form2].validate((valid2) => {
+            if (valid2) {
+              this.$refs.createInvoiceForm.showDialog();
+            }
+          });
         }
       });
     },
