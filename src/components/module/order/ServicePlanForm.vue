@@ -43,7 +43,7 @@
                 <el-collapse-item title="Price" v-if="form5.showPrice" name="2">
                     <el-row>
                         <el-col :span="10" :offset="6">
-                            <el-form ref="form" :model="form5" size="mini" align="right">
+                            <el-form ref="form" :model="form5" :rules="formRules" size="mini" align="right">
                                 <el-form-item label="Quantity">
                                     <el-input-number
                                             v-model="form5.QTY"
@@ -52,7 +52,7 @@
                                             style="width: 150px">
                                     </el-input-number>
                                 </el-form-item>
-                                <el-form-item label="Amount $">
+                                <el-form-item label="Amount $" prop="amount">
                                     <el-input v-model="form5.amount" style="width: 150px; "></el-input>
                                 </el-form-item>
                                 <el-form-item label="Total :">
@@ -85,8 +85,16 @@
             QTY: 1,
             amount: 0,
             total: 0,
-          }
-
+          },
+            formRules: {
+              amount: [
+                  { required: true, message: 'Please fill in the amount' },
+                  {
+                      pattern: /^\d+(,\d{3})*(\.\d{1,2})?$/,
+                      message: 'Must be a valid price'
+                  },
+              ],
+            },
         };
       },
       methods: {
