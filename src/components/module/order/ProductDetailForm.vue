@@ -103,8 +103,8 @@
                     <el-collapse-item title="Price" v-if="form3.showPrice" name="4">
                         <el-row>
                             <el-col :span="10" :offset="6">
-                                <el-form ref="form" :model="form3" size="mini" align="right">
-                                    <el-form-item label="Unit Price $">
+                                <el-form ref="form" :model="form3" :rules="formRules" size="mini" align="right">
+                                    <el-form-item label="Unit Price $" prop="price">
                                         <el-input v-model="form3.price" style="width: 150px; "></el-input>
                                     </el-form-item>
                                     <el-form-item label="Quantity">
@@ -115,12 +115,12 @@
                                                 style="width: 150px">
                                         </el-input-number>
                                     </el-form-item>
-                                    <el-form-item label="Service Plan $">
+                                    <el-form-item label="Service Plan $" prop="servicePlan">
                                         <el-input v-model="form3.servicePlan" style="width: 150px"></el-input>
                                     </el-form-item>
                                     <el-form-item v-if="form3.accPicked" label="Accessory ">
                                         <el-form-item align="center" style="padding-right: 30px">{{ form3.accName }}</el-form-item>
-                                        <el-form-item>
+                                        <el-form-item prop="accPrice">
                                             <el-input v-model="form3.accPrice" style="width: 150px;"></el-input>
                                         </el-form-item>
                                         <el-form-item>
@@ -194,6 +194,29 @@ export default {
         }],
         tax: 'Yes',
       },
+        formRules: {
+          price: [
+              { required: true, message: 'Please fill in the unit price' },
+              {
+                  pattern: /[+-]?([0-9]*[.])?[0-9]+/,
+                  message: 'Must be a valid price'
+              }
+          ],
+            servicePlan: [
+                { required: true, message: 'Please fill in the service plan price' },
+                {
+                    pattern: /[+-]?([0-9]*[.])?[0-9]+/,
+                    message: 'Must be a valid price'
+                }
+            ],
+            accPrice: [
+                { required: true, message: 'Please fill in the accessory price' },
+                {
+                    pattern: /[+-]?([0-9]*[.])?[0-9]+/,
+                    message: 'Must be a valid price'
+                }
+            ],
+        },
     };
   },
   methods: {
