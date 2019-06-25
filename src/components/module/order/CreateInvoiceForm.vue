@@ -240,97 +240,97 @@
         }],
         formRules: {
           invoiceType: [
-                { required: true, message: 'Please select an invoice type', trigger: 'change' },
+                { required: true, message: 'Invoice type is required', trigger: 'change' },
           ],
           billing: [
-                  { required: true, message: 'Please fill in the company name' },
-                  { min: 1, message: 'Please fill in the company name'},
+                  { required: true, message: 'Company name is required' },
+                  { min: 1, message: 'Company name is required'},
             {
               pattern: /^[A-Za-z0-9]+$/,
-              message: 'Special characters are not allowed'
+              message: 'Invalid characters'
             }
           ],
           companyName: [
-                  { required: true, message: 'Please fill in the company name' },
-                  { min: 1, message: 'Please fill in your company name'},
+                  { required: true, message: 'Company name is required' },
+                  { min: 1, message: 'Company name is required'},
             {
               pattern: /^[A-Za-z0-9]+$/,
-              message: 'Special characters are not allowed'
+              message: 'Invalid characters'
             }
           ],
           billingContact: [
-                  { required: true, message: 'Please fill in the contact name' },
-                  { min: 1, message: 'Please fill in your contact name'},
+                  { required: true, message: 'Contact is required' },
+                  { min: 1, message: 'Contact is required'},
             {
               pattern: /^[A-Za-z0-9]+$/,
-              message: 'Special characters are not allowed'
+              message: 'Invalid characters'
             }
           ],
           contact: [
-                  { required: true, message: 'Please fill in the contact name' },
-                  { min: 1, message: 'Please fill in your contact name'},
+                  { required: true, message: 'Contact is required' },
+                  { min: 1, message: 'Contact is required'},
             {
               pattern: /^[A-Za-z0-9]+$/,
-              message: 'Special characters are not allowed'
+              message: 'Invalid characters'
             }
           ],
           billingPhone: [
-                  {required: true, message: 'Please fill in the phone number' },
+                  {required: true, message: 'Phone number is required' },
             {
               pattern: /^(1?(-?\d{3})-?)?(\d{3})(-?\d{4})$/,
-              message: 'Must be a valid phone number'
+              message: 'Phone number is required'
             }
           ],
           phone: [
-                  {required: true, message: 'Please fill in the phone number' },
+                  {required: true, message: 'Phone number is required' },
             {
               pattern: /^(1?(-?\d{3})-?)?(\d{3})(-?\d{4})$/,
-              message: 'Must be a valid phone number'
+              message: 'Phone number is required'
             }
           ],
           billingEmail: [
-                  { required: true, message: 'Please fill in the email address' },
+                  { required: true, message: 'Email is required' },
             {
               pattern: /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,
-              message: 'Must be a valid email address'
+              message: 'Invalid email'
             }
           ],
           email: [
-                  { required: true, message: 'Please fill in the email address' },
+                  { required: true, message: 'Email is required' },
             {
               pattern: /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,
-              message: 'Must be a valid email address'
+              message: 'Invalid email'
             }
           ],
           billingAddress: [
-                  { required: true, message: 'Please fill in the billing address' },
+                  { required: true, message: 'Billing address is required' },
           ],
           shippingAddress: [
-                  { required: true, message: 'Please fill in the shipping address' },
+                  { required: true, message: 'Shipping address is required' },
           ],
           paymentTerm: [
-                  { required: true, message: 'Please select a payment term', trigger: 'change' },
+                  { required: true, message: 'Payment term is required', trigger: 'change' },
           ],
           invoiceNumber: [
-                  { required: true, message: 'Please fill in the invoice number' },
+                  { required: true, message: 'Invoice number is required' },
           ],
           invoiceDate: [
-                  { required: true, message: 'Please fill in the invoice date' },
+                  { required: true, message: 'Invoice date is required' },
           ],
           dueDate: [
-                  { required: true, message: 'Please fill in the invoice date' }
+                  { required: true, message: 'Due date is required' }
           ],
           shippingVia: [
-                  { required: true, message: 'Please fill in the shipping type' },
+                  { required: true, message: 'Shipping type is required' },
           ],
           trackingNumber: [
-                  { required: true, message: 'Please fill in the tracking number' },
+                  { required: true, message: 'Tracking number is required' },
           ],
           shippingFee: [
-                  { required: true, message: 'Please fill in the shipping fee' },
+                  { required: true, message: 'Shipping fee is required' },
             {
               pattern: /^\d+(,\d{3})*(\.\d{1,2})?$/,
-              message: 'Must be a valid price'
+              message: 'Invalid price'
             },
           ],
         },

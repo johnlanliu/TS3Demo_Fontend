@@ -190,10 +190,10 @@ export default {
       },
       formRules: {
         price: [
-              { required: true, message: 'Please fill in the unit price' },
+              { required: true, message: 'Unit price is required' },
           {
             pattern: /^\d+(,\d{3})*(\.\d{1,2})?$/,
-            message: 'Must be a valid price'
+            message: 'Invalid price'
           },
         ],
       },

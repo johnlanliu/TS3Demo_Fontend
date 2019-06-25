@@ -88,10 +88,10 @@
           },
           formRules: {
             amount: [
-                  { required: true, message: 'Please fill in the amount' },
+                  { required: true, message: 'Amount is required' },
               {
                 pattern: /^\d+(,\d{3})*(\.\d{1,2})?$/,
-                message: 'Must be a valid price'
+                message: 'Invalid amount'
               },
             ],
           },
