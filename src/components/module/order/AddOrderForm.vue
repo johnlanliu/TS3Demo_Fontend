@@ -243,6 +243,7 @@
         <create-invoice-form ref="createInvoiceForm"></create-invoice-form>
         <product-detail-form ref="productDetailForm"></product-detail-form>
         <accessory-detail-form ref="accessoryDetailForm"></accessory-detail-form>
+        <service-plan-form ref="servicePlanForm"></service-plan-form>
     </el-dialog>
 </template>
 
@@ -254,9 +255,11 @@ import { mapActions, mapState } from 'vuex';
 import ProductDetailForm from './ProductDetailForm.vue';
 import CreateInvoiceForm from './CreateInvoiceForm.vue';
 import AccessoryDetailForm from './AccessoryDetailForm.vue';
+import ServicePlanForm from './ServicePlanForm.vue';
 export default {
   name: 'AddOrderForm',
   components: {
+    ServicePlanForm,
     ProductDetailForm,
     CreateInvoiceForm,
     AccessoryDetailForm
@@ -329,101 +332,101 @@ export default {
         trackingNumber: '',
         shippingFee: '',
       },
-        formRules: {
-            orderType: [
+      formRules: {
+        orderType: [
                 { required: true, message: 'Please select an order type', trigger: 'change' }
-            ],
-            billing: [
+        ],
+        billing: [
                 { required: true, message: 'Please fill in the company name' },
                 { min: 1, message: 'Please fill in the company name'},
-                {
-                    pattern: /^[A-Za-z0-9]+$/,
-                    message: 'Special characters are not allowed'
-                }
-            ],
-            companyName: [
+          {
+            pattern: /^[A-Za-z0-9]+$/,
+            message: 'Special characters are not allowed'
+          }
+        ],
+        companyName: [
                 { required: true, message: 'Please fill in the company name' },
                 { min: 1, message: 'Please fill in your company name'},
-                {
-                    pattern: /^[A-Za-z0-9]+$/,
-                    message: 'Special characters are not allowed'
-                }
-            ],
-            billingContact: [
+          {
+            pattern: /^[A-Za-z0-9]+$/,
+            message: 'Special characters are not allowed'
+          }
+        ],
+        billingContact: [
                 {required: true, message: 'Please fill in the contact name' },
                 { min: 1, message: 'Please fill in your contact name'},
-                {
-                    pattern: /^[A-Za-z0-9]+$/,
-                    message: 'Special characters are not allowed'
-                }
-            ],
-            contact: [
+          {
+            pattern: /^[A-Za-z0-9]+$/,
+            message: 'Special characters are not allowed'
+          }
+        ],
+        contact: [
                 {required: true, message: 'Please fill in the contact name' },
                 { min: 1, message: 'Please fill in your contact name'},
-                {
-                    pattern: /^[A-Za-z0-9]+$/,
-                    message: 'Special characters are not allowed'
-                }
-            ],
-            billingPhone: [
+          {
+            pattern: /^[A-Za-z0-9]+$/,
+            message: 'Special characters are not allowed'
+          }
+        ],
+        billingPhone: [
                 {required: true, message: 'Please fill in the phone number' },
-                {
-                    pattern: /^(1?(-?\d{3})-?)?(\d{3})(-?\d{4})$/,
-                    message: 'Must be a valid phone number'
-                }
-            ],
-            phone: [
+          {
+            pattern: /^(1?(-?\d{3})-?)?(\d{3})(-?\d{4})$/,
+            message: 'Must be a valid phone number'
+          }
+        ],
+        phone: [
                 {required: true, message: 'Please fill in the phone number' },
-                {
-                    pattern: /^(1?(-?\d{3})-?)?(\d{3})(-?\d{4})$/,
-                    message: 'Must be a valid phone number'
-                }
-            ],
-            billingEmail: [
+          {
+            pattern: /^(1?(-?\d{3})-?)?(\d{3})(-?\d{4})$/,
+            message: 'Must be a valid phone number'
+          }
+        ],
+        billingEmail: [
                 { required: true, message: 'Please fill in the email address' },
-                {
-                    pattern: /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,
-                    message: 'Must be a valid email address'
-                }
-            ],
-            email: [
+          {
+            pattern: /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,
+            message: 'Must be a valid email address'
+          }
+        ],
+        email: [
                 { required: true, message: 'Please fill in the email address' },
-                {
-                    pattern: /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,
-                    message: 'Must be a valid email address'
-                }
-            ],
-            billingAddress: [
+          {
+            pattern: /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,
+            message: 'Must be a valid email address'
+          }
+        ],
+        billingAddress: [
                 { required: true, message: 'Please fill in the billing address' },
-            ],
-            shippingAddress: [
+        ],
+        shippingAddress: [
                 { required: true, message: 'Please fill in the shipping address' },
-            ],
-            paymentTerm: [
+        ],
+        paymentTerm: [
                 { required: true, message: 'Please select a payment term', trigger: 'change' }
-            ],
+        ],
             // note: [
             //     { max: 200, message: 'Maximum character limit: 200' }
             // ],
-            status: [
+        status: [
                 { required: true, message: 'Please select a status', trigger: 'change' }
-            ],
-            invoiceNumber: [
+        ],
+        invoiceNumber: [
 
-            ],
-            invoiceDate: [
+        ],
+        invoiceDate: [
 
-            ],
-            shippingVia: [
+        ],
+        shippingVia: [
 
-            ],
-            trackingNumber: [
+        ],
+        trackingNumber: [
 
-            ],
-            shippingFee: [
+        ],
+        shippingFee: [
 
-            ],
-        },
+        ],
+      },
     };
   },
   methods: {
@@ -463,20 +466,19 @@ export default {
       this.$refs.productDetailForm.showDialog();
     },
     handleCreateInvoice(form1, form2) {
-        this.$refs[form1].validate((valid1) => {
-            if (valid1) {
-                this.$refs[form2].validate((valid2) => {
-                    if (valid2) {
-                        this.$refs.createInvoiceForm.showDialog();
-                    }
-                    else {
-                        console.log('error: invalid fields');
-                    }
-                });
-            } else {
-                console.log('error: invalid fields');
+      this.$refs[form1].validate((valid1) => {
+        if (valid1) {
+          this.$refs[form2].validate((valid2) => {
+            if (valid2) {
+              this.$refs.createInvoiceForm.showDialog();
+            }                    else {
+              alert('error: invalid fields');
             }
-        });
+          });
+        } else {
+          alert('error: invalid fields');
+        }
+      });
     },
     handleSave() {
       alert('save');
@@ -501,6 +503,9 @@ export default {
     },
     handleCancel() {
       this.isOpen = false;
+    },
+    handleAddService() {
+      this.$refs.servicePlanForm.showDialog();
     }
   },
 
