@@ -7,9 +7,9 @@
             append-to-body="append"
             @closed="resetFields"
             width="55%">
-        <el-form ref="form" :model="invoiceForm" size="mini" label-width="150px" style="margin: 0;">
+        <el-form ref="form" :model="invoiceForm" :rules="formRules" size="mini" label-width="150px" style="margin: 0;">
             <div class="invoiceSpacing">
-                <el-form-item label="Invoice Type">
+                <el-form-item label="Invoice Type" prop="invoiceType">
                     <el-select v-model="invoiceForm.invoiceType" placeholder="select">
                         <el-option
                                 v-for="type in invoiceTypes"
@@ -29,66 +29,66 @@
                     </tr>
                     <tr>
                         <td>
-                            <el-form-item label="Company Name: ">
+                            <el-form-item label="Company Name: " prop="billing">
                                 <el-input v-model="form.billing"></el-input>
                             </el-form-item>
                         </td>
                         <td>
-                            <el-form-item label="Company Name: ">
+                            <el-form-item label="Company Name: " prop="companyName">
                                 <el-input v-model="form.companyName"></el-input>
                             </el-form-item>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <el-form-item label="Contact: " style="">
+                            <el-form-item label="Contact: " prop="billingContact">
                                 <el-input v-model="form.billingContact"></el-input>
                             </el-form-item>
                         </td>
                         <td>
-                            <el-form-item label="Contact: ">
+                            <el-form-item label="Contact: " prop="contact">
                                 <el-input v-model="form.contact"></el-input>
                             </el-form-item>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <el-form-item label="Phone Number: " style="">
+                            <el-form-item label="Phone Number: " style="" prop="billingPhone">
                                 <el-input v-model="form.billingPhone"></el-input>
                             </el-form-item>
                         </td>
                         <td>
-                            <el-form-item label="Phone Number: ">
+                            <el-form-item label="Phone Number: " prop="phone">
                                 <el-input v-model="form.phone"></el-input>
                             </el-form-item>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <el-form-item label="Email: ">
+                            <el-form-item label="Email: " prop="billingEmail">
                                 <el-input v-model="form.billingEmail"></el-input>
                             </el-form-item>
                         </td>
                         <td>
-                            <el-form-item label="Email: ">
+                            <el-form-item label="Email: " prop="email">
                                 <el-input v-model="form.email"></el-input>
                             </el-form-item>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <el-form-item label="Billing Address: " style="">
+                            <el-form-item label="Billing Address: " prop="billingAddress">
                                 <el-input v-model="form.billingAddress"></el-input>
                             </el-form-item>
                         </td>
                         <td>
-                            <el-form-item label="Shipping Address: ">
+                            <el-form-item label="Shipping Address: " prop="shippingAddress">
                                 <el-input v-model="form.shippingAddress"></el-input>
                             </el-form-item>
                         </td>
                     </tr>
                 </table>
-                <el-form-item label="Payment Term" style="padding-top: 10px">
+                <el-form-item label="Payment Term" style="padding-top: 10px" prop="paymentTerm">
                     <el-select v-model="invoiceForm.paymentTerm" placeholder="Select">
                         <el-option
                                 v-for="option in paymentOptions"
@@ -98,30 +98,30 @@
                         </el-option>
                     </el-select>
                 </el-form-item>
-                <el-form-item label="Invoice #" style="border-spacing: 0px">
+                <el-form-item label="Invoice #" style="border-spacing: 0px" prop="invoiceNumber">
                     <el-input v-model="invoiceForm.invoiceNumber" style="width: 150px"></el-input>
                 </el-form-item>
                 <el-row style="border-spacing: 0px">
                     <el-col :span="12">
-                        <el-form-item label="Invoice Date">
+                        <el-form-item label="Invoice Date" prop="invoiceDate">
                             <el-input v-model="invoiceForm.invoiceDate" style="width: 150px;"></el-input>
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="Due Date">
+                        <el-form-item label="Due Date" prop="dueDate">
                             <el-input v-model="invoiceForm.dueDate" style="width: 150px"></el-input>
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row style="border-spacing: 0px">
                     <el-col :span="12">
-                        <el-form-item label="Shipping via">
+                        <el-form-item label="Shipping via" prop="shippingVia">
                             <el-input v-model="invoiceForm.shippingVia" style="width: 150px"></el-input>
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="Tracking Number">
-                            <el-input v-model="invoiceForm.trackingNo" style="width: 150px"></el-input>
+                        <el-form-item label="Tracking Number" prop="trackingNumber">
+                            <el-input v-model="invoiceForm.trackingNumber" style="width: 150px"></el-input>
                         </el-form-item>
                     </el-col>
                 </el-row>
@@ -160,7 +160,7 @@
                         <el-form-item label="Tax: ">
                             <p v-model="invoiceForm.taxRate">${{ invoiceForm.taxRate }}</p>
                         </el-form-item>
-                        <el-form-item label="Shipping fee: ">
+                        <el-form-item label="Shipping fee: " prop="shippingFee">
                             <el-input v-model="invoiceForm.shippingFee" style="width: 100px"></el-input>
                         </el-form-item>
                         <el-form-item label="Total: ">
@@ -205,7 +205,7 @@
           invoiceDate: '',
           dueDate: '',
           shippingVia: '',
-          trackingNo: '',
+          trackingNumber: '',
           taxRate: '',
           total: '',
           shippingFee: '',
@@ -231,7 +231,6 @@
           tax: 'Y',
         }],
         invoiceTypes: [],
-        invoiceTypes: [],
         paymentOptions: [{
           value: 'Net15',
           label: 'Net15',
@@ -239,6 +238,98 @@
           value: 'Net30',
           label: 'Net30',
         }],
+          formRules: {
+            invoiceType: [
+                { required: true, message: 'Please select an invoice type', trigger: 'change' },
+            ],
+              billing: [
+                  { required: true, message: 'Please fill in the company name' },
+                  { min: 1, message: 'Please fill in the company name'},
+                  {
+                      pattern: /^[A-Za-z0-9]+$/,
+                      message: 'Special characters are not allowed'
+                  }
+              ],
+              companyName: [
+                  { required: true, message: 'Please fill in the company name' },
+                  { min: 1, message: 'Please fill in your company name'},
+                  {
+                      pattern: /^[A-Za-z0-9]+$/,
+                      message: 'Special characters are not allowed'
+                  }
+              ],
+              billingContact: [
+                  { required: true, message: 'Please fill in the contact name' },
+                  { min: 1, message: 'Please fill in your contact name'},
+                  {
+                      pattern: /^[A-Za-z0-9]+$/,
+                      message: 'Special characters are not allowed'
+                  }
+              ],
+              contact: [
+                  { required: true, message: 'Please fill in the contact name' },
+                  { min: 1, message: 'Please fill in your contact name'},
+                  {
+                      pattern: /^[A-Za-z0-9]+$/,
+                      message: 'Special characters are not allowed'
+                  }
+              ],
+              billingPhone: [
+                  {required: true, message: 'Please fill in the phone number' },
+                  {
+                      pattern: /^(1?(-?\d{3})-?)?(\d{3})(-?\d{4})$/,
+                      message: 'Must be a valid phone number'
+                  }
+              ],
+              phone: [
+                  {required: true, message: 'Please fill in the phone number' },
+                  {
+                      pattern: /^(1?(-?\d{3})-?)?(\d{3})(-?\d{4})$/,
+                      message: 'Must be a valid phone number'
+                  }
+              ],
+              billingEmail: [
+                  { required: true, message: 'Please fill in the email address' },
+                  {
+                      pattern: /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,
+                      message: 'Must be a valid email address'
+                  }
+              ],
+              email: [
+                  { required: true, message: 'Please fill in the email address' },
+                  {
+                      pattern: /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,
+                      message: 'Must be a valid email address'
+                  }
+              ],
+              billingAddress: [
+                  { required: true, message: 'Please fill in the billing address' },
+              ],
+              shippingAddress: [
+                  { required: true, message: 'Please fill in the shipping address' },
+              ],
+              paymentTerm: [
+                  { required: true, message: 'Please select a payment term', trigger: 'change' },
+              ],
+              invoiceNumber: [
+                  { required: true, message: 'Please fill in the invoice number' },
+              ],
+              invoiceDate: [
+                  { required: true, message: 'Please fill in the invoice date' },
+              ],
+              dueDate: [
+                  { required: true, message: 'Please fill in the invoice date' }
+              ],
+              shippingVia: [
+                  { required: true, message: 'Please fill in the shipping type' },
+              ],
+              trackingNumber: [
+                  { required: true, message: 'Please fill in the tracking number' },
+              ],
+              shippingFee: [
+                  { required: true, message: 'Please fill in the shipping fee' },
+              ],
+          },
       };
     },
     methods: {

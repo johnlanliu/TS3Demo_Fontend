@@ -19,23 +19,40 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/module/order/AddOrderForm.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="678">
-              <caret line="424" column="14" selection-start-line="424" selection-start-column="14" selection-end-line="424" selection-end-column="14" />
+            <state relative-caret-position="282">
+              <caret line="405" column="95" selection-start-line="405" selection-start-column="95" selection-end-line="405" selection-end-column="95" />
               <folding>
                 <element signature="n#style#0;n#el-form#0;n#div#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#el-checkbox#0;n#el-form-item#0;n#td#1;n#tr#0;n#table#0;n#el-form#0;n#div#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#el-form-item#0;n#td#0;n#tr#0;n#table#2;n#el-form#0;n#div#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#table#0;n#el-form#0;n#el-form#0;n#div#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
+                <element signature="e#12789#12839#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/module/user/EditUserForm.vue">
+        <entry file="file://$PROJECT_DIR$/module/order/CreateInvoiceForm.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-713">
-              <caret line="12" column="28" selection-start-line="12" selection-start-column="28" selection-end-line="12" selection-end-column="28" />
+            <state relative-caret-position="320">
+              <caret line="330" column="16" selection-start-line="330" selection-start-column="16" selection-end-line="330" selection-end-column="16" />
+              <folding>
+                <element signature="n#style#0;n#el-form#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#table#0;n#div#0;n#el-form#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#el-form-item#1;n#div#0;n#el-form#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#el-form-item#2;n#div#0;n#el-form#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#el-input#0;n#el-form-item#2;n#div#0;n#el-form#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#el-row#0;n#div#0;n#el-form#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#el-input#0;n#el-form-item#0;n#el-col#0;n#el-row#0;n#div#0;n#el-form#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#el-row#1;n#div#0;n#el-form#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#el-table#0;n#div#0;n#el-form#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#el-row#2;n#div#0;n#el-form#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#el-form-item#3;n#div#0;n#el-form#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#el-button#0;n#div#0;n#el-form#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#el-button#1;n#div#0;n#el-form#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#el-button#2;n#div#0;n#el-form#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -53,6 +70,7 @@
       <find>li</find>
       <find>invoiceSpacing</find>
       <find>formRules</find>
+      <find>el-form</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -203,18 +221,18 @@
       <workItem from="1560881758670" duration="136000" />
       <workItem from="1560964056480" duration="8093000" />
       <workItem from="1561049968071" duration="12513000" />
-      <workItem from="1561139820350" duration="30986000" />
+      <workItem from="1561139820350" duration="33933000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="51728000" />
+    <option name="totallyTimeSpent" value="54675000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="22" width="1680" height="978" extended-state="6" />
+    <frame x="0" y="22" width="1440" height="835" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20476191" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.23888889" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -375,10 +393,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/module/user/EditUserForm.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-713">
+          <caret line="12" column="28" selection-start-line="12" selection-start-column="28" selection-end-line="12" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/module/order/CreateInvoiceForm.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="440">
-          <caret line="171" column="29" lean-forward="true" selection-start-line="171" selection-start-column="29" selection-end-line="171" selection-end-column="29" />
+        <state relative-caret-position="320">
+          <caret line="330" column="16" selection-start-line="330" selection-start-column="16" selection-end-line="330" selection-end-column="16" />
           <folding>
             <element signature="n#style#0;n#el-form#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#table#0;n#div#0;n#el-form#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
@@ -398,22 +423,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/module/user/EditUserForm.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-713">
-          <caret line="12" column="28" selection-start-line="12" selection-start-column="28" selection-end-line="12" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/module/order/AddOrderForm.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="678">
-          <caret line="424" column="14" selection-start-line="424" selection-start-column="14" selection-end-line="424" selection-end-column="14" />
+        <state relative-caret-position="282">
+          <caret line="405" column="95" selection-start-line="405" selection-start-column="95" selection-end-line="405" selection-end-column="95" />
           <folding>
             <element signature="n#style#0;n#el-form#0;n#div#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#el-checkbox#0;n#el-form-item#0;n#td#1;n#tr#0;n#table#0;n#el-form#0;n#div#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#el-form-item#0;n#td#0;n#tr#0;n#table#2;n#el-form#0;n#div#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#table#0;n#el-form#0;n#el-form#0;n#div#0;n#el-dialog#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="e#12789#12839#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -334,7 +334,7 @@ export default {
       },
       formRules: {
         orderType: [
-                { required: true, message: 'Please select an order type', trigger: 'change' }
+                { required: true, message: 'Please select an order type', trigger: 'change' },
         ],
         billing: [
                 { required: true, message: 'Please fill in the company name' },
@@ -353,7 +353,7 @@ export default {
           }
         ],
         billingContact: [
-                {required: true, message: 'Please fill in the contact name' },
+                { required: true, message: 'Please fill in the contact name' },
                 { min: 1, message: 'Please fill in your contact name'},
           {
             pattern: /^[A-Za-z0-9]+$/,
@@ -361,7 +361,7 @@ export default {
           }
         ],
         contact: [
-                {required: true, message: 'Please fill in the contact name' },
+                { required: true, message: 'Please fill in the contact name' },
                 { min: 1, message: 'Please fill in your contact name'},
           {
             pattern: /^[A-Za-z0-9]+$/,
@@ -403,28 +403,28 @@ export default {
                 { required: true, message: 'Please fill in the shipping address' },
         ],
         paymentTerm: [
-                { required: true, message: 'Please select a payment term', trigger: 'change' }
+                { required: true, message: 'Please select a payment term', trigger: 'change' },
         ],
             // note: [
             //     { max: 200, message: 'Maximum character limit: 200' }
             // ],
         status: [
-                { required: true, message: 'Please select a status', trigger: 'change' }
+                { required: true, message: 'Please select a status', trigger: 'change' },
         ],
         invoiceNumber: [
-
+            { required: true, message: 'Please fill in the invoice number' },
         ],
         invoiceDate: [
-
+            { required: true, message: 'Please fill in the invoice date' },
         ],
         shippingVia: [
-
+            { required: true, message: 'Please fill in the shipping type' },
         ],
         trackingNumber: [
-
+            { required: true, message: 'Please fill in the tracking number' },
         ],
         shippingFee: [
-
+            { required: true, message: 'Please fill in the shipping fee' },
         ],
       },
     };
@@ -468,15 +468,11 @@ export default {
     handleCreateInvoice(form1, form2) {
       this.$refs[form1].validate((valid1) => {
         if (valid1) {
-          this.$refs[form2].validate((valid2) => {
-            if (valid2) {
-              this.$refs.createInvoiceForm.showDialog();
-            }                    else {
-              alert('error: invalid fields');
-            }
-          });
-        } else {
-          alert('error: invalid fields');
+            this.$refs[form2].validate((valid2) => {
+                if (valid2) {
+                    this.$refs.createInvoiceForm.showDialog();
+                }
+            });
         }
       });
     },
