@@ -145,8 +145,8 @@
                     <el-collapse-item title="Price" v-if="form4.showPrice" name="2">
                         <el-row>
                             <el-col :span="10" :offset="6">
-                                <el-form ref="form" :model="form4" size="mini" align="right">
-                                    <el-form-item label="Unit Price $">
+                                <el-form ref="form" :model="form4" :rules="formRules" size="mini" align="right">
+                                    <el-form-item label="Unit Price $" prop="price">
                                         <el-input v-model="form4.price" style="width: 150px; "></el-input>
                                     </el-form-item>
                                     <el-form-item label="Quantity">
@@ -188,6 +188,15 @@ export default {
         QTY: '',
         showPrice: false,
       },
+        formRules: {
+          price: [
+              { required: true, message: 'Please fill in the unit price' },
+              {
+                  pattern: /^\d+(,\d{3})*(\.\d{1,2})?$/,
+                  message: 'Must be a valid price'
+              },
+          ],
+        },
     };
   },
   props: {

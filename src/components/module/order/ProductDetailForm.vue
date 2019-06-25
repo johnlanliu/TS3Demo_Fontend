@@ -198,23 +198,23 @@ export default {
           price: [
               { required: true, message: 'Please fill in the unit price' },
               {
-                  pattern: /[+-]?([0-9]*[.])?[0-9]+/,
+                  pattern: /^\d+(,\d{3})*(\.\d{1,2})?$/,
                   message: 'Must be a valid price'
-              }
+              },
           ],
             servicePlan: [
                 { required: true, message: 'Please fill in the service plan price' },
                 {
-                    pattern: /[+-]?([0-9]*[.])?[0-9]+/,
+                    pattern: /^\d+(,\d{3})*(\.\d{1,2})?$/,
                     message: 'Must be a valid price'
-                }
+                },
             ],
             accPrice: [
                 { required: true, message: 'Please fill in the accessory price' },
                 {
-                    pattern: /[+-]?([0-9]*[.])?[0-9]+/,
+                    pattern: /^\d+(,\d{3})*(\.\d{1,2})?$/,
                     message: 'Must be a valid price'
-                }
+                },
             ],
         },
     };
