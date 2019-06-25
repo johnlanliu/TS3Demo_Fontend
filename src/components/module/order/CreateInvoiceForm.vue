@@ -328,6 +328,10 @@
               ],
               shippingFee: [
                   { required: true, message: 'Please fill in the shipping fee' },
+                  {
+                      pattern: /^\d+(,\d{3})*(\.\d{1,2})?$/,
+                      message: 'Must be a valid price'
+                  },
               ],
           },
       };
