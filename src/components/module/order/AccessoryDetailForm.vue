@@ -157,6 +157,9 @@
                                                 style="width: 150px">
                                         </el-input-number>
                                     </el-form-item>
+                                    <el-form-item label="Total :">
+                                        <p>${{ Number(form4.price) * Number(form4.QTY) }}</p>
+                                    </el-form-item>
                                 </el-form>
                                 <el-row>
                                     <el-button type="primary" style="float: right" @click="handleAddClick()">Add</el-button>
@@ -181,7 +184,7 @@ export default {
       form4: {
         accessoryName: 'Type',
         activeName: '1',
-          price: '',
+        price: '',
         QTY: '',
         showPrice: false,
       },
@@ -234,10 +237,10 @@ export default {
         this.handleNext(1);
       }
     },
-      handleAddClick(event) {
-        this.$emit('accessoryAdded', this.form4.accessoryName, this.form4.price, this.form4.QTY);
-        this.isOpen = false;
-      }
+    handleAddClick(event) {
+      this.$emit('accessoryAdded', this.form4.accessoryName, this.form4.price, this.form4.QTY);
+      this.isOpen = false;
+    }
   },
 };
 </script>

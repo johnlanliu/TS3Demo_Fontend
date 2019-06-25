@@ -135,7 +135,8 @@
                                 </el-form>
                                 <el-row>
                                     <el-button type="primary" style="float: left" @click="handleAccessories()">+ Add Accessories</el-button>
-                                    <el-button type="primary" style="float: right">Add</el-button>
+                                    <el-button type="primary" style="float: right" @click="handleNetwork()">+ Add Service Plan</el-button>
+                                    <el-button type="primary" style="float: right; margin-top: 10px">Add</el-button>
                                 </el-row>
                             </el-col>
                         </el-row>
@@ -144,12 +145,14 @@
             </el-form>
         </div>
         <accessory-detail-form ref="accessoryDetailForm" v-bind:product="this.form3.productName" @accessoryAdded="getAccessoryInfo"></accessory-detail-form>
+        <service-plan-form ref="servicePlanForm" @planAdded="getServicePlanFee"></service-plan-form>
     </el-dialog>
 </template>
 
 <script>
 import ConfirmationForm from './ConfirmationForm.vue';
 import AccessoryDetailForm from './AccessoryDetailForm.vue';
+import ServicePlanForm from './ServicePlanForm.vue';
 
 export default {
   name: 'ProductDetailForm',
@@ -157,6 +160,7 @@ export default {
   components: {
     ConfirmationForm,
     AccessoryDetailForm,
+    ServicePlanForm
   },
   data: function() {
     return {
@@ -176,10 +180,10 @@ export default {
         color: 'Color',
         QTY: '',
         price: '',
-          accName: '',
-          accPrice: '',
-          accQty: 1,
-          accPicked: false,
+        accName: '',
+        accPrice: '',
+        accQty: 1,
+        accPicked: false,
         servicePlan: '',
         choices: [{
           value: 'Yes',
@@ -285,12 +289,19 @@ export default {
     handleAccessories() {
       this.$refs.accessoryDetailForm.showDialog();
     },
-      getAccessoryInfo(n, p, q) {
-        this.form3.accPicked = true;
-        this.form3.accName = n;
-        this.form3.accPrice = p;
-        this.form3.accQty = q;
-      },
+    getAccessoryInfo(n, p, q) {
+      this.form3.accPicked = true;
+      this.form3.accName = n;
+      this.form3.accPrice = p;
+      this.form3.accQty = q;
+    },
+    handleNetwork() {
+      this.$refs.servicePlanForm.showDialog();
+    },
+    getServicePlanFee(qty, amt) {
+      let price = qty * amt;
+      this.form3.servicePlan = price.toString();
+    }
   },
 };
 </script>
