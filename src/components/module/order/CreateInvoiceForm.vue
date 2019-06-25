@@ -238,102 +238,102 @@
           value: 'Net30',
           label: 'Net30',
         }],
-          formRules: {
-            invoiceType: [
+        formRules: {
+          invoiceType: [
                 { required: true, message: 'Please select an invoice type', trigger: 'change' },
-            ],
-              billing: [
+          ],
+          billing: [
                   { required: true, message: 'Please fill in the company name' },
                   { min: 1, message: 'Please fill in the company name'},
-                  {
-                      pattern: /^[A-Za-z0-9]+$/,
-                      message: 'Special characters are not allowed'
-                  }
-              ],
-              companyName: [
+            {
+              pattern: /^[A-Za-z0-9]+$/,
+              message: 'Special characters are not allowed'
+            }
+          ],
+          companyName: [
                   { required: true, message: 'Please fill in the company name' },
                   { min: 1, message: 'Please fill in your company name'},
-                  {
-                      pattern: /^[A-Za-z0-9]+$/,
-                      message: 'Special characters are not allowed'
-                  }
-              ],
-              billingContact: [
+            {
+              pattern: /^[A-Za-z0-9]+$/,
+              message: 'Special characters are not allowed'
+            }
+          ],
+          billingContact: [
                   { required: true, message: 'Please fill in the contact name' },
                   { min: 1, message: 'Please fill in your contact name'},
-                  {
-                      pattern: /^[A-Za-z0-9]+$/,
-                      message: 'Special characters are not allowed'
-                  }
-              ],
-              contact: [
+            {
+              pattern: /^[A-Za-z0-9]+$/,
+              message: 'Special characters are not allowed'
+            }
+          ],
+          contact: [
                   { required: true, message: 'Please fill in the contact name' },
                   { min: 1, message: 'Please fill in your contact name'},
-                  {
-                      pattern: /^[A-Za-z0-9]+$/,
-                      message: 'Special characters are not allowed'
-                  }
-              ],
-              billingPhone: [
+            {
+              pattern: /^[A-Za-z0-9]+$/,
+              message: 'Special characters are not allowed'
+            }
+          ],
+          billingPhone: [
                   {required: true, message: 'Please fill in the phone number' },
-                  {
-                      pattern: /^(1?(-?\d{3})-?)?(\d{3})(-?\d{4})$/,
-                      message: 'Must be a valid phone number'
-                  }
-              ],
-              phone: [
+            {
+              pattern: /^(1?(-?\d{3})-?)?(\d{3})(-?\d{4})$/,
+              message: 'Must be a valid phone number'
+            }
+          ],
+          phone: [
                   {required: true, message: 'Please fill in the phone number' },
-                  {
-                      pattern: /^(1?(-?\d{3})-?)?(\d{3})(-?\d{4})$/,
-                      message: 'Must be a valid phone number'
-                  }
-              ],
-              billingEmail: [
+            {
+              pattern: /^(1?(-?\d{3})-?)?(\d{3})(-?\d{4})$/,
+              message: 'Must be a valid phone number'
+            }
+          ],
+          billingEmail: [
                   { required: true, message: 'Please fill in the email address' },
-                  {
-                      pattern: /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,
-                      message: 'Must be a valid email address'
-                  }
-              ],
-              email: [
+            {
+              pattern: /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,
+              message: 'Must be a valid email address'
+            }
+          ],
+          email: [
                   { required: true, message: 'Please fill in the email address' },
-                  {
-                      pattern: /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,
-                      message: 'Must be a valid email address'
-                  }
-              ],
-              billingAddress: [
+            {
+              pattern: /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,
+              message: 'Must be a valid email address'
+            }
+          ],
+          billingAddress: [
                   { required: true, message: 'Please fill in the billing address' },
-              ],
-              shippingAddress: [
+          ],
+          shippingAddress: [
                   { required: true, message: 'Please fill in the shipping address' },
-              ],
-              paymentTerm: [
+          ],
+          paymentTerm: [
                   { required: true, message: 'Please select a payment term', trigger: 'change' },
-              ],
-              invoiceNumber: [
+          ],
+          invoiceNumber: [
                   { required: true, message: 'Please fill in the invoice number' },
-              ],
-              invoiceDate: [
+          ],
+          invoiceDate: [
                   { required: true, message: 'Please fill in the invoice date' },
-              ],
-              dueDate: [
+          ],
+          dueDate: [
                   { required: true, message: 'Please fill in the invoice date' }
-              ],
-              shippingVia: [
+          ],
+          shippingVia: [
                   { required: true, message: 'Please fill in the shipping type' },
-              ],
-              trackingNumber: [
+          ],
+          trackingNumber: [
                   { required: true, message: 'Please fill in the tracking number' },
-              ],
-              shippingFee: [
+          ],
+          shippingFee: [
                   { required: true, message: 'Please fill in the shipping fee' },
-                  {
-                      pattern: /^\d+(,\d{3})*(\.\d{1,2})?$/,
-                      message: 'Must be a valid price'
-                  },
-              ],
-          },
+            {
+              pattern: /^\d+(,\d{3})*(\.\d{1,2})?$/,
+              message: 'Must be a valid price'
+            },
+          ],
+        },
       };
     },
     methods: {

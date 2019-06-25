@@ -194,29 +194,29 @@ export default {
         }],
         tax: 'Yes',
       },
-        formRules: {
-          price: [
+      formRules: {
+        price: [
               { required: true, message: 'Please fill in the unit price' },
-              {
-                  pattern: /^\d+(,\d{3})*(\.\d{1,2})?$/,
-                  message: 'Must be a valid price'
-              },
-          ],
-            servicePlan: [
+          {
+            pattern: /^\d+(,\d{3})*(\.\d{1,2})?$/,
+            message: 'Must be a valid price'
+          },
+        ],
+        servicePlan: [
                 { required: true, message: 'Please fill in the service plan price' },
-                {
-                    pattern: /^\d+(,\d{3})*(\.\d{1,2})?$/,
-                    message: 'Must be a valid price'
-                },
-            ],
-            accPrice: [
+          {
+            pattern: /^\d+(,\d{3})*(\.\d{1,2})?$/,
+            message: 'Must be a valid price'
+          },
+        ],
+        accPrice: [
                 { required: true, message: 'Please fill in the accessory price' },
-                {
-                    pattern: /^\d+(,\d{3})*(\.\d{1,2})?$/,
-                    message: 'Must be a valid price'
-                },
-            ],
-        },
+          {
+            pattern: /^\d+(,\d{3})*(\.\d{1,2})?$/,
+            message: 'Must be a valid price'
+          },
+        ],
+      },
     };
   },
   methods: {

@@ -182,7 +182,7 @@
                         <tr>
                             <td>
                                 <el-form-item label="Status:" prop="status">
-                                    <el-select v-model="customerServiceForm.status" placeholder="select" style="width: 150px">
+                                    <el-select v-model="customerServiceForm.status" placeholder="select" style="width: 160px">
                                         <el-option
                                                 v-for="option in statusOptions"
                                                 :key="option.status"
@@ -425,10 +425,10 @@ export default {
         ],
         shippingFee: [
             { required: true, message: 'Please fill in the shipping fee' },
-            {
-                pattern: /^\d+(,\d{3})*(\.\d{1,2})?$/,
-                message: 'Must be a valid price'
-            },
+          {
+            pattern: /^\d+(,\d{3})*(\.\d{1,2})?$/,
+            message: 'Must be a valid price'
+          },
         ],
       },
     };
