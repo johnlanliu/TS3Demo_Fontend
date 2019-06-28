@@ -178,7 +178,7 @@
                     </el-input>
                 </el-form-item>
                 <el-button type="primary" style="display: inline; margin-left: 350px;">Pay</el-button>
-                <el-button type="primary" style="display: inline; margin-left: 30px;">Save</el-button>
+                <el-button type="primary" style="display: inline; margin-left: 30px;" @click="addPaymentHandle">Save</el-button>
                 <el-button type="primary" style="display: inline; margin-left: 30px;">Save and Send</el-button>
             </div>
         </el-form>
@@ -186,6 +186,7 @@
 </template>
 
 <script>
+    import { addPayment } from '@/api/getData';
   import AddOrderForm from './AddOrderForm.vue';
   export default {
     name: 'CreateInvoiceForm',
@@ -345,8 +346,12 @@
       },
       handleCommand() {
         alert('clicked');
-      }
-
+      },
+        addPaymentHandle() {
+          addPayment({},{amount:this.invoiceForm.shippingFee}).then(result => {
+              alert('ok');
+          });
+        },
     }
   };
 </script>

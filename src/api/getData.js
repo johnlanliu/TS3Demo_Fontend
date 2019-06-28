@@ -117,3 +117,9 @@ export const addDict = (data, body) => axios.post('dictManager/addDict', data, b
 export const editDict = (data, body) => axios.post('dictManager/editDict', data, body);
 export const deleteDict = data => axios.get('dictManager/deleteDict', data);
 
+/**
+ * Payment
+ */
+export const addPayment = (data, body) => axios.post('orgMPayment/addPayment', data, body);
+
+
