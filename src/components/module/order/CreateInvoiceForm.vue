@@ -187,173 +187,173 @@
 
 <script>
     import { addPayment } from '@/api/getData';
-  import AddOrderForm from './AddOrderForm.vue';
-  export default {
-    name: 'CreateInvoiceForm',
-    components: {
-      AddOrderForm
-    },
-    data: function() {
-      return {
-        labelPosition: 'right',
-        isOpen: false,
-        loading: false,
-        append: true,
-        invoiceForm: {
-          invoiceType: '',
-          paymentTerm: '',
-          invoiceNumber: '',
-          invoiceDate: '',
-          dueDate: '',
-          shippingVia: '',
-          trackingNumber: '',
-          taxRate: '',
-          total: '',
-          shippingFee: '',
-          note: '',
-        },
-        form: {
-          billing: '',
-          billingContact: '',
-          billingPhone: '',
-          billingEmail: '',
-          billingAddress: '',
-          companyName: '',
-          contact: '',
-          email: '',
-          phone: '',
-          shippingAddress: '',
-        },
-        tableData: [{
-          product: 'VT1611R30',
-          quantity: 10,
-          rate: 250,
-          amount: 2500,
-          tax: 'Y',
-        }],
-        invoiceTypes: [],
-        paymentOptions: [{
-          value: 'Net15',
-          label: 'Net15',
-        }, {
-          value: 'Net30',
-          label: 'Net30',
-        }],
-        formRules: {
-          invoiceType: [
+import AddOrderForm from './AddOrderForm.vue';
+export default {
+      name: 'CreateInvoiceForm',
+      components: {
+        AddOrderForm
+      },
+      data: function() {
+        return {
+          labelPosition: 'right',
+          isOpen: false,
+          loading: false,
+          append: true,
+          invoiceForm: {
+            invoiceType: '',
+            paymentTerm: '',
+            invoiceNumber: '',
+            invoiceDate: '',
+            dueDate: '',
+            shippingVia: '',
+            trackingNumber: '',
+            taxRate: '',
+            total: '',
+            shippingFee: '',
+            note: '',
+          },
+          form: {
+            billing: '',
+            billingContact: '',
+            billingPhone: '',
+            billingEmail: '',
+            billingAddress: '',
+            companyName: '',
+            contact: '',
+            email: '',
+            phone: '',
+            shippingAddress: '',
+          },
+          tableData: [{
+            product: 'VT1611R30',
+            quantity: 10,
+            rate: 250,
+            amount: 2500,
+            tax: 'Y',
+          }],
+          invoiceTypes: [],
+          paymentOptions: [{
+            value: 'Net15',
+            label: 'Net15',
+          }, {
+            value: 'Net30',
+            label: 'Net30',
+          }],
+          formRules: {
+            invoiceType: [
                 { required: true, message: 'Invoice type is required', trigger: 'change' },
-          ],
-          billing: [
+            ],
+            billing: [
                   { required: true, message: 'Company name is required' },
                   { min: 1, message: 'Company name is required'},
-            {
-              pattern: /^[A-Za-z0-9]+$/,
-              message: 'Invalid characters'
-            }
-          ],
-          companyName: [
+              {
+                pattern: /^[A-Za-z0-9]+$/,
+                message: 'Invalid characters'
+              }
+            ],
+            companyName: [
                   { required: true, message: 'Company name is required' },
                   { min: 1, message: 'Company name is required'},
-            {
-              pattern: /^[A-Za-z0-9]+$/,
-              message: 'Invalid characters'
-            }
-          ],
-          billingContact: [
+              {
+                pattern: /^[A-Za-z0-9]+$/,
+                message: 'Invalid characters'
+              }
+            ],
+            billingContact: [
                   { required: true, message: 'Contact is required' },
                   { min: 1, message: 'Contact is required'},
-            {
-              pattern: /^[A-Za-z0-9]+$/,
-              message: 'Invalid characters'
-            }
-          ],
-          contact: [
+              {
+                pattern: /^[A-Za-z0-9]+$/,
+                message: 'Invalid characters'
+              }
+            ],
+            contact: [
                   { required: true, message: 'Contact is required' },
                   { min: 1, message: 'Contact is required'},
-            {
-              pattern: /^[A-Za-z0-9]+$/,
-              message: 'Invalid characters'
-            }
-          ],
-          billingPhone: [
+              {
+                pattern: /^[A-Za-z0-9]+$/,
+                message: 'Invalid characters'
+              }
+            ],
+            billingPhone: [
                   {required: true, message: 'Phone number is required' },
-            {
-              pattern: /^(1?(-?\d{3})-?)?(\d{3})(-?\d{4})$/,
-              message: 'Phone number is required'
-            }
-          ],
-          phone: [
+              {
+                pattern: /^(1?(-?\d{3})-?)?(\d{3})(-?\d{4})$/,
+                message: 'Phone number is required'
+              }
+            ],
+            phone: [
                   {required: true, message: 'Phone number is required' },
-            {
-              pattern: /^(1?(-?\d{3})-?)?(\d{3})(-?\d{4})$/,
-              message: 'Phone number is required'
-            }
-          ],
-          billingEmail: [
+              {
+                pattern: /^(1?(-?\d{3})-?)?(\d{3})(-?\d{4})$/,
+                message: 'Phone number is required'
+              }
+            ],
+            billingEmail: [
                   { required: true, message: 'Email is required' },
-            {
-              pattern: /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,
-              message: 'Invalid email'
-            }
-          ],
-          email: [
+              {
+                pattern: /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,
+                message: 'Invalid email'
+              }
+            ],
+            email: [
                   { required: true, message: 'Email is required' },
-            {
-              pattern: /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,
-              message: 'Invalid email'
-            }
-          ],
-          billingAddress: [
+              {
+                pattern: /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,
+                message: 'Invalid email'
+              }
+            ],
+            billingAddress: [
                   { required: true, message: 'Billing address is required' },
-          ],
-          shippingAddress: [
+            ],
+            shippingAddress: [
                   { required: true, message: 'Shipping address is required' },
-          ],
-          paymentTerm: [
+            ],
+            paymentTerm: [
                   { required: true, message: 'Payment term is required', trigger: 'change' },
-          ],
-          invoiceNumber: [
+            ],
+            invoiceNumber: [
                   { required: true, message: 'Invoice number is required' },
-          ],
-          invoiceDate: [
+            ],
+            invoiceDate: [
                   { required: true, message: 'Invoice date is required' },
-          ],
-          dueDate: [
+            ],
+            dueDate: [
                   { required: true, message: 'Due date is required' }
-          ],
-          shippingVia: [
+            ],
+            shippingVia: [
                   { required: true, message: 'Shipping type is required' },
-          ],
-          trackingNumber: [
+            ],
+            trackingNumber: [
                   { required: true, message: 'Tracking number is required' },
-          ],
-          shippingFee: [
+            ],
+            shippingFee: [
                   { required: true, message: 'Shipping fee is required' },
-            {
-              pattern: /^\d+(,\d{3})*(\.\d{1,2})?$/,
-              message: 'Invalid price'
-            },
-          ],
+              {
+                pattern: /^\d+(,\d{3})*(\.\d{1,2})?$/,
+                message: 'Invalid price'
+              },
+            ],
+          },
+        };
+      },
+      methods: {
+        showDialog() {
+          this.isOpen = true;
         },
-      };
-    },
-    methods: {
-      showDialog() {
-        this.isOpen = true;
-      },
-      resetFields() {
-        this.$refs.form.resetFields();
-      },
-      handleCommand() {
-        alert('clicked');
-      },
+        resetFields() {
+          this.$refs.form.resetFields();
+        },
+        handleCommand() {
+          alert('clicked');
+        },
         addPaymentHandle() {
-          addPayment({},{amount:this.invoiceForm.shippingFee}).then(result => {
-              alert('ok');
+          addPayment({},{amount: this.invoiceForm.shippingFee}).then(result => {
+            alert('ok');
           });
         },
-    }
-  };
+      }
+};
 </script>
 
 <style>
