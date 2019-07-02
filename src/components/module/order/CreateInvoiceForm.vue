@@ -396,6 +396,9 @@ export default {
                 alert('ok');
               });
         },
+        async getPaymentList() {
+
+        },
       }
 };
 </script>
