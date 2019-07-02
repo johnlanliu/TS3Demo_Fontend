@@ -198,14 +198,12 @@
                 <el-button type="primary" style="display: inline; margin-left: 30px;">Save and Send</el-button>
             </div>
         </el-form>
-        <login hidden ref="login" @userLoggedIn="getUsername"></login>
     </el-dialog>
 </template>
 
 <script>
     import { addPayment } from '@/api/getData';
 import AddOrderForm from './AddOrderForm.vue';
-// import Login from '../../page/Login.vue';
 
 export default {
       name: 'CreateInvoiceForm',
@@ -393,13 +391,10 @@ export default {
             invoiceDate: this.invoiceForm.invoiceDate,
             dueDate: this.invoiceForm.dueDate,
             status: this.invoiceForm.invoiceStatus,
-            sales: this.invoiceForm.sales}
+            sales: ''}
               ).then(result => {
                 alert('ok');
               });
-        },
-        getUsername(name) {
-          this.invoiceForm.sales = name;
         },
       }
 };

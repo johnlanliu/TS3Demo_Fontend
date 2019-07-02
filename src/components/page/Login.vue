@@ -81,15 +81,11 @@
       ...mapMutations([
         'saveLoginData'
       ]),
-      sendSales(event) {
-        this.$emit('userLoggedIn', this.ruleForm.username);
-      },
       submitForm(formName) {
         this.$refs[formName].validate(async valid => {
           // 增加loading状态防止重复提交
           this.loading = true;
           if (valid) {
-            this.sendSales();
             this.login(this.ruleForm.username, this.ruleForm.password);
           } else {
             this.$message.error(
