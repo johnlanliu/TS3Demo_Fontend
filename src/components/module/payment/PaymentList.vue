@@ -11,7 +11,7 @@
           label-width="80px"
           size="mini"
       >
-          <el-form-item label="Invoice No:">
+          <el-form-item label="Invoice No:" label-width="150px">
               <el-input v-model="paymentSearchForm.number" @change="search"></el-input>
           </el-form-item>
           <el-form-item label="Status:">
@@ -31,7 +31,7 @@
               <el-button class="inline" type="primary" @click="search" style="margin-left:10px;">Search</el-button>
           </el-form-item>
           <el-form-item>
-              <el-button class="inline" type="primary" @click="handleAdd()" style="margin-left:200px">+ Add</el-button>
+              <el-button class="inline" type="primary" @click="handleAdd()" style="margin-left:150px">+ Add</el-button>
           </el-form-item>
           <create-invoice-form ref="createInvoiceForm"></create-invoice-form>
       </el-form>
@@ -69,7 +69,6 @@
               </template>
           </el-table-column>
       </el-table>
-
   </div>
 </template>
 
@@ -98,7 +97,7 @@
     mixins: [exceptionUtil, timeMixins],
     components: {
       InvoiceReviewForm,
-      CreateInvoiceForm
+      CreateInvoiceForm,
     },
     data() {
       return {
@@ -108,6 +107,7 @@
         permsAdd: true,
         permsEdit: true,
         permsVoid: true,
+        salesPerson: '',
         tableData: [{
           customer: 'sun express',
           amount: '$70',
@@ -115,7 +115,7 @@
           invoiceNo: '86368539',
           invoiceDate: 'May 1, 2019',
           dueDate: 'May 15, 2019',
-          sales: 'Salvador'
+          sales: ''
         }, {
           customer: 'BRT',
           amount: '$210',
@@ -123,7 +123,7 @@
           invoiceNo: '86368540',
           invoiceDate: 'May 1, 2019',
           dueDate: 'May 15, 2019',
-          sales: 'Salvador'
+          sales: ''
         }],
         paymentSearchForm: {
           number: '',

@@ -13,7 +13,7 @@
             @keyup.enter.native="submitForm('ruleForm')"
           ></el-input>
         </el-form-item>
-        <el-form-item prop="password">
+          <el-form-item prop="password">
           <el-input
             type="password"
             placeholder="password"
@@ -48,7 +48,7 @@
   export default {
     mixins: [exceptionUtil],
     components: {
-      vVersion
+      vVersion,
     },
     data: function(){
       return {
@@ -81,12 +81,15 @@
       ...mapMutations([
         'saveLoginData'
       ]),
-
+      sendSales(event) {
+        this.$emit('userLoggedIn', this.ruleForm.username);
+      },
       submitForm(formName) {
         this.$refs[formName].validate(async valid => {
           // 增加loading状态防止重复提交
           this.loading = true;
           if (valid) {
+            this.sendSales();
             this.login(this.ruleForm.username, this.ruleForm.password);
           } else {
             this.$message.error(
@@ -110,7 +113,7 @@
           // 错误处理
           this.exceptionHandle(result.errorCode);
         }
-      }
+      },
     }
     // watch: {
     // }

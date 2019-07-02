@@ -121,5 +121,6 @@ export const deleteDict = data => axios.get('dictManager/deleteDict', data);
  * Payment
  */
 export const addPayment = (data, body) => axios.post('orgMPayment/addPayment', data, body);
+// export const getPaymentList = data => axios.get()
 
 

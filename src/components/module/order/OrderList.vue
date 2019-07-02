@@ -11,7 +11,7 @@
           label-width="80px"
           size="mini"
       >
-          <el-form-item label="Invoice No:">
+          <el-form-item label="Invoice No:" label-width="150px">
               <el-input v-model="orderSearchForm.number" @change="search"></el-input>
           </el-form-item>
           <el-form-item label="Status:">

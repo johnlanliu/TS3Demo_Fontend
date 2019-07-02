@@ -98,9 +98,25 @@
                         </el-option>
                     </el-select>
                 </el-form-item>
-                <el-form-item label="Invoice #" style="border-spacing: 0px" prop="invoiceNumber">
-                    <el-input v-model="invoiceForm.invoiceNumber" style="width: 150px"></el-input>
-                </el-form-item>
+                <el-row style="border-spacing: 0px">
+                    <el-col :span="12">
+                        <el-form-item label="Invoice #" style="border-spacing: 0px" prop="invoiceNumber">
+                            <el-input v-model="invoiceForm.invoiceNumber" style="width: 150px"></el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="12">
+                        <el-form-item label="Invoice Status" prop="invoiceStatus">
+                            <el-select v-model="invoiceForm.invoiceStatus" placeholder="Select" clearable style="width: 150px">
+                                <el-option
+                                        v-for="item in statusList"
+                                        :key="item.status"
+                                        :value="item.status"
+                                        :label="item.label"
+                                ></el-option>
+                            </el-select>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
                 <el-row style="border-spacing: 0px">
                     <el-col :span="12">
                         <el-form-item label="Invoice Date" prop="invoiceDate">
@@ -182,16 +198,19 @@
                 <el-button type="primary" style="display: inline; margin-left: 30px;">Save and Send</el-button>
             </div>
         </el-form>
+        <login hidden ref="login" @userLoggedIn="getUsername"></login>
     </el-dialog>
 </template>
 
 <script>
     import { addPayment } from '@/api/getData';
 import AddOrderForm from './AddOrderForm.vue';
+// import Login from '../../page/Login.vue';
+
 export default {
       name: 'CreateInvoiceForm',
       components: {
-        AddOrderForm
+        AddOrderForm,
       },
       data: function() {
         return {
@@ -204,6 +223,7 @@ export default {
             paymentTerm: '',
             invoiceNumber: '',
             invoiceDate: '',
+            invoiceStatus: '',
             dueDate: '',
             shippingVia: '',
             trackingNumber: '',
@@ -211,6 +231,7 @@ export default {
             total: '',
             shippingFee: '',
             note: '',
+            sales: '',
           },
           form: {
             billing: '',
@@ -232,6 +253,19 @@ export default {
             tax: 'Y',
           }],
           invoiceTypes: [],
+          statusList: [{
+            status: 'refund',
+            label: 'refund'
+          }, {
+            status: 'void',
+            label: 'void'
+          }, {
+            status: 'shipped',
+            label: 'shipped'
+          }, {
+            status: 'pending',
+            label: 'pending'
+          }],
           paymentOptions: [{
             value: 'Net15',
             label: 'Net15',
@@ -315,6 +349,9 @@ export default {
             invoiceNumber: [
                   { required: true, message: 'Invoice number is required' },
             ],
+            invoiceStatus: [
+                { required: true, message: 'Invoice status is required', trigger: 'change' },
+            ],
             invoiceDate: [
                   { required: true, message: 'Invoice date is required' },
             ],
@@ -342,15 +379,27 @@ export default {
           this.isOpen = true;
         },
         resetFields() {
+          this.invoiceForm = {};
+          this.form = {};
           this.$refs.form.resetFields();
         },
         handleCommand() {
           alert('clicked');
         },
         addPaymentHandle() {
-          addPayment({},{amount: this.invoiceForm.shippingFee}).then(result => {
-            alert('ok');
-          });
+          addPayment({},{amount: this.invoiceForm.shippingFee,
+            invoiceNo: this.invoiceForm.invoiceNumber,
+            customer: this.form.billing,
+            invoiceDate: this.invoiceForm.invoiceDate,
+            dueDate: this.invoiceForm.dueDate,
+            status: this.invoiceForm.invoiceStatus,
+            sales: this.invoiceForm.sales}
+              ).then(result => {
+                alert('ok');
+              });
+        },
+        getUsername(name) {
+          this.invoiceForm.sales = name;
         },
       }
 };
