@@ -162,6 +162,7 @@
 
     methods: {
       search() {
+
         this.getPayments();
         alert(1);
       },
@@ -181,7 +182,10 @@
         this.getPayments();
       },
       async getPayments() {
-        const result = await getPaymentList();
+        const result = await getPaymentList(
+          {invoiceNo: this.paymentSearchForm.number,
+            status: this.paymentSearchForm.status,
+            customer: this.paymentSearchForm.customer});
         if (result) { // && !result.errorCode) {
           this.tableData = [];
           result.forEach((item, index) => {
