@@ -92,6 +92,7 @@
   import { mapState } from 'vuex';
   import InvoiceReviewForm from './InvoiceReviewForm.vue';
   import CreateInvoiceForm from '../order/CreateInvoiceForm.vue';
+  import {getPaymentList} from '../../../api/getData';
 
   export default {
     mixins: [exceptionUtil, timeMixins],
@@ -168,7 +169,7 @@
     },
 
     created() {
-
+      this.initData();
     },
 
     watch: {
@@ -177,6 +178,7 @@
 
     methods: {
       search() {
+        this.getPaymentList();
         alert(1);
       },
       handleAdd() {
@@ -188,6 +190,22 @@
       handleCommand(command) {
         if(command==='a') {
           this.$refs.invoiceReviewForm.showDialog();
+        }
+      },
+      async initData() {
+        // const result = await getValidRoleList({});
+        this.getPaymentList();
+      },
+      async getPaymentList() {
+        this.loading = false;
+        const result = getPaymentList();
+        if (result) { // && !result.errorCode) {
+          this.tableData = [];
+          result.forEach((item, index) => {
+            let tableData = item;
+            tableData.index = index + 1;
+            this.tableData.push(tableData);
+          });
         }
       },
     }
