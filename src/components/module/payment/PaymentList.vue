@@ -92,7 +92,7 @@
   import { mapState } from 'vuex';
   import InvoiceReviewForm from './InvoiceReviewForm.vue';
   import CreateInvoiceForm from '../order/CreateInvoiceForm.vue';
-  import {getPaymentList} from '../../../api/getData';
+  import {getPaymentList} from '@/api/getData';
 
   export default {
     mixins: [exceptionUtil, timeMixins],
@@ -109,23 +109,7 @@
         permsEdit: true,
         permsVoid: true,
         salesPerson: '',
-        tableData: [{
-          customer: 'sun express',
-          amount: '$70',
-          status: 'unpaid',
-          invoiceNo: '86368539',
-          invoiceDate: 'May 1, 2019',
-          dueDate: 'May 15, 2019',
-          sales: ''
-        }, {
-          customer: 'BRT',
-          amount: '$210',
-          status: 'overdue',
-          invoiceNo: '86368540',
-          invoiceDate: 'May 1, 2019',
-          dueDate: 'May 15, 2019',
-          sales: ''
-        }],
+        tableData: [],
         paymentSearchForm: {
           number: '',
           status: '',
@@ -178,7 +162,7 @@
 
     methods: {
       search() {
-        this.getPaymentList();
+        this.getPayments();
         alert(1);
       },
       handleAdd() {
@@ -194,11 +178,10 @@
       },
       async initData() {
         // const result = await getValidRoleList({});
-        this.getPaymentList();
+        this.getPayments();
       },
-      async getPaymentList() {
-        this.loading = false;
-        const result = getPaymentList();
+      async getPayments() {
+        const result = await getPaymentList();
         if (result) { // && !result.errorCode) {
           this.tableData = [];
           result.forEach((item, index) => {
