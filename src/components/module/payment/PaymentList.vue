@@ -28,10 +28,10 @@
               <el-input v-model="paymentSearchForm.customer" @change="search"></el-input>
           </el-form-item>
           <el-form-item label>
-              <el-button class="inline" type="primary" @click="search" style="margin-left:10px;">Search</el-button>
+              <el-button class="inline" type="primary" @click="search" style="margin-left:10px;">Search/Update</el-button>
           </el-form-item>
           <el-form-item>
-              <el-button class="inline" type="primary" @click="handleAdd()" style="margin-left:150px">+ Add</el-button>
+              <el-button class="inline" type="primary" @click="handleAdd()" style="margin-left:120px">+ Add</el-button>
           </el-form-item>
           <create-invoice-form ref="createInvoiceForm"></create-invoice-form>
       </el-form>
@@ -50,22 +50,19 @@
           <el-table-column label="Customer" prop="customer" width="150"></el-table-column>
           <el-table-column label="Invoice Date" prop="invoiceDate" width="150"></el-table-column>
           <el-table-column label="Due Date" prop="dueDate" width="150"></el-table-column>
-          <el-table-column label="Amount" prop="amount" width="110"></el-table-column>
+          <el-table-column label="Amount" prop="amount" width="110">
+              <template slot-scope="scope">
+                  <span>${{scope.row.amount}}.00</span>
+              </template>
+          </el-table-column>
           <el-table-column label="Status" prop="status" width="110"></el-table-column>
           <el-table-column label="Sales" prop="sales" width="110"></el-table-column>
           <el-table-column label="Action" width="140" v-if="permsEdit || permsVoid">
               <template slot-scope="scope">
-                  <el-dropdown size="mini" type="text" @command="handleCommand">
-                  <span class="el-dropdown-link">
-                  Print<i class="el-icon-arrow-down el-icon--right"></i>
-                  </span>
-                      <el-dropdown-menu slot="dropdown">
-                          <el-dropdown-item command="a">View</el-dropdown-item>
-                          <el-dropdown-item command="b">Edit</el-dropdown-item>
-                          <el-dropdown-item command="c">Void</el-dropdown-item>
-                      </el-dropdown-menu>
-                  </el-dropdown>
                   <invoice-review-form ref="invoiceReviewForm"></invoice-review-form>
+                  <el-button size="mini" type="text" @click="handleView()">View</el-button>
+                  <el-button size="mini" type="text" @click="handleEdit()">Edit</el-button>
+                  <el-button size="mini" type="text" @click="handleVoid(scope.$index, scope.row)">Void</el-button>
               </template>
           </el-table-column>
       </el-table>
@@ -92,7 +89,7 @@
   import { mapState } from 'vuex';
   import InvoiceReviewForm from './InvoiceReviewForm.vue';
   import CreateInvoiceForm from '../order/CreateInvoiceForm.vue';
-  import {getPaymentList} from '@/api/getData';
+  import {getPaymentList, voidPayment} from '@/api/getData';
 
   export default {
     mixins: [exceptionUtil, timeMixins],
@@ -172,10 +169,9 @@
       add() {
         alert(2);
       },
-      handleCommand(command) {
-        if(command==='a') {
-          this.$refs.invoiceReviewForm.showDialog();
-        }
+      async handleVoid(index, row) {
+        await voidPayment({invoiceNo: row.invoiceNo},{});
+        this.initData();
       },
       async initData() {
         // const result = await getValidRoleList({});
@@ -194,6 +190,9 @@
             this.tableData.push(tableData);
           });
         }
+      },
+      handleView() {
+        this.$refs.invoiceReviewForm.showDialog();
       },
     }
   };
