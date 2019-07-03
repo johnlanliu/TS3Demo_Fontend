@@ -164,7 +164,7 @@
       search() {
 
         this.getPayments();
-        
+
       },
       handleAdd() {
         this.$refs.createInvoiceForm.showDialog();
