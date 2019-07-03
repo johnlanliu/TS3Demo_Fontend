@@ -232,7 +232,7 @@
                             </td>
                             <td>
                                 <el-form-item>
-                                    <el-button type="primary" @click="handleAddOrder, handleCreateInvoice('form', 'customerServiceForm')">Submit and Create Invoice</el-button>
+                                    <el-button type="primary" @click="handleCreateInvoice('form', 'customerServiceForm')">Submit and Create Invoice</el-button>
                                 </el-form-item>
                             </td>
                         </tr>
@@ -472,15 +472,17 @@ export default {
       this.$refs.productDetailForm.showDialog();
     },
     handleCreateInvoice(form1, form2) {
-      this.$refs[form1].validate((valid1) => {
-        if (valid1) {
-          this.$refs[form2].validate((valid2) => {
-            if (valid2) {
-              this.$refs.createInvoiceForm.showDialog();
-            }
-          });
-        }
-      });
+      this.handleAddOrder();
+      this.$refs.createInvoiceForm.showDialog();
+      // this.$refs[form1].validate((valid1) => {
+      //   if (valid1) {
+      //     this.$refs[form2].validate((valid2) => {
+      //       if (valid2) {
+      //         this.$refs.createInvoiceForm.showDialog();
+      //       }
+      //     });
+      //   }
+      // });
     },
     handleSave() {
       alert('save');
@@ -512,19 +514,16 @@ export default {
     handleAddOrder() {
       addOrder({},{type: this.form.orderType,
         customer: this.form.billing,
-            // description: ,
+          description: 'FIX THIS',
         status: this.customerServiceForm.status,
         invoiceNo: this.customerServiceForm.invoiceNumber,
-        invoiceDate: this.invoiceForm.invoiceDate,
-            // dueDate:,
-        trackingNo: this.invoiceForm.trackingNumber,
+        invoiceDate: this.customerServiceForm.invoiceDate,
+          dueDate: '2019-02-18 16:26:51',
+        trackingNo: this.customerServiceForm.trackingNumber,
         sales: '',
-            // create_time:,
-            // modify_time:
-      }
-        ).then(result => {
-          alert('ok');
-        });
+          createTime: '2019-02-18 16:26:51',
+          modifyTime: '2019-02-18 16:26:51'
+      })
     }
   },
 
