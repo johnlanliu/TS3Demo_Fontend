@@ -263,6 +263,9 @@ export default {
           }, {
             status: 'pending',
             label: 'pending'
+          }, {
+            status: 'overdue',
+            label: 'overdue'
           }],
           paymentOptions: [{
             value: 'Net15',

@@ -55,13 +55,19 @@
                   <span>${{scope.row.amount}}.00</span>
               </template>
           </el-table-column>
-          <el-table-column label="Status" prop="status" width="110"></el-table-column>
+          <el-table-column label="Status" prop="status" width="110">
+              <template slot-scope="scope">
+                  <span v-if="scope.row.status==='overdue'" style="color:red;">{{scope.row.status}}</span>
+                  <span v-else-if="scope.row.status==='refund'" style="color:red;">{{scope.row.status}}</span>
+                  <span v-else>{{scope.row.status}}</span>
+              </template>
+          </el-table-column>
           <el-table-column label="Sales" prop="sales" width="110"></el-table-column>
           <el-table-column label="Action" width="140" v-if="permsEdit || permsVoid">
               <template slot-scope="scope">
                   <invoice-review-form ref="invoiceReviewForm"></invoice-review-form>
-                  <el-button size="mini" type="text" @click="handleView()">View</el-button>
-                  <el-button size="mini" type="text" @click="handleEdit()">Edit</el-button>
+                  <el-button size="mini" type="text" @click="handleView(scope.$index, scope.row)">View</el-button>
+                  <el-button size="mini" type="text" @click="handleEdit(scope.$index, scope.row)">Edit</el-button>
                   <el-button size="mini" type="text" @click="handleVoid(scope.$index, scope.row)">Void</el-button>
               </template>
           </el-table-column>
@@ -119,11 +125,14 @@
           status: 'void',
           label: 'void'
         }, {
-          status: 'shipped',
-          label: 'shipped'
+          status: 'paid',
+          label: 'paid'
         }, {
-          status: 'pending',
-          label: 'pending'
+          status: 'unpaid',
+          label: 'unpaid'
+        }, {
+          status: 'overdue',
+          label: 'overdue'
         }]
       };
     },
@@ -191,9 +200,12 @@
           });
         }
       },
-      handleView() {
+      handleView(index, row) {
         this.$refs.invoiceReviewForm.showDialog();
       },
+      handleEdit(index, row) {
+        this.$refs.invoiceReviewForm.showDialog();
+      }
     }
   };
 </script>
