@@ -227,12 +227,12 @@
                         <tr>
                             <td>
                                 <el-form-item>
-                                    <el-button type="primary" @click="handleCancel()">Cancel Order</el-button>
+                                    <el-button type="primary" @click="handleCancel">Cancel Order</el-button>
                                 </el-form-item>
                             </td>
                             <td>
                                 <el-form-item>
-                                    <el-button type="primary" @click="handleCreateInvoice('form', 'customerServiceForm')">Submit and Create Invoice</el-button>
+                                    <el-button type="primary" @click="handleAddOrder, handleCreateInvoice('form', 'customerServiceForm')">Submit and Create Invoice</el-button>
                                 </el-form-item>
                             </td>
                         </tr>
@@ -256,6 +256,8 @@ import ProductDetailForm from './ProductDetailForm.vue';
 import CreateInvoiceForm from './CreateInvoiceForm.vue';
 import AccessoryDetailForm from './AccessoryDetailForm.vue';
 import ServicePlanForm from './ServicePlanForm.vue';
+import { addOrder } from '@/api/getData';
+
 export default {
   name: 'AddOrderForm',
   components: {
@@ -506,6 +508,23 @@ export default {
     },
     handleAddService() {
       this.$refs.servicePlanForm.showDialog();
+    },
+    handleAddOrder() {
+      addOrder({},{type: this.form.orderType,
+        customer: this.form.billing,
+            // description: ,
+        status: this.customerServiceForm.status,
+        invoiceNo: this.customerServiceForm.invoiceNumber,
+        invoiceDate: this.invoiceForm.invoiceDate,
+            // dueDate:,
+        trackingNo: this.invoiceForm.trackingNumber,
+        sales: '',
+            // create_time:,
+            // modify_time:
+      }
+        ).then(result => {
+          alert('ok');
+        });
     }
   },
 

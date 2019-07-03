@@ -112,6 +112,7 @@
   import { mapState } from 'vuex';
   import AddOrderForm from './AddOrderForm.vue';
   import OrderReviewForm from './OrderReviewForm.vue';
+  import { getOrderList } from '@/api/getData';
 
   export default {
     mixins: [exceptionUtil, timeMixins],
@@ -128,29 +129,7 @@
         permsEdit: true,
         permsVoid: true,
         form: {},
-        tableData: [{
-          orderId: 1,
-          type: 'evaluation',
-          customer: 'sun express',
-          description: 'VT1U1*10',
-          status: 'shipped',
-          invoiceNo: '86368539',
-          invoiceDate: 'May 1, 2019',
-          dueDate: 'May 15, 2019',
-          trackingNo: '86239052930',
-          sales: 'Salvador'
-        }, {
-          orderId: 2,
-          type: 'purchase',
-          customer: 'BRT',
-          description: 'VT1711*10',
-          status: 'cancelled',
-          invoiceNo: '86368539',
-          invoiceDate: 'May 1, 2019',
-          dueDate: 'May 15, 2019',
-          trackingNo: '86239052930',
-          sales: 'Salvador'
-        }],
+        tableData: [],
         orderSearchForm: {
           number: '',
           status: ''
@@ -193,7 +172,7 @@
     },
 
     created() {
-
+      this.initData();
     },
 
     watch: {
@@ -202,7 +181,7 @@
 
     methods: {
       search() {
-        alert(1);
+        this.getOrders();
       },
       handleAdd() {
         this.$refs.addOrderForm.showDialog();
@@ -211,8 +190,24 @@
         if(command==='a') {
           this.$refs.orderReviewForm.showDialog();
         }
-
-      }
+      },
+      async initData() {
+            // const result = await getValidRoleList({});
+        this.getOrders();
+      },
+      async getOrders() {
+        const result = await getOrderList(
+          {invoiceNo: this.orderSearchForm.number,
+            status: this.orderSearchForm.status});
+        if (result) { // && !result.errorCode) {
+          this.tableData = [];
+          result.forEach((item, index) => {
+            let tableData = item;
+            tableData.index = index + 1;
+            this.tableData.push(tableData);
+          });
+        }
+      },
     }
   };
 </script>
