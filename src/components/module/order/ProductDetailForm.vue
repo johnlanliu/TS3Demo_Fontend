@@ -134,9 +134,9 @@
                                     </el-form-item>
                                 </el-form>
                                 <el-row>
-                                    <el-button type="primary" style="float: left" @click="handleAccessories()">+ Add Accessories</el-button>
-                                    <el-button type="primary" style="float: right" @click="handleNetwork()">+ Add Service Plan</el-button>
-                                    <el-button type="primary" style="float: right; margin-top: 10px">Add</el-button>
+                                    <el-button type="primary" style="float: left" @click="handleAccessories">+ Add Accessories</el-button>
+                                    <el-button type="primary" style="float: right" @click="handleNetwork">+ Add Service Plan</el-button>
+                                    <el-button type="primary" style="float: right; margin-top: 10px" @click="handleAddClick">Add</el-button>
                                 </el-row>
                             </el-col>
                         </el-row>
@@ -184,6 +184,10 @@ export default {
         accPrice: '',
         accQty: 1,
         accPicked: false,
+        planPicked: false,
+        planQty: '',
+        planAmt: '',
+        planName: '',
         servicePlan: '',
         choices: [{
           value: 'Yes',
@@ -240,6 +244,7 @@ export default {
       this.form3.accPrice = '';
       this.form3.accQty = '';
       this.form3.accPicked = false;
+      this.form3.planPicked = false;
       this.$refs.form.resetFields();
     },
     handleNext(number) {
@@ -321,10 +326,24 @@ export default {
     handleNetwork() {
       this.$refs.servicePlanForm.showDialog();
     },
-    getServicePlanFee(qty, amt) {
+    getServicePlanFee(qty, amt, name) {
+      this.form3.planPicked = true;
+      this.form3.planQty = qty;
+      this.form3.planAmt = amt;
+      this.form3.planName = name;
       let price = qty * amt;
       this.form3.servicePlan = price.toString();
-    }
+    },
+      handleAddClick(event) {
+        this.$emit('productAdded', this.form3.productName, this.form3.price, this.form3.QTY);
+        if (this.form3.accPicked === true) {
+          this.$emit('accessoryAdded', this.form3.accName, this.form3.accPrice, this.form3.accQty);
+        }
+        if (this.form3.planPicked === true) {
+          this.$emit('planAdded', this.form3.planQty, this.form3.planAmt, this.form3.planName);
+        }
+        this.isOpen = false;
+      }
   },
 };
 </script>

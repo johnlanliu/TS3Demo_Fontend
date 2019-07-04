@@ -46,29 +46,59 @@
           :row-key="row => row.index"
           style="width: 100%;"
       >
-          <el-table-column label="Invoice No." prop="invoiceNo" width="150"></el-table-column>
-          <el-table-column label="Customer" prop="customer" width="150"></el-table-column>
-          <el-table-column label="Invoice Date" prop="invoiceDate" width="150"></el-table-column>
-          <el-table-column label="Due Date" prop="dueDate" width="150"></el-table-column>
+          <el-table-column label="Invoice No." prop="invoiceNo" width="150">
+<!--              <template slot-scope="scope">-->
+<!--                  <span style="color: red">{{scope.row.invoiceNo}}</span>-->
+<!--              </template>-->
+          </el-table-column>
+          <el-table-column label="Customer" prop="customer" width="150">
+<!--              <template slot-scope="scope">-->
+<!--                  <span style="color: orange">{{scope.row.customer}}</span>-->
+<!--              </template>-->
+          </el-table-column>
+          <el-table-column label="Invoice Date" prop="invoiceDate" width="150">
+<!--              <template slot-scope="scope">-->
+<!--                  <span style="color: yellow">{{scope.row.invoiceDate}}</span>-->
+<!--              </template>-->
+          </el-table-column>
+          <el-table-column label="Due Date" prop="dueDate" width="150">
+<!--              <template slot-scope="scope">-->
+<!--                  <span style="color: green">{{scope.row.dueDate}}</span>-->
+<!--              </template>-->
+          </el-table-column>
           <el-table-column label="Amount" prop="amount" width="110">
-              <template slot-scope="scope">
-                  <span>${{scope.row.amount}}.00</span>
-              </template>
+<!--              <template slot-scope="scope">-->
+<!--                  <span style="color: blue">${{scope.row.amount}}.00</span>-->
+<!--              </template>-->
           </el-table-column>
           <el-table-column label="Status" prop="status" width="110">
               <template slot-scope="scope">
                   <span v-if="scope.row.status==='overdue'" style="color:red;">{{scope.row.status}}</span>
                   <span v-else-if="scope.row.status==='refund'" style="color:red;">{{scope.row.status}}</span>
-                  <span v-else>{{scope.row.status}}</span>
+<!--                  <span v-else style="color: indigo">{{scope.row.status}}</span>-->
+                  <span v-else >{{scope.row.status}}</span>
               </template>
           </el-table-column>
-          <el-table-column label="Sales" prop="sales" width="110"></el-table-column>
+          <el-table-column label="Sales" prop="sales" width="110">
+<!--              <template slot-scope="scope">-->
+<!--                  <span style="color: violet">{{scope.row.sales}}</span>-->
+<!--              </template>-->
+          </el-table-column>
           <el-table-column label="Action" width="140" v-if="permsEdit || permsVoid">
               <template slot-scope="scope">
+                  <el-dropdown @command="handleCommand($event, scope.row, scope.$index)" trigger="click">
+                      <span class="el-dropdown-link">
+                          Action <i class="el-icon-arrow-down"></i></span>
+                      <el-dropdown-menu slot="dropdown">
+                          <el-dropdown-item command="view">View</el-dropdown-item>
+                          <el-dropdown-item command="edit">Edit</el-dropdown-item>
+                          <el-dropdown-item command="void">Void</el-dropdown-item>
+                      </el-dropdown-menu>
+                  </el-dropdown>
                   <invoice-review-form ref="invoiceReviewForm"></invoice-review-form>
-                  <el-button size="mini" type="text" @click="handleView(scope.$index, scope.row)">View</el-button>
-                  <el-button size="mini" type="text" @click="handleEdit(scope.$index, scope.row)">Edit</el-button>
-                  <el-button size="mini" type="text" @click="handleVoid(scope.$index, scope.row)">Void</el-button>
+<!--                  <el-button size="mini" type="text" @click="handleView(scope.$index, scope.row)">View</el-button>-->
+<!--                  <el-button size="mini" type="text" @click="handleEdit(scope.$index, scope.row)">Edit</el-button>-->
+<!--                  <el-button size="mini" type="text" @click="handleVoid(scope.$index, scope.row)">Void</el-button>-->
               </template>
           </el-table-column>
       </el-table>
@@ -177,6 +207,15 @@
       },
       add() {
         alert(2);
+      },
+      handleCommand(command, row, index) {
+        if (command === 'view') {
+          this.handleView(index, row);
+        } else if (command === 'edit') {
+          this.handleEdit(index, row);
+        } else {
+          this.handleVoid(index, row);
+        }
       },
       async handleVoid(index, row) {
         await voidPayment({invoiceNo: row.invoiceNo},{});

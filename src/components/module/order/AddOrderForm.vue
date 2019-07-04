@@ -242,8 +242,9 @@
         </div>
         <create-invoice-form ref="createInvoiceForm"></create-invoice-form>
         <product-detail-form ref="productDetailForm"></product-detail-form>
-        <accessory-detail-form ref="accessoryDetailForm"></accessory-detail-form>
-        <service-plan-form ref="servicePlanForm"></service-plan-form>
+        <accessory-detail-form ref="accessoryDetailForm" @accessoryAdded="getAccessoryInfo"></accessory-detail-form>
+        <product-detail-form ref="productDetailForm" @productAdded="getProductInfo"></product-detail-form>
+        <service-plan-form ref="servicePlanForm" @planAdded="getServicePlanFee"></service-plan-form>
     </el-dialog>
 </template>
 
@@ -295,6 +296,15 @@ export default {
         orderType: '',
         paymentTerm: '',
         note: '',
+        accName: '',
+        accPrice: '',
+        accQty: '',
+        prodName: '',
+        prodPrice: '',
+        prodQty: '',
+        planQty: '',
+        planAmt: '',
+        planName: '',
       },
       orderOptions: [{
         value: 'evaluation',
@@ -440,25 +450,6 @@ export default {
       this.isOpen = true;
     },
     resetFields() {
-      // this.form.billing = '';
-      // this.form.billingContact = '';
-      // this.form.billingPhone = '';
-      // this.form.billingEmail = '';
-      // this.form.billingAddress = '';
-      // this.form.companyName = '';
-      // this.form.contact = '';
-      // this.form.email = '';
-      // this.form.phone = '';
-      // this.form.shippingAddress = '';
-      // this.form.orderType = '';
-      // this.form.paymentTerm = '';
-      // this.form.note = '';
-      // this.customerServiceForm.invoiceDate = '';
-      // this.customerServiceForm.invoiceNumber = '';
-      // this.customerServiceForm.shippingFee = '';
-      // this.customerServiceForm.shippingVia = '';
-      // this.customerServiceForm.status = '';
-      // this.customerServiceForm.trackingNumber = '';
       this.form = {};
       this.customerServiceForm = {};
       this.sameAsBilling = false;
@@ -514,16 +505,31 @@ export default {
     handleAddOrder() {
       addOrder({},{type: this.form.orderType,
         customer: this.form.billing,
-          description: 'FIX THIS',
+        description: 'FIX THIS',
         status: this.customerServiceForm.status,
         invoiceNo: this.customerServiceForm.invoiceNumber,
         invoiceDate: this.customerServiceForm.invoiceDate,
-          dueDate: '2019-02-18 16:26:51',
+        dueDate: '2019-02-18 16:26:51',
         trackingNo: this.customerServiceForm.trackingNumber,
         sales: '',
-          createTime: '2019-02-18 16:26:51',
-          modifyTime: '2019-02-18 16:26:51'
-      })
+        createTime: '2019-02-18 16:26:51',
+        modifyTime: '2019-02-18 16:26:51'
+      });
+    },
+    getAccessoryInfo(n, p, q) {
+      this.form.accName = n;
+      this.form.accPrice = p;
+      this.form.accQty = q;
+    },
+    getProductInfo(n, p, q) {
+      this.form.prodName = n;
+      this.form.prodPrice = p;
+      this.form.prodQty = q;
+    },
+    getServicePlanFee(q, a, n) {
+      this.form.planQty = q;
+      this.form.planAmt = a;
+      this.form.planName = n;
     }
   },
 

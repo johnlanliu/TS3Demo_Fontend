@@ -60,7 +60,7 @@
                                 </el-form-item>
                             </el-form>
                             <el-row>
-                                <el-button type="primary" style="float: right; margin-top: 10px" @click="handleAddPlan()">Add</el-button>
+                                <el-button type="primary" style="float: right; margin-top: 10px" @click="handleAddPlan">Add</el-button>
                             </el-row>
                         </el-col>
                     </el-row>
@@ -131,7 +131,7 @@
           this.form5.activeName = nextNum.toString();
         },
         handleAddPlan(event) {
-          this.$emit('planAdded', this.form5.QTY, this.form5.amount);
+          this.$emit('planAdded', this.form5.QTY, this.form5.amount, this.form5.servicePlan);
           this.isOpen = false;
         }
 
