@@ -447,6 +447,9 @@ export default {
     resetFields() {
       this.tableData = [];
       this.form = {};
+      this.form.prodPicked = false;
+      this.form.accPicked = false;
+      this.form.planPicked = false;
       this.customerServiceForm = {};
       this.sameAsBilling = false;
       this.sameInfo = false;
@@ -501,7 +504,7 @@ export default {
     handleAddOrder() {
       addOrder({},{type: this.form.orderType,
         customer: this.form.billing,
-        description: 'FIX THIS',
+        description: this.descriptions,
         status: this.customerServiceForm.status,
         invoiceNo: this.customerServiceForm.invoiceNumber,
         invoiceDate: this.customerServiceForm.invoiceDate,
@@ -626,7 +629,20 @@ export default {
     },
   },
 
-
+  computed: {
+    descriptions: function() {
+      let des = '';
+      const copy = this.tableData.slice();
+      copy.forEach(function(item, index) {
+        if ((index + 1) === (copy.length)) {
+          des += (String(item.quantity) + '*' + String(item.product));
+        } else {
+          des += (String(item.quantity) + '*' + String(item.product) + ', ' + '\n');
+        }
+      });
+      return des;
+    }
+  },
 
 };
 </script>

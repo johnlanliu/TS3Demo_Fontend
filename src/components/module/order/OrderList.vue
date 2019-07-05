@@ -46,6 +46,14 @@
           :row-key="row => row.index"
           style="width: 100%;"
       >
+<!--          <el-table-column label="Description" type="expand" width="160">-->
+<!--              -->
+<!--          </el-table-column>-->
+<!--          <el-table-column fixed type="expand">-->
+<!--              <template class="el-description" slot-scope="props">-->
+<!--                  <p>Description: {{ props.row.description }}</p>-->
+<!--              </template>-->
+<!--          </el-table-column>-->
           <el-table-column fixed label="Order ID" prop="orderId" width="100"></el-table-column>
           <el-table-column fixed label="Type" prop="type" width="130" >
               <template slot-scope="scope">
@@ -263,5 +271,10 @@
 
   .btns {
     padding: 15px 15px 5px;
+  }
+
+  .el-description {
+      font-size: 12px;
+      font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
   }
 </style>
