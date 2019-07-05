@@ -240,7 +240,7 @@
                 </el-form>
             </el-form>
         </div>
-        <create-invoice-form ref="createInvoiceForm"></create-invoice-form>
+        <create-invoice-form ref="createInvoiceForm" v-bind:table-data="this.tableData"></create-invoice-form>
         <product-detail-form ref="productDetailForm"></product-detail-form>
         <accessory-detail-form ref="accessoryDetailForm" @accessoryAdded="getAccessoryInfo"></accessory-detail-form>
         <product-detail-form ref="productDetailForm" @productAdded="getProductInfo" @prodAndAccAdded="getProdAndAccInfo"
@@ -462,6 +462,7 @@ export default {
       this.$refs.productDetailForm.showDialog();
     },
     handleCreateInvoice(form1, form2) {
+      // this.sendTableData();
       this.handleAddOrder();
       this.$refs.createInvoiceForm.showDialog();
       // this.$refs[form1].validate((valid1) => {
@@ -474,6 +475,9 @@ export default {
       //   }
       // });
     },
+    // sendTableData(event) {
+    //   this.$emit('goToInvoice', this.tableData);
+    // },
     handleSave() {
       alert('save');
     },

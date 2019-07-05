@@ -152,7 +152,7 @@
                         :row-key="row => row.index"
                         style="width: 100%"
                 >
-                    <el-table-column label="Product" prop="product" width="120"></el-table-column>
+                    <el-table-column label="Product" prop="product" width="150"></el-table-column>
                     <el-table-column label="QTY" prop="quantity" width="120"></el-table-column>
                     <el-table-column label="Rate" prop="rate" width="120"></el-table-column>
                     <el-table-column label="Amount" prop="amount" width="120"></el-table-column>
@@ -203,12 +203,13 @@
 
 <script>
     import { addPayment } from '@/api/getData';
-import AddOrderForm from './AddOrderForm.vue';
 
 export default {
       name: 'CreateInvoiceForm',
       components: {
-        AddOrderForm,
+      },
+      props: {
+        tableData: Array,
       },
       data: function() {
         return {
@@ -243,13 +244,6 @@ export default {
             phone: '',
             shippingAddress: '',
           },
-          tableData: [{
-            product: 'VT1611R30',
-            quantity: 10,
-            rate: 250,
-            amount: 2500,
-            tax: 'Y',
-          }],
           invoiceTypes: [],
           statusList: [{
             status: 'refund',
@@ -382,6 +376,7 @@ export default {
         resetFields() {
           this.invoiceForm = {};
           this.form = {};
+          this.tableData = [];
           this.$refs.form.resetFields();
         },
         handleCommand() {
@@ -399,6 +394,9 @@ export default {
                 alert('ok');
               });
         },
+        // getTableData(td) {
+        //   this.tableData = td.slice();
+        // }
       }
 };
 </script>
