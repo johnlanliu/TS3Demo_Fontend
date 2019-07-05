@@ -51,7 +51,7 @@
 <!--          </el-table-column>-->
 <!--          <el-table-column fixed type="expand">-->
 <!--              <template class="el-description" slot-scope="props">-->
-<!--                  <p>Description: {{ props.row.description }}</p>-->
+<!--                  <p style="margin: 5px">Description: {{ props.row.description }}</p>-->
 <!--              </template>-->
 <!--          </el-table-column>-->
           <el-table-column fixed label="Order ID" prop="orderId" width="100"></el-table-column>

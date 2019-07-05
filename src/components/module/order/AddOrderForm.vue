@@ -637,7 +637,7 @@ export default {
         if ((index + 1) === (copy.length)) {
           des += (String(item.quantity) + '*' + String(item.product));
         } else {
-          des += (String(item.quantity) + '*' + String(item.product) + ', ' + '\n');
+          des += (String(item.quantity) + '*' + String(item.product) + ',  ' + '\n');
         }
       });
       return des;
