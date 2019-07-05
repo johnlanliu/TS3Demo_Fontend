@@ -112,20 +112,20 @@
                     border
                     stripe
                     highlight-current-row
-                    max-height="200px"
+                    :height="200"
                     :row-key="row => row.index"
                     style="width: 100%; margin-left: 50px"
                 >
-                    <el-table-column label="Product" prop="product" width="120"></el-table-column>
-                    <el-table-column label="QTY" prop="quantity" width="150">
-                        <template slot-scope="scope">
-                            <el-input-number v-model="tableData.quantity" controls-position="right" size="mini"></el-input-number>
-                        </template>
+                    <el-table-column label="Product" prop="product" width="150"></el-table-column>
+                    <el-table-column label="QTY" prop="quantity" width="96">
+<!--                        <template slot-scope="scope">-->
+<!--                            <el-input-number v-model="tableData.quantity" controls-position="right" size="mini"></el-input-number>-->
+<!--                        </template>-->
                     </el-table-column>
-                    <el-table-column label="Rate" prop="rate" width="100"></el-table-column>
-                    <el-table-column label="Amount" prop="amount" width="100"></el-table-column>
+                    <el-table-column label="Rate" prop="rate" width="96"></el-table-column>
+                    <el-table-column label="Amount" prop="amount" width="96"></el-table-column>
                     <el-table-column label="Tax" prop="tax" width="50"></el-table-column>
-                    <el-table-column label="Action" width="130">
+                    <el-table-column label="Action" width="100">
                         <template slot-scope="scope">
                             <el-button type="text">Delete</el-button>
                         </template>
@@ -243,7 +243,8 @@
         <create-invoice-form ref="createInvoiceForm"></create-invoice-form>
         <product-detail-form ref="productDetailForm"></product-detail-form>
         <accessory-detail-form ref="accessoryDetailForm" @accessoryAdded="getAccessoryInfo"></accessory-detail-form>
-        <product-detail-form ref="productDetailForm" @productAdded="getProductInfo"></product-detail-form>
+        <product-detail-form ref="productDetailForm" @productAdded="getProductInfo" @prodAndAccAdded="getProdAndAccInfo"
+        @prodAndPlanAdded="getProdAndPlanInfo" @allAdded="getAllInfo"></product-detail-form>
         <service-plan-form ref="servicePlanForm" @planAdded="getServicePlanFee"></service-plan-form>
     </el-dialog>
 </template>
@@ -275,13 +276,7 @@ export default {
       total: '',
       sameInfo: false,
       sameAsBilling: false,
-      tableData: [{
-        product: 'VT1611R30',
-        quantity: 10,
-        rate: 250,
-        amount: 2500,
-        tax: 'Y',
-      }],
+      tableData: [],
       form: {
         billing: '',
         billingContact: '',
@@ -450,6 +445,7 @@ export default {
       this.isOpen = true;
     },
     resetFields() {
+      this.tableData = [];
       this.form = {};
       this.customerServiceForm = {};
       this.sameAsBilling = false;
@@ -520,17 +516,114 @@ export default {
       this.form.accName = n;
       this.form.accPrice = p;
       this.form.accQty = q;
+      const data = {product: this.form.accName,
+        quantity: this.form.accQty,
+        rate: this.form.accPrice,
+        amount: Number(this.form.accPrice) * Number(this.form.accQty),
+        tax: 'Y'
+      };
+      this.tableData.push(data);
     },
     getProductInfo(n, p, q) {
       this.form.prodName = n;
       this.form.prodPrice = p;
       this.form.prodQty = q;
+      const data = {product: this.form.prodName,
+        quantity: this.form.prodQty,
+        rate: this.form.prodPrice,
+        amount: Number(this.form.prodPrice) * Number(this.form.prodQty),
+        tax: 'Y'
+      };
+      this.tableData.push(data);
     },
     getServicePlanFee(q, a, n) {
       this.form.planQty = q;
       this.form.planAmt = a;
       this.form.planName = n;
-    }
+      const data = {product: this.form.planName,
+        quantity: this.form.planQty,
+        rate: this.form.planAmt,
+        amount: Number(this.form.planAmt) * Number(this.form.planQty),
+        tax: 'Y'
+      };
+      this.tableData.push(data);
+    },
+    getProdAndAccInfo(pn, pp, pq, an, ap, aq) {
+      this.form.prodName = pn;
+      this.form.prodPrice = pp;
+      this.form.prodQty = pq;
+      this.form.accName = an;
+      this.form.accPrice = ap;
+      this.form.accQty = aq;
+      const data = {product: this.form.prodName,
+        quantity: this.form.prodQty,
+        rate: this.form.prodPrice,
+        amount: Number(this.form.prodPrice) * Number(this.form.prodQty),
+        tax: 'Y'
+      };
+      this.tableData.push(data);
+      const data2 = {product: this.form.accName,
+        quantity: this.form.accQty,
+        rate: this.form.accPrice,
+        amount: Number(this.form.accPrice) * Number(this.form.accQty),
+        tax: 'Y'
+      };
+      this.tableData.push(data2);
+    },
+    getProdAndPlanInfo(pn, pp, pq, sq, sa, sn) {
+      this.form.prodName = pn;
+      this.form.prodPrice = pp;
+      this.form.prodQty = pq;
+      this.form.planQty = sq;
+      this.form.planAmt = sa;
+      this.form.planName = sn;
+      const data = {product: this.form.prodName,
+        quantity: this.form.prodQty,
+        rate: this.form.prodPrice,
+        amount: Number(this.form.prodPrice) * Number(this.form.prodQty),
+        tax: 'Y'
+      };
+      this.tableData.push(data);
+      const data2 = {product: this.form.planName,
+        quantity: this.form.planQty,
+        rate: this.form.planAmt,
+        amount: Number(this.form.planAmt) * Number(this.form.planQty),
+        tax: 'Y'
+      };
+      this.tableData.push(data2);
+    },
+    getAllInfo(pn, pp, pq, an, ap, aq, sq, sa, sn) {
+      this.form.prodName = pn;
+      this.form.prodPrice = pp;
+      this.form.prodQty = pq;
+      this.form.accName = an;
+      this.form.accPrice = ap;
+      this.form.accQty = aq;
+      this.form.planQty = sq;
+      this.form.planAmt = sa;
+      this.form.planName = sn;
+      const data = {product: this.form.prodName,
+        quantity: this.form.prodQty,
+        rate: this.form.prodPrice,
+        amount: Number(this.form.prodPrice) * Number(this.form.prodQty),
+        tax: 'Y'
+      };
+      this.tableData.push(data);
+      const data2 = {product: this.form.accName,
+        quantity: this.form.accQty,
+        rate: this.form.accPrice,
+        amount: Number(this.form.accPrice) * Number(this.form.accQty),
+        tax: 'Y'
+      };
+      this.tableData.push(data2);
+      const data3 = {product: this.form.planName,
+        quantity: this.form.planQty,
+        rate: this.form.planAmt,
+        amount: Number(this.form.planAmt) * Number(this.form.planQty),
+        tax: 'Y'
+      };
+      this.tableData.push(data3);
+    },
   },
 
 

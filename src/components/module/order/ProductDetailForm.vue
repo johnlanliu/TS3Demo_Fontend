@@ -334,16 +334,30 @@ export default {
       let price = qty * amt;
       this.form3.servicePlan = price.toString();
     },
-      handleAddClick(event) {
-        this.$emit('productAdded', this.form3.productName, this.form3.price, this.form3.QTY);
-        if (this.form3.accPicked === true) {
-          this.$emit('accessoryAdded', this.form3.accName, this.form3.accPrice, this.form3.accQty);
-        }
-        if (this.form3.planPicked === true) {
-          this.$emit('planAdded', this.form3.planQty, this.form3.planAmt, this.form3.planName);
-        }
-        this.isOpen = false;
+    handleAddClick(event) {
+      let state = 0;
+      if (this.form3.accPicked === true) {
+        state += 1;
       }
+      if (this.form3.planPicked === true) {
+        state += 2;
+      }
+
+      if (state === 0) {
+        this.$emit('productAdded', this.form3.productName, this.form3.price, this.form3.QTY);
+      }      else if (state === 1) {
+        this.$emit('prodAndAccAdded', this.form3.productName, this.form3.price, this.form3.QTY,
+              this.form3.accName, this.form3.accPrice, this.form3.accQty);
+      }      else if (state === 2) {
+        this.$emit('prodAndPlanAdded', this.form3.productName, this.form3.price, this.form3.QTY,
+              this.form3.planQty, this.form3.planAmt, this.form3.planName);
+      }      else {
+        this.$emit('allAdded', this.form3.productName, this.form3.price,
+              this.form3.QTY, this.form3.accName, this.form3.accPrice, this.form3.accQty,
+              this.form3.planQty, this.form3.planAmt, this.form3.planName);
+      }
+      this.isOpen = false;
+    }
   },
 };
 </script>
