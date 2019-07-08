@@ -194,7 +194,7 @@
                             </td>
                             <td>
                                 <el-form-item label="Shipping Fee" prop="shippingFee">
-                                    <el-input v-model="customerServiceForm.shippingFee"></el-input>
+                                    <el-input v-model="customerServiceForm.shippingFee" ></el-input>
                                 </el-form-item>
                             </td>
                         </tr>
@@ -206,7 +206,12 @@
                             </td>
                             <td>
                                 <el-form-item label="Invoice Date" prop="invoiceDate">
-                                    <el-input v-model="customerServiceForm.invoiceDate"></el-input>
+                                    <el-date-picker
+                                            v-model="customerServiceForm.invoiceDate"
+                                            type="datetime"
+                                            placeholder="Select date and time"
+                                            style="width: 160px">
+                                    </el-date-picker>
                                 </el-form-item>
                             </td>
                         </tr>
@@ -258,7 +263,7 @@ import ProductDetailForm from './ProductDetailForm.vue';
 import CreateInvoiceForm from './CreateInvoiceForm.vue';
 import AccessoryDetailForm from './AccessoryDetailForm.vue';
 import ServicePlanForm from './ServicePlanForm.vue';
-import { addOrder } from '@/api/getData';
+import { addOrder, addOrderItem } from '@/api/getData';
 
 export default {
   name: 'AddOrderForm',
@@ -461,7 +466,10 @@ export default {
     },
     handleCreateInvoice(form1, form2) {
       // this.sendTableData();
-      this.handleAddOrder();
+      const thisOrderId = this.handleAddOrder();
+      alert(thisOrderId);
+        // fix this shit dumbass
+      this.handleAddOrderItems(thisOrderId);
       this.$refs.createInvoiceForm.showDialog();
       // this.$refs[form1].validate((valid1) => {
       //   if (valid1) {
@@ -503,8 +511,9 @@ export default {
     handleAddService() {
       this.$refs.servicePlanForm.showDialog();
     },
+      // fix this shit dumbass
     handleAddOrder() {
-      addOrder({},{type: this.form.orderType,
+      const orderId = addOrder({},{type: this.form.orderType,
         customer: this.form.billing,
         description: this.descriptions,
         status: this.customerServiceForm.status,
@@ -515,6 +524,19 @@ export default {
         sales: '',
         createTime: '2019-02-18 16:26:51',
         modifyTime: '2019-02-18 16:26:51'
+      });
+      return orderId;
+    },
+      // fix this shit dumbass
+    handleAddOrderItems(orderId) {
+      const copy = this.tableData.slice();
+      copy.forEach(function(item, index) {
+        addOrderItem({},{orderId: orderId,
+          product: item.product,
+          quantity: item.quantity,
+          rate: item.rate,
+          amount: item.amount,
+          tax: item.tax});
       });
     },
     getAccessoryInfo(n, p, q) {

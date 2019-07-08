@@ -209,7 +209,10 @@ export default {
       components: {
       },
       props: {
-        tableData: Array,
+        tableData: {
+          type: Array,
+          default: [],
+        }
       },
       data: function() {
         return {
@@ -374,7 +377,7 @@ export default {
         resetFields() {
           this.invoiceForm = {};
           this.form = {};
-          this.tableData = [];
+          this.invoiceForm.shippingFee = '0';
           this.$refs.form.resetFields();
         },
         handleCommand() {
