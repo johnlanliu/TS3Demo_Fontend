@@ -174,13 +174,13 @@
                 <el-row style="border-spacing: 0px">
                     <el-col :span="12" :offset="15">
                         <el-form-item label="Tax: ">
-                            <p v-model="invoiceForm.taxRate">${{ invoiceForm.taxRate }}</p>
+                            <p v-model="tax">${{ tax }}</p>
                         </el-form-item>
                         <el-form-item label="Shipping fee: " prop="shippingFee">
                             <el-input v-model="invoiceForm.shippingFee" style="width: 100px"></el-input>
                         </el-form-item>
                         <el-form-item label="Total: ">
-                            <p v-model="invoiceForm.total">${{ invoiceForm.total }}</p>
+                            <p v-model="total">${{ total }}</p>
                         </el-form-item>
                     </el-col>
                 </el-row>
@@ -226,9 +226,7 @@ export default {
             dueDate: '',
             shippingVia: '',
             trackingNumber: '',
-            taxRate: '',
-            total: '',
-            shippingFee: '',
+            shippingFee: '0',
             note: '',
             sales: '',
           },
@@ -397,6 +395,31 @@ export default {
         // getTableData(td) {
         //   this.tableData = td.slice();
         // }
+      },
+      computed: {
+        tax: function() {
+          let t = 0;
+          let et;
+          const copy = this.tableData.slice();
+          copy.forEach(function(item, index) {
+            if ((item.tax === 'Y')) {
+              et = Number(item.amount) * .0775;
+            } else {
+              et = 0;
+            }
+            t += et;
+          });
+          return (Math.floor(t * 100) / 100);
+        },
+        total: function() {
+          let t = 0;
+          const copy = this.tableData.slice();
+          copy.forEach(function(item, index) {
+            t += item.amount;
+          });
+          const tot = t + this.tax + Number(this.invoiceForm.shippingFee);
+          return (Math.floor(tot * 100) / 100);
+        }
       }
 };
 </script>

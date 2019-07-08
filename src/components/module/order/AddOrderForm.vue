@@ -161,14 +161,14 @@
                             <table style="width: 100%; text-align: right">
                                 <tr>
                                     <td>
-                                        <el-form-item label="Tax: " style="padding-left: 160px">
-                                            <p v-model="taxRate">${{ taxRate }}</p>
+                                        <el-form-item label="Tax: " style="padding-left: 100px">
+                                            <p v-model="tax">${{ tax }}</p>
                                         </el-form-item>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <el-form-item label="Total: " style="padding-left: 160px">
+                                        <el-form-item label="Total: " style="padding-left: 100px">
                                             <p v-model="total">${{ total }} plus shipping fee</p>
                                         </el-form-item>
                                     </td>
@@ -272,8 +272,6 @@ export default {
     return {
       loading: false,
       isOpen: false,
-      taxRate: '',
-      total: '',
       sameInfo: false,
       sameAsBilling: false,
       tableData: [],
@@ -551,7 +549,7 @@ export default {
         quantity: this.form.planQty,
         rate: this.form.planAmt,
         amount: Number(this.form.planAmt) * Number(this.form.planQty),
-        tax: 'Y'
+        tax: 'N'
       };
       this.tableData.push(data);
     },
@@ -595,7 +593,7 @@ export default {
         quantity: this.form.planQty,
         rate: this.form.planAmt,
         amount: Number(this.form.planAmt) * Number(this.form.planQty),
-        tax: 'Y'
+        tax: 'N'
       };
       this.tableData.push(data2);
     },
@@ -627,7 +625,7 @@ export default {
         quantity: this.form.planQty,
         rate: this.form.planAmt,
         amount: Number(this.form.planAmt) * Number(this.form.planQty),
-        tax: 'Y'
+        tax: 'N'
       };
       this.tableData.push(data3);
     },
@@ -645,6 +643,29 @@ export default {
         }
       });
       return des;
+    },
+    tax: function() {
+      let t = 0;
+      let et;
+      const copy = this.tableData.slice();
+      copy.forEach(function(item, index) {
+        if ((item.tax === 'Y')) {
+          et = Number(item.amount) * .0775;
+        } else {
+          et = 0;
+        }
+        t += et;
+      });
+      return (Math.floor(t * 100) / 100);
+    },
+    total: function() {
+      let t = 0;
+      const copy = this.tableData.slice();
+      copy.forEach(function(item, index) {
+        t += item.amount;
+      });
+      const tot = t + this.tax;
+      return (Math.floor(tot * 100) / 100);
     }
   },
 
