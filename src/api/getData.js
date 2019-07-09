@@ -123,6 +123,7 @@ export const deleteDict = data => axios.get('dictManager/deleteDict', data);
 export const addPayment = (data, body) => axios.post('orgMPayment/addPayment', data, body);
 export const getPaymentList = data => axios.get('/orgMPayment/getPaymentList', data);
 export const voidPayment = (data, body) => axios.post('orgMPayment/voidPayment', data, body);
+export const getPaymentByInvoiceNo = data => axios.get('/orgMPayment/getPaymentByInvoiceNo', data);
 
 /**
  * Order

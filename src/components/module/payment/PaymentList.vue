@@ -126,6 +126,7 @@
   import InvoiceReviewForm from './InvoiceReviewForm.vue';
   import CreateInvoiceForm from '../order/CreateInvoiceForm.vue';
   import {getPaymentList, voidPayment} from '@/api/getData';
+  import getPaymentByInvoiceNo from '@/api/getData';
 
   export default {
     mixins: [exceptionUtil, timeMixins],
@@ -148,6 +149,8 @@
           status: '',
           customer: ''
         },
+        invoiceInfo: {},
+        invoiceTableData: [],
         statusList: [{
           status: 'refund',
           label: 'refund'
@@ -210,7 +213,10 @@
       },
       handleCommand(command, row, index) {
         if (command === 'view') {
-          this.handleView(index, row);
+          this.getInvoiceInfo(row, index);
+          this.$refs.invoiceReviewForm.showDialog();
+          this.invoiceInfo = {};
+          this.invoiceTableData = [];
         } else if (command === 'edit') {
           this.handleEdit(index, row);
         } else {
@@ -239,8 +245,9 @@
           });
         }
       },
-      handleView(index, row) {
-        this.$refs.invoiceReviewForm.showDialog();
+      async getInvoiceInfo(row, index) {
+        this.invoiceInfo = await getPaymentByInvoiceNo({invoiceNo: row.invoiceNo});
+
       },
       handleEdit(index, row) {
         this.$refs.invoiceReviewForm.showDialog();
