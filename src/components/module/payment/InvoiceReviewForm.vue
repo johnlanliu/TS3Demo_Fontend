@@ -11,31 +11,31 @@
                         <el-col :span="8">
                             <el-form-item label="Bill to" style="font-weight: 900"></el-form-item>
                             <el-form-item label="Company: ">
-                                <p v-model="billing">{{ billing }}</p>
+                                <p v-model="form.billingCompany">{{ form.billingCompany }}</p>
                             </el-form-item>
                             <el-form-item label="Address: ">
-                                <p v-model="billingAddress">{{ billingAddress }}</p>
+                                <p v-model="form.billingAddress">{{ form.billingAddress }}</p>
                             </el-form-item>
                             <el-form-item label="Phone Number: ">
-                                <p v-model="billingPhone">{{ billingPhone }}</p>
+                                <p v-model="form.billingNumber">{{ form.billingNumber}}</p>
                             </el-form-item>
                             <el-form-item label="Email: ">
-                                <p v-model="billingEmail">{{ billingEmail }}</p>
+                                <p v-model="form.billingEmail">{{ form.billingEmail }}</p>
                             </el-form-item>
                         </el-col>
                         <el-col :span="8">
                             <el-form-item label="Ship to" style="font-weight: 900"></el-form-item>
                             <el-form-item label="Company: ">
-                                <p v-model="companyName">{{ companyName }}</p>
+                                <p v-model="form.shippingCompany">{{ form.shippingCompany }}</p>
                             </el-form-item>
                             <el-form-item label="Address: ">
-                                <p v-model="shippingAddress">{{ shippingAddress }}</p>
+                                <p v-model="form.shippingAddress">{{ form.shippingAddress }}</p>
                             </el-form-item>
                             <el-form-item label="Phone Number: ">
-                                <p v-model="phone">{{ phone }}</p>
+                                <p v-model="form.shippingNumber">{{ form.shippingNumber }}</p>
                             </el-form-item>
                             <el-form-item label="Email: ">
-                                <p v-model="email">{{ email }}</p>
+                                <p v-model="form.shippingEmail">{{ form.shippingEmail }}</p>
                             </el-form-item>
                         </el-col>
                         <el-col :span="8">
@@ -109,11 +109,29 @@
         isOpen: false,
         loading: false,
         labelPosition: 'left',
-        form: {
-          billTo: '',
-          shipTo: '',
-        }
       };
+    },
+    props: {
+      form: {
+        type: Object,
+        default: {billingCompany: '',
+          billingAddress: '',
+          billingEmail: '',
+          billingNumber: '',
+          shippingCompany: '',
+          shippingAddress: '',
+          shippingNumber: '',
+          shippingEmail: '',
+          type: '',
+          invoiceNo: '',
+          invoiceDate: '',
+          dueDate: '',
+        }
+      },
+      tableData: {
+        type: Array,
+        default: [],
+      },
     },
     methods: {
       showDialog() {

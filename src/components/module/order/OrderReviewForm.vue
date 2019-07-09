@@ -100,12 +100,6 @@
         loading: false,
         append: true,
         labelPosition: 'left',
-        form: {
-          billTo: '',
-          shipTo: '',
-          tax: '_______',
-          total: '_______',
-        }
       };
     },
     props: {
