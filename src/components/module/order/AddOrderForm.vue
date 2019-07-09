@@ -466,10 +466,9 @@ export default {
     },
     handleCreateInvoice(form1, form2) {
       // this.sendTableData();
-      const thisOrderId = this.handleAddOrder();
-      alert(thisOrderId);
+      this.handleAddOrder();
         // fix this shit dumbass
-      this.handleAddOrderItems(thisOrderId);
+      // this.handleAddOrderItems();
       this.$refs.createInvoiceForm.showDialog();
       // this.$refs[form1].validate((valid1) => {
       //   if (valid1) {
@@ -513,7 +512,7 @@ export default {
     },
       // fix this shit dumbass
     handleAddOrder() {
-      const orderId = addOrder({},{type: this.form.orderType,
+      addOrder({},{type: this.form.orderType,
         customer: this.form.billing,
         description: this.descriptions,
         status: this.customerServiceForm.status,
@@ -523,27 +522,28 @@ export default {
         trackingNo: this.customerServiceForm.trackingNumber,
         sales: '',
         createTime: '2019-02-18 16:26:51',
-        modifyTime: '2019-02-18 16:26:51'
+        modifyTime: '2019-02-18 16:26:51',
+        orderItems: this.tableData
       });
-      return orderId;
     },
       // fix this shit dumbass
-    handleAddOrderItems(orderId) {
-      const copy = this.tableData.slice();
-      copy.forEach(function(item, index) {
-        addOrderItem({},{orderId: orderId,
-          product: item.product,
-          quantity: item.quantity,
-          rate: item.rate,
-          amount: item.amount,
-          tax: item.tax});
-      });
-    },
+    // handleAddOrderItems(orderId) {
+    //   const copy = this.tableData.slice();
+    //   copy.forEach(function(item, index) {
+    //     addOrderItem({},{orderId: orderId,
+    //       product: item.product,
+    //       quantity: item.quantity,
+    //       rate: item.rate,
+    //       amount: item.amount,
+    //       tax: item.tax});
+    //   });
+    // },
     getAccessoryInfo(n, p, q) {
       this.form.accName = n;
       this.form.accPrice = p;
       this.form.accQty = q;
-      const data = {product: this.form.accName,
+      const data = {orderId: '',
+        product: this.form.accName,
         quantity: this.form.accQty,
         rate: this.form.accPrice,
         amount: Number(this.form.accPrice) * Number(this.form.accQty),
@@ -555,7 +555,8 @@ export default {
       this.form.prodName = n;
       this.form.prodPrice = p;
       this.form.prodQty = q;
-      const data = {product: this.form.prodName,
+      const data = {orderId: '',
+        product: this.form.prodName,
         quantity: this.form.prodQty,
         rate: this.form.prodPrice,
         amount: Number(this.form.prodPrice) * Number(this.form.prodQty),
@@ -567,7 +568,8 @@ export default {
       this.form.planQty = q;
       this.form.planAmt = a;
       this.form.planName = n;
-      const data = {product: this.form.planName,
+      const data = {orderId: '',
+        product: this.form.planName,
         quantity: this.form.planQty,
         rate: this.form.planAmt,
         amount: Number(this.form.planAmt) * Number(this.form.planQty),
@@ -582,14 +584,16 @@ export default {
       this.form.accName = an;
       this.form.accPrice = ap;
       this.form.accQty = aq;
-      const data = {product: this.form.prodName,
+      const data = {orderId: '',
+        product: this.form.prodName,
         quantity: this.form.prodQty,
         rate: this.form.prodPrice,
         amount: Number(this.form.prodPrice) * Number(this.form.prodQty),
         tax: 'Y'
       };
       this.tableData.push(data);
-      const data2 = {product: this.form.accName,
+      const data2 = {orderId: '',
+        product: this.form.accName,
         quantity: this.form.accQty,
         rate: this.form.accPrice,
         amount: Number(this.form.accPrice) * Number(this.form.accQty),
@@ -604,14 +608,16 @@ export default {
       this.form.planQty = sq;
       this.form.planAmt = sa;
       this.form.planName = sn;
-      const data = {product: this.form.prodName,
+      const data = {orderId: '',
+        product: this.form.prodName,
         quantity: this.form.prodQty,
         rate: this.form.prodPrice,
         amount: Number(this.form.prodPrice) * Number(this.form.prodQty),
         tax: 'Y'
       };
       this.tableData.push(data);
-      const data2 = {product: this.form.planName,
+      const data2 = {orderId: '',
+        product: this.form.planName,
         quantity: this.form.planQty,
         rate: this.form.planAmt,
         amount: Number(this.form.planAmt) * Number(this.form.planQty),
@@ -629,21 +635,24 @@ export default {
       this.form.planQty = sq;
       this.form.planAmt = sa;
       this.form.planName = sn;
-      const data = {product: this.form.prodName,
+      const data = {orderId: '',
+        product: this.form.prodName,
         quantity: this.form.prodQty,
         rate: this.form.prodPrice,
         amount: Number(this.form.prodPrice) * Number(this.form.prodQty),
         tax: 'Y'
       };
       this.tableData.push(data);
-      const data2 = {product: this.form.accName,
+      const data2 = {orderId: '',
+        product: this.form.accName,
         quantity: this.form.accQty,
         rate: this.form.accPrice,
         amount: Number(this.form.accPrice) * Number(this.form.accQty),
         tax: 'Y'
       };
       this.tableData.push(data2);
-      const data3 = {product: this.form.planName,
+      const data3 = {orderId: '',
+        product: this.form.planName,
         quantity: this.form.planQty,
         rate: this.form.planAmt,
         amount: Number(this.form.planAmt) * Number(this.form.planQty),
