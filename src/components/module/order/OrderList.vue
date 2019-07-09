@@ -92,7 +92,7 @@
 
                       </el-dropdown-menu>
                   </el-dropdown>
-                  <order-review-form ref="orderReviewForm" v-bind:form="orderInfoToView"></order-review-form>
+                  <order-review-form ref="orderReviewForm" v-bind:form="orderInfoToView" v-bind:table-data="orderItemTable"></order-review-form>
               </template>
           </el-table-column>
       </el-table>
@@ -122,6 +122,7 @@
   import OrderReviewForm from './OrderReviewForm.vue';
   import { getOrderList } from '@/api/getData';
   import {getOrderByOrderId} from '@/api/getData';
+  import {getOrderItem} from '@/api/getData';
 
   export default {
     mixins: [exceptionUtil, timeMixins],
@@ -144,6 +145,7 @@
           status: ''
         },
         orderInfoToView: {},
+        orderItemTable: [],
         statusList: [{
           status: 'delivered',
           label: 'delivered'
@@ -198,13 +200,26 @@
       },
       handleCommand(command, row, index) {
         if(command==='view') {
-          this.handleView(row, index);
+          this.getOrderInfo(row, index);
+          this.getOrderItems(row,index);
           this.$refs.orderReviewForm.showDialog();
           this.orderInfoToView = {};
+          this.orderItemTable = [];
         }
       },
-      async handleView(row, index) {
+      async getOrderInfo(row, index) {
         this.orderInfoToView = await getOrderByOrderId({orderId: row.orderId});
+      },
+      async getOrderItems(row,index) {
+        const res = await getOrderItem({orderId: row.orderId});
+        if (res) {
+          this.orderItemTable = [];
+          res.forEach((item, index) => {
+            let orderItem = item;
+            orderItem.index = index + 1;
+            this.orderItemTable.push(orderItem);
+          });
+        }
       },
       async initData() {
             // const result = await getValidRoleList({});

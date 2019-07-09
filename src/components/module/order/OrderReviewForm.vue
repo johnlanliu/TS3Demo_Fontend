@@ -44,7 +44,7 @@
                 <el-form-item label="Order Type: " style="font-weight: 900; padding-left: 50px">
                     <p v-model="form.type">{{ form.type }}</p>
                 </el-form-item>
-                <el-form-item label="Item" style="font-weight: 900; padding-left: 50px"></el-form-item>
+                <el-form-item label="Items" style="font-weight: 900; padding-left: 50px"></el-form-item>
                 <el-table
                     ref="orderDetailTable"
                     :data="tableData"
@@ -56,11 +56,11 @@
                     :row-key="row => row.index"
                     style="width: 170%; margin-left: 50px"
                 >
-                    <el-table-column label="Product" prop="product" width="120"></el-table-column>
-                    <el-table-column label="QTY" prop="quantity" width="100"></el-table-column>
-                    <el-table-column label="Rate" prop="rate" width="100"></el-table-column>
-                    <el-table-column label="Amount" prop="amount" width="100"></el-table-column>
-                    <el-table-column label="Tax" prop="tax" width="50"></el-table-column>
+                    <el-table-column label="Product" prop="product" width="150"></el-table-column>
+                    <el-table-column label="QTY" prop="quantity" width="120"></el-table-column>
+                    <el-table-column label="Rate" prop="rate" width="120"></el-table-column>
+                    <el-table-column label="Amount" prop="amount" width="120"></el-table-column>
+                    <el-table-column label="Tax" prop="tax" width="89"></el-table-column>
 <!--                    <el-table-column label="Action" width="130">-->
 <!--                        <template slot-scope="scope">-->
 <!--                            <el-dropdown size="mini" type="text" @command="handleCommand">-->
@@ -77,8 +77,8 @@
                 </el-table>
                 <el-row>
                     <el-col :span="10" offset="15">
-                        <el-form-item label="Tax: " style="font-weight: 900"> ${{ form.tax }}</el-form-item>
-                        <el-form-item label="Total: " style="font-weight: 900">${{ form.total }} plus shipping fee</el-form-item>
+                        <el-form-item label="Tax: " style="font-weight: 900"> ${{ tax }}</el-form-item>
+                        <el-form-item label="Total: " style="font-weight: 900">${{ total }} plus shipping fee</el-form-item>
                         <el-button type="primary">cancel order</el-button>
                     </el-col>
                 </el-row>
@@ -121,7 +121,11 @@
           shippingEmail: '',
           type: '',
         }
-      }
+      },
+      tableData: {
+        type: Array,
+        default: [],
+      },
     },
     methods: {
       showDialog() {
@@ -131,6 +135,31 @@
         this.$refs.form.resetFields();
       },
     },
+    computed: {
+      tax: function() {
+        let t = 0;
+        let et;
+        const copy = this.tableData.slice();
+        copy.forEach(function(item, index) {
+          if ((item.tax === 'Y')) {
+            et = Number(item.amount) * .0775;
+          } else {
+            et = 0;
+          }
+          t += et;
+        });
+        return (Math.floor(t * 100) / 100);
+      },
+      total: function() {
+        let t = 0;
+        const copy = this.tableData.slice();
+        copy.forEach(function(item, index) {
+          t += item.amount;
+        });
+        const tot = t + this.tax;
+        return (Math.floor(tot * 100) / 100);
+      }
+    }
   };
 </script>
 
