@@ -333,6 +333,9 @@ export default {
       }, {
         status: 'pending',
         label: 'pending'
+      }, {
+        status: 'new',
+        label: 'new'
       }],
       customerServiceForm: {
         status: '',
@@ -521,7 +524,17 @@ export default {
         sales: '',
         createTime: '2019-02-18 16:26:51',
         modifyTime: '2019-02-18 16:26:51',
-        orderItems: this.tableData
+        orderItems: this.tableData,
+        billingCompany: this.form.billing,
+        billingContact: this.form.billingContact,
+        billingNumber: this.form.billingPhone,
+        billingEmail: this.form.billingEmail,
+        billingAddress: this.form.billingAddress,
+        shippingCompany: this.form.companyName,
+        shippingContact: this.form.contact,
+        shippingNumber: this.form.phone,
+        shippingEmail: this.form.email,
+        shippingAddress: this.form.shippingAddress
       });
     },
     getAccessoryInfo(n, p, q) {
@@ -534,7 +547,7 @@ export default {
         rate: this.form.accPrice,
         amount: Number(this.form.accPrice) * Number(this.form.accQty),
         tax: 'Y',
-        description: (String(this.form.accQty) + '*' + String(this.form.accName))
+        description: this.form.accQty + ' * ' + this.form.accName
       };
       this.tableData.push(data);
     },
@@ -548,7 +561,7 @@ export default {
         rate: this.form.prodPrice,
         amount: Number(this.form.prodPrice) * Number(this.form.prodQty),
         tax: 'Y',
-        description: (String(this.form.accQty) + '*' + String(this.form.accName))
+        description: this.form.prodQty + ' * ' + this.form.prodName
       };
       this.tableData.push(data);
     },
@@ -562,7 +575,7 @@ export default {
         rate: this.form.planAmt,
         amount: Number(this.form.planAmt) * Number(this.form.planQty),
         tax: 'N',
-        description: (String(this.form.accQty) + '*' + String(this.form.accName))
+        description: this.form.planQty + ' * ' + this.form.planName
       };
       this.tableData.push(data);
     },
@@ -579,7 +592,7 @@ export default {
         rate: this.form.prodPrice,
         amount: Number(this.form.prodPrice) * Number(this.form.prodQty),
         tax: 'Y',
-        description: (String(this.form.accQty) + '*' + String(this.form.accName))
+        description: this.form.prodQty + ' * ' + this.form.prodName
       };
       this.tableData.push(data);
       const data2 = {orderId: '',
@@ -588,7 +601,7 @@ export default {
         rate: this.form.accPrice,
         amount: Number(this.form.accPrice) * Number(this.form.accQty),
         tax: 'Y',
-        description: (String(this.form.accQty) + '*' + String(this.form.accName))
+        description: this.form.accQty + ' * ' + this.form.accName
       };
       this.tableData.push(data2);
     },
@@ -605,7 +618,7 @@ export default {
         rate: this.form.prodPrice,
         amount: Number(this.form.prodPrice) * Number(this.form.prodQty),
         tax: 'Y',
-        description: (String(this.form.accQty) + '*' + String(this.form.accName))
+        description: this.form.prodQty + ' * ' + this.form.prodName
       };
       this.tableData.push(data);
       const data2 = {orderId: '',
@@ -614,7 +627,7 @@ export default {
         rate: this.form.planAmt,
         amount: Number(this.form.planAmt) * Number(this.form.planQty),
         tax: 'N',
-        description: (String(this.form.accQty) + '*' + String(this.form.accName))
+        description: this.form.planQty + ' * ' + this.form.planName
       };
       this.tableData.push(data2);
     },
@@ -634,7 +647,7 @@ export default {
         rate: this.form.prodPrice,
         amount: Number(this.form.prodPrice) * Number(this.form.prodQty),
         tax: 'Y',
-        description: (String(this.form.accQty) + '*' + String(this.form.accName))
+        description: this.form.prodQty + ' * ' + this.form.prodName
       };
       this.tableData.push(data);
       const data2 = {orderId: '',
@@ -643,7 +656,7 @@ export default {
         rate: this.form.accPrice,
         amount: Number(this.form.accPrice) * Number(this.form.accQty),
         tax: 'Y',
-        description: (String(this.form.accQty) + '*' + String(this.form.accName))
+        description: this.form.accQty + ' * ' + this.form.accName
       };
       this.tableData.push(data2);
       const data3 = {orderId: '',
@@ -652,7 +665,7 @@ export default {
         rate: this.form.planAmt,
         amount: Number(this.form.planAmt) * Number(this.form.planQty),
         tax: 'N',
-        description: (String(this.form.accQty) + '*' + String(this.form.accName))
+        description: this.form.planQty + ' * ' + this.form.planName
       };
       this.tableData.push(data3);
     },
