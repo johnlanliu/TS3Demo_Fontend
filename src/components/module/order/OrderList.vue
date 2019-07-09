@@ -82,17 +82,17 @@
           <el-table-column label="Create Time" prop="createTime" :formatter="formatDate" width="120"></el-table-column>
           <el-table-column fixed="right" label="Action" width="160" v-if="permsEdit || permsVoid">
               <template slot-scope="scope">
-                  <el-dropdown size="mini" type="text" @command="handleCommand">
+                  <el-dropdown size="mini" type="text" @command="handleCommand($event, scope.row, scope.$index)" trigger="click">
                   <span class="el-dropdown-link">
                   Action<i class="el-icon-arrow-down el-icon--right"></i>
                   </span>
                       <el-dropdown-menu slot="dropdown">
-                          <el-dropdown-item command="a">View</el-dropdown-item>
-                          <el-dropdown-item command="b">Edit</el-dropdown-item>
+                          <el-dropdown-item command="view">View</el-dropdown-item>
+                          <el-dropdown-item command="edit">Edit</el-dropdown-item>
 
                       </el-dropdown-menu>
                   </el-dropdown>
-                  <order-review-form ref="orderReviewForm"></order-review-form>
+                  <order-review-form ref="orderReviewForm" v-bind:form="orderInfoToView"></order-review-form>
               </template>
           </el-table-column>
       </el-table>
@@ -121,6 +121,7 @@
   import AddOrderForm from './AddOrderForm.vue';
   import OrderReviewForm from './OrderReviewForm.vue';
   import { getOrderList } from '@/api/getData';
+  import {getOrderByOrderId} from '@/api/getData';
 
   export default {
     mixins: [exceptionUtil, timeMixins],
@@ -142,6 +143,7 @@
           number: '',
           status: ''
         },
+        orderInfoToView: {},
         statusList: [{
           status: 'delivered',
           label: 'delivered'
@@ -194,10 +196,15 @@
       handleAdd() {
         this.$refs.addOrderForm.showDialog();
       },
-      handleCommand(command) {
-        if(command==='a') {
+      handleCommand(command, row, index) {
+        if(command==='view') {
+          this.handleView(row, index);
           this.$refs.orderReviewForm.showDialog();
+          this.orderInfoToView = {};
         }
+      },
+      async handleView(row, index) {
+        this.orderInfoToView = await getOrderByOrderId({orderId: row.orderId});
       },
       async initData() {
             // const result = await getValidRoleList({});

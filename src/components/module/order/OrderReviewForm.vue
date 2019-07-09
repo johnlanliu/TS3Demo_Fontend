@@ -13,35 +13,37 @@
                     <el-col :span="12">
                         <el-form-item label="Bill to" style="font-weight: 900"></el-form-item>
                         <el-form-item label="Company: ">
-                            <p v-model="billing">{{ billing }}</p>
+                            <p v-model="form.billingCompany">{{ form.billingCompany }}</p>
                         </el-form-item>
                         <el-form-item label="Address: ">
-                            <p v-model="billingAddress">{{ billingAddress }}</p>
+                            <p v-model="form.billingAddress">{{ form.billingAddress }}</p>
                         </el-form-item>
                         <el-form-item label="Phone Number: ">
-                            <p v-model="billingPhone">{{ billingPhone }}</p>
+                            <p v-model="form.billingNumber">{{ form.billingNumber }}</p>
                         </el-form-item>
                         <el-form-item label="Email: ">
-                            <p v-model="billingEmail">{{ billingEmail }}</p>
+                            <p v-model="form.billingEmail">{{ form.billingEmail }}</p>
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
                         <el-form-item label="Ship to" style="font-weight: 900"></el-form-item>
                         <el-form-item label="Company: ">
-                            <p v-model="companyName">{{ companyName }}</p>
+                            <p v-model="form.shippingCompany">{{ form.shippingCompany}}</p>
                         </el-form-item>
                         <el-form-item label="Address: ">
-                            <p v-model="shippingAddress">{{ shippingAddress }}</p>
+                            <p v-model="form.shippingAddress">{{ form.shippingAddress }}</p>
                         </el-form-item>
                         <el-form-item label="Phone Number: ">
-                            <p v-model="phone">{{ phone }}</p>
+                            <p v-model="form.shippingNumber">{{ form.shippingNumber }}</p>
                         </el-form-item>
                         <el-form-item label="Email: ">
-                            <p v-model="email">{{ email }}</p>
+                            <p v-model="form.shippingEmail">{{ form.shippingEmail }}</p>
                         </el-form-item>
                     </el-col>
                 </el-row>
-                <el-form-item label="Order Type: " style="font-weight: 900; padding-left: 50px"></el-form-item>
+                <el-form-item label="Order Type: " style="font-weight: 900; padding-left: 50px">
+                    <p v-model="form.type">{{ form.type }}</p>
+                </el-form-item>
                 <el-form-item label="Item" style="font-weight: 900; padding-left: 50px"></el-form-item>
                 <el-table
                     ref="orderDetailTable"
@@ -59,19 +61,19 @@
                     <el-table-column label="Rate" prop="rate" width="100"></el-table-column>
                     <el-table-column label="Amount" prop="amount" width="100"></el-table-column>
                     <el-table-column label="Tax" prop="tax" width="50"></el-table-column>
-                    <el-table-column label="Action" width="130">
-                        <template slot-scope="scope">
-                            <el-dropdown size="mini" type="text" @command="handleCommand">
-                  <span class="el-dropdown-link">
-                  View<i class="el-icon-arrow-down el-icon--right"></i>
-                  </span>
-                                <el-dropdown-menu slot="dropdown">
-                                    <el-dropdown-item command="a">Edit</el-dropdown-item>
-                                    <el-dropdown-item command="b">Delete</el-dropdown-item>
-                                </el-dropdown-menu>
-                            </el-dropdown>
-                        </template>
-                    </el-table-column>
+<!--                    <el-table-column label="Action" width="130">-->
+<!--                        <template slot-scope="scope">-->
+<!--                            <el-dropdown size="mini" type="text" @command="handleCommand">-->
+<!--                  <span class="el-dropdown-link">-->
+<!--                  View<i class="el-icon-arrow-down el-icon&#45;&#45;right"></i>-->
+<!--                  </span>-->
+<!--                                <el-dropdown-menu slot="dropdown">-->
+<!--                                    <el-dropdown-item command="a">Edit</el-dropdown-item>-->
+<!--                                    <el-dropdown-item command="b">Delete</el-dropdown-item>-->
+<!--                                </el-dropdown-menu>-->
+<!--                            </el-dropdown>-->
+<!--                        </template>-->
+<!--                    </el-table-column>-->
                 </el-table>
                 <el-row>
                     <el-col :span="10" offset="15">
@@ -105,6 +107,21 @@
           total: '_______',
         }
       };
+    },
+    props: {
+      form: {
+        type: Object,
+        default: {billingCompany: '',
+          billingAddress: '',
+          billingEmail: '',
+          billingNumber: '',
+          shippingCompany: '',
+          shippingAddress: '',
+          shippingNumber: '',
+          shippingEmail: '',
+          type: '',
+        }
+      }
     },
     methods: {
       showDialog() {

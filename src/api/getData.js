@@ -130,4 +130,5 @@ export const voidPayment = (data, body) => axios.post('orgMPayment/voidPayment',
 export const addOrder = (data, body) => axios.post('orgMOrder/addOrder', data, body);
 export const getOrderList = data => axios.get('/orgMOrder/getOrderList', data);
 export const getOrderItem = data => axios.get('/orgMOrderItem/getOrderItemList', data);
+export const getOrderByOrderId = data => axios.get('orgMOrder/getOrderByOrderId', data);
 
