@@ -510,11 +510,9 @@ export default {
     handleAddService() {
       this.$refs.servicePlanForm.showDialog();
     },
-      // fix this shit dumbass
     handleAddOrder() {
       addOrder({},{type: this.form.orderType,
         customer: this.form.billing,
-        description: this.descriptions,
         status: this.customerServiceForm.status,
         invoiceNo: this.customerServiceForm.invoiceNumber,
         invoiceDate: this.customerServiceForm.invoiceDate,
@@ -526,18 +524,6 @@ export default {
         orderItems: this.tableData
       });
     },
-      // fix this shit dumbass
-    // handleAddOrderItems(orderId) {
-    //   const copy = this.tableData.slice();
-    //   copy.forEach(function(item, index) {
-    //     addOrderItem({},{orderId: orderId,
-    //       product: item.product,
-    //       quantity: item.quantity,
-    //       rate: item.rate,
-    //       amount: item.amount,
-    //       tax: item.tax});
-    //   });
-    // },
     getAccessoryInfo(n, p, q) {
       this.form.accName = n;
       this.form.accPrice = p;
@@ -547,7 +533,8 @@ export default {
         quantity: this.form.accQty,
         rate: this.form.accPrice,
         amount: Number(this.form.accPrice) * Number(this.form.accQty),
-        tax: 'Y'
+        tax: 'Y',
+        description: (String(this.form.accQty) + '*' + String(this.form.accName))
       };
       this.tableData.push(data);
     },
@@ -560,7 +547,8 @@ export default {
         quantity: this.form.prodQty,
         rate: this.form.prodPrice,
         amount: Number(this.form.prodPrice) * Number(this.form.prodQty),
-        tax: 'Y'
+        tax: 'Y',
+        description: (String(this.form.accQty) + '*' + String(this.form.accName))
       };
       this.tableData.push(data);
     },
@@ -573,7 +561,8 @@ export default {
         quantity: this.form.planQty,
         rate: this.form.planAmt,
         amount: Number(this.form.planAmt) * Number(this.form.planQty),
-        tax: 'N'
+        tax: 'N',
+        description: (String(this.form.accQty) + '*' + String(this.form.accName))
       };
       this.tableData.push(data);
     },
@@ -589,7 +578,8 @@ export default {
         quantity: this.form.prodQty,
         rate: this.form.prodPrice,
         amount: Number(this.form.prodPrice) * Number(this.form.prodQty),
-        tax: 'Y'
+        tax: 'Y',
+        description: (String(this.form.accQty) + '*' + String(this.form.accName))
       };
       this.tableData.push(data);
       const data2 = {orderId: '',
@@ -597,7 +587,8 @@ export default {
         quantity: this.form.accQty,
         rate: this.form.accPrice,
         amount: Number(this.form.accPrice) * Number(this.form.accQty),
-        tax: 'Y'
+        tax: 'Y',
+        description: (String(this.form.accQty) + '*' + String(this.form.accName))
       };
       this.tableData.push(data2);
     },
@@ -613,7 +604,8 @@ export default {
         quantity: this.form.prodQty,
         rate: this.form.prodPrice,
         amount: Number(this.form.prodPrice) * Number(this.form.prodQty),
-        tax: 'Y'
+        tax: 'Y',
+        description: (String(this.form.accQty) + '*' + String(this.form.accName))
       };
       this.tableData.push(data);
       const data2 = {orderId: '',
@@ -621,7 +613,8 @@ export default {
         quantity: this.form.planQty,
         rate: this.form.planAmt,
         amount: Number(this.form.planAmt) * Number(this.form.planQty),
-        tax: 'N'
+        tax: 'N',
+        description: (String(this.form.accQty) + '*' + String(this.form.accName))
       };
       this.tableData.push(data2);
     },
@@ -640,7 +633,8 @@ export default {
         quantity: this.form.prodQty,
         rate: this.form.prodPrice,
         amount: Number(this.form.prodPrice) * Number(this.form.prodQty),
-        tax: 'Y'
+        tax: 'Y',
+        description: (String(this.form.accQty) + '*' + String(this.form.accName))
       };
       this.tableData.push(data);
       const data2 = {orderId: '',
@@ -648,7 +642,8 @@ export default {
         quantity: this.form.accQty,
         rate: this.form.accPrice,
         amount: Number(this.form.accPrice) * Number(this.form.accQty),
-        tax: 'Y'
+        tax: 'Y',
+        description: (String(this.form.accQty) + '*' + String(this.form.accName))
       };
       this.tableData.push(data2);
       const data3 = {orderId: '',
@@ -656,25 +651,14 @@ export default {
         quantity: this.form.planQty,
         rate: this.form.planAmt,
         amount: Number(this.form.planAmt) * Number(this.form.planQty),
-        tax: 'N'
+        tax: 'N',
+        description: (String(this.form.accQty) + '*' + String(this.form.accName))
       };
       this.tableData.push(data3);
     },
   },
 
   computed: {
-    descriptions: function() {
-      let des = '';
-      const copy = this.tableData.slice();
-      copy.forEach(function(item, index) {
-        if ((index + 1) === (copy.length)) {
-          des += (String(item.quantity) + '*' + String(item.product));
-        } else {
-          des += (String(item.quantity) + '*' + String(item.product) + ',  ' + '\n');
-        }
-      });
-      return des;
-    },
     tax: function() {
       let t = 0;
       let et;
