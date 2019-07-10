@@ -127,7 +127,7 @@
                     <el-table-column label="Tax" prop="tax" width="50"></el-table-column>
                     <el-table-column label="Action" width="100">
                         <template slot-scope="scope">
-                            <el-button type="text">Delete</el-button>
+                            <el-button type="text" @click="handleDeleteOrderItem(scope.row, scope.$index)">Delete</el-button>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -471,6 +471,9 @@ export default {
     },
     handleAddDevice() {
       this.$refs.productDetailForm.showDialog();
+    },
+    handleDeleteOrderItem(row, index) {
+      this.tableData.splice(index, 1);
     },
     handleCreateInvoice(form1, form2) {
       // this.sendTableData();

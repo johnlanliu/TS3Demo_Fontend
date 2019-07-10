@@ -221,11 +221,11 @@ export default {
       props: {
         tableData: {
           type: Array,
-          default: [],
+          default: () => [],
         },
         form: {
           type: Object,
-          default: {
+          default: () => ({
             billing: '',
             billingContact: '',
             billingPhone: '',
@@ -237,18 +237,18 @@ export default {
             phone: '',
             shippingAddress: '',
             paymentTerm: '',
-          }
+          })
         },
         customerServiceForm: {
           type: Object,
-          default: {
+          default: () => ({
             status: '',
             invoiceNumber: '',
             invoiceDate: '',
             shippingVia: '',
             trackingNumber: '',
-            shippingFee: '0',
-          }
+            shippingFee: '',
+          })
         }
       },
       data: function() {
@@ -262,7 +262,6 @@ export default {
             invoiceType: '',
             note: '',
           },
-          preFillForm: {},
           invoiceTypes: [{
             value: 'RMA',
             label: 'RMA'
@@ -401,18 +400,14 @@ export default {
           },
         };
       },
-      // created: function() {
-      //   const tempObj = JSON.parse(JSON.stringify(this.form));
-      //   const tempObj2 = JSON.parse(JSON.stringify(this.customerServiceForm));
-      //   this.preFillForm = Object.assign(tempObj, tempObj2);
-      // },
       methods: {
         showDialog() {
           this.isOpen = true;
         },
         resetFields() {
           this.invoiceForm = {};
-          this.preFillForm = JSON.parse(JSON.stringify({}));
+          this.form = {};
+          this.customerServiceForm = {};
           this.$refs.form.resetFields();
         },
         handleCommand() {
@@ -444,6 +439,7 @@ export default {
             alert('ok');
           });
         },
+
         // getTableData(td) {
         //   this.tableData = td.slice();
         // }
@@ -464,15 +460,19 @@ export default {
           return (Math.floor(t * 100) / 100);
         },
         total: function() {
-          let t = 0;
+          let tot = 0;
           const copy = this.tableData.slice();
           copy.forEach(function(item, index) {
-            t += item.amount;
+            tot += item.amount;
           });
-          const tot = t + this.tax + Number(this.customerServiceForm.shippingFee);
+          tot += this.tax;
+          if (!isNaN(this.customerServiceForm.shippingFee)) {
+            tot += Number(this.customerServiceForm.shippingFee);
+          }
           return (Math.floor(tot * 100) / 100);
         }
       }
+
 };
 </script>
 

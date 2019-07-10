@@ -46,7 +46,12 @@
           :row-key="row => row.index"
           style="width: 100%;"
       >
-          <el-table-column label="Invoice No." prop="invoiceNo" width="150">
+          <el-table-column fixed label="Invoice Id" prop="paymentId" width="100">
+              <!--              <template slot-scope="scope">-->
+              <!--                  <span style="color: red">{{scope.row.invoiceNo}}</span>-->
+              <!--              </template>-->
+          </el-table-column>
+          <el-table-column fixed label="Invoice No." prop="invoiceNo" width="150">
 <!--              <template slot-scope="scope">-->
 <!--                  <span style="color: red">{{scope.row.invoiceNo}}</span>-->
 <!--              </template>-->
@@ -84,7 +89,7 @@
 <!--                  <span style="color: violet">{{scope.row.sales}}</span>-->
 <!--              </template>-->
           </el-table-column>
-          <el-table-column label="Action" width="140" v-if="permsEdit || permsVoid">
+          <el-table-column fixed="right" label="Action" width="140" v-if="permsEdit || permsVoid">
               <template slot-scope="scope">
                   <el-dropdown @command="handleCommand($event, scope.row, scope.$index)" trigger="click">
                       <span class="el-dropdown-link">
@@ -126,7 +131,7 @@
   import InvoiceReviewForm from './InvoiceReviewForm.vue';
   import CreateInvoiceForm from '../order/CreateInvoiceForm.vue';
   import {getPaymentList, voidPayment} from '@/api/getData';
-  import {getPaymentByInvoiceNo} from '@/api/getData';
+  import {getPaymentByPaymentId} from '@/api/getData';
 
   export default {
     mixins: [exceptionUtil, timeMixins],
@@ -224,7 +229,7 @@
         }
       },
       async handleVoid(index, row) {
-        await voidPayment({invoiceNo: row.invoiceNo},{});
+        await voidPayment({paymentId: row.paymentId},{});
         this.initData();
       },
       async initData() {
@@ -246,7 +251,7 @@
         }
       },
       async getInvoiceInfo(row, index) {
-        this.invoiceInfo = await getPaymentByInvoiceNo({invoiceNo: row.invoiceNo});
+        this.invoiceInfo = await getPaymentByPaymentId({paymentId: row.paymentId});
 
       },
       handleEdit(index, row) {

@@ -105,7 +105,7 @@
     props: {
       form: {
         type: Object,
-        default: {billingCompany: '',
+        default: () =>({billingCompany: '',
           billingAddress: '',
           billingEmail: '',
           billingNumber: '',
@@ -114,11 +114,11 @@
           shippingNumber: '',
           shippingEmail: '',
           type: '',
-        }
+        })
       },
       tableData: {
         type: Array,
-        default: [],
+        default: () => [],
       },
     },
     methods: {

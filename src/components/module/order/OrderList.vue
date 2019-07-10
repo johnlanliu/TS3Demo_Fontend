@@ -70,9 +70,9 @@
                   <span v-else>{{scope.row.status}}</span>
               </template>
           </el-table-column>
-          <el-table-column label="Invoice No." prop="invoiceNo" width="200"></el-table-column>
-          <el-table-column label="Invoice Date" prop="invoiceDate" width="200"></el-table-column>
-          <el-table-column label="Due Date" prop="dueDate" width="120"></el-table-column>
+          <el-table-column label="Invoice No." prop="invoiceNo" width="150"></el-table-column>
+          <el-table-column label="Invoice Date" prop="invoiceDate" width="150"></el-table-column>
+          <el-table-column label="Due Date" prop="dueDate" width="130"></el-table-column>
           <el-table-column label="Tracking No." prop="trackingNo" width="120">
               <template slot-scope="scope">
                   <a href="https://www.anytrek.com/">{{scope.row.trackingNo}}</a>
