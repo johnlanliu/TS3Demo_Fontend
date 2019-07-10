@@ -4,7 +4,7 @@
             :center="true"
             top="15vh"
             :visible.sync="isOpen"
-            append-to-body="append"
+            :append-to-body="append"
             @closed="resetFields"
             width="55%">
         <el-form ref="form" :model="invoiceForm" :rules="formRules" size="mini" label-width="150px" style="margin: 0;">
@@ -89,7 +89,7 @@
                     </tr>
                 </table>
                 <el-form-item label="Payment Term" style="padding-top: 10px" prop="paymentTerm">
-                    <el-select v-model="customerServiceForm.paymentTerm" placeholder="Select">
+                    <el-select v-model="form.paymentTerm" placeholder="Select">
                         <el-option
                                 v-for="option in paymentOptions"
                                 :key="option.value"
@@ -121,7 +121,7 @@
                     <el-col :span="12">
                         <el-form-item label="Invoice Date" prop="invoiceDate">
                             <el-date-picker
-                                    v-model="invoiceForm.invoiceDate"
+                                    v-model="customerServiceForm.invoiceDate"
                                     type="datetime"
                                     placeholder="Select date and time"
                                     style="width: 150px">
@@ -199,7 +199,7 @@
                             type="textarea"
                             :rows="2"
                             placeholder="notes"
-                            v-model="customerServiceForm.note"
+                            v-model="invoiceForm.note"
                     >
                     </el-input>
                 </el-form-item>
@@ -237,7 +237,6 @@ export default {
             phone: '',
             shippingAddress: '',
             paymentTerm: '',
-            note: '',
           }
         },
         customerServiceForm: {
@@ -248,7 +247,7 @@ export default {
             invoiceDate: '',
             shippingVia: '',
             trackingNumber: '',
-            shippingFee: '',
+            shippingFee: '0',
           }
         }
       },
@@ -260,18 +259,21 @@ export default {
           append: true,
           invoiceForm: {
             dueDate: '',
+            invoiceType: '',
+            note: '',
           },
+          preFillForm: {},
           invoiceTypes: [{
-            status: 'RMA',
+            value: 'RMA',
             label: 'RMA'
           }, {
-            status: 'Purchase',
+            value: 'Purchase',
             label: 'Purchase'
           }, {
-            status: 'Evaluation',
+            value: 'Evaluation',
             label: 'Evaluation'
           }, {
-            status: 'Service Plan',
+            value: 'Service Plan',
             label: 'Service Plan'
 
           }],
@@ -399,44 +401,48 @@ export default {
           },
         };
       },
+      // created: function() {
+      //   const tempObj = JSON.parse(JSON.stringify(this.form));
+      //   const tempObj2 = JSON.parse(JSON.stringify(this.customerServiceForm));
+      //   this.preFillForm = Object.assign(tempObj, tempObj2);
+      // },
       methods: {
         showDialog() {
           this.isOpen = true;
         },
         resetFields() {
           this.invoiceForm = {};
-          this.form = {};
-          this.invoiceForm.shippingFee = '0';
+          this.preFillForm = JSON.parse(JSON.stringify({}));
           this.$refs.form.resetFields();
         },
         handleCommand() {
           alert('clicked');
         },
         addPaymentHandle() {
-          addPayment({},{amount: this.invoiceForm.shippingFee,
-            invoiceNo: this.invoiceForm.invoiceNumber,
+          addPayment({},{amount: this.total,
+            invoiceNo: this.customerServiceForm.invoiceNumber,
             customer: this.form.billing,
-            invoiceDate: this.invoiceForm.invoiceDate,
+            invoiceDate: this.customerServiceForm.invoiceDate,
             dueDate: this.invoiceForm.dueDate,
-            status: this.invoiceForm.invoiceStatus,
+            status: this.customerServiceForm.invoiceStatus,
             sales: '',
-            billing_company: this.form.billing,
-            billing_contact: this.form.billingContact,
-            billing_number: this.form.billingPhone,
-            billing_email: this.form.billingEmail,
-            billing_address: this.form.billingAddress,
-            shipping_company: this.form.companyName,
-            shipping_contact: this.form.contact,
-            shipping_number: this.form.phone,
-            shipping_email: this.form.email,
-            shipping_address: this.form.shippingAddress,
-            note: this.form.note,
-            shipping_via: this.invoiceForm.shippingVia,
-            payment_term: this.invoiceForm.paymentTerm,
-            payment_type: this.invoiceForm.invoiceType}
-              ).then(result => {
-                alert('ok');
-              });
+            billingCompany: this.form.billing,
+            billingContact: this.form.billingContact,
+            billingNumber: this.form.billingPhone,
+            billingEmail: this.form.billingEmail,
+            billingAddress: this.form.billingAddress,
+            shippingCompany: this.form.companyName,
+            shippingContact: this.form.contact,
+            shippingNumber: this.form.phone,
+            shippingEmail: this.form.email,
+            shippingAddress: this.form.shippingAddress,
+            note: this.invoiceForm.note,
+            shippingVia: this.customerServiceForm.shippingVia,
+            paymentTerm: this.form.paymentTerm,
+            invoiceType: this.invoiceForm.invoiceType
+          }).then(result => {
+            alert('ok');
+          });
         },
         // getTableData(td) {
         //   this.tableData = td.slice();
@@ -463,7 +469,7 @@ export default {
           copy.forEach(function(item, index) {
             t += item.amount;
           });
-          const tot = t + this.tax + Number(this.invoiceForm.shippingFee);
+          const tot = t + this.tax + Number(this.customerServiceForm.shippingFee);
           return (Math.floor(tot * 100) / 100);
         }
       }

@@ -245,8 +245,8 @@
                 </el-form>
             </el-form>
         </div>
-        <create-invoice-form ref="createInvoiceForm" v-bind:table-data="this.tableData" v-bind:form="this.form"
-                             v-bind:customerServiceForm="this.customerServiceForm"></create-invoice-form>
+        <create-invoice-form ref="createInvoiceForm" v-bind:table-data="this.tableData" v-bind:form="this.formCopy"
+                             v-bind:customerServiceForm="this.customerServiceFormCopy"></create-invoice-form>
         <product-detail-form ref="productDetailForm"></product-detail-form>
         <accessory-detail-form ref="accessoryDetailForm" @accessoryAdded="getAccessoryInfo"></accessory-detail-form>
         <product-detail-form ref="productDetailForm" @productAdded="getProductInfo" @prodAndAccAdded="getProdAndAccInfo"
@@ -281,6 +281,8 @@ export default {
       sameInfo: false,
       sameAsBilling: false,
       tableData: [],
+      formCopy: {},
+      customerServiceFormCopy: {},
       form: {
         billing: '',
         billingContact: '',
@@ -460,6 +462,8 @@ export default {
       this.customerServiceForm = {};
       this.sameAsBilling = false;
       this.sameInfo = false;
+      this.formCopy = {};
+      this.customerServiceForm = {};
       this.$refs.form.resetFields();
     },
     handleCommand(command) {
@@ -471,6 +475,8 @@ export default {
     handleCreateInvoice(form1, form2) {
       // this.sendTableData();
       this.handleAddOrder();
+      this.formCopy = JSON.parse(JSON.stringify(this.form));
+      this.customerServiceFormCopy = JSON.parse((JSON.stringify(this.customerServiceForm)));
         // fix this shit dumbass
       // this.handleAddOrderItems();
       this.$refs.createInvoiceForm.showDialog();

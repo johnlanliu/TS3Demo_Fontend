@@ -4,7 +4,7 @@
         :center="true"
         top="15vh"
         :visible.sync="isOpen"
-        append-to-body="append"
+        :append-to-body="append"
         @close="resetFields"
         >
         <div class="form-box">
