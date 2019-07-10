@@ -245,7 +245,8 @@
                 </el-form>
             </el-form>
         </div>
-        <create-invoice-form ref="createInvoiceForm" v-bind:table-data="this.tableData"></create-invoice-form>
+        <create-invoice-form ref="createInvoiceForm" v-bind:table-data="this.tableData" v-bind:form="this.form"
+                             v-bind:customerServiceForm="this.customerServiceForm"></create-invoice-form>
         <product-detail-form ref="productDetailForm"></product-detail-form>
         <accessory-detail-form ref="accessoryDetailForm" @accessoryAdded="getAccessoryInfo"></accessory-detail-form>
         <product-detail-form ref="productDetailForm" @productAdded="getProductInfo" @prodAndAccAdded="getProdAndAccInfo"

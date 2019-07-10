@@ -89,7 +89,7 @@
                     </tr>
                 </table>
                 <el-form-item label="Payment Term" style="padding-top: 10px" prop="paymentTerm">
-                    <el-select v-model="invoiceForm.paymentTerm" placeholder="Select">
+                    <el-select v-model="customerServiceForm.paymentTerm" placeholder="Select">
                         <el-option
                                 v-for="option in paymentOptions"
                                 :key="option.value"
@@ -101,12 +101,12 @@
                 <el-row style="border-spacing: 0px">
                     <el-col :span="12">
                         <el-form-item label="Invoice #" style="border-spacing: 0px" prop="invoiceNumber">
-                            <el-input v-model="invoiceForm.invoiceNumber" style="width: 150px"></el-input>
+                            <el-input v-model="customerServiceForm.invoiceNumber" style="width: 150px"></el-input>
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
                         <el-form-item label="Invoice Status" prop="invoiceStatus">
-                            <el-select v-model="invoiceForm.invoiceStatus" placeholder="Select" clearable style="width: 150px">
+                            <el-select v-model="customerServiceForm.invoiceStatus" placeholder="Select" clearable style="width: 150px">
                                 <el-option
                                         v-for="item in statusList"
                                         :key="item.status"
@@ -120,7 +120,7 @@
                 <el-row style="border-spacing: 0px">
                     <el-col :span="12">
                         <el-form-item label="Invoice Date" prop="invoiceDate">
-                            <el-input v-model="invoiceForm.invoiceDate" style="width: 150px;"></el-input>
+                            <el-input v-model="customerServiceForm.invoiceDate" style="width: 150px;"></el-input>
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
@@ -132,12 +132,12 @@
                 <el-row style="border-spacing: 0px">
                     <el-col :span="12">
                         <el-form-item label="Shipping via" prop="shippingVia">
-                            <el-input v-model="invoiceForm.shippingVia" style="width: 150px"></el-input>
+                            <el-input v-model="customerServiceForm.shippingVia" style="width: 150px"></el-input>
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
                         <el-form-item label="Tracking Number" prop="trackingNumber">
-                            <el-input v-model="invoiceForm.trackingNumber" style="width: 150px"></el-input>
+                            <el-input v-model="customerServiceForm.trackingNumber" style="width: 150px"></el-input>
                         </el-form-item>
                     </el-col>
                 </el-row>
@@ -177,7 +177,7 @@
                             <p v-model="tax">${{ tax }}</p>
                         </el-form-item>
                         <el-form-item label="Shipping fee: " prop="shippingFee">
-                            <el-input v-model="invoiceForm.shippingFee" style="width: 100px"></el-input>
+                            <el-input v-model="customerServiceForm.shippingFee" style="width: 100px"></el-input>
                         </el-form-item>
                         <el-form-item label="Total: ">
                             <p v-model="total">${{ total }}</p>
@@ -189,7 +189,7 @@
                             type="textarea"
                             :rows="2"
                             placeholder="notes"
-                            v-model="invoiceForm.note"
+                            v-model="customerServiceForm.note"
                     >
                     </el-input>
                 </el-form-item>
@@ -212,28 +212,10 @@ export default {
         tableData: {
           type: Array,
           default: [],
-        }
-      },
-      data: function() {
-        return {
-          labelPosition: 'right',
-          isOpen: false,
-          loading: false,
-          append: true,
-          invoiceForm: {
-            invoiceType: '',
-            paymentTerm: '',
-            invoiceNumber: '',
-            invoiceDate: '',
-            invoiceStatus: '',
-            dueDate: '',
-            shippingVia: '',
-            trackingNumber: '',
-            shippingFee: '0',
-            note: '',
-            sales: '',
-          },
-          form: {
+        },
+        form: {
+          type: Object,
+          default: {
             billing: '',
             billingContact: '',
             billingPhone: '',
@@ -244,6 +226,30 @@ export default {
             email: '',
             phone: '',
             shippingAddress: '',
+            paymentTerm: '',
+            note: '',
+          }
+        },
+        customerServiceForm: {
+          type: Object,
+          default: {
+            status: '',
+            invoiceNumber: '',
+            invoiceDate: '',
+            shippingVia: '',
+            trackingNumber: '',
+            shippingFee: '',
+          }
+        }
+      },
+      data: function() {
+        return {
+          labelPosition: 'right',
+          isOpen: false,
+          loading: false,
+          append: true,
+          invoiceForm: {
+            dueDate: '',
           },
           invoiceTypes: [{
             status: 'RMA',
