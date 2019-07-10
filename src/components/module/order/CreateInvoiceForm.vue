@@ -120,22 +120,12 @@
                 <el-row style="border-spacing: 0px">
                     <el-col :span="12">
                         <el-form-item label="Invoice Date" prop="invoiceDate">
-                            <el-date-picker
-                                    v-model="invoiceForm.invoiceDate"
-                                    type="datetime"
-                                    placeholder="Select date and time"
-                                    style="width: 150px">
-                            </el-date-picker>
+                            <el-input v-model="invoiceForm.invoiceDate" style="width: 150px;"></el-input>
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
                         <el-form-item label="Due Date" prop="dueDate">
-                            <el-date-picker
-                                    v-model="invoiceForm.dueDate"
-                                    type="datetime"
-                                    placeholder="Select date and time"
-                                    style="width: 150px">
-                            </el-date-picker>
+                            <el-input v-model="invoiceForm.dueDate" style="width: 150px"></el-input>
                         </el-form-item>
                     </el-col>
                 </el-row>
@@ -413,21 +403,7 @@ export default {
             invoiceDate: this.invoiceForm.invoiceDate,
             dueDate: this.invoiceForm.dueDate,
             status: this.invoiceForm.invoiceStatus,
-            sales: '',
-            billing_company: this.form.billing,
-            billing_contact: this.form.billingContact,
-            billing_number: this.form.billingPhone,
-            billing_email: this.form.billingEmail,
-            billing_address: this.form.billingAddress,
-            shipping_company: this.form.companyName,
-            shipping_contact: this.form.contact,
-            shipping_number: this.form.phone,
-            shipping_email: this.form.email,
-            shipping_address: this.form.shippingAddress,
-            note: this.form.note,
-            shipping_via: this.invoiceForm.shippingVia,
-            payment_term: this.invoiceForm.paymentTerm,
-            payment_type: this.invoiceForm.invoiceType}
+            sales: '',}
               ).then(result => {
                 alert('ok');
               });
