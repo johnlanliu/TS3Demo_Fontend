@@ -120,12 +120,22 @@
                 <el-row style="border-spacing: 0px">
                     <el-col :span="12">
                         <el-form-item label="Invoice Date" prop="invoiceDate">
-                            <el-input v-model="invoiceForm.invoiceDate" style="width: 150px;"></el-input>
+                            <el-date-picker
+                                    v-model="invoiceForm.invoiceDate"
+                                    type="datetime"
+                                    placeholder="Select date and time"
+                                    style="width: 150px">
+                            </el-date-picker>
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
                         <el-form-item label="Due Date" prop="dueDate">
-                            <el-input v-model="invoiceForm.dueDate" style="width: 150px"></el-input>
+                            <el-date-picker
+                                    v-model="invoiceForm.dueDate"
+                                    type="datetime"
+                                    placeholder="Select date and time"
+                                    style="width: 150px">
+                            </el-date-picker>
                         </el-form-item>
                     </el-col>
                 </el-row>
@@ -245,7 +255,20 @@ export default {
             phone: '',
             shippingAddress: '',
           },
-          invoiceTypes: [],
+          invoiceTypes: [{
+            status: 'RMA',
+            label: 'RMA'
+          }, {
+            status: 'Purchase',
+            label: 'Purchase'
+          }, {
+            status: 'Evaluation',
+            label: 'Evaluation'
+          }, {
+            status: 'Service Plan',
+            label: 'Service Plan'
+
+          }],
           statusList: [{
             status: 'refund',
             label: 'refund'
@@ -390,7 +413,21 @@ export default {
             invoiceDate: this.invoiceForm.invoiceDate,
             dueDate: this.invoiceForm.dueDate,
             status: this.invoiceForm.invoiceStatus,
-            sales: ''}
+            sales: '',
+            billing_company: this.form.billing,
+            billing_contact: this.form.billingContact,
+            billing_number: this.form.billingPhone,
+            billing_email: this.form.billingEmail,
+            billing_address: this.form.billingAddress,
+            shipping_company: this.form.companyName,
+            shipping_contact: this.form.contact,
+            shipping_number: this.form.phone,
+            shipping_email: this.form.email,
+            shipping_address: this.form.shippingAddress,
+            note: this.form.note,
+            shipping_via: this.invoiceForm.shippingVia,
+            payment_term: this.invoiceForm.paymentTerm,
+            payment_type: this.invoiceForm.invoiceType}
               ).then(result => {
                 alert('ok');
               });
