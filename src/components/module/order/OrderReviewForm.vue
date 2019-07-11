@@ -79,7 +79,7 @@
                     <el-col :span="10" offset="15">
                         <el-form-item label="Tax: " style="font-weight: 900"> ${{ tax }}</el-form-item>
                         <el-form-item label="Total: " style="font-weight: 900">${{ total }} plus shipping fee</el-form-item>
-                        <el-button type="primary">cancel order</el-button>
+                        <el-button type="primary" @click="handleCancelOrder">cancel order</el-button>
                     </el-col>
                 </el-row>
             </el-form>
@@ -89,7 +89,9 @@
 </template>
 
 <script>
-  export default {
+    import { cancelOrder } from '@/api/getData';
+
+    export default {
     name: 'OrderReviewForm',
     components: {
 
@@ -116,10 +118,12 @@
           type: '',
         })
       },
+      currentOrderId: Number,
       tableData: {
         type: Array,
         default: () => [],
       },
+      initData: Function,
     },
     methods: {
       showDialog() {
@@ -127,6 +131,11 @@
       },
       resetFields() {
         this.$refs.form.resetFields();
+      },
+      async handleCancelOrder() {
+        await cancelOrder({orderId: this.currentOrderId}, {});
+        this.initData();
+        this.isOpen = false;
       },
     },
     computed: {

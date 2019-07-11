@@ -92,7 +92,8 @@
 
                       </el-dropdown-menu>
                   </el-dropdown>
-                  <order-review-form ref="orderReviewForm" v-bind:form="orderInfoToView" v-bind:table-data="orderItemTable"></order-review-form>
+                  <order-review-form ref="orderReviewForm" v-bind:form="orderInfoToView" v-bind:table-data="orderItemTable" v-bind:currentOrderId="currentOrderId"
+                    v-bind:init-data="initData"></order-review-form>
               </template>
           </el-table-column>
       </el-table>
@@ -144,6 +145,7 @@
           number: '',
           status: ''
         },
+        currentOrderId: '',
         orderInfoToView: {},
         orderItemTable: [],
         statusList: [{
@@ -202,6 +204,7 @@
         if(command==='view') {
           this.getOrderInfo(row, index);
           this.getOrderItems(row,index);
+          this.currentOrderId = row.orderId;
           this.$refs.orderReviewForm.showDialog();
           this.orderInfoToView = {};
           this.orderItemTable = [];
