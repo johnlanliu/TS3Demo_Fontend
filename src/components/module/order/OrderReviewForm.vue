@@ -92,78 +92,78 @@
     import { cancelOrder } from '@/api/getData';
 
     export default {
-    name: 'OrderReviewForm',
-    components: {
+      name: 'OrderReviewForm',
+      components: {
 
-    },
-    data: function() {
-      return {
-        isOpen: false,
-        loading: false,
-        append: true,
-        labelPosition: 'left',
-      };
-    },
-    props: {
-      form: {
-        type: Object,
-        default: () =>({billingCompany: '',
-          billingAddress: '',
-          billingEmail: '',
-          billingNumber: '',
-          shippingCompany: '',
-          shippingAddress: '',
-          shippingNumber: '',
-          shippingEmail: '',
-          type: '',
-        })
       },
-      currentOrderId: Number,
-      tableData: {
-        type: Array,
-        default: () => [],
+      data: function() {
+        return {
+          isOpen: false,
+          loading: false,
+          append: true,
+          labelPosition: 'left',
+        };
       },
-      initData: Function,
-    },
-    methods: {
-      showDialog() {
-        this.isOpen = true;
+      props: {
+        form: {
+          type: Object,
+          default: () =>({billingCompany: '',
+            billingAddress: '',
+            billingEmail: '',
+            billingNumber: '',
+            shippingCompany: '',
+            shippingAddress: '',
+            shippingNumber: '',
+            shippingEmail: '',
+            type: '',
+          })
+        },
+        currentOrderId: String,
+        tableData: {
+          type: Array,
+          default: () => [],
+        },
+        initData: Function,
       },
-      resetFields() {
-        this.$refs.form.resetFields();
+      methods: {
+        showDialog() {
+          this.isOpen = true;
+        },
+        resetFields() {
+          this.$refs.form.resetFields();
+        },
+        async handleCancelOrder() {
+          await cancelOrder({orderId: this.currentOrderId}, {});
+          this.initData();
+          this.isOpen = false;
+        },
       },
-      async handleCancelOrder() {
-        await cancelOrder({orderId: this.currentOrderId}, {});
-        this.initData();
-        this.isOpen = false;
-      },
-    },
-    computed: {
-      tax: function() {
-        let t = 0;
-        let et;
-        const copy = this.tableData.slice();
-        copy.forEach(function(item, index) {
-          if ((item.tax === 'Y')) {
-            et = Number(item.amount) * .0775;
-          } else {
-            et = 0;
-          }
-          t += et;
-        });
-        return (Math.floor(t * 100) / 100);
-      },
-      total: function() {
-        let t = 0;
-        const copy = this.tableData.slice();
-        copy.forEach(function(item, index) {
-          t += item.amount;
-        });
-        const tot = t + this.tax;
-        return (Math.floor(tot * 100) / 100);
+      computed: {
+        tax: function() {
+          let t = 0;
+          let et;
+          const copy = this.tableData.slice();
+          copy.forEach(function(item, index) {
+            if ((item.tax === 'Y')) {
+              et = Number(item.amount) * .0775;
+            } else {
+              et = 0;
+            }
+            t += et;
+          });
+          return (Math.floor(t * 100) / 100);
+        },
+        total: function() {
+          let t = 0;
+          const copy = this.tableData.slice();
+          copy.forEach(function(item, index) {
+            t += item.amount;
+          });
+          const tot = t + this.tax;
+          return (Math.floor(tot * 100) / 100);
+        }
       }
-    }
-  };
+};
 </script>
 
 <style scoped>

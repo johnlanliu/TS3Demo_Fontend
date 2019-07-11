@@ -100,7 +100,7 @@
                           <el-dropdown-item command="void">Void</el-dropdown-item>
                       </el-dropdown-menu>
                   </el-dropdown>
-                  <invoice-review-form ref="invoiceReviewForm" v-bind:form="invoiceInfo"></invoice-review-form>
+                  <invoice-review-form ref="invoiceReviewForm" v-bind:form="invoiceInfo" @reload-table="initData"></invoice-review-form>
 <!--                  <el-button size="mini" type="text" @click="handleView(scope.$index, scope.row)">View</el-button>-->
 <!--                  <el-button size="mini" type="text" @click="handleEdit(scope.$index, scope.row)">Edit</el-button>-->
 <!--                  <el-button size="mini" type="text" @click="handleVoid(scope.$index, scope.row)">Void</el-button>-->
@@ -227,6 +227,9 @@
         } else {
           this.handleVoid(index, row);
         }
+      },
+      async handleView() {
+        this.$refs.invoiceReviewForm.showDialog();
       },
       async handleVoid(index, row) {
         await voidPayment({paymentId: row.paymentId},{});

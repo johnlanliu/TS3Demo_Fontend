@@ -106,7 +106,7 @@
                     </el-col>
                     <el-col :span="12">
                         <el-form-item label="Invoice Status" prop="invoiceStatus">
-                            <el-select v-model="customerServiceForm.invoiceStatus" placeholder="Select" clearable style="width: 150px">
+                            <el-select v-model="invoiceForm.status" placeholder="Select" clearable style="width: 150px">
                                 <el-option
                                         v-for="item in statusList"
                                         :key="item.status"
@@ -261,6 +261,7 @@ export default {
             dueDate: '',
             invoiceType: '',
             note: '',
+            status: '',
           },
           invoiceTypes: [{
             value: 'RMA',
@@ -283,8 +284,8 @@ export default {
             status: 'void',
             label: 'void'
           }, {
-            status: 'shipped',
-            label: 'shipped'
+            status: 'paid',
+            label: 'paid'
           }, {
             status: 'pending',
             label: 'pending'
@@ -419,7 +420,7 @@ export default {
             customer: this.form.billing,
             invoiceDate: this.customerServiceForm.invoiceDate,
             dueDate: this.invoiceForm.dueDate,
-            status: this.customerServiceForm.invoiceStatus,
+            status: this.invoiceForm.status,
             sales: '',
             billingCompany: this.form.billing,
             billingContact: this.form.billingContact,
