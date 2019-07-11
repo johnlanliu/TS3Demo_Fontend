@@ -72,9 +72,9 @@
 <!--              </template>-->
           </el-table-column>
           <el-table-column label="Amount" prop="amount" width="110">
-<!--              <template slot-scope="scope">-->
-<!--                  <span style="color: blue">${{scope.row.amount}}.00</span>-->
-<!--              </template>-->
+              <template slot-scope="scope">
+                  <span>${{scope.row.amount}}</span>
+              </template>
           </el-table-column>
           <el-table-column label="Status" prop="status" width="110">
               <template slot-scope="scope">
