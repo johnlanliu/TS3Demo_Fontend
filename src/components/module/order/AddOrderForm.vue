@@ -246,7 +246,7 @@
             </el-form>
         </div>
         <create-invoice-form ref="createInvoiceForm" v-bind:table-data="this.tableData" v-bind:form="this.formCopy"
-                             v-bind:customerServiceForm="this.customerServiceFormCopy"></create-invoice-form>
+                             v-bind:customerServiceForm="this.customerServiceFormCopy" v-bind:currentOrderId="this.currentOrderId"></create-invoice-form>
         <product-detail-form ref="productDetailForm"></product-detail-form>
         <accessory-detail-form ref="accessoryDetailForm" @accessoryAdded="getAccessoryInfo"></accessory-detail-form>
         <product-detail-form ref="productDetailForm" @productAdded="getProductInfo" @prodAndAccAdded="getProdAndAccInfo"
@@ -265,6 +265,7 @@ import CreateInvoiceForm from './CreateInvoiceForm.vue';
 import AccessoryDetailForm from './AccessoryDetailForm.vue';
 import ServicePlanForm from './ServicePlanForm.vue';
 import { addOrder, addOrderItem } from '@/api/getData';
+import {getLastOrderId} from '../../../api/getData';
 
 export default {
   name: 'AddOrderForm',
@@ -283,6 +284,7 @@ export default {
       tableData: [],
       formCopy: {},
       customerServiceFormCopy: {},
+      currentOrderId: '',
       form: {
         billing: '',
         billingContact: '',
@@ -475,9 +477,10 @@ export default {
     handleDeleteOrderItem(row, index) {
       this.tableData.splice(index, 1);
     },
-    handleCreateInvoice(form1, form2) {
+    async handleCreateInvoice(form1, form2) {
       // this.sendTableData();
       this.handleAddOrder();
+      this.currentOrderId = await getLastOrderId();
       this.formCopy = JSON.parse(JSON.stringify(this.form));
       this.customerServiceFormCopy = JSON.parse((JSON.stringify(this.customerServiceForm)));
         // fix this shit dumbass

@@ -100,7 +100,7 @@
                           <el-dropdown-item command="void">Void</el-dropdown-item>
                       </el-dropdown-menu>
                   </el-dropdown>
-                  <invoice-review-form ref="invoiceReviewForm" v-bind:form="invoiceInfo" @reload-table="initData"></invoice-review-form>
+                  <invoice-review-form ref="invoiceReviewForm" v-bind:form="invoiceInfo" v-bind:tableData="orderItemTable" @reload-table="initData"></invoice-review-form>
 <!--                  <el-button size="mini" type="text" @click="handleView(scope.$index, scope.row)">View</el-button>-->
 <!--                  <el-button size="mini" type="text" @click="handleEdit(scope.$index, scope.row)">Edit</el-button>-->
 <!--                  <el-button size="mini" type="text" @click="handleVoid(scope.$index, scope.row)">Void</el-button>-->
@@ -132,6 +132,7 @@
   import CreateInvoiceForm from '../order/CreateInvoiceForm.vue';
   import {getPaymentList, voidPayment} from '@/api/getData';
   import {getPaymentByPaymentId} from '@/api/getData';
+  import { getOrderItem } from '@/api/getData';
 
   export default {
     mixins: [exceptionUtil, timeMixins],
@@ -149,6 +150,7 @@
         permsVoid: true,
         salesPerson: '',
         tableData: [],
+        orderItemTable: [],
         paymentSearchForm: {
           number: '',
           status: '',
@@ -219,6 +221,7 @@
       handleCommand(command, row, index) {
         if (command === 'view') {
           this.getInvoiceInfo(row, index);
+          this.currentOrderId = row.orderId;
           this.$refs.invoiceReviewForm.showDialog();
           this.invoiceInfo = {};
           this.invoiceTableData = [];
@@ -250,6 +253,17 @@
             let tableData = item;
             tableData.index = index + 1;
             this.tableData.push(tableData);
+          });
+        }
+      },
+      async getOrderItems(row, index) {
+        const res = await getOrderItem({orderId: row.orderId});
+        if (res) {
+          this.orderItemTable = [];
+          res.forEach((item, index) => {
+            let orderItem = item;
+            orderItem.index = index + 1;
+            this.orderItemTable.push(orderItem);
           });
         }
       },

@@ -249,7 +249,8 @@ export default {
             trackingNumber: '',
             shippingFee: '',
           })
-        }
+        },
+        currentOrderId: String,
       },
       data: function() {
         return {
@@ -435,7 +436,8 @@ export default {
             note: this.invoiceForm.note,
             shippingVia: this.customerServiceForm.shippingVia,
             paymentTerm: this.form.paymentTerm,
-            invoiceType: this.invoiceForm.invoiceType
+            invoiceType: this.invoiceForm.invoiceType,
+            orderId: this.currentOrderId,
           }).then(result => {
             alert('ok');
           });
