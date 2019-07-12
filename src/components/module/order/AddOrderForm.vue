@@ -346,6 +346,7 @@ export default {
         status: '',
         invoiceNumber: '',
         invoiceDate: '',
+        dueDate: '',
         shippingVia: '',
         trackingNumber: '',
         shippingFee: '',
@@ -527,16 +528,17 @@ export default {
       this.$refs.servicePlanForm.showDialog();
     },
     handleAddOrder() {
+      this.getDueDate();
       addOrder({},{type: this.form.orderType,
         customer: this.form.billing,
         status: this.customerServiceForm.status,
         invoiceNo: this.customerServiceForm.invoiceNumber,
         invoiceDate: this.customerServiceForm.invoiceDate,
-        dueDate: '2019-02-18 16:26:51',
+        dueDate: this.customerServiceForm.dueDate,
         trackingNo: this.customerServiceForm.trackingNumber,
-        sales: '',
-        createTime: '2019-02-18 16:26:51',
-        modifyTime: '2019-02-18 16:26:51',
+        sales: 'NULL',
+        createTime: 'NULL',
+        modifyTime: 'NULL',
         orderItems: this.tableData,
         billingCompany: this.form.billing,
         billingContact: this.form.billingContact,
@@ -549,6 +551,28 @@ export default {
         shippingEmail: this.form.email,
         shippingAddress: this.form.shippingAddress
       });
+    },
+    getDueDate() {
+      let invoice = new Date(this.customerServiceForm.invoiceDate);
+      let due = new Date(this.customerServiceForm.invoiceDate);
+
+      if (this.form.paymentTerm === 'Net15') {
+        due.setDate(this.customerServiceForm.invoiceDate.getDate()+15);
+      } else {
+        due.setDate(this.customerServiceForm.invoiceDate.getDate()+30);
+      }
+
+      // this.customerServiceForm.dueDate = due;
+      this.customerServiceForm.invoiceDate = invoice.getFullYear()
+            + '-' + (invoice.getMonth()+1)
+            + '-' + invoice.getDate()
+            + ' ' + invoice.getHours()
+            + ':' + invoice.getMinutes();
+      this.customerServiceForm.dueDate = due.getFullYear()
+            + '-' + (due.getMonth()+1)
+            + '-' + due.getDate()
+            + ' ' + due.getHours()
+            + ':' + due.getMinutes();
     },
     getAccessoryInfo(n, p, q) {
       this.form.accName = n;

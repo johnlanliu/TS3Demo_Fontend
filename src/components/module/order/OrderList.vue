@@ -71,8 +71,8 @@
               </template>
           </el-table-column>
           <el-table-column label="Invoice No." prop="invoiceNo" width="150"></el-table-column>
-          <el-table-column label="Invoice Date" prop="invoiceDate" width="150"></el-table-column>
-          <el-table-column label="Due Date" prop="dueDate" width="130"></el-table-column>
+          <el-table-column label="Invoice Date" prop="invoiceDate" :formatter="formatDate" width="150"></el-table-column>
+          <el-table-column label="Due Date" prop="dueDate" :formatter="formatDate" width="130"></el-table-column>
           <el-table-column label="Tracking No." prop="trackingNo" width="120">
               <template slot-scope="scope">
                   <a href="https://www.anytrek.com/">{{scope.row.trackingNo}}</a>
@@ -114,19 +114,19 @@
   } from '@/api/getData';
   import ModelListSelect from '@/components/common/ModelListSelect.vue';
   import MapDialog from '@/components/common/MapDialog.vue';
-  import { timestampFormatDate, timeMixins } from '@/utils/time';
   import { handlePerms } from '@/utils/perms.js';
+  import { timeFormatUtil } from '@/utils/timeFormatUtil.js';
   import { exceptionUtil } from '@/utils/exceptionUtil.js';
   import { getStore } from '@/config/mUtils';
   import { mapState } from 'vuex';
   import AddOrderForm from './AddOrderForm.vue';
   import OrderReviewForm from './OrderReviewForm.vue';
   import { getOrderList } from '@/api/getData';
-  import {getOrderByOrderId} from '@/api/getData';
-  import {getOrderItem} from '@/api/getData';
+  import { getOrderByOrderId } from '@/api/getData';
+  import { getOrderItem } from '@/api/getData';
 
   export default {
-    mixins: [exceptionUtil, timeMixins],
+    mixins: [timeFormatUtil, exceptionUtil],
     components: {
       AddOrderForm,
       OrderReviewForm
