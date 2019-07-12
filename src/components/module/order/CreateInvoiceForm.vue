@@ -250,7 +250,7 @@ export default {
             shippingFee: '',
           })
         },
-        currentOrderId: String,
+        currentOrderId: Number,
       },
       data: function() {
         return {

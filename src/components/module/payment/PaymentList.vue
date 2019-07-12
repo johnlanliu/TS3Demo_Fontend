@@ -221,7 +221,7 @@
       handleCommand(command, row, index) {
         if (command === 'view') {
           this.getInvoiceInfo(row, index);
-          this.currentOrderId = row.orderId;
+          this.getOrderItems(row, index);
           this.$refs.invoiceReviewForm.showDialog();
           this.invoiceInfo = {};
           this.invoiceTableData = [];
