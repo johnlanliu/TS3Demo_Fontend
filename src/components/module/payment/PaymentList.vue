@@ -257,14 +257,18 @@
         }
       },
       async getOrderItems(row, index) {
-        const res = await getOrderItem({orderId: row.orderId});
-        if (res) {
+        if(row.orderId === null) {
           this.orderItemTable = [];
-          res.forEach((item, index) => {
-            let orderItem = item;
-            orderItem.index = index + 1;
-            this.orderItemTable.push(orderItem);
-          });
+        } else {
+          const res = await getOrderItem({orderId: row.orderId});
+          if (res) {
+            this.orderItemTable = [];
+            res.forEach((item, index) => {
+              let orderItem = item;
+              orderItem.index = index + 1;
+              this.orderItemTable.push(orderItem);
+            });
+          }
         }
       },
       async getInvoiceInfo(row, index) {

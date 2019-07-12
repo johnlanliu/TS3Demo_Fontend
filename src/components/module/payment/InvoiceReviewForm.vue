@@ -120,12 +120,12 @@
                     </el-row>
                     <el-row style="padding-left: 50px">
                         <el-col :span="8">
-                            <el-form-item label="Shipping via: " style="font-weight: 900">
+                            <el-form-item label="Shipping Via: " style="font-weight: 900">
                                 <p v-model="form.shippingVia">{{ form.shippingVia }}</p>
                             </el-form-item>
                         </el-col>
                         <el-col :span="8">
-                            <el-form-item label="Shipping number: " style="font-weight: 900"></el-form-item>
+                            <el-form-item label="Shipping Number: " style="font-weight: 900"></el-form-item>
                         </el-col>
                     </el-row>
                     <el-form-item label="Item" style="font-weight: 900; padding-left: 50px"></el-form-item>
@@ -166,9 +166,15 @@
                             </el-form-item>
                         </el-col>
                         <el-col :span="8">
-                            <el-form-item label="Tax: " style="font-weight: 900"></el-form-item>
-                            <el-form-item label="Shipping: "  style="font-weight: 900"></el-form-item>
-                            <el-form-item label="Total: " style="font-weight: 900"></el-form-item>
+                            <el-form-item label="Tax: " style="font-weight: 900">
+                                <p v-model="tax">${{ tax }}</p>
+                            </el-form-item>
+                            <el-form-item label="Shipping: "  style="font-weight: 900">
+                                <p v-model="form.shippingFee">${{ form.shippingFee }}</p>
+                            </el-form-item>
+                            <el-form-item label="Total: " style="font-weight: 900">
+                                <p v-model="total">${{ total }}</p>
+                            </el-form-item>
                         </el-col>
                     </el-row>
                 </el-form>
@@ -207,6 +213,7 @@
             dueDate: '',
             shippingVia: '',
             note: '',
+            shippingFee: '',
           })
       },
       tableData: {
@@ -222,6 +229,34 @@
         this.$refs.form.resetFields();
       },
     },
+    computed: {
+      tax: function() {
+        let t = 0;
+        let et;
+        const copy = this.tableData.slice();
+        copy.forEach(function(item, index) {
+          if ((item.tax === 'Y')) {
+            et = Number(item.amount) * .0775;
+          } else {
+            et = 0;
+          }
+          t += et;
+        });
+        return (Math.floor(t * 100) / 100);
+      },
+      total: function() {
+        let t = 0;
+        const copy = this.tableData.slice();
+        copy.forEach(function(item, index) {
+          t += item.amount;
+        });
+        let tot = t + this.tax;
+        if (!isNaN(this.form.shippingFee)) {
+          tot += Number(this.form.shippingFee);
+        }
+        return (Math.floor(tot * 100) / 100);
+      }
+    }
   };
 </script>
 

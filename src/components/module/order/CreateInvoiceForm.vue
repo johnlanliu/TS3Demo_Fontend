@@ -438,6 +438,7 @@ export default {
             paymentTerm: this.form.paymentTerm,
             invoiceType: this.invoiceForm.invoiceType,
             orderId: this.currentOrderId,
+            shippingFee: this.customerServiceForm.shippingFee,
           }).then(result => {
             alert('ok');
           });
