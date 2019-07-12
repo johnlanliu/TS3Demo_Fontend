@@ -61,12 +61,12 @@
 <!--                  <span style="color: orange">{{scope.row.customer}}</span>-->
 <!--              </template>-->
           </el-table-column>
-          <el-table-column label="Invoice Date" prop="invoiceDate" width="150">
+          <el-table-column label="Invoice Date" prop="invoiceDate" :formatter="formatDate" width="150">
 <!--              <template slot-scope="scope">-->
 <!--                  <span style="color: yellow">{{scope.row.invoiceDate}}</span>-->
 <!--              </template>-->
           </el-table-column>
-          <el-table-column label="Due Date" prop="dueDate" width="150">
+          <el-table-column label="Due Date" prop="dueDate" :formatter="formatDate" width="150">
 <!--              <template slot-scope="scope">-->
 <!--                  <span style="color: green">{{scope.row.dueDate}}</span>-->
 <!--              </template>-->
@@ -123,8 +123,8 @@
   } from '@/api/getData';
   import ModelListSelect from '@/components/common/ModelListSelect.vue';
   import MapDialog from '@/components/common/MapDialog.vue';
-  import { timestampFormatDate, timeMixins } from '@/utils/time';
   import { handlePerms } from '@/utils/perms.js';
+  import { timeFormatUtil } from '@/utils/timeFormatUtil.js';
   import { exceptionUtil } from '@/utils/exceptionUtil.js';
   import { getStore } from '@/config/mUtils';
   import { mapState } from 'vuex';
@@ -135,7 +135,7 @@
   import { getOrderItem } from '@/api/getData';
 
   export default {
-    mixins: [exceptionUtil, timeMixins],
+    mixins: [timeFormatUtil, exceptionUtil],
     components: {
       InvoiceReviewForm,
       CreateInvoiceForm,

@@ -480,6 +480,7 @@ export default {
     },
     async handleCreateInvoice(form1, form2) {
       // this.sendTableData();
+      this.getDates();
       this.handleAddOrder();
       this.currentOrderId = await getLastOrderId();
       this.formCopy = JSON.parse(JSON.stringify(this.form));
@@ -528,7 +529,6 @@ export default {
       this.$refs.servicePlanForm.showDialog();
     },
     handleAddOrder() {
-      this.getDueDate();
       addOrder({},{type: this.form.orderType,
         customer: this.form.billing,
         status: this.customerServiceForm.status,
@@ -552,7 +552,7 @@ export default {
         shippingAddress: this.form.shippingAddress
       });
     },
-    getDueDate() {
+    getDates() {
       let invoice = new Date(this.customerServiceForm.invoiceDate);
       let due = new Date(this.customerServiceForm.invoiceDate);
 

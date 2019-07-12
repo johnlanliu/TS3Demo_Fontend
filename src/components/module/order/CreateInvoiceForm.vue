@@ -416,13 +416,14 @@ export default {
           alert('clicked');
         },
         addPaymentHandle() {
+          this.getDates();
           addPayment({},{amount: this.total,
             invoiceNo: this.customerServiceForm.invoiceNumber,
             customer: this.form.billing,
             invoiceDate: this.customerServiceForm.invoiceDate,
             dueDate: this.invoiceForm.dueDate,
             status: this.invoiceForm.status,
-            sales: '',
+            sales: 'NULL',
             billingCompany: this.form.billing,
             billingContact: this.form.billingContact,
             billingNumber: this.form.billingPhone,
@@ -439,11 +440,23 @@ export default {
             invoiceType: this.invoiceForm.invoiceType,
             orderId: this.currentOrderId,
             shippingFee: this.customerServiceForm.shippingFee,
-          }).then(result => {
-            alert('ok');
           });
         },
+        getDates() {
+          let invoice = new Date(this.customerServiceForm.invoiceDate);
+          let due = new Date(this.invoiceForm.dueDate);
 
+          this.customerServiceForm.invoiceDate = invoice.getFullYear()
+              + '-' + (invoice.getMonth()+1)
+              + '-' + invoice.getDate()
+              + ' ' + invoice.getHours()
+              + ':' + invoice.getMinutes();
+          this.invoiceForm.dueDate = due.getFullYear()
+              + '-' + (due.getMonth()+1)
+              + '-' + due.getDate()
+              + ' ' + due.getHours()
+              + ':' + due.getMinutes();
+        },
         // getTableData(td) {
         //   this.tableData = td.slice();
         // }
