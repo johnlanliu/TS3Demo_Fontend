@@ -208,6 +208,13 @@
           this.$refs.orderReviewForm.showDialog();
           this.orderInfoToView = {};
           this.orderItemTable = [];
+        } else {
+          this.getOrderInfo(row, index);
+          this.getOrderItems(row, index);
+          this.currentOrderId = row.orderId;
+          this.$refs.addOrderForm.showDialog();
+          this.orderInfoToView = {};
+          this.orderItemTable = [];
         }
       },
       async getOrderInfo(row, index) {
