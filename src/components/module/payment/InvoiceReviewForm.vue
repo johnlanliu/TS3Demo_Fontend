@@ -140,24 +140,11 @@
                         :row-key="row => row.index"
                         style="width: 170%; margin-left: 50px"
                     >
-                        <el-table-column label="Product" prop="product" width="120"></el-table-column>
-                        <el-table-column label="QTY" prop="quantity" width="100"></el-table-column>
-                        <el-table-column label="Rate" prop="rate" width="100"></el-table-column>
-                        <el-table-column label="Amount" prop="amount" width="100"></el-table-column>
-                        <el-table-column label="Tax" prop="tax" width="50"></el-table-column>
-                        <el-table-column label="Action" width="130">
-                            <template slot-scope="scope">
-                                <el-dropdown size="mini" type="text" @command="handleCommand">
-                  <span class="el-dropdown-link">
-                  View<i class="el-icon-arrow-down el-icon--right"></i>
-                  </span>
-                                    <el-dropdown-menu slot="dropdown">
-                                        <el-dropdown-item command="a">Edit</el-dropdown-item>
-                                        <el-dropdown-item command="b">Delete</el-dropdown-item>
-                                    </el-dropdown-menu>
-                                </el-dropdown>
-                            </template>
-                        </el-table-column>
+                        <el-table-column label="Product" prop="product" width="160"></el-table-column>
+                        <el-table-column label="QTY" prop="quantity" width="120"></el-table-column>
+                        <el-table-column label="Rate" prop="rate" width="120"></el-table-column>
+                        <el-table-column label="Amount" prop="amount" width="120"></el-table-column>
+                        <el-table-column label="Tax" prop="tax" width="79"></el-table-column>
                     </el-table>
                     <el-row style="padding-left: 50px;">
                         <el-col :span="16">

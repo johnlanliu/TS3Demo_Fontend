@@ -100,10 +100,8 @@
                           <el-dropdown-item command="void">Void</el-dropdown-item>
                       </el-dropdown-menu>
                   </el-dropdown>
-                  <invoice-review-form ref="invoiceReviewForm" v-bind:form="invoiceInfo" v-bind:tableData="orderItemTable" @reload-table="initData"></invoice-review-form>
-<!--                  <el-button size="mini" type="text" @click="handleView(scope.$index, scope.row)">View</el-button>-->
-<!--                  <el-button size="mini" type="text" @click="handleEdit(scope.$index, scope.row)">Edit</el-button>-->
-<!--                  <el-button size="mini" type="text" @click="handleVoid(scope.$index, scope.row)">Void</el-button>-->
+                  <invoice-review-form ref="invoiceReviewForm" v-bind:form="invoiceInfo" v-bind:table-data="orderItemTable" @reload-table="initData"></invoice-review-form>
+                  <edit-invoice-form ref="editInvoiceForm" v-bind:form="invoiceInfo" v-bind:table-data="orderItemTable"></edit-invoice-form>
               </template>
           </el-table-column>
       </el-table>
@@ -134,10 +132,12 @@
   import {getPaymentByPaymentId} from '@/api/getData';
   import { getOrderItem } from '@/api/getData';
   import {getOrderItemListByInvoiceNo} from '@/api/getData';
+  import EditInvoiceForm from './EditInvoiceForm';
 
   export default {
     mixins: [timeFormatUtil, exceptionUtil],
     components: {
+      EditInvoiceForm,
       InvoiceReviewForm,
       CreateInvoiceForm,
     },
@@ -276,8 +276,10 @@
         this.invoiceInfo = await getPaymentByPaymentId({paymentId: row.paymentId});
 
       },
-      handleEdit(index, row) {
-        this.$refs.invoiceReviewForm.showDialog();
+      async handleEdit(index, row) {
+        this.getInvoiceInfo(row, index);
+        this.getOrderItems(row, index);
+        this.$refs.editInvoiceForm.showDialog();
       }
     }
   };

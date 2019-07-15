@@ -1,6 +1,6 @@
 <template>
     <el-dialog
-            :title="'Invoice'"
+            :title="'Edit Invoice'"
             :center="true"
             top="15vh"
             :visible.sync="isOpen"
@@ -30,12 +30,12 @@
                     <tr>
                         <td>
                             <el-form-item label="Company Name: " prop="billing">
-                                <el-input v-model="form.billing"></el-input>
+                                <el-input v-model="form.billingCompany"></el-input>
                             </el-form-item>
                         </td>
                         <td>
                             <el-form-item label="Company Name: " prop="companyName">
-                                <el-input v-model="form.companyName"></el-input>
+                                <el-input v-model="form.shippingCompany"></el-input>
                             </el-form-item>
                         </td>
                     </tr>
@@ -47,19 +47,19 @@
                         </td>
                         <td>
                             <el-form-item label="Contact: " prop="contact">
-                                <el-input v-model="form.contact"></el-input>
+                                <el-input v-model="form.shippingContact"></el-input>
                             </el-form-item>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             <el-form-item label="Phone Number: " style="" prop="billingPhone">
-                                <el-input v-model="form.billingPhone"></el-input>
+                                <el-input v-model="form.billingContact"></el-input>
                             </el-form-item>
                         </td>
                         <td>
                             <el-form-item label="Phone Number: " prop="phone">
-                                <el-input v-model="form.phone"></el-input>
+                                <el-input v-model="form.shippingContact"></el-input>
                             </el-form-item>
                         </td>
                     </tr>
@@ -71,7 +71,7 @@
                         </td>
                         <td>
                             <el-form-item label="Email: " prop="email">
-                                <el-input v-model="form.email"></el-input>
+                                <el-input v-model="form.shippingEmail"></el-input>
                             </el-form-item>
                         </td>
                     </tr>
@@ -101,12 +101,12 @@
                 <el-row style="border-spacing: 0px">
                     <el-col :span="12">
                         <el-form-item label="Invoice #" style="border-spacing: 0px" prop="invoiceNumber">
-                            <el-input v-model="customerServiceForm.invoiceNumber" style="width: 150px"></el-input>
+                            <el-input v-model="form.invoiceNo" style="width: 150px"></el-input>
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
                         <el-form-item label="Invoice Status" prop="invoiceStatus">
-                            <el-select v-model="invoiceForm.status" placeholder="Select" clearable style="width: 150px">
+                            <el-select v-model="form.status" placeholder="Select" clearable style="width: 150px">
                                 <el-option
                                         v-for="item in statusList"
                                         :key="item.status"
@@ -121,7 +121,7 @@
                     <el-col :span="12">
                         <el-form-item label="Invoice Date" prop="invoiceDate">
                             <el-date-picker
-                                    v-model="customerServiceForm.invoiceDate"
+                                    v-model="form.invoiceDate"
                                     type="datetime"
                                     placeholder="Select date and time"
                                     style="width: 150px">
@@ -131,7 +131,7 @@
                     <el-col :span="12">
                         <el-form-item label="Due Date" prop="dueDate">
                             <el-date-picker
-                                    v-model="invoiceForm.dueDate"
+                                    v-model="form.dueDate"
                                     type="datetime"
                                     placeholder="Select date and time"
                                     style="width: 150px">
@@ -142,7 +142,7 @@
                 <el-row style="border-spacing: 0px">
                     <el-col :span="12">
                         <el-form-item label="Shipping via" prop="shippingVia">
-                            <el-input v-model="customerServiceForm.shippingVia" style="width: 150px"></el-input>
+                            <el-input v-model="form.shippingVia" style="width: 150px"></el-input>
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
@@ -187,7 +187,7 @@
                             <p v-model="tax">${{ tax }}</p>
                         </el-form-item>
                         <el-form-item label="Shipping fee: " prop="shippingFee">
-                            <el-input v-model="customerServiceForm.shippingFee" style="width: 100px"></el-input>
+                            <el-input v-model="form.shippingFee" style="width: 100px"></el-input>
                         </el-form-item>
                         <el-form-item label="Total: ">
                             <p v-model="total">${{ total }}</p>
@@ -199,12 +199,12 @@
                             type="textarea"
                             :rows="2"
                             placeholder="notes"
-                            v-model="invoiceForm.note"
+                            v-model="form.note"
                     >
                     </el-input>
                 </el-form-item>
                 <el-button type="primary" style="display: inline; margin-left: 350px;">Pay</el-button>
-                <el-button type="primary" style="display: inline; margin-left: 30px;" @click="addPaymentHandle">Save</el-button>
+                <el-button type="primary" style="display: inline; margin-left: 30px;" @click="handleEditPayment">Save</el-button>
                 <el-button type="primary" style="display: inline; margin-left: 30px;">Save and Send</el-button>
             </div>
         </el-form>
@@ -225,32 +225,28 @@ export default {
         },
         form: {
           type: Object,
-          default: () => ({
-            billing: '',
-            billingContact: '',
-            billingPhone: '',
-            billingEmail: '',
-            billingAddress: '',
-            companyName: '',
-            contact: '',
-            email: '',
-            phone: '',
-            shippingAddress: '',
-            paymentTerm: '',
-          })
+          default: () => (
+            {billingCompany: '',
+              billingAddress: '',
+              billingEmail: '',
+              billingNumber: '',
+              billingContact: '',
+              shippingCompany: '',
+              shippingAddress: '',
+              shippingNumber: '',
+              shippingEmail: '',
+              shippingContact: '',
+              paymentTerm: '',
+              status: '',
+              type: '',
+              invoiceNo: '',
+              invoiceDate: '',
+              dueDate: '',
+              shippingVia: '',
+              note: '',
+              shippingFee: '',
+            })
         },
-        customerServiceForm: {
-          type: Object,
-          default: () => ({
-            status: '',
-            invoiceNumber: '',
-            invoiceDate: '',
-            shippingVia: '',
-            trackingNumber: '',
-            shippingFee: '',
-          })
-        },
-        currentOrderId: Number,
       },
       data: function() {
         return {
@@ -409,13 +405,13 @@ export default {
         resetFields() {
           this.invoiceForm = {};
           this.form = {};
-          this.customerServiceForm = {};
+          this.tableData = [];
           this.$refs.form.resetFields();
         },
         handleCommand() {
           alert('clicked');
         },
-        addPaymentHandle() {
+        handleEditPayment() {
           this.getDates();
           addPayment({},{amount: this.total,
             invoiceNo: this.customerServiceForm.invoiceNumber,
