@@ -39,7 +39,7 @@
                         </td>
                         <td>
                             <el-form-item label="Company Name: " prop="companyName">
-                                <el-input v-model="form.companyName"></el-input>
+                                <el-input v-model="form.companyName" :disabled="sameAsBilling"></el-input>
                             </el-form-item>
                         </td>
                     </tr>
@@ -51,7 +51,7 @@
                         </td>
                         <td>
                             <el-form-item label="Contact: " prop="contact">
-                                <el-input v-model="form.contact"></el-input>
+                                <el-input v-model="form.contact" :disabled="sameAsBilling"></el-input>
                             </el-form-item>
                         </td>
                     </tr>
@@ -63,7 +63,7 @@
                         </td>
                         <td>
                             <el-form-item label="Phone Number: " prop="phone">
-                                <el-input v-model="form.phone"></el-input>
+                                <el-input v-model="form.phone" :disabled="sameAsBilling"></el-input>
                             </el-form-item>
                         </td>
                     </tr>
@@ -75,7 +75,7 @@
                         </td>
                         <td>
                             <el-form-item label="Email: " prop="email">
-                                <el-input v-model="form.email"></el-input>
+                                <el-input v-model="form.email" :disabled="sameAsBilling"></el-input>
                             </el-form-item>
                         </td>
                     </tr>
@@ -87,7 +87,7 @@
                         </td>
                         <td>
                             <el-form-item label="Shipping Address: " prop="shippingAddress">
-                                <el-input v-model="form.shippingAddress"></el-input>
+                                <el-input v-model="form.shippingAddress" :disabled="sameAsBilling"></el-input>
                             </el-form-item>
                         </td>
                     </tr>
