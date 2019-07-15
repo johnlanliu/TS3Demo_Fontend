@@ -134,4 +134,5 @@ export const getOrderItem = data => axios.get('/orgMOrderItem/getOrderItemList',
 export const getOrderByOrderId = data => axios.get('orgMOrder/getOrderByOrderId', data);
 export const cancelOrder = (data, body) => axios.post('orgMOrder/cancelOrder', data);
 export const getLastOrderId = data => axios.get('/orgMOrder/getLastOrderId', data);
+export const getOrderItemListByInvoiceNo = data => axios.get('/orgMOrderItem/getOrderItemListByInvoiceNo', data);
 

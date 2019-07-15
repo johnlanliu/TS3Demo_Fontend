@@ -39,7 +39,7 @@
                         </td>
                         <td>
                             <el-form-item label="Company Name: " prop="companyName">
-                                <el-input v-model="form.companyName" :disabled="sameAsBilling"></el-input>
+                                <el-input v-model="sameAsBilling ? form.billing : form.companyName" :disabled="sameAsBilling"></el-input>
                             </el-form-item>
                         </td>
                     </tr>
@@ -51,7 +51,7 @@
                         </td>
                         <td>
                             <el-form-item label="Contact: " prop="contact">
-                                <el-input v-model="form.contact" :disabled="sameAsBilling"></el-input>
+                                <el-input v-model="sameAsBilling ? form.billingContact : form.contact" :disabled="sameAsBilling"></el-input>
                             </el-form-item>
                         </td>
                     </tr>
@@ -63,7 +63,7 @@
                         </td>
                         <td>
                             <el-form-item label="Phone Number: " prop="phone">
-                                <el-input v-model="form.phone" :disabled="sameAsBilling"></el-input>
+                                <el-input v-model="sameAsBilling ? form.billingPhone : form.phone" :disabled="sameAsBilling"></el-input>
                             </el-form-item>
                         </td>
                     </tr>
@@ -75,7 +75,7 @@
                         </td>
                         <td>
                             <el-form-item label="Email: " prop="email">
-                                <el-input v-model="form.email" :disabled="sameAsBilling"></el-input>
+                                <el-input v-model="sameAsBilling ? form.billingEmail : form.email" :disabled="sameAsBilling"></el-input>
                             </el-form-item>
                         </td>
                     </tr>
@@ -87,7 +87,7 @@
                         </td>
                         <td>
                             <el-form-item label="Shipping Address: " prop="shippingAddress">
-                                <el-input v-model="form.shippingAddress" :disabled="sameAsBilling"></el-input>
+                                <el-input v-model="sameAsBilling ? form.billingAddress : form.shippingAddress" :disabled="sameAsBilling"></el-input>
                             </el-form-item>
                         </td>
                     </tr>
@@ -246,7 +246,7 @@
             </el-form>
         </div>
         <create-invoice-form ref="createInvoiceForm" v-bind:table-data="this.tableData" v-bind:form="this.formCopy"
-                             v-bind:customerServiceForm="this.customerServiceFormCopy" v-bind:currentOrderId="this.currentOrderId"></create-invoice-form>
+                             v-bind:customerServiceForm="this.customerServiceFormCopy"></create-invoice-form>
         <product-detail-form ref="productDetailForm"></product-detail-form>
         <accessory-detail-form ref="accessoryDetailForm" @accessoryAdded="getAccessoryInfo"></accessory-detail-form>
         <product-detail-form ref="productDetailForm" @productAdded="getProductInfo" @prodAndAccAdded="getProdAndAccInfo"
@@ -265,7 +265,6 @@ import CreateInvoiceForm from './CreateInvoiceForm.vue';
 import AccessoryDetailForm from './AccessoryDetailForm.vue';
 import ServicePlanForm from './ServicePlanForm.vue';
 import { addOrder, addOrderItem } from '@/api/getData';
-import {getLastOrderId} from '../../../api/getData';
 
 export default {
   name: 'AddOrderForm',
@@ -482,7 +481,6 @@ export default {
       // this.sendTableData();
       this.getDates();
       this.handleAddOrder();
-      this.currentOrderId = await getLastOrderId();
       this.formCopy = JSON.parse(JSON.stringify(this.form));
       this.customerServiceFormCopy = JSON.parse((JSON.stringify(this.customerServiceForm)));
         // fix this shit dumbass
@@ -584,7 +582,8 @@ export default {
         rate: this.form.accPrice,
         amount: Number(this.form.accPrice) * Number(this.form.accQty),
         tax: 'Y',
-        description: this.form.accQty + ' * ' + this.form.accName
+        description: this.form.accQty + ' * ' + this.form.accName,
+        invoiceNo: this.customerServiceForm.invoiceNumber
       };
       this.tableData.push(data);
     },
@@ -598,7 +597,9 @@ export default {
         rate: this.form.prodPrice,
         amount: Number(this.form.prodPrice) * Number(this.form.prodQty),
         tax: 'Y',
-        description: this.form.prodQty + ' * ' + this.form.prodName
+        description: this.form.prodQty + ' * ' + this.form.prodName,
+        invoiceNo: this.customerServiceForm.invoiceNumber
+
       };
       this.tableData.push(data);
     },
@@ -612,7 +613,9 @@ export default {
         rate: this.form.planAmt,
         amount: Number(this.form.planAmt) * Number(this.form.planQty),
         tax: 'N',
-        description: this.form.planQty + ' * ' + this.form.planName
+        description: this.form.planQty + ' * ' + this.form.planName,
+        invoiceNo: this.customerServiceForm.invoiceNumber
+
       };
       this.tableData.push(data);
     },
@@ -629,7 +632,9 @@ export default {
         rate: this.form.prodPrice,
         amount: Number(this.form.prodPrice) * Number(this.form.prodQty),
         tax: 'Y',
-        description: this.form.prodQty + ' * ' + this.form.prodName
+        description: this.form.prodQty + ' * ' + this.form.prodName,
+        invoiceNo: this.customerServiceForm.invoiceNumber
+
       };
       this.tableData.push(data);
       const data2 = {orderId: '',
@@ -638,7 +643,9 @@ export default {
         rate: this.form.accPrice,
         amount: Number(this.form.accPrice) * Number(this.form.accQty),
         tax: 'Y',
-        description: this.form.accQty + ' * ' + this.form.accName
+        description: this.form.accQty + ' * ' + this.form.accName,
+        invoiceNo: this.customerServiceForm.invoiceNumber
+
       };
       this.tableData.push(data2);
     },
@@ -655,7 +662,9 @@ export default {
         rate: this.form.prodPrice,
         amount: Number(this.form.prodPrice) * Number(this.form.prodQty),
         tax: 'Y',
-        description: this.form.prodQty + ' * ' + this.form.prodName
+        description: this.form.prodQty + ' * ' + this.form.prodName,
+        invoiceNo: this.customerServiceForm.invoiceNumber
+
       };
       this.tableData.push(data);
       const data2 = {orderId: '',
@@ -664,7 +673,9 @@ export default {
         rate: this.form.planAmt,
         amount: Number(this.form.planAmt) * Number(this.form.planQty),
         tax: 'N',
-        description: this.form.planQty + ' * ' + this.form.planName
+        description: this.form.planQty + ' * ' + this.form.planName,
+        invoiceNo: this.customerServiceForm.invoiceNumber
+
       };
       this.tableData.push(data2);
     },
@@ -684,7 +695,9 @@ export default {
         rate: this.form.prodPrice,
         amount: Number(this.form.prodPrice) * Number(this.form.prodQty),
         tax: 'Y',
-        description: this.form.prodQty + ' * ' + this.form.prodName
+        description: this.form.prodQty + ' * ' + this.form.prodName,
+        invoiceNo: this.customerServiceForm.invoiceNumber
+
       };
       this.tableData.push(data);
       const data2 = {orderId: '',
@@ -693,7 +706,9 @@ export default {
         rate: this.form.accPrice,
         amount: Number(this.form.accPrice) * Number(this.form.accQty),
         tax: 'Y',
-        description: this.form.accQty + ' * ' + this.form.accName
+        description: this.form.accQty + ' * ' + this.form.accName,
+        invoiceNo: this.customerServiceForm.invoiceNumber
+
       };
       this.tableData.push(data2);
       const data3 = {orderId: '',
@@ -702,7 +717,9 @@ export default {
         rate: this.form.planAmt,
         amount: Number(this.form.planAmt) * Number(this.form.planQty),
         tax: 'N',
-        description: this.form.planQty + ' * ' + this.form.planName
+        description: this.form.planQty + ' * ' + this.form.planName,
+        invoiceNo: this.customerServiceForm.invoiceNumber
+
       };
       this.tableData.push(data3);
     },

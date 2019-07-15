@@ -215,7 +215,7 @@
     import { addPayment } from '@/api/getData';
 
 export default {
-      name: 'CreateInvoiceForm',
+      name: 'EditInvoiceForm',
       components: {
       },
       props: {
@@ -250,6 +250,7 @@ export default {
             shippingFee: '',
           })
         },
+        currentOrderId: Number,
       },
       data: function() {
         return {
@@ -437,6 +438,7 @@ export default {
             shippingVia: this.customerServiceForm.shippingVia,
             paymentTerm: this.form.paymentTerm,
             invoiceType: this.invoiceForm.invoiceType,
+            orderId: this.currentOrderId,
             shippingFee: this.customerServiceForm.shippingFee,
           });
         },

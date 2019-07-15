@@ -133,6 +133,7 @@
   import {getPaymentList, voidPayment} from '@/api/getData';
   import {getPaymentByPaymentId} from '@/api/getData';
   import { getOrderItem } from '@/api/getData';
+  import {getOrderItemListByInvoiceNo} from '@/api/getData';
 
   export default {
     mixins: [timeFormatUtil, exceptionUtil],
@@ -257,10 +258,10 @@
         }
       },
       async getOrderItems(row, index) {
-        if(row.orderId === null) {
+        if(row.invoiceNo === null) {
           this.orderItemTable = [];
         } else {
-          const res = await getOrderItem({orderId: row.orderId});
+          const res = await getOrderItemListByInvoiceNo({invoiceNo: row.invoiceNo});
           if (res) {
             this.orderItemTable = [];
             res.forEach((item, index) => {
