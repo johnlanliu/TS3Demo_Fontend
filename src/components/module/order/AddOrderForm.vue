@@ -280,6 +280,7 @@ export default {
       isOpen: false,
       sameInfo: false,
       sameAsBilling: false,
+      sameAsBillingBool: 0,
       tableData: [],
       formCopy: {},
       customerServiceFormCopy: {},
@@ -499,11 +500,9 @@ export default {
     // sendTableData(event) {
     //   this.$emit('goToInvoice', this.tableData);
     // },
-    handleSave() {
-      alert('save');
-    },
     handleSameInfo() {
       if (this.sameAsBilling) {
+        this.sameAsBillingBool = 1;
         this.form.companyName = this.form.billing;
         this.form.contact = this.form.billingContact;
         this.form.phone = this.form.billingPhone;
@@ -547,7 +546,12 @@ export default {
         shippingContact: this.form.contact,
         shippingNumber: this.form.phone,
         shippingEmail: this.form.email,
-        shippingAddress: this.form.shippingAddress
+        shippingAddress: this.form.shippingAddress,
+        note: this.form.note,
+        shippingVia: this.customerServiceForm.shippingVia,
+        shippingFee: this.customerServiceForm.shippingFee,
+        sameAsBilling: this.sameAsBillingBool,
+        paymentTerm: this.form.paymentTerm,
       });
     },
     getDates() {
