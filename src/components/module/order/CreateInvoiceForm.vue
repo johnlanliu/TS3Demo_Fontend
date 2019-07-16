@@ -438,6 +438,7 @@ export default {
             paymentTerm: this.form.paymentTerm,
             invoiceType: this.invoiceForm.invoiceType,
             shippingFee: this.customerServiceForm.shippingFee,
+            trackingNo: this.customerServiceForm.trackingNumber
           });
         },
         getDates() {

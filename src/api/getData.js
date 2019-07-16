@@ -124,6 +124,7 @@ export const addPayment = (data, body) => axios.post('orgMPayment/addPayment', d
 export const getPaymentList = data => axios.get('/orgMPayment/getPaymentList', data);
 export const voidPayment = (data, body) => axios.post('orgMPayment/voidPayment', data, body);
 export const getPaymentByPaymentId = data => axios.get('/orgMPayment/getPaymentByPaymentId', data);
+export const editPayment = (data, body) => axios.post('orgMPayment/editPayment', data, body);
 
 /**
  * Order

@@ -101,7 +101,7 @@
                       </el-dropdown-menu>
                   </el-dropdown>
                   <invoice-review-form ref="invoiceReviewForm" v-bind:form="invoiceInfo" v-bind:table-data="orderItemTable" @reload-table="initData"></invoice-review-form>
-                  <edit-invoice-form ref="editInvoiceForm" v-bind:form="invoiceInfo" v-bind:table-data="orderItemTable"></edit-invoice-form>
+                  <edit-invoice-form ref="editInvoiceForm" v-bind:form="invoiceInfo" v-bind:table-data="orderItemTable" v-bind:reload-table="initData"></edit-invoice-form>
               </template>
           </el-table-column>
       </el-table>
@@ -228,6 +228,7 @@
           this.invoiceTableData = [];
         } else if (command === 'edit') {
           this.handleEdit(index, row);
+          this.initData();
         } else {
           this.handleVoid(index, row);
         }

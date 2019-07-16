@@ -7,7 +7,7 @@
             :append-to-body="append"
             @closed="resetFields"
             width="55%">
-        <el-form ref="form" :model="invoiceForm" :rules="formRules" size="mini" label-width="150px" style="margin: 0;">
+        <el-form ref="form" :model="form" :rules="formRules" size="mini" label-width="150px" style="margin: 0;">
             <div class="invoiceSpacing">
                 <el-form-item label="Invoice Type" prop="invoiceType">
                     <el-select v-model="form.invoiceType" placeholder="select">
@@ -54,12 +54,12 @@
                     <tr>
                         <td>
                             <el-form-item label="Phone Number: " style="" prop="billingPhone">
-                                <el-input v-model="form.billingContact"></el-input>
+                                <el-input v-model="form.billingNumber"></el-input>
                             </el-form-item>
                         </td>
                         <td>
                             <el-form-item label="Phone Number: " prop="phone">
-                                <el-input v-model="form.shippingContact"></el-input>
+                                <el-input v-model="form.shippingNumber"></el-input>
                             </el-form-item>
                         </td>
                     </tr>
@@ -147,7 +147,7 @@
                     </el-col>
                     <el-col :span="12">
                         <el-form-item label="Tracking Number" prop="trackingNumber">
-                            <el-input v-model="invoiceForm.trackingNumber" style="width: 150px"></el-input>
+                            <el-input v-model="form.trackingNumber" style="width: 150px"></el-input>
                         </el-form-item>
                     </el-col>
                 </el-row>
@@ -212,7 +212,8 @@
 </template>
 
 <script>
-    import { addPayment } from '@/api/getData';
+    import { editPayment } from '@/api/getData';
+
 
 export default {
       name: 'EditInvoiceForm',
@@ -245,8 +246,10 @@ export default {
               shippingVia: '',
               note: '',
               shippingFee: '',
+              trackingNo: '',
             })
         },
+        reloadTable: Function,
       },
       data: function() {
         return {
@@ -414,41 +417,26 @@ export default {
         },
         handleEditPayment() {
           this.getDates();
-          // addPayment({},{amount: this.total,
-          //   invoiceNo: this.customerServiceForm.invoiceNumber,
-          //   customer: this.form.billing,
-          //   invoiceDate: this.customerServiceForm.invoiceDate,
-          //   dueDate: this.invoiceForm.dueDate,
-          //   status: this.invoiceForm.status,
-          //   sales: 'NULL',
-          //   billingCompany: this.form.billing,
-          //   billingContact: this.form.billingContact,
-          //   billingNumber: this.form.billingPhone,
-          //   billingEmail: this.form.billingEmail,
-          //   billingAddress: this.form.billingAddress,
-          //   shippingCompany: this.form.companyName,
-          //   shippingContact: this.form.contact,
-          //   shippingNumber: this.form.phone,
-          //   shippingEmail: this.form.email,
-          //   shippingAddress: this.form.shippingAddress,
-          //   note: this.invoiceForm.note,
-          //   shippingVia: this.customerServiceForm.shippingVia,
-          //   paymentTerm: this.form.paymentTerm,
-          //   invoiceType: this.invoiceForm.invoiceType,
-          //   orderId: this.currentOrderId,
-          //   shippingFee: this.customerServiceForm.shippingFee,
-          // });
+          const second = {amount: this.total, customer: this.form.billingCompany, shippingFee: this.form.shippingFee};
+          Object.assign(this.form, second);
+          editPayment({  }, this.form).then(result => {
+            if (result) {
+              this.$message.success('Save successful!');
+              this.reloadTable();
+              this.isOpen = false;
+            }
+          });
         },
         getDates() {
-          let invoice = new Date(this.customerServiceForm.invoiceDate);
-          let due = new Date(this.invoiceForm.dueDate);
+          let invoice = new Date(this.form.invoiceDate);
+          let due = new Date(this.form.dueDate);
 
-          this.customerServiceForm.invoiceDate = invoice.getFullYear()
+          this.form.invoiceDate = invoice.getFullYear()
               + '-' + (invoice.getMonth()+1)
               + '-' + invoice.getDate()
               + ' ' + invoice.getHours()
               + ':' + invoice.getMinutes();
-          this.invoiceForm.dueDate = due.getFullYear()
+          this.form.dueDate = due.getFullYear()
               + '-' + (due.getMonth()+1)
               + '-' + due.getDate()
               + ' ' + due.getHours()
