@@ -92,12 +92,13 @@
 
                       </el-dropdown-menu>
                   </el-dropdown>
-                  <order-review-form ref="orderReviewForm" v-bind:form="orderInfoToView" v-bind:table-data="orderItemTable" v-bind:currentOrderId="currentOrderId"
-                    v-bind:init-data="initData"></order-review-form>
               </template>
           </el-table-column>
       </el-table>
-
+      <order-review-form ref="orderReviewForm" v-bind:form="orderInfoToView" v-bind:table-data="orderItemTable" v-bind:currentOrderId="currentOrderId"
+                         v-bind:init-data="initData"></order-review-form>
+      <edit-order-form ref="editOrderForm" v-bind:editForm="orderInfoToView" v-bind:table-data="orderItemTable" v-bind:currentOrderId="currentOrderId"
+                       v-bind:init-data="initData" v-bind:sameAsBillingBool="sameAsBilling"></edit-order-form>
   </div>
 </template>
 
@@ -121,6 +122,7 @@
   import { mapState } from 'vuex';
   import AddOrderForm from './AddOrderForm.vue';
   import OrderReviewForm from './OrderReviewForm.vue';
+  import EditOrderForm from './EditOrderForm.vue';
   import { getOrderList } from '@/api/getData';
   import { getOrderByOrderId } from '@/api/getData';
   import { getOrderItem } from '@/api/getData';
@@ -129,7 +131,8 @@
     mixins: [timeFormatUtil, exceptionUtil],
     components: {
       AddOrderForm,
-      OrderReviewForm
+      OrderReviewForm,
+      EditOrderForm
     },
     data() {
       return {
@@ -146,6 +149,7 @@
           status: ''
         },
         currentOrderId: '',
+        sameAsBilling: false,
         orderInfoToView: {},
         orderItemTable: [],
         statusList: [{
@@ -201,24 +205,23 @@
         this.$refs.addOrderForm.showDialog();
       },
       handleCommand(command, row, index) {
+        this.getOrderInfo(row, index);
+        this.getOrderItems(row,index);
+        this.currentOrderId = row.orderId;
         if(command==='view') {
-          this.getOrderInfo(row, index);
-          this.getOrderItems(row,index);
-          this.currentOrderId = row.orderId;
           this.$refs.orderReviewForm.showDialog();
-          this.orderInfoToView = {};
-          this.orderItemTable = [];
         } else {
-          this.getOrderInfo(row, index);
-          this.getOrderItems(row, index);
-          this.currentOrderId = row.orderId;
-          this.$refs.addOrderForm.showDialog();
-          this.orderInfoToView = {};
-          this.orderItemTable = [];
+          this.$refs.editOrderForm.showDialog();
         }
+        this.orderInfoToView = {};
+        this.orderItemTable = [];
+        this.currentOrderId = '';
       },
       async getOrderInfo(row, index) {
         this.orderInfoToView = await getOrderByOrderId({orderId: row.orderId});
+        if (this.orderInfoToView.sameAsBilling === 1) {
+          this.sameAsBilling = true;
+        }
       },
       async getOrderItems(row,index) {
         const res = await getOrderItem({orderId: row.orderId});
