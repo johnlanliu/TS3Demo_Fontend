@@ -10,7 +10,7 @@
         <el-form ref="form" :model="invoiceForm" :rules="formRules" size="mini" label-width="150px" style="margin: 0;">
             <div class="invoiceSpacing">
                 <el-form-item label="Invoice Type" prop="invoiceType">
-                    <el-select v-model="invoiceForm.invoiceType" placeholder="select">
+                    <el-select v-model="form.invoiceType" placeholder="select">
                         <el-option
                                 v-for="type in invoiceTypes"
                                 :key="type.value"
@@ -147,7 +147,7 @@
                     </el-col>
                     <el-col :span="12">
                         <el-form-item label="Tracking Number" prop="trackingNumber">
-                            <el-input v-model="customerServiceForm.trackingNumber" style="width: 150px"></el-input>
+                            <el-input v-model="invoiceForm.trackingNumber" style="width: 150px"></el-input>
                         </el-form-item>
                     </el-col>
                 </el-row>
@@ -238,7 +238,7 @@ export default {
               shippingContact: '',
               paymentTerm: '',
               status: '',
-              type: '',
+              invoiceType: '',
               invoiceNo: '',
               invoiceDate: '',
               dueDate: '',
@@ -259,6 +259,7 @@ export default {
             invoiceType: '',
             note: '',
             status: '',
+            trackingNo: '',
           },
           invoiceTypes: [{
             value: 'RMA',
@@ -413,30 +414,30 @@ export default {
         },
         handleEditPayment() {
           this.getDates();
-          addPayment({},{amount: this.total,
-            invoiceNo: this.customerServiceForm.invoiceNumber,
-            customer: this.form.billing,
-            invoiceDate: this.customerServiceForm.invoiceDate,
-            dueDate: this.invoiceForm.dueDate,
-            status: this.invoiceForm.status,
-            sales: 'NULL',
-            billingCompany: this.form.billing,
-            billingContact: this.form.billingContact,
-            billingNumber: this.form.billingPhone,
-            billingEmail: this.form.billingEmail,
-            billingAddress: this.form.billingAddress,
-            shippingCompany: this.form.companyName,
-            shippingContact: this.form.contact,
-            shippingNumber: this.form.phone,
-            shippingEmail: this.form.email,
-            shippingAddress: this.form.shippingAddress,
-            note: this.invoiceForm.note,
-            shippingVia: this.customerServiceForm.shippingVia,
-            paymentTerm: this.form.paymentTerm,
-            invoiceType: this.invoiceForm.invoiceType,
-            orderId: this.currentOrderId,
-            shippingFee: this.customerServiceForm.shippingFee,
-          });
+          // addPayment({},{amount: this.total,
+          //   invoiceNo: this.customerServiceForm.invoiceNumber,
+          //   customer: this.form.billing,
+          //   invoiceDate: this.customerServiceForm.invoiceDate,
+          //   dueDate: this.invoiceForm.dueDate,
+          //   status: this.invoiceForm.status,
+          //   sales: 'NULL',
+          //   billingCompany: this.form.billing,
+          //   billingContact: this.form.billingContact,
+          //   billingNumber: this.form.billingPhone,
+          //   billingEmail: this.form.billingEmail,
+          //   billingAddress: this.form.billingAddress,
+          //   shippingCompany: this.form.companyName,
+          //   shippingContact: this.form.contact,
+          //   shippingNumber: this.form.phone,
+          //   shippingEmail: this.form.email,
+          //   shippingAddress: this.form.shippingAddress,
+          //   note: this.invoiceForm.note,
+          //   shippingVia: this.customerServiceForm.shippingVia,
+          //   paymentTerm: this.form.paymentTerm,
+          //   invoiceType: this.invoiceForm.invoiceType,
+          //   orderId: this.currentOrderId,
+          //   shippingFee: this.customerServiceForm.shippingFee,
+          // });
         },
         getDates() {
           let invoice = new Date(this.customerServiceForm.invoiceDate);
@@ -479,8 +480,8 @@ export default {
             tot += item.amount;
           });
           tot += this.tax;
-          if (!isNaN(this.customerServiceForm.shippingFee)) {
-            tot += Number(this.customerServiceForm.shippingFee);
+          if (!isNaN(this.form.shippingFee)) {
+            tot += Number(this.form.shippingFee);
           }
           return (Math.floor(tot * 100) / 100);
         }
