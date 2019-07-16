@@ -147,7 +147,7 @@
                     </el-col>
                     <el-col :span="12">
                         <el-form-item label="Tracking Number" prop="trackingNumber">
-                            <el-input v-model="form.trackingNumber" style="width: 150px"></el-input>
+                            <el-input v-model="form.trackingNo" style="width: 150px"></el-input>
                         </el-form-item>
                     </el-col>
                 </el-row>
@@ -160,26 +160,26 @@
                         highlight-current-row
                         max-height="200px"
                         :row-key="row => row.index"
-                        style="width: 100%"
+                        style="width: 80%; margin-left: 95px"
                 >
-                    <el-table-column label="Product" prop="product" width="150"></el-table-column>
+                    <el-table-column label="Product" prop="product" width="180"></el-table-column>
                     <el-table-column label="QTY" prop="quantity" width="120"></el-table-column>
                     <el-table-column label="Rate" prop="rate" width="120"></el-table-column>
                     <el-table-column label="Amount" prop="amount" width="120"></el-table-column>
-                    <el-table-column label="Tax" prop="tax" width="80"></el-table-column>
-                    <el-table-column label="Action">
-                        <template slot-scope="scope">
-                            <el-dropdown size="mini" type="text" @command="handleCommand">
-                  <span class="el-dropdown-link">
-                  View<i class="el-icon-arrow-down el-icon--right"></i>
-                  </span>
-                                <el-dropdown-menu slot="dropdown">
-                                    <el-dropdown-item command="a">Edit</el-dropdown-item>
-                                    <el-dropdown-item command="b">Delete</el-dropdown-item>
-                                </el-dropdown-menu>
-                            </el-dropdown>
-                        </template>
-                    </el-table-column>
+                    <el-table-column label="Tax" prop="tax" width="79"></el-table-column>
+<!--                    <el-table-column label="Action">-->
+<!--                        <template slot-scope="scope">-->
+<!--                            <el-dropdown size="mini" type="text" @command="handleCommand">-->
+<!--                  <span class="el-dropdown-link">-->
+<!--                  View<i class="el-icon-arrow-down el-icon&#45;&#45;right"></i>-->
+<!--                  </span>-->
+<!--                                <el-dropdown-menu slot="dropdown">-->
+<!--                                    <el-dropdown-item command="a">Edit</el-dropdown-item>-->
+<!--                                    <el-dropdown-item command="b">Delete</el-dropdown-item>-->
+<!--                                </el-dropdown-menu>-->
+<!--                            </el-dropdown>-->
+<!--                        </template>-->
+<!--                    </el-table-column>-->
                 </el-table>
                 <el-row style="border-spacing: 0px">
                     <el-col :span="12" :offset="15">

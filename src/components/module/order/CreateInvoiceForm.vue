@@ -250,6 +250,7 @@ export default {
             shippingFee: '',
           })
         },
+        reloadTable: Function,
       },
       data: function() {
         return {
@@ -439,6 +440,12 @@ export default {
             invoiceType: this.invoiceForm.invoiceType,
             shippingFee: this.customerServiceForm.shippingFee,
             trackingNo: this.customerServiceForm.trackingNumber
+          }).then(result => {
+            if (result) {
+              this.$message.success('Save successful!');
+              this.reloadTable();
+              this.isOpen = false;
+            }
           });
         },
         getDates() {

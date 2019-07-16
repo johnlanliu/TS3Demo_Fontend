@@ -33,7 +33,6 @@
           <el-form-item>
               <el-button class="inline" type="primary" @click="handleAdd()" style="margin-left:120px">+ Add</el-button>
           </el-form-item>
-          <create-invoice-form ref="createInvoiceForm"></create-invoice-form>
       </el-form>
       <el-table
           ref="paymentListTable"
@@ -100,11 +99,12 @@
                           <el-dropdown-item command="void">Void</el-dropdown-item>
                       </el-dropdown-menu>
                   </el-dropdown>
-                  <invoice-review-form ref="invoiceReviewForm" v-bind:form="invoiceInfo" v-bind:table-data="orderItemTable" @reload-table="initData"></invoice-review-form>
-                  <edit-invoice-form ref="editInvoiceForm" v-bind:form="invoiceInfo" v-bind:table-data="orderItemTable" v-bind:reload-table="initData"></edit-invoice-form>
-              </template>
+                 </template>
           </el-table-column>
       </el-table>
+      <invoice-review-form ref="invoiceReviewForm" v-bind:form="invoiceInfo" v-bind:table-data="orderItemTable" @reload-table="initData"></invoice-review-form>
+      <edit-invoice-form ref="editInvoiceForm" v-bind:form="invoiceInfo" v-bind:table-data="orderItemTable" v-bind:reload-table="initData"></edit-invoice-form>
+      <create-invoice-form ref="createInvoiceForm" v-bind:reload-table="initData"></create-invoice-form>
   </div>
 </template>
 
