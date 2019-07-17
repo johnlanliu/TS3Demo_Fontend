@@ -118,7 +118,6 @@
             type: '',
           })
         },
-        currentOrderId: String,
         tableData: {
           type: Array,
           default: () => [],
@@ -133,7 +132,7 @@
           this.$refs.form.resetFields();
         },
         async handleCancelOrder() {
-          await cancelOrder({orderId: this.currentOrderId}, {});
+          await cancelOrder({orderId: this.form.orderId}, {});
           this.initData();
           this.isOpen = false;
         },

@@ -61,7 +61,15 @@
               </template>
           </el-table-column>
           <el-table-column fixed label="Customer" prop="customer" width="160"></el-table-column>
-          <el-table-column label="Description" prop="description" width="160"></el-table-column>
+          <el-table-column label="Description" prop="description" width="200">
+              <template slot-scope="scope">
+                  <ul id="descriptionList">
+                      <li v-for="des in scope.row.description">
+                          {{ des + '\n' }}
+                      </li>
+                  </ul>
+              </template>
+          </el-table-column>
           <el-table-column label="Status" prop="status" width="160">
               <template slot-scope="scope">
                   <span v-if="scope.row.status==='shipped'" style="color:green;">{{scope.row.status}}</span>
@@ -95,10 +103,10 @@
               </template>
           </el-table-column>
       </el-table>
-      <order-review-form ref="orderReviewForm" v-bind:form="orderInfoToView" v-bind:table-data="orderItemTable" v-bind:currentOrderId="currentOrderId"
+      <order-review-form ref="orderReviewForm" v-bind:form="orderInfoToView" v-bind:table-data="orderItemTable"
                          v-bind:init-data="initData"></order-review-form>
-      <edit-order-form ref="editOrderForm" v-bind:editForm="orderInfoToView" v-bind:table-data="orderItemTable" v-bind:currentOrderId="currentOrderId"
-                       v-bind:init-data="initData" v-bind:sameAsBillingBool="sameAsBilling"></edit-order-form>
+      <edit-order-form ref="editOrderForm" v-bind:editForm="orderInfoToView" v-bind:table-data="orderItemTable"
+                       v-bind:init-data="initData" v-bind:same-as-billing="sameAsBilling"></edit-order-form>
   </div>
 </template>
 
@@ -148,7 +156,6 @@
           number: '',
           status: ''
         },
-        currentOrderId: '',
         sameAsBilling: false,
         orderInfoToView: {},
         orderItemTable: [],
@@ -207,7 +214,6 @@
       handleCommand(command, row, index) {
         this.getOrderInfo(row, index);
         this.getOrderItems(row,index);
-        this.currentOrderId = row.orderId;
         if(command==='view') {
           this.$refs.orderReviewForm.showDialog();
         } else {
@@ -215,7 +221,6 @@
         }
         this.orderInfoToView = {};
         this.orderItemTable = [];
-        this.currentOrderId = '';
       },
       async getOrderInfo(row, index) {
         this.orderInfoToView = await getOrderByOrderId({orderId: row.orderId});
@@ -245,7 +250,12 @@
         if (result) { // && !result.errorCode) {
           this.tableData = [];
           result.forEach((item, index) => {
+            let g = [];
+            if(item.description !== null) {
+              g = item.description.split(', ');
+            }
             let tableData = item;
+            tableData.description = g;
             tableData.index = index + 1;
             this.tableData.push(tableData);
           });
