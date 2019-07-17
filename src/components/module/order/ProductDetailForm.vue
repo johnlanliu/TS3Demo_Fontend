@@ -344,21 +344,37 @@ export default {
       }
 
       if (state === 0) {
-        this.$emit('productAdded', this.form3.productName, this.form3.price, this.form3.QTY);
+        this.$emit('productAdded', this.fullProductCode, this.form3.price, this.form3.QTY);
       }      else if (state === 1) {
-        this.$emit('prodAndAccAdded', this.form3.productName, this.form3.price, this.form3.QTY,
+        this.$emit('prodAndAccAdded', this.fullProductCode, this.form3.price, this.form3.QTY,
               this.form3.accName, this.form3.accPrice, this.form3.accQty);
       }      else if (state === 2) {
-        this.$emit('prodAndPlanAdded', this.form3.productName, this.form3.price, this.form3.QTY,
+        this.$emit('prodAndPlanAdded', this.fullProductCode, this.form3.price, this.form3.QTY,
               this.form3.planQty, this.form3.planAmt, this.form3.planName);
       }      else {
-        this.$emit('allAdded', this.form3.productName, this.form3.price,
+        this.$emit('allAdded', this.fullProductCode, this.form3.price,
               this.form3.QTY, this.form3.accName, this.form3.accPrice, this.form3.accQty,
               this.form3.planQty, this.form3.planAmt, this.form3.planName);
       }
       this.isOpen = false;
     }
   },
+  computed: {
+    fullProductCode: function() {
+      if (this.form3.isTrackLight === true) {
+        if (this.form3.showPrice) {
+          return this.form3.productName.substring(this.form3.productName.length - 1, 15)
+                      + ' ' + this.form3.color.substring(0, 1)
+                      + this.form3.network.substring(0, 1)
+                      + '0-00';
+        } else {
+          return this.form3.productName;
+        }
+      } else {
+        return this.form3.productName;
+      }
+    }
+  }
 };
 </script>
 
