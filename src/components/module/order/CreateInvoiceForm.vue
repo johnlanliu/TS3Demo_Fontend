@@ -472,23 +472,27 @@ export default {
           let t = 0;
           let et;
           const copy = this.tableData.slice();
-          copy.forEach(function(item, index) {
-            if ((item.tax === 'Y')) {
-              et = Number(item.amount) * .0775;
-            } else {
-              et = 0;
-            }
-            t += et;
-          });
+          if(copy.length !== 0) {
+            copy.forEach(function(item, index) {
+              if ((item.tax === 'Y')) {
+                et = Number(item.amount) * .0775;
+              } else {
+                et = 0;
+              }
+              t += et;
+            });
+          }
           return (Math.floor(t * 100) / 100);
         },
         total: function() {
           let tot = 0;
           const copy = this.tableData.slice();
-          copy.forEach(function(item, index) {
-            tot += item.amount;
-          });
-          tot += this.tax;
+          if(copy.length !== 0) {
+            copy.forEach(function(item, index) {
+              tot += item.amount;
+            });
+            tot += this.tax;
+          }
           if (!isNaN(this.customerServiceForm.shippingFee)) {
             tot += Number(this.customerServiceForm.shippingFee);
           }
