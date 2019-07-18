@@ -24,7 +24,7 @@
                         <td class="bill"><el-form-item label="BILLING INFO"style="font-weight: bold"></el-form-item></td>
                         <td>
                             <el-form-item label="SHIPPING INFO" style="font-weight: bold">
-                                <el-checkbox v-model="sameAsBillingBool"
+                                <el-checkbox v-model="sameAsBilling"
                                              style="display: inline"
                                              @change="handleSameInfo()"
                                 >the same as billing info
@@ -40,7 +40,7 @@
                         </td>
                         <td>
                             <el-form-item label="Company Name: " prop="companyName">
-                                <el-input v-model="sameAsBilling ? editForm.billingCompany : editForm.shippingCompany" :disabled="sameAsBillingBool"></el-input>
+                                <el-input v-model="sameAsBilling ? editForm.billingCompany : editForm.shippingCompany" :disabled="sameAsBilling"></el-input>
                             </el-form-item>
                         </td>
                     </tr>
@@ -52,7 +52,7 @@
                         </td>
                         <td>
                             <el-form-item label="Contact: " prop="contact">
-                                <el-input v-model="sameAsBilling ? editForm.billingContact : editForm.shippingContact" :disabled="sameAsBillingBool"></el-input>
+                                <el-input v-model="sameAsBilling ? editForm.billingContact : editForm.shippingContact" :disabled="sameAsBilling"></el-input>
                             </el-form-item>
                         </td>
                     </tr>
@@ -64,7 +64,7 @@
                         </td>
                         <td>
                             <el-form-item label="Phone Number: " prop="phone">
-                                <el-input v-model="sameAsBilling ? editForm.billingNumber : editForm.shippingNumber" :disabled="sameAsBillingBool"></el-input>
+                                <el-input v-model="sameAsBilling ? editForm.billingNumber : editForm.shippingNumber" :disabled="sameAsBilling"></el-input>
                             </el-form-item>
                         </td>
                     </tr>
@@ -76,7 +76,7 @@
                         </td>
                         <td>
                             <el-form-item label="Email: " prop="email">
-                                <el-input v-model="sameAsBilling ? editForm.billingEmail : editForm.shippingEmail" :disabled="sameAsBillingBool"></el-input>
+                                <el-input v-model="sameAsBilling ? editForm.billingEmail : editForm.shippingEmail" :disabled="sameAsBilling"></el-input>
                             </el-form-item>
                         </td>
                     </tr>
@@ -88,7 +88,7 @@
                         </td>
                         <td>
                             <el-form-item label="Shipping Address: " prop="shippingAddress">
-                                <el-input v-model="sameAsBilling ? editForm.billingAddress : editForm.shippingAddress" :disabled="sameAsBillingBool"></el-input>
+                                <el-input v-model="sameAsBilling ? editForm.billingAddress : editForm.shippingAddress" :disabled="sameAsBilling"></el-input>
                             </el-form-item>
                         </td>
                     </tr>
@@ -246,8 +246,6 @@
                 </el-form>
             </el-form>
         </div>
-        <create-invoice-form ref="createInvoiceForm" v-bind:table-data="this.tableData" v-bind:form="this.formCopy"
-                             v-bind:customerServiceForm="this.customerServiceFormCopy"></create-invoice-form>
         <product-detail-form ref="productDetailForm"></product-detail-form>
         <accessory-detail-form ref="accessoryDetailForm" @accessoryAdded="getAccessoryInfo"></accessory-detail-form>
         <product-detail-form ref="productDetailForm" @productAdded="getProductInfo" @prodAndAccAdded="getProdAndAccInfo"
@@ -265,7 +263,7 @@
     import CreateInvoiceForm from './CreateInvoiceForm.vue';
     import AccessoryDetailForm from './AccessoryDetailForm.vue';
     import ServicePlanForm from './ServicePlanForm.vue';
-    import { addOrder, addOrderItem, deleteOrderItem, editOrder } from '@/api/getData';
+    import { cancelOrder, deleteOrderItem, editOrder } from '@/api/getData';
 
     export default {
       name: 'EditOrderForm',
@@ -279,6 +277,7 @@
         editForm: {
           type: Object,
           default: () =>({
+            orderId: '',
             type: '',
             status: '',
             invoiceNo: '',
@@ -301,8 +300,7 @@
             note: '',
           })
         },
-        currentOrderId: String,
-        sameAsBillingBool: Boolean,
+        sameAsBilling: Boolean,
         tableData: {
           type: Array,
           default: () => [],
@@ -314,7 +312,22 @@
           loading: false,
           isOpen: false,
           sameInfo: false,
-          formCopy: {},
+          newData: [],
+          form: {
+            accName: '',
+            accPrice: '',
+            accQty: '',
+            prodName: '',
+            prodPrice: '',
+            prodQty: '',
+            planQty: '',
+            planAmt: '',
+            planName: '',
+            prodPicked: '',
+            accPicked: '',
+            planPicked: '',
+          },
+          sameAsBillingBool: 0,
           orderOptions: [{
             value: 'evaluation',
             label: 'evaluation',
@@ -460,72 +473,78 @@
           this.form.accPicked = false;
           this.form.planPicked = false;
           this.customerServiceForm = {};
-          this.sameAsBilling = false;
+          this.sameAsBillingBool = 0;
           this.sameInfo = false;
-          this.formCopy = {};
           this.customerServiceForm = {};
           this.$refs.form.resetFields();
-        },
-        handleCommand(command) {
-          alert('clicked');
         },
         handleAddDevice() {
           this.$refs.productDetailForm.showDialog();
         },
-        handleDeleteOrderItem(row, index) {
-          deleteOrderItem(row.itemId);
+        async handleDeleteOrderItem(row, index) {
+          await deleteOrderItem({itemId: row.itemId});
           this.tableData.splice(index, 1);
+          this.newData.splice();
         },
         handleSaveEdit() {
-
+          editOrder({}, {
+            orderId: this.editForm.orderId,
+            type: this.editForm.type,
+            customer: this.editForm.billingCompany,
+            status: this.editForm.status,
+            invoiceNo: this.editForm.invoiceNo,
+            invoiceDate: this.editForm.invoiceDate,
+            dueDate: this.editForm.dueDate,
+            trackingNo: this.editForm.trackingNo,
+            sales: this.editForm.sales,
+            createTime: 'NULL',
+            modifyTime: 'NULL',
+            orderItems: this.newData,
+            billingCompany: this.editForm.billingCompany,
+            billingContact: this.editForm.billingContact,
+            billingNumber: this.editForm.billingNumber,
+            billingEmail: this.editForm.billingEmail,
+            billingAddress: this.editForm.billingAddress,
+            shippingCompany: this.editForm.shippingCompany,
+            shippingContact: this.editForm.shippingContact,
+            shippingNumber: this.editForm.shippingNumber,
+            shippingEmail: this.editForm.shippingEmail,
+            shippingAddress: this.editForm.shippingAddress,
+            note: this.editForm.note,
+            shippingVia: this.editForm.shippingVia,
+            shippingFee: this.editForm.shippingFee,
+            sameAsBilling: this.sameAsBillingBool,
+            paymentTerm: this.editForm.paymentTerm,
+          });
+          this.initData();
+          this.isOpen = false;
         },
         handleSameInfo() {
-          if (this.sameAsBilling) {
-            this.form.companyName = this.form.billing;
-            this.form.contact = this.form.billingContact;
-            this.form.phone = this.form.billingPhone;
-            this.form.email = this.form.billingEmail;
-            this.form.shippingAddress = this.form.billingAddress;
+          if (this.editForm.sameAsBilling) {
+            this.sameAsBillingBool = 1;
+            this.editForm.shippingCompany = this.editForm.billingCompany;
+            this.editForm.shippingContact = this.editForm.billingContact;
+            this.editForm.shippingNumber = this.editForm.billingNumber;
+            this.editForm.shippingEmail = this.editForm.billingEmail;
+            this.editForm.shippingAddress = this.editForm.billingAddress;
           } else {
-            this.form.companyName = '';
-            this.form.contact = '';
-            this.form.phone = '';
-            this.form.email = '';
-            this.form.shippingAddress = '';
+            this.editForm.shippingCompany = '';
+            this.editForm.shippingContact = '';
+            this.editForm.shippingNumber = '';
+            this.editForm.shippingEmail = '';
+            this.editForm.shippingAddress = '';
           }
         },
         handleAddAccessories() {
           this.$refs.accessoryDetailForm.showDialog();
         },
-        handleCancel() {
+        async handleCancel() {
+          await cancelOrder({orderId: this.editForm.orderId}, {});
+          this.initData();
           this.isOpen = false;
         },
         handleAddService() {
           this.$refs.servicePlanForm.showDialog();
-        },
-        handleAddOrder() {
-          addOrder({},{type: this.form.orderType,
-            customer: this.form.billing,
-            status: this.customerServiceForm.status,
-            invoiceNo: this.customerServiceForm.invoiceNumber,
-            invoiceDate: this.customerServiceForm.invoiceDate,
-            dueDate: this.customerServiceForm.dueDate,
-            trackingNo: this.customerServiceForm.trackingNumber,
-            sales: 'NULL',
-            createTime: 'NULL',
-            modifyTime: 'NULL',
-            orderItems: this.tableData,
-            billingCompany: this.form.billing,
-            billingContact: this.form.billingContact,
-            billingNumber: this.form.billingPhone,
-            billingEmail: this.form.billingEmail,
-            billingAddress: this.form.billingAddress,
-            shippingCompany: this.form.companyName,
-            shippingContact: this.form.contact,
-            shippingNumber: this.form.phone,
-            shippingEmail: this.form.email,
-            shippingAddress: this.form.shippingAddress
-          });
         },
         getDates() {
           let invoice = new Date(this.customerServiceForm.invoiceDate);
@@ -537,7 +556,6 @@
             due.setDate(this.customerServiceForm.invoiceDate.getDate()+30);
           }
 
-                // this.customerServiceForm.dueDate = due;
           this.customerServiceForm.invoiceDate = invoice.getFullYear()
                     + '-' + (invoice.getMonth()+1)
                     + '-' + invoice.getDate()
@@ -560,9 +578,10 @@
             amount: Number(this.form.accPrice) * Number(this.form.accQty),
             tax: 'Y',
             description: this.form.accQty + ' * ' + this.form.accName,
-            invoiceNo: this.customerServiceForm.invoiceNumber
+            invoiceNo: this.editForm.invoiceNo
           };
           this.tableData.push(data);
+          this.newData.push(data);
         },
         getProductInfo(n, p, q) {
           this.form.prodName = n;
@@ -575,10 +594,11 @@
             amount: Number(this.form.prodPrice) * Number(this.form.prodQty),
             tax: 'Y',
             description: this.form.prodQty + ' * ' + this.form.prodName,
-            invoiceNo: this.customerServiceForm.invoiceNumber
+            invoiceNo: this.editForm.invoiceNo
 
           };
           this.tableData.push(data);
+          this.newData.push(data);
         },
         getServicePlanFee(q, a, n) {
           this.form.planQty = q;
@@ -591,10 +611,11 @@
             amount: Number(this.form.planAmt) * Number(this.form.planQty),
             tax: 'N',
             description: this.form.planQty + ' * ' + this.form.planName,
-            invoiceNo: this.customerServiceForm.invoiceNumber
+            invoiceNo: this.editForm.invoiceNo
 
           };
           this.tableData.push(data);
+          this.newData.push(data);
         },
         getProdAndAccInfo(pn, pp, pq, an, ap, aq) {
           this.form.prodName = pn;
@@ -610,10 +631,11 @@
             amount: Number(this.form.prodPrice) * Number(this.form.prodQty),
             tax: 'Y',
             description: this.form.prodQty + ' * ' + this.form.prodName,
-            invoiceNo: this.customerServiceForm.invoiceNumber
+            invoiceNo: this.editForm.invoiceNo
 
           };
           this.tableData.push(data);
+          this.newData.push(data);
           const data2 = {orderId: '',
             product: this.form.accName,
             quantity: this.form.accQty,
@@ -621,10 +643,11 @@
             amount: Number(this.form.accPrice) * Number(this.form.accQty),
             tax: 'Y',
             description: this.form.accQty + ' * ' + this.form.accName,
-            invoiceNo: this.customerServiceForm.invoiceNumber
+            invoiceNo: this.editForm.invoiceNo
 
           };
           this.tableData.push(data2);
+          this.newData.push(data2);
         },
         getProdAndPlanInfo(pn, pp, pq, sq, sa, sn) {
           this.form.prodName = pn;
@@ -640,10 +663,11 @@
             amount: Number(this.form.prodPrice) * Number(this.form.prodQty),
             tax: 'Y',
             description: this.form.prodQty + ' * ' + this.form.prodName,
-            invoiceNo: this.customerServiceForm.invoiceNumber
+            invoiceNo: this.editForm.invoiceNo
 
           };
           this.tableData.push(data);
+          this.newData.push(data);
           const data2 = {orderId: '',
             product: this.form.planName,
             quantity: this.form.planQty,
@@ -651,10 +675,11 @@
             amount: Number(this.form.planAmt) * Number(this.form.planQty),
             tax: 'N',
             description: this.form.planQty + ' * ' + this.form.planName,
-            invoiceNo: this.customerServiceForm.invoiceNumber
+            invoiceNo: this.editForm.invoiceNo
 
           };
           this.tableData.push(data2);
+          this.newData.push(data2);
         },
         getAllInfo(pn, pp, pq, an, ap, aq, sq, sa, sn) {
           this.form.prodName = pn;
@@ -673,10 +698,11 @@
             amount: Number(this.form.prodPrice) * Number(this.form.prodQty),
             tax: 'Y',
             description: this.form.prodQty + ' * ' + this.form.prodName,
-            invoiceNo: this.customerServiceForm.invoiceNumber
+            invoiceNo: this.editForm.invoiceNo
 
           };
           this.tableData.push(data);
+          this.newData.push(data);
           const data2 = {orderId: '',
             product: this.form.accName,
             quantity: this.form.accQty,
@@ -684,10 +710,11 @@
             amount: Number(this.form.accPrice) * Number(this.form.accQty),
             tax: 'Y',
             description: this.form.accQty + ' * ' + this.form.accName,
-            invoiceNo: this.customerServiceForm.invoiceNumber
+            invoiceNo: this.editForm.invoiceNo
 
           };
           this.tableData.push(data2);
+          this.newData.push(data2);
           const data3 = {orderId: '',
             product: this.form.planName,
             quantity: this.form.planQty,
@@ -695,10 +722,11 @@
             amount: Number(this.form.planAmt) * Number(this.form.planQty),
             tax: 'N',
             description: this.form.planQty + ' * ' + this.form.planName,
-            invoiceNo: this.customerServiceForm.invoiceNumber
+            invoiceNo: this.editForm.invoiceNo
 
           };
           this.tableData.push(data3);
+          this.newData.push(data3);
         },
       },
 

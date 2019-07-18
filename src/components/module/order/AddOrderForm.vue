@@ -520,13 +520,15 @@ export default {
       this.$refs.accessoryDetailForm.showDialog();
     },
     handleCancel() {
+      this.resetFields();
       this.isOpen = false;
     },
     handleAddService() {
       this.$refs.servicePlanForm.showDialog();
     },
     handleAddOrder() {
-      addOrder({},{type: this.form.orderType,
+      addOrder({},{
+        type: this.form.orderType,
         customer: this.form.billing,
         status: this.customerServiceForm.status,
         invoiceNo: this.customerServiceForm.invoiceNumber,
