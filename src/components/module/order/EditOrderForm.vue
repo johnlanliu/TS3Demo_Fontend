@@ -305,6 +305,7 @@
           type: Array,
           default: () => [],
         },
+        offset: Number,
         initData: Function,
       },
       data: function() {
@@ -312,7 +313,10 @@
           loading: false,
           isOpen: false,
           sameInfo: false,
+          sameAsBillingBool: 0,
           newData: [],
+          toDelete: [],
+          itemOffset: this.offset,
           form: {
             accName: '',
             accPrice: '',
@@ -327,7 +331,6 @@
             accPicked: '',
             planPicked: '',
           },
-          sameAsBillingBool: 0,
           orderOptions: [{
             value: 'evaluation',
             label: 'evaluation',
@@ -476,17 +479,26 @@
           this.sameAsBillingBool = 0;
           this.sameInfo = false;
           this.customerServiceForm = {};
+          this.itemOffset = this.offset;
           this.$refs.form.resetFields();
         },
         handleAddDevice() {
           this.$refs.productDetailForm.showDialog();
         },
         async handleDeleteOrderItem(row, index) {
-          await deleteOrderItem({itemId: row.itemId});
+          this.toDelete.push(row.itemId);
           this.tableData.splice(index, 1);
-          this.newData.splice();
+          let newIndex = index - this.itemOffset;
+          if(newIndex < 0) {
+            this.itemOffset--;
+          } else {
+            this.newData.splice(newIndex, 1);
+          }
         },
         handleSaveEdit() {
+          this.toDelete.forEach(function(element) {
+            deleteOrderItem({itemId: element});
+          });
           editOrder({}, {
             orderId: this.editForm.orderId,
             type: this.editForm.type,
@@ -517,10 +529,13 @@
             paymentTerm: this.editForm.paymentTerm,
           });
           this.initData();
+          this.tableData = [];
+          this.newData = [];
+          this.itemOffset = this.offset;
           this.isOpen = false;
         },
         handleSameInfo() {
-          if (this.editForm.sameAsBilling) {
+          if (this.sameAsBilling) {
             this.sameAsBillingBool = 1;
             this.editForm.shippingCompany = this.editForm.billingCompany;
             this.editForm.shippingContact = this.editForm.billingContact;

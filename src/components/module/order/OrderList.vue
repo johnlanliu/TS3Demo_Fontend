@@ -105,8 +105,8 @@
       </el-table>
       <order-review-form ref="orderReviewForm" v-bind:form="orderInfoToView" v-bind:table-data="orderItemTable"
                          v-bind:init-data="initData"></order-review-form>
-      <edit-order-form ref="editOrderForm" v-bind:editForm="orderInfoToView" v-bind:table-data="orderItemTable"
-                       v-bind:init-data="initData" v-bind:same-as-billing="sameAsBilling"></edit-order-form>
+      <edit-order-form ref="editOrderForm" :editForm="orderInfoToView" v-bind:table-data="orderItemTable" v-bind:init-data="initData"
+                       v-bind:offset="itemOffset" v-bind:same-as-billing="sameAsBilling"></edit-order-form>
   </div>
 </template>
 
@@ -159,6 +159,7 @@
         sameAsBilling: false,
         orderInfoToView: {},
         orderItemTable: [],
+        itemOffset: 0,
         statusList: [{
           status: 'delivered',
           label: 'delivered'
@@ -238,6 +239,7 @@
             this.orderItemTable.push(orderItem);
           });
         }
+        this.itemOffset = this.orderItemTable.length;
       },
       async initData() {
             // const result = await getValidRoleList({});
