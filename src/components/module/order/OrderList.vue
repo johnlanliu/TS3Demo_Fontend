@@ -25,7 +25,7 @@
               </el-select>
           </el-form-item>
           <el-form-item label>
-              <el-button class="inline" type="primary" @click="search" style="margin-left:10px;">Search</el-button>
+              <el-button class="inline" type="primary" @click="search" style="margin-left:10px;">Search/Update</el-button>
           </el-form-item>
           <el-form-item label style="float:right;">
               <el-button v-if="permsAdd" class="inline" type="primary" @click="handleAdd()">+Add </el-button>

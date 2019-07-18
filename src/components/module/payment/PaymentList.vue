@@ -72,7 +72,7 @@
           </el-table-column>
           <el-table-column label="Amount" prop="amount" width="110">
               <template slot-scope="scope">
-                  <span>${{ scope.row.amount.toFixed(2) }}</span>
+                  <span>${{ scope.row.amount === null ? ' ' : scope.row.amount.toFixed(2) }}</span>
               </template>
           </el-table-column>
           <el-table-column label="Status" prop="status" width="110">
