@@ -77,51 +77,51 @@
                                     </button>
                                 </el-form-item>
                             </el-col>
-<!--                            <el-col v-if="shown === 0 || shown === 1" :span="6">-->
-<!--                                <el-form-item>-->
-<!--                                    <button class="containerButton" style="width: 180px; height: 120px"-->
-<!--                                               type="button" @click="handleNameClick('LA16121 R00')">-->
-<!--                                        <img src="./pic/Product/VT1611.png" alt="VT1611" width="120" height="120" class="image"/>-->
-<!--                                        <div class="overlay">Decoy 4" Round Red Lens</div>-->
-<!--                                    </button>-->
-<!--                                </el-form-item>-->
-<!--                            </el-col>-->
-<!--                            <el-col v-if="shown === 0 || shown === 1" :span="6">-->
-<!--                                <el-form-item>-->
-<!--                                    <button class="containerButton" style="width: 180px; height: 120px"-->
-<!--                                               type="button" @click="handleNameClick('LA16121 C00')">-->
-<!--                                        <img src="./pic/Product/VT1611.png" alt="VT1611" width="120" height="120" class="image"/>-->
-<!--                                        <div class="overlay">Decoy 4" Round Clear Lens</div>-->
-<!--                                    </button>-->
-<!--                                </el-form-item>-->
-<!--                            </el-col>-->
-<!--                            <el-col v-if="shown === 0 || shown === 1" :span="6">-->
-<!--                                <el-form-item>-->
-<!--                                    <button class="containerButton" style="width: 180px; height: 120px"-->
-<!--                                               type="button" @click="handleNameClick('LA17121 R00')">-->
-<!--                                        <img src="./pic/Product/VT1611.png" alt="VT1611" width="120" height="120" class="image"/>-->
-<!--                                        <div class="overlay">Decoy 6" Oval Red Lens</div>-->
-<!--                                    </button>-->
-<!--                                </el-form-item>-->
-<!--                            </el-col>-->
-<!--                            <el-col v-if="shown === 0 || shown === 1" :span="6">-->
-<!--                                <el-form-item>-->
-<!--                                    <button class="containerButton" style="width: 180px; height: 120px"-->
-<!--                                               type="button" @click="handleNameClick('LA17121 A00')">-->
-<!--                                        <img src="./pic/Product/VT1611.png" alt="VT1611" width="120" height="120" class="image"/>-->
-<!--                                        <div class="overlay">Decoy 6" Oval Amber Lens</div>-->
-<!--                                    </button>-->
-<!--                                </el-form-item>-->
-<!--                            </el-col>-->
-<!--                            <el-col v-if="shown === 0 || shown === 1" :span="6">-->
-<!--                                <el-form-item>-->
-<!--                                    <button class="containerButton" style="width: 180px; height: 120px"-->
-<!--                                               type="button" @click="handleNameClick('LA17121 C00')">-->
-<!--                                        <img src="./pic/Product/VT1611.png" alt="VT1611" width="120" height="120" class="image"/>-->
-<!--                                        <div class="overlay">Decoy 6" Oval Clear Lens</div>-->
-<!--                                    </button>-->
-<!--                                </el-form-item>-->
-<!--                            </el-col>-->
+                            <el-col v-if="shown === 0 || shown === 1" :span="6">
+                                <el-form-item>
+                                    <button class="containerButton" style="width: 150px; height: 120px"
+                                               type="button" @click="handleNameClick('LA16121 R00')">
+                                        <img src="./pic/Accessories/LA16121_R00.png" alt="LA16121 R00" class="image"/>
+                                        <div class="overlay">Decoy 4" Round Red Lens</div>
+                                    </button>
+                                </el-form-item>
+                            </el-col>
+                            <el-col v-if="shown === 0 || shown === 1" :span="6">
+                                <el-form-item>
+                                    <button class="containerButton" style="width: 150px; height: 120px"
+                                               type="button" @click="handleNameClick('LA16121 C00')">
+                                        <img src="./pic/Accessories/LA16121_C00.png" alt="LA16121 C00" class="image"/>
+                                        <div class="overlay">Decoy 4" Round Clear Lens</div>
+                                    </button>
+                                </el-form-item>
+                            </el-col>
+                            <el-col v-if="shown === 0 || shown === 1" :span="6">
+                                <el-form-item>
+                                    <button class="containerButton" style="width: 150px; height: 120px"
+                                               type="button" @click="handleNameClick('LA17121 R00')">
+                                        <img src="./pic/Accessories/LA17121_R00.png" alt="LA17121 R00" class="image"/>
+                                        <div class="overlay">Decoy 6" Oval Red Lens</div>
+                                    </button>
+                                </el-form-item>
+                            </el-col>
+                            <el-col v-if="shown === 0 || shown === 1" :span="6">
+                                <el-form-item>
+                                    <button class="containerButton" style="width: 150px; height: 120px"
+                                               type="button" @click="handleNameClick('LA17121 A00')">
+                                        <img src="./pic/Accessories/LA17121_A00.png" alt="LA17121 A00" class="image"/>
+                                        <div class="overlay">Decoy 6" Oval Amber Lens</div>
+                                    </button>
+                                </el-form-item>
+                            </el-col>
+                            <el-col v-if="shown === 0 || shown === 1" :span="6">
+                                <el-form-item>
+                                    <button class="containerButton" style="width: 150px; height: 120px"
+                                               type="button" @click="handleNameClick('LA17121 C00')">
+                                        <img src="./pic/Accessories/LA17121_C00.png" alt="LA17121 C00" class="image"/>
+                                        <div class="overlay">Decoy 6" Oval Clear Lens</div>
+                                    </button>
+                                </el-form-item>
+                            </el-col>
                             <el-col v-if="shown === 0 || shown === 2" :span="6">
                                 <el-form-item>
                                     <button class="containerButton" style="width: 150px; height: 120px"
