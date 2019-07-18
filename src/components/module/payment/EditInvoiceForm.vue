@@ -160,13 +160,13 @@
                         highlight-current-row
                         max-height="200px"
                         :row-key="row => row.index"
-                        style="width: 80%; margin-left: 95px"
+                        style="width: 80%; margin-left: 75px; margin-top: 10px; margin-bottom: 10px"
                 >
                     <el-table-column label="Product" prop="product" width="180"></el-table-column>
                     <el-table-column label="QTY" prop="quantity" width="120"></el-table-column>
                     <el-table-column label="Rate" prop="rate" width="120"></el-table-column>
                     <el-table-column label="Amount" prop="amount" width="120"></el-table-column>
-                    <el-table-column label="Tax" prop="tax" width="79"></el-table-column>
+                    <el-table-column label="Tax" prop="tax" width="73"></el-table-column>
 <!--                    <el-table-column label="Action">-->
 <!--                        <template slot-scope="scope">-->
 <!--                            <el-dropdown size="mini" type="text" @command="handleCommand">-->
@@ -182,7 +182,7 @@
 <!--                    </el-table-column>-->
                 </el-table>
                 <el-row style="border-spacing: 0px">
-                    <el-col :span="12" :offset="15">
+                    <el-col :span="12" :offset="13">
                         <el-form-item label="Tax: ">
                             <p v-model="tax">${{ tax }}</p>
                         </el-form-item>
@@ -194,7 +194,7 @@
                         </el-form-item>
                     </el-col>
                 </el-row>
-                <el-form-item label="Note:" style="display: block; margin-left: 30px; margin-right: 30px">
+                <el-form-item label="Note:" style="display: block; margin-left: 10px; margin-right: 80px">
                     <el-input
                             type="textarea"
                             :rows="2"

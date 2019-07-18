@@ -125,7 +125,9 @@
                             </el-form-item>
                         </el-col>
                         <el-col :span="8">
-                            <el-form-item label="Shipping Number: " style="font-weight: 900"></el-form-item>
+                            <el-form-item label="Tracking Number: " style="font-weight: 900">
+                                <p v-model="form.trackingNo">{{ form.trackingNo }}</p>
+                            </el-form-item>
                         </el-col>
                     </el-row>
                     <el-form-item label="Item" style="font-weight: 900; padding-left: 50px"></el-form-item>
@@ -201,6 +203,7 @@
             shippingVia: '',
             note: '',
             shippingFee: '',
+            trackingNo: '',
           })
       },
       tableData: {
