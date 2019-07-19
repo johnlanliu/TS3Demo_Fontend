@@ -198,29 +198,29 @@ export default {
         }],
         tax: 'Yes',
       },
-      formRules: {
-        price: [
-              { required: true, message: 'Unit price is required' },
-          {
-            pattern: /^\d+(,\d{3})*(\.\d{1,2})?$/,
-            message: 'Invalid price'
-          },
-        ],
-        servicePlan: [
-                { required: true, message: 'Service plan price is required' },
-          {
-            pattern: /^\d+(,\d{3})*(\.\d{1,2})?$/,
-            message: 'Invalid price'
-          },
-        ],
-        accPrice: [
-                { required: true, message: 'Accessory price is required' },
-          {
-            pattern: /^\d+(,\d{3})*(\.\d{1,2})?$/,
-            message: 'Invalid price'
-          },
-        ],
-      },
+      // formRules: {
+      //   price: [
+      //         { required: true, message: 'Unit price is required' },
+      //     {
+      //       pattern: /^\d+(,\d{3})*(\.\d{1,2})?$/,
+      //       message: 'Invalid price'
+      //     },
+      //   ],
+      //   servicePlan: [
+      //           { required: true, message: 'Service plan price is required' },
+      //     {
+      //       pattern: /^\d+(,\d{3})*(\.\d{1,2})?$/,
+      //       message: 'Invalid price'
+      //     },
+      //   ],
+      //   accPrice: [
+      //           { required: true, message: 'Accessory price is required' },
+      //     {
+      //       pattern: /^\d+(,\d{3})*(\.\d{1,2})?$/,
+      //       message: 'Invalid price'
+      //     },
+      //   ],
+      // },
     };
   },
   methods: {

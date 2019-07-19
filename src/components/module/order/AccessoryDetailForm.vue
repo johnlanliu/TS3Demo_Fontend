@@ -188,15 +188,15 @@ export default {
         QTY: '',
         showPrice: false,
       },
-      formRules: {
-        price: [
-              { required: true, message: 'Unit price is required' },
-          {
-            pattern: /^\d+(,\d{3})*(\.\d{1,2})?$/,
-            message: 'Invalid price'
-          },
-        ],
-      },
+      // formRules: {
+      //   price: [
+      //         { required: true, message: 'Unit price is required' },
+      //     {
+      //       pattern: /^\d+(,\d{3})*(\.\d{1,2})?$/,
+      //       message: 'Invalid price'
+      //     },
+      //   ],
+      // },
     };
   },
   props: {

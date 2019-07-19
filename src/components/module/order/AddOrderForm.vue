@@ -351,105 +351,105 @@ export default {
         trackingNumber: '',
         shippingFee: '',
       },
-      formRules: {
-        orderType: [
-                { required: true, message: 'Order type is required', trigger: 'change' },
-        ],
-        billing: [
-                { required: true, message: 'Company name is required' },
-                { min: 1, message: 'Company name is required'},
-          {
-            pattern: /^[A-Za-z0-9]+$/,
-            message: 'Invalid characters'
-          }
-        ],
-        companyName: [
-                { required: true, message: 'Company name is required' },
-                { min: 1, message: 'Company name is required'},
-          {
-            pattern: /^[A-Za-z0-9]+$/,
-            message: 'Invalid characters'
-          }
-        ],
-        billingContact: [
-                { required: true, message: 'Contact is required' },
-                { min: 1, message: 'Contact is required'},
-          {
-            pattern: /^[A-Za-z0-9]+$/,
-            message: 'Invalid characters'
-          }
-        ],
-        contact: [
-                { required: true, message: 'Contact is required' },
-                { min: 1, message: 'Contact is required'},
-          {
-            pattern: /^[A-Za-z0-9]+$/,
-            message: 'Invalid characters'
-          }
-        ],
-        billingPhone: [
-                {required: true, message: 'Phone number is required' },
-          {
-            pattern: /^(1?(-?\d{3})-?)?(\d{3})(-?\d{4})$/,
-            message: 'Invalid phone number'
-          }
-        ],
-        phone: [
-                {required: true, message: 'Phone number is required' },
-          {
-            pattern: /^(1?(-?\d{3})-?)?(\d{3})(-?\d{4})$/,
-            message: 'Invalid phone number'
-          }
-        ],
-        billingEmail: [
-                { required: true, message: 'Email is required' },
-          {
-            pattern: /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,
-            message: 'Invalid email'
-          }
-        ],
-        email: [
-                { required: true, message: 'Email is required' },
-          {
-            pattern: /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,
-            message: 'Invalid email'
-          }
-        ],
-        billingAddress: [
-                { required: true, message: 'Billing address is required' },
-        ],
-        shippingAddress: [
-                { required: true, message: 'Shipping address is required' },
-        ],
-        paymentTerm: [
-                { required: true, message: 'Payment term is required', trigger: 'change' },
-        ],
-            // note: [
-            //     { max: 200, message: 'Maximum character limit: 200' }
-            // ],
-        status: [
-                { required: true, message: 'Status is required', trigger: 'change' },
-        ],
-        invoiceNumber: [
-            { required: true, message: 'Invoice number is required' },
-        ],
-        invoiceDate: [
-            { required: true, message: 'Invoice date is required' },
-        ],
-        shippingVia: [
-            { required: true, message: 'Shipping type is required' },
-        ],
-        trackingNumber: [
-            { required: true, message: 'Tracking number is required' },
-        ],
-        shippingFee: [
-            { required: true, message: 'Shipping fee is required' },
-          {
-            pattern: /^\d+(,\d{3})*(\.\d{1,2})?$/,
-            message: 'Invalid price'
-          },
-        ],
-      },
+      // formRules: {
+      //   orderType: [
+      //           { required: true, message: 'Order type is required', trigger: 'change' },
+      //   ],
+      //   billing: [
+      //           { required: true, message: 'Company name is required' },
+      //           { min: 1, message: 'Company name is required'},
+      //     {
+      //       pattern: /^[A-Za-z0-9]+$/,
+      //       message: 'Invalid characters'
+      //     }
+      //   ],
+      //   companyName: [
+      //           { required: true, message: 'Company name is required' },
+      //           { min: 1, message: 'Company name is required'},
+      //     {
+      //       pattern: /^[A-Za-z0-9]+$/,
+      //       message: 'Invalid characters'
+      //     }
+      //   ],
+      //   billingContact: [
+      //           { required: true, message: 'Contact is required' },
+      //           { min: 1, message: 'Contact is required'},
+      //     {
+      //       pattern: /^[A-Za-z0-9]+$/,
+      //       message: 'Invalid characters'
+      //     }
+      //   ],
+      //   contact: [
+      //           { required: true, message: 'Contact is required' },
+      //           { min: 1, message: 'Contact is required'},
+      //     {
+      //       pattern: /^[A-Za-z0-9]+$/,
+      //       message: 'Invalid characters'
+      //     }
+      //   ],
+      //   billingPhone: [
+      //           {required: true, message: 'Phone number is required' },
+      //     {
+      //       pattern: /^(1?(-?\d{3})-?)?(\d{3})(-?\d{4})$/,
+      //       message: 'Invalid phone number'
+      //     }
+      //   ],
+      //   phone: [
+      //           {required: true, message: 'Phone number is required' },
+      //     {
+      //       pattern: /^(1?(-?\d{3})-?)?(\d{3})(-?\d{4})$/,
+      //       message: 'Invalid phone number'
+      //     }
+      //   ],
+      //   billingEmail: [
+      //           { required: true, message: 'Email is required' },
+      //     {
+      //       pattern: /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,
+      //       message: 'Invalid email'
+      //     }
+      //   ],
+      //   email: [
+      //           { required: true, message: 'Email is required' },
+      //     {
+      //       pattern: /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,
+      //       message: 'Invalid email'
+      //     }
+      //   ],
+      //   billingAddress: [
+      //           { required: true, message: 'Billing address is required' },
+      //   ],
+      //   shippingAddress: [
+      //           { required: true, message: 'Shipping address is required' },
+      //   ],
+      //   paymentTerm: [
+      //           { required: true, message: 'Payment term is required', trigger: 'change' },
+      //   ],
+      //       // note: [
+      //       //     { max: 200, message: 'Maximum character limit: 200' }
+      //       // ],
+      //   status: [
+      //           { required: true, message: 'Status is required', trigger: 'change' },
+      //   ],
+      //   invoiceNumber: [
+      //       { required: true, message: 'Invoice number is required' },
+      //   ],
+      //   invoiceDate: [
+      //       { required: true, message: 'Invoice date is required' },
+      //   ],
+      //   shippingVia: [
+      //       { required: true, message: 'Shipping type is required' },
+      //   ],
+      //   trackingNumber: [
+      //       { required: true, message: 'Tracking number is required' },
+      //   ],
+      //   shippingFee: [
+      //       { required: true, message: 'Shipping fee is required' },
+      //     {
+      //       pattern: /^\d+(,\d{3})*(\.\d{1,2})?$/,
+      //       message: 'Invalid price'
+      //     },
+      //   ],
+      // },
     };
   },
   methods: {
