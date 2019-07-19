@@ -44,6 +44,9 @@
                     <el-row>
                         <el-col :span="10" :offset="6">
                             <el-form ref="form" :model="form5" :rules="formRules" size="mini" align="right">
+                                <el-form-item label="Amount $" prop="amount">
+                                    <el-input v-model="form5.amount" style="width: 150px; "></el-input>
+                                </el-form-item>
                                 <el-form-item label="Quantity">
                                     <el-input-number
                                             v-model="form5.QTY"
@@ -51,9 +54,6 @@
                                             :min="1"
                                             style="width: 150px">
                                     </el-input-number>
-                                </el-form-item>
-                                <el-form-item label="Amount $" prop="amount">
-                                    <el-input v-model="form5.amount" style="width: 150px; "></el-input>
                                 </el-form-item>
                                 <el-form-item label="Total :">
                                     <p>${{ form5.QTY * form5.amount }}</p>

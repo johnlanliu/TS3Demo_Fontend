@@ -479,6 +479,7 @@
           this.sameAsBillingBool = 0;
           this.sameInfo = false;
           this.customerServiceForm = {};
+          this.newData = [];
           this.itemOffset = this.offset;
           this.$refs.form.resetFields();
         },
