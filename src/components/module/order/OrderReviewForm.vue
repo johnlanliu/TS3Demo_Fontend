@@ -61,19 +61,6 @@
                     <el-table-column label="Rate" prop="rate" width="120"></el-table-column>
                     <el-table-column label="Amount" prop="amount" width="120"></el-table-column>
                     <el-table-column label="Tax" prop="tax" width="89"></el-table-column>
-<!--                    <el-table-column label="Action" width="130">-->
-<!--                        <template slot-scope="scope">-->
-<!--                            <el-dropdown size="mini" type="text" @command="handleCommand">-->
-<!--                  <span class="el-dropdown-link">-->
-<!--                  View<i class="el-icon-arrow-down el-icon&#45;&#45;right"></i>-->
-<!--                  </span>-->
-<!--                                <el-dropdown-menu slot="dropdown">-->
-<!--                                    <el-dropdown-item command="a">Edit</el-dropdown-item>-->
-<!--                                    <el-dropdown-item command="b">Delete</el-dropdown-item>-->
-<!--                                </el-dropdown-menu>-->
-<!--                            </el-dropdown>-->
-<!--                        </template>-->
-<!--                    </el-table-column>-->
                 </el-table>
                 <el-row>
                     <el-col :span="10" offset="15">
@@ -89,79 +76,84 @@
 </template>
 
 <script>
-    import { cancelOrder } from '@/api/getData';
+import { cancelOrder } from '@/api/getData';
 
-    export default {
-      name: 'OrderReviewForm',
-      components: {
+export default {
+  name: 'OrderReviewForm',
 
-      },
-      data: function() {
-        return {
-          isOpen: false,
-          loading: false,
-          append: true,
-          labelPosition: 'left',
-        };
-      },
-      props: {
-        form: {
-          type: Object,
-          default: () =>({billingCompany: '',
-            billingAddress: '',
-            billingEmail: '',
-            billingNumber: '',
-            shippingCompany: '',
-            shippingAddress: '',
-            shippingNumber: '',
-            shippingEmail: '',
-            type: '',
-          })
-        },
-        tableData: {
-          type: Array,
-          default: () => [],
-        },
-        initData: Function,
-      },
-      methods: {
-        showDialog() {
-          this.isOpen = true;
-        },
-        resetFields() {
-          this.$refs.form.resetFields();
-        },
-        async handleCancelOrder() {
-          await cancelOrder({orderId: this.form.orderId}, {});
-          this.initData();
-          this.isOpen = false;
-        },
-      },
-      computed: {
-        tax: function() {
-          let t = 0;
-          let et;
-          const copy = this.tableData.slice();
-          copy.forEach(function(item, index) {
-            if ((item.tax === 'Y')) {
-              et = Number(item.amount) * .0775;
-            } else {
-              et = 0;
-            }
-            t += et;
-          });
-          return (Math.floor(t * 100) / 100);
-        },
-        total: function() {
-          let t = 0;
-          const copy = this.tableData.slice();
-          copy.forEach(function(item, index) {
-            t += item.amount;
-          });
-          const tot = t + this.tax;
-          return (Math.floor(tot * 100) / 100);
+  data: function() {
+    return {
+      isOpen: false,
+      loading: false,
+      append: true,
+      labelPosition: 'left',
+    };
+  },
+
+  props: {
+    form: {
+      type: Object,
+      default: () =>({
+        billingCompany: '',
+        billingAddress: '',
+        billingEmail: '',
+        billingNumber: '',
+        shippingCompany: '',
+        shippingAddress: '',
+        shippingNumber: '',
+        shippingEmail: '',
+        type: '',
+      })
+    },
+    tableData: {
+      type: Array,
+      default: () => [],
+    },
+    initData: Function,
+  },
+
+  methods: {
+    /* AUXILIARY FUNCTIONS */
+    showDialog() {
+      this.isOpen = true;
+    },
+    resetFields() {
+      this.$refs.form.resetFields();
+    },
+
+    /* HANDLER FUNCTIONS */
+    async handleCancelOrder() {
+      await cancelOrder({orderId: this.form.orderId}, {});
+      this.initData();
+      this.isOpen = false;
+    },
+  },
+
+  computed: {
+    tax: function() {
+      let t = 0;
+      let et;
+      const copy = this.tableData.slice();
+      copy.forEach(function(item, index) {
+        if ((item.tax === 'Y')) {
+          et = Number(item.amount) * .0775;
+        } else {
+          et = 0;
         }
-      }
+        t += et;
+      });
+      return (Math.floor(t * 100) / 100);
+    },
+    total: function() {
+      let t = 0;
+      const copy = this.tableData.slice();
+      copy.forEach(function(item, index) {
+        t += item.amount;
+      });
+      const tot = t + this.tax;
+      return (Math.floor(tot * 100) / 100);
+    }
+  }
 };
 </script>
 

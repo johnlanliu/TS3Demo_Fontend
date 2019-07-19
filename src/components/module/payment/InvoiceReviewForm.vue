@@ -8,73 +8,6 @@
             @closed="resetFields">
             <div class="form-box">
                 <el-form ref="form" :label-position="labelPosition" :model="form" size="mini" style="padding-right: 0">
-<!--                    <table class="test" style="width: 100%; text-align: right">-->
-<!--                        <tr>-->
-<!--                            <td class="bill"><el-form-item label="BILL TO"style="font-weight: bold"></el-form-item></td>-->
-<!--                            <td><el-form-item label="SHIP TO" style="font-weight: bold"></el-form-item></td>-->
-<!--                            <td><el-form-item label="Invoice #: " style="font-weight: 900">-->
-<!--                                <p v-model="form.invoiceNo">{{ form.invoiceNo }}</p>-->
-<!--                            </el-form-item></td>-->
-<!--                        </tr>-->
-<!--                        <tr>-->
-<!--                            <td>-->
-<!--                                <el-form-item label="Company: ">-->
-<!--                                    <p v-model="form.billingCompany">{{ form.billingCompany }}</p>-->
-<!--                                </el-form-item>-->
-<!--                            </td>-->
-<!--                            <td style="padding-left: 15px">-->
-<!--                                <el-form-item label="Company: ">-->
-<!--                                    <p v-model="form.shippingCompany">{{ form.shippingCompany }}</p>-->
-<!--                                </el-form-item>-->
-<!--                            </td>-->
-<!--                            <td>-->
-<!--                                <el-form-item label="Date: " style="font-weight: 900">-->
-<!--                                    <p v-model="form.invoiceDate">{{ form.invoiceDate }}</p>-->
-<!--                                </el-form-item>-->
-<!--                            </td>-->
-<!--                        </tr>-->
-<!--                        <tr>-->
-<!--                            <td>-->
-<!--                                <el-form-item label="Address: ">-->
-<!--                                    <p v-model="form.billingAddress">{{ form.billingAddress }}</p>-->
-<!--                                </el-form-item>-->
-<!--                            </td>-->
-<!--                            <td>-->
-<!--                                <el-form-item label="Address: ">-->
-<!--                                    <p v-model="form.shippingAddress">{{ form.shippingAddress }}</p>-->
-<!--                                </el-form-item>-->
-<!--                            </td>-->
-<!--                            <td>-->
-<!--                                <el-form-item label="Due Date: " style="font-weight: 900">-->
-<!--                                    <p v-model="form.dueDate">{{ form.dueDate }}</p>-->
-<!--                                </el-form-item>-->
-<!--                            </td>-->
-<!--                        </tr>-->
-<!--                        <tr>-->
-<!--                            <td>-->
-<!--                                <el-form-item label="Phone Number: ">-->
-<!--                                    <p v-model="form.billingNumber">{{ form.billingNumber}}</p>-->
-<!--                                </el-form-item>-->
-<!--                            </td>-->
-<!--                            <td>-->
-<!--                                <el-form-item label="Phone Number: ">-->
-<!--                                    <p v-model="form.shippingNumber">{{ form.shippingNumber}}</p>-->
-<!--                                </el-form-item>-->
-<!--                            </td>-->
-<!--                        </tr>-->
-<!--                        <tr>-->
-<!--                            <td>-->
-<!--                                <el-form-item label="Email: ">-->
-<!--                                    <p v-model="form.billingEmail">{{ form.billingEmail }}</p>-->
-<!--                                </el-form-item>-->
-<!--                            </td>-->
-<!--                            <td>-->
-<!--                                <el-form-item label="Email: ">-->
-<!--                                    <p v-model="form.shippingEmail">{{ form.shippingEmail }}</p>-->
-<!--                                </el-form-item>-->
-<!--                            </td>-->
-<!--                        </tr>-->
-<!--                    </table>-->
                     <el-row style="padding-left: 50px">
                         <el-col :span="8">
                             <el-form-item label="Bill to" style="font-weight: 900"></el-form-item>
@@ -172,82 +105,84 @@
 </template>
 
 <script>
-  export default {
-    name: 'InvoiceReviewForm',
-    components: {
+export default {
+  name: 'InvoiceReviewForm',
 
+  data: function() {
+    return {
+      isOpen: false,
+      loading: false,
+      labelPosition: 'left',
+    };
+  },
+
+  props: {
+    form: {
+      type: Object,
+      default: () => ({
+        billingCompany: '',
+        billingAddress: '',
+        billingEmail: '',
+        billingNumber: '',
+        shippingCompany: '',
+        shippingAddress: '',
+        shippingNumber: '',
+        shippingEmail: '',
+        type: '',
+        invoiceNo: '',
+        invoiceDate: '',
+        dueDate: '',
+        shippingVia: '',
+        note: '',
+        shippingFee: '',
+        trackingNo: '',
+      })
     },
-    data: function() {
-      return {
-        isOpen: false,
-        loading: false,
-        labelPosition: 'left',
-      };
+    tableData: {
+      type: Array,
+      default: () => [],
     },
-    props: {
-      form: {
-        type: Object,
-        default: () => (
-          {billingCompany: '',
-            billingAddress: '',
-            billingEmail: '',
-            billingNumber: '',
-            shippingCompany: '',
-            shippingAddress: '',
-            shippingNumber: '',
-            shippingEmail: '',
-            type: '',
-            invoiceNo: '',
-            invoiceDate: '',
-            dueDate: '',
-            shippingVia: '',
-            note: '',
-            shippingFee: '',
-            trackingNo: '',
-          })
-      },
-      tableData: {
-        type: Array,
-        default: () => [],
-      },
+  },
+
+  methods: {
+    /* AUXILIARY FUNCTIONS */
+    showDialog() {
+      this.isOpen = true;
     },
-    methods: {
-      showDialog() {
-        this.isOpen = true;
-      },
-      resetFields() {
-        this.$refs.form.resetFields();
-      },
+    resetFields() {
+      this.$refs.form.resetFields();
     },
-    computed: {
-      tax: function() {
-        let t = 0;
-        let et;
-        const copy = this.tableData.slice();
-        copy.forEach(function(item, index) {
-          if ((item.tax === 'Y')) {
-            et = Number(item.amount) * .0775;
-          } else {
-            et = 0;
-          }
-          t += et;
-        });
-        return (Math.floor(t * 100) / 100);
-      },
-      total: function() {
-        let t = 0;
-        const copy = this.tableData.slice();
-        copy.forEach(function(item, index) {
-          t += item.amount;
-        });
-        let tot = t + this.tax;
-        if (!isNaN(this.form.shippingFee)) {
-          tot += Number(this.form.shippingFee);
+  },
+
+  computed: {
+    tax: function() {
+      let t = 0;
+      let et;
+      const copy = this.tableData.slice();
+      copy.forEach(function(item, index) {
+        if ((item.tax === 'Y')) {
+          et = Number(item.amount) * .0775;
+        } else {
+          et = 0;
         }
-        return (Math.floor(tot * 100) / 100);
+        t += et;
+      });
+      return (Math.floor(t * 100) / 100);
+    },
+    total: function() {
+      let t = 0;
+      const copy = this.tableData.slice();
+      copy.forEach(function(item, index) {
+        t += item.amount;
+      });
+      let tot = t + this.tax;
+      if (!isNaN(this.form.shippingFee)) {
+        tot += Number(this.form.shippingFee);
       }
+      return (Math.floor(tot * 100) / 100);
     }
-  };
+  }
+};
 </script>
 
 <style scoped>

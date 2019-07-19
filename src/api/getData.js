@@ -131,11 +131,14 @@ export const editPayment = (data, body) => axios.post('orgMPayment/editPayment',
  */
 export const addOrder = (data, body) => axios.post('orgMOrder/addOrder', data, body);
 export const getOrderList = data => axios.get('/orgMOrder/getOrderList', data);
-export const getOrderItem = data => axios.get('/orgMOrderItem/getOrderItemList', data);
 export const getOrderByOrderId = data => axios.get('orgMOrder/getOrderByOrderId', data);
 export const cancelOrder = (data, body) => axios.post('orgMOrder/cancelOrder', data, body);
 export const getLastOrderId = data => axios.get('/orgMOrder/getLastOrderId', data);
-export const getOrderItemListByInvoiceNo = data => axios.get('/orgMOrderItem/getOrderItemListByInvoiceNo', data);
-export const deleteOrderItem = (data, body) => axios.post('/orgMOrderItem/deleteOrderItem', data, body);
 export const editOrder = (data, body) => axios.post('/orgMOrder/editOrder', data, body);
 
+/**
+ * Order Item
+ */
+export const getOrderItem = data => axios.get('/orgMOrderItem/getOrderItemList', data);
+export const getOrderItemListByInvoiceNo = data => axios.get('/orgMOrderItem/getOrderItemListByInvoiceNo', data);
+export const deleteOrderItem = (data, body) => axios.post('/orgMOrderItem/deleteOrderItem', data, body);

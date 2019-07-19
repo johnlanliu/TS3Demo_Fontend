@@ -17,7 +17,7 @@
           <el-form-item label="Status:">
               <el-select v-model="paymentSearchForm.status" placeholder="All" clearable @change="search">
                   <el-option
-                      v-for="item in statusList"
+                      v-for="item in statusOptions"
                       :key="item.status"
                       :value="item.status"
                       :label="item.label"
@@ -45,31 +45,11 @@
           :row-key="row => row.index"
           style="width: 100%;"
       >
-          <el-table-column fixed label="Invoice Id" prop="paymentId" width="100">
-              <!--              <template slot-scope="scope">-->
-              <!--                  <span style="color: red">{{scope.row.invoiceNo}}</span>-->
-              <!--              </template>-->
-          </el-table-column>
-          <el-table-column fixed label="Invoice No." prop="invoiceNo" width="150">
-<!--              <template slot-scope="scope">-->
-<!--                  <span style="color: red">{{scope.row.invoiceNo}}</span>-->
-<!--              </template>-->
-          </el-table-column>
-          <el-table-column label="Customer" prop="customer" width="150">
-<!--              <template slot-scope="scope">-->
-<!--                  <span style="color: orange">{{scope.row.customer}}</span>-->
-<!--              </template>-->
-          </el-table-column>
-          <el-table-column label="Invoice Date" prop="invoiceDate" :formatter="formatDate" width="150">
-<!--              <template slot-scope="scope">-->
-<!--                  <span style="color: yellow">{{scope.row.invoiceDate}}</span>-->
-<!--              </template>-->
-          </el-table-column>
-          <el-table-column label="Due Date" prop="dueDate" :formatter="formatDate" width="150">
-<!--              <template slot-scope="scope">-->
-<!--                  <span style="color: green">{{scope.row.dueDate}}</span>-->
-<!--              </template>-->
-          </el-table-column>
+          <el-table-column fixed label="Invoice Id" prop="paymentId" width="100"></el-table-column>
+          <el-table-column fixed label="Invoice No." prop="invoiceNo" width="150"></el-table-column>
+          <el-table-column label="Customer" prop="customer" width="150"></el-table-column>
+          <el-table-column label="Invoice Date" prop="invoiceDate" :formatter="formatDate" width="150"></el-table-column>
+          <el-table-column label="Due Date" prop="dueDate" :formatter="formatDate" width="150"></el-table-column>
           <el-table-column label="Amount" prop="amount" width="110">
               <template slot-scope="scope">
                   <span>${{ scope.row.amount === null ? ' ' : scope.row.amount.toFixed(2) }}</span>
@@ -79,15 +59,10 @@
               <template slot-scope="scope">
                   <span v-if="scope.row.status==='overdue'" style="color:red;">{{scope.row.status}}</span>
                   <span v-else-if="scope.row.status==='refund'" style="color:red;">{{scope.row.status}}</span>
-<!--                  <span v-else style="color: indigo">{{scope.row.status}}</span>-->
                   <span v-else >{{scope.row.status}}</span>
               </template>
           </el-table-column>
-          <el-table-column label="Sales" prop="sales" width="110">
-<!--              <template slot-scope="scope">-->
-<!--                  <span style="color: violet">{{scope.row.sales}}</span>-->
-<!--              </template>-->
-          </el-table-column>
+          <el-table-column label="Sales" prop="sales" width="110"></el-table-column>
           <el-table-column fixed="right" label="Action" width="140" v-if="permsEdit || permsVoid">
               <template slot-scope="scope">
                   <el-dropdown @command="handleCommand($event, scope.row, scope.$index)" trigger="click">
@@ -109,181 +84,162 @@
 </template>
 
 <script>
-  import {
-    getOrgById,
-    getDevices,
-    deleteDevice,
-    getFirmeUpdateListByModelId,
-    getDeviceSettingById,
-    getBatchSelect,
-    wakeup,
-    reset
-  } from '@/api/getData';
-  import ModelListSelect from '@/components/common/ModelListSelect.vue';
-  import MapDialog from '@/components/common/MapDialog.vue';
-  import { handlePerms } from '@/utils/perms.js';
-  import { timeFormatUtil } from '@/utils/timeFormatUtil.js';
-  import { exceptionUtil } from '@/utils/exceptionUtil.js';
-  import { getStore } from '@/config/mUtils';
-  import { mapState } from 'vuex';
-  import InvoiceReviewForm from './InvoiceReviewForm.vue';
-  import CreateInvoiceForm from '../order/CreateInvoiceForm.vue';
-  import {getPaymentList, voidPayment} from '@/api/getData';
-  import {getPaymentByPaymentId} from '@/api/getData';
-  import { getOrderItem } from '@/api/getData';
-  import {getOrderItemListByInvoiceNo} from '@/api/getData';
-  import EditInvoiceForm from './EditInvoiceForm';
+import InvoiceReviewForm from './InvoiceReviewForm.vue';
+import CreateInvoiceForm from '../order/CreateInvoiceForm.vue';
+import EditInvoiceForm from './EditInvoiceForm';
+import { getPaymentList, voidPayment, getPaymentByPaymentId, getOrderItemListByInvoiceNo } from '@/api/getData';
+import { timeFormatUtil } from '@/utils/timeFormatUtil.js';
+import { exceptionUtil } from '@/utils/exceptionUtil.js';
+import { mapState } from 'vuex';
 
-  export default {
-    mixins: [timeFormatUtil, exceptionUtil],
-    components: {
-      EditInvoiceForm,
-      InvoiceReviewForm,
-      CreateInvoiceForm,
-    },
-    data() {
-      return {
-        userSearchForm: {},
-        loading: false,
-        command: '',
-        permsAdd: true,
-        permsEdit: true,
-        permsVoid: true,
-        salesPerson: '',
-        tableData: [],
-        orderItemTable: [],
-        paymentSearchForm: {
-          number: '',
-          status: '',
-          customer: ''
-        },
-        invoiceInfo: {},
-        invoiceTableData: [],
-        statusList: [{
-          status: 'refund',
-          label: 'refund'
-        }, {
-          status: 'void',
-          label: 'void'
-        }, {
-          status: 'paid',
-          label: 'paid'
-        }, {
-          status: 'unpaid',
-          label: 'unpaid'
-        }, {
-          status: 'overdue',
-          label: 'overdue'
-        }]
-      };
-    },
-    computed: {
-      ...mapState([
-        'loginInfo',
-        'modelList',
-        'currentOrgId',
-        'lang',
-        'locale'
-      ]),
+export default {
+  mixins: [timeFormatUtil, exceptionUtil],
 
-      labelWidth() {
-        return this.locale === 'es' ? '122px' : '100px';
+  components: {
+    EditInvoiceForm,
+    InvoiceReviewForm,
+    CreateInvoiceForm,
+  },
+
+  data() {
+    return {
+      loading: false,
+
+    /* RESET THESE */
+      command: '',
+      salesPerson: '',
+      permsAdd: true,
+      permsEdit: true,
+      permsVoid: true,
+      invoiceTableData: [],
+      tableData: [],
+      orderItemTable: [],
+      invoiceInfo: {},
+      userSearchForm: {},
+      paymentSearchForm: {
+        number: '',
+        status: '',
+        customer: '',
+      },
+
+    /* DROPDOWN OPTIONS */
+      statusOptions: [{
+        status: 'refund',
+        label: 'refund'
+      }, {
+        status: 'void',
+        label: 'void'
+      }, {
+        status: 'paid',
+        label: 'paid'
+      }, {
+        status: 'unpaid',
+        label: 'unpaid'
+      }, {
+        status: 'overdue',
+        label: 'overdue'
+      }]
+    };
+  },
+
+  beforeDestroy() {
+    window.removeEventListener('resize', this.bindResize);
+  },
+
+  created() {
+    this.initData();
+  },
+
+  methods: {
+    /* AUXILIARY FUNCTIONS */
+    search() {
+      this.getPayments();
+    },
+    initData() {
+      this.getPayments();
+    },
+
+    /* HANDLER FUNCTIONS */
+    async getPayments() {
+      const result = await getPaymentList(
+        {invoiceNo: this.paymentSearchForm.number,
+          status: this.paymentSearchForm.status,
+          customer: this.paymentSearchForm.customer});
+      if (result) {
+        this.tableData = [];
+        result.forEach((item, index) => {
+          let tableData = item;
+          tableData.index = index + 1;
+          this.tableData.push(tableData);
+        });
       }
     },
-
-    mounted() {
-
+    handleCommand(command, row, index) {
+      if (command === 'view') {
+        this.getInvoiceInfo(row, index);
+        this.getOrderItems(row, index);
+        this.$refs.invoiceReviewForm.showDialog();
+        this.invoiceInfo = {};
+        this.invoiceTableData = [];
+      } else if (command === 'edit') {
+        this.handleEdit(index, row);
+        this.initData();
+      } else {
+        this.handleVoid(index, row);
+      }
     },
-
-    beforeDestroy() {
-      window.removeEventListener('resize', this.bindResize);
-    },
-
-    created() {
+    async handleVoid(index, row) {
+      await voidPayment({paymentId: row.paymentId},{});
       this.initData();
     },
 
-    watch: {
-
+/* HANDLERS FOR SHOWING FORMS */
+    handleAdd() {
+      this.$refs.createInvoiceForm.showDialog();
     },
-
-    methods: {
-      search() {
-
-        this.getPayments();
-
-      },
-      handleAdd() {
-        this.$refs.createInvoiceForm.showDialog();
-      },
-      add() {
-        alert(2);
-      },
-      handleCommand(command, row, index) {
-        if (command === 'view') {
-          this.getInvoiceInfo(row, index);
-          this.getOrderItems(row, index);
-          this.$refs.invoiceReviewForm.showDialog();
-          this.invoiceInfo = {};
-          this.invoiceTableData = [];
-        } else if (command === 'edit') {
-          this.handleEdit(index, row);
-          this.initData();
-        } else {
-          this.handleVoid(index, row);
-        }
-      },
-      async handleView() {
-        this.$refs.invoiceReviewForm.showDialog();
-      },
-      async handleVoid(index, row) {
-        await voidPayment({paymentId: row.paymentId},{});
-        this.initData();
-      },
-      async initData() {
-        // const result = await getValidRoleList({});
-        this.getPayments();
-      },
-      async getPayments() {
-        const result = await getPaymentList(
-          {invoiceNo: this.paymentSearchForm.number,
-            status: this.paymentSearchForm.status,
-            customer: this.paymentSearchForm.customer});
-        if (result) { // && !result.errorCode) {
-          this.tableData = [];
-          result.forEach((item, index) => {
-            let tableData = item;
-            tableData.index = index + 1;
-            this.tableData.push(tableData);
+    async handleEdit(index, row) {
+      this.getInvoiceInfo(row, index);
+      this.getOrderItems(row, index);
+      this.$refs.editInvoiceForm.showDialog();
+    },
+    async getInvoiceInfo(row, index) {
+      this.invoiceInfo = await getPaymentByPaymentId({paymentId: row.paymentId});
+    },
+    async getOrderItems(row, index) {
+      if(row.invoiceNo === null) {
+        this.orderItemTable = [];
+      } else {
+        const res = await getOrderItemListByInvoiceNo({invoiceNo: row.invoiceNo});
+        if (res) {
+          this.orderItemTable = [];
+          res.forEach((item, index) => {
+            let orderItem = item;
+            orderItem.index = index + 1;
+            this.orderItemTable.push(orderItem);
           });
         }
-      },
-      async getOrderItems(row, index) {
-        if(row.invoiceNo === null) {
-          this.orderItemTable = [];
-        } else {
-          const res = await getOrderItemListByInvoiceNo({invoiceNo: row.invoiceNo});
-          if (res) {
-            this.orderItemTable = [];
-            res.forEach((item, index) => {
-              let orderItem = item;
-              orderItem.index = index + 1;
-              this.orderItemTable.push(orderItem);
-            });
-          }
-        }
-      },
-      async getInvoiceInfo(row, index) {
-        this.invoiceInfo = await getPaymentByPaymentId({paymentId: row.paymentId});
-
-      },
-      async handleEdit(index, row) {
-        this.getInvoiceInfo(row, index);
-        this.getOrderItems(row, index);
-        this.$refs.editInvoiceForm.showDialog();
       }
+    },
+  },
+
+  computed: {
+    ...mapState([
+      'loginInfo',
+      'modelList',
+      'currentOrgId',
+      'lang',
+      'locale'
+    ]),
+
+    labelWidth() {
+      return this.locale === 'es' ? '122px' : '100px';
     }
-  };
+  },
+
+  watch: {
+
+  },
+};
 </script>
 
 <style>
@@ -292,7 +248,6 @@
     line-height: 50px;
   }
 </style>
-
 
 <style scoped>
   .el-dropdown-link {

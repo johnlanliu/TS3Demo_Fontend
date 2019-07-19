@@ -7,12 +7,12 @@
             :append-to-body="append"
             @closed="resetFields"
             width="55%">
-        <el-form ref="form" :model="invoiceForm" :rules="formRules" size="mini" label-width="150px" style="margin: 0;">
+        <el-form ref="form" :model="invoiceForm" size="mini" label-width="150px" style="margin: 0;">
             <div class="invoiceSpacing">
-                <el-form-item label="Invoice Type" prop="invoiceType">
+                <el-form-item label="Invoice Type">
                     <el-select v-model="invoiceForm.invoiceType" placeholder="select">
                         <el-option
-                                v-for="type in invoiceTypes"
+                                v-for="type in invoiceOptions"
                                 :key="type.value"
                                 :value="type.value"
                                 :label="type.label">
@@ -29,66 +29,66 @@
                     </tr>
                     <tr>
                         <td>
-                            <el-form-item label="Company Name: " prop="billing">
+                            <el-form-item label="Company Name: ">
                                 <el-input v-model="form.billing"></el-input>
                             </el-form-item>
                         </td>
                         <td>
-                            <el-form-item label="Company Name: " prop="companyName">
+                            <el-form-item label="Company Name: ">
                                 <el-input v-model="form.companyName"></el-input>
                             </el-form-item>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <el-form-item label="Contact: " prop="billingContact">
+                            <el-form-item label="Contact: ">
                                 <el-input v-model="form.billingContact"></el-input>
                             </el-form-item>
                         </td>
                         <td>
-                            <el-form-item label="Contact: " prop="contact">
+                            <el-form-item label="Contact: ">
                                 <el-input v-model="form.contact"></el-input>
                             </el-form-item>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <el-form-item label="Phone Number: " style="" prop="billingPhone">
+                            <el-form-item label="Phone Number: ">
                                 <el-input v-model="form.billingPhone"></el-input>
                             </el-form-item>
                         </td>
                         <td>
-                            <el-form-item label="Phone Number: " prop="phone">
+                            <el-form-item label="Phone Number: ">
                                 <el-input v-model="form.phone"></el-input>
                             </el-form-item>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <el-form-item label="Email: " prop="billingEmail">
+                            <el-form-item label="Email: ">
                                 <el-input v-model="form.billingEmail"></el-input>
                             </el-form-item>
                         </td>
                         <td>
-                            <el-form-item label="Email: " prop="email">
+                            <el-form-item label="Email: ">
                                 <el-input v-model="form.email"></el-input>
                             </el-form-item>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <el-form-item label="Billing Address: " prop="billingAddress">
+                            <el-form-item label="Billing Address: ">
                                 <el-input v-model="form.billingAddress"></el-input>
                             </el-form-item>
                         </td>
                         <td>
-                            <el-form-item label="Shipping Address: " prop="shippingAddress">
+                            <el-form-item label="Shipping Address: ">
                                 <el-input v-model="form.shippingAddress"></el-input>
                             </el-form-item>
                         </td>
                     </tr>
                 </table>
-                <el-form-item label="Payment Term" style="padding-top: 10px" prop="paymentTerm">
+                <el-form-item label="Payment Term" style="padding-top: 10px">
                     <el-select v-model="form.paymentTerm" placeholder="Select">
                         <el-option
                                 v-for="option in paymentOptions"
@@ -100,15 +100,15 @@
                 </el-form-item>
                 <el-row style="border-spacing: 0px">
                     <el-col :span="12">
-                        <el-form-item label="Invoice #" style="border-spacing: 0px" prop="invoiceNumber">
+                        <el-form-item label="Invoice #" style="border-spacing: 0px">
                             <el-input v-model="customerServiceForm.invoiceNumber" style="width: 150px"></el-input>
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="Invoice Status" prop="invoiceStatus">
+                        <el-form-item label="Invoice Status">
                             <el-select v-model="invoiceForm.status" placeholder="Select" clearable style="width: 150px">
                                 <el-option
-                                        v-for="item in statusList"
+                                        v-for="item in statusOptions"
                                         :key="item.status"
                                         :value="item.status"
                                         :label="item.label"
@@ -119,7 +119,7 @@
                 </el-row>
                 <el-row style="border-spacing: 0px">
                     <el-col :span="12">
-                        <el-form-item label="Invoice Date" prop="invoiceDate">
+                        <el-form-item label="Invoice Date">
                             <el-date-picker
                                     v-model="customerServiceForm.invoiceDate"
                                     type="datetime"
@@ -129,7 +129,7 @@
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="Due Date" prop="dueDate">
+                        <el-form-item label="Due Date">
                             <el-date-picker
                                     v-model="invoiceForm.dueDate"
                                     type="datetime"
@@ -141,12 +141,12 @@
                 </el-row>
                 <el-row style="border-spacing: 0px">
                     <el-col :span="12">
-                        <el-form-item label="Shipping via" prop="shippingVia">
+                        <el-form-item label="Shipping via">
                             <el-input v-model="customerServiceForm.shippingVia" style="width: 150px"></el-input>
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="Tracking Number" prop="trackingNumber">
+                        <el-form-item label="Tracking Number">
                             <el-input v-model="customerServiceForm.trackingNumber" style="width: 150px"></el-input>
                         </el-form-item>
                     </el-col>
@@ -167,26 +167,13 @@
                     <el-table-column label="Rate" prop="rate" width="120"></el-table-column>
                     <el-table-column label="Amount" prop="amount" width="120"></el-table-column>
                     <el-table-column label="Tax" prop="tax" width="80"></el-table-column>
-                    <el-table-column label="Action">
-                        <template slot-scope="scope">
-                            <el-dropdown size="mini" type="text" @command="handleCommand">
-                  <span class="el-dropdown-link">
-                  View<i class="el-icon-arrow-down el-icon--right"></i>
-                  </span>
-                                <el-dropdown-menu slot="dropdown">
-                                    <el-dropdown-item command="a">Edit</el-dropdown-item>
-                                    <el-dropdown-item command="b">Delete</el-dropdown-item>
-                                </el-dropdown-menu>
-                            </el-dropdown>
-                        </template>
-                    </el-table-column>
                 </el-table>
                 <el-row style="border-spacing: 0px">
                     <el-col :span="12" :offset="15">
                         <el-form-item label="Tax: ">
                             <p v-model="tax">${{ tax }}</p>
                         </el-form-item>
-                        <el-form-item label="Shipping fee: " prop="shippingFee">
+                        <el-form-item label="Shipping fee: ">
                             <el-input v-model="customerServiceForm.shippingFee" style="width: 100px"></el-input>
                         </el-form-item>
                         <el-form-item label="Total: ">
@@ -212,294 +199,299 @@
 </template>
 
 <script>
-    import { addPayment } from '@/api/getData';
+import { addPayment } from '@/api/getData';
 
 export default {
-      name: 'CreateInvoiceForm',
-      components: {
-      },
-      props: {
-        tableData: {
-          type: Array,
-          default: () => [],
-        },
-        form: {
-          type: Object,
-          default: () => ({
-            billing: '',
-            billingContact: '',
-            billingPhone: '',
-            billingEmail: '',
-            billingAddress: '',
-            companyName: '',
-            contact: '',
-            email: '',
-            phone: '',
-            shippingAddress: '',
-            paymentTerm: '',
-          })
-        },
-        customerServiceForm: {
-          type: Object,
-          default: () => ({
-            status: '',
-            invoiceNumber: '',
-            invoiceDate: '',
-            shippingVia: '',
-            trackingNumber: '',
-            shippingFee: '',
-          })
-        },
-        reloadTable: Function,
-      },
-      data: function() {
-        return {
-          labelPosition: 'right',
-          isOpen: false,
-          loading: false,
-          append: true,
-          invoiceForm: {
-            dueDate: '',
-            invoiceType: '',
-            note: '',
-            status: '',
-          },
-          invoiceTypes: [{
-            value: 'RMA',
-            label: 'RMA'
-          }, {
-            value: 'Purchase',
-            label: 'Purchase'
-          }, {
-            value: 'Evaluation',
-            label: 'Evaluation'
-          }, {
-            value: 'Service Plan',
-            label: 'Service Plan'
+  name: 'CreateInvoiceForm',
 
-          }],
-          statusList: [{
-            status: 'refund',
-            label: 'refund'
-          }, {
-            status: 'void',
-            label: 'void'
-          }, {
-            status: 'paid',
-            label: 'paid'
-          }, {
-            status: 'pending',
-            label: 'pending'
-          }, {
-            status: 'overdue',
-            label: 'overdue'
-          }],
-          paymentOptions: [{
-            value: 'Net15',
-            label: 'Net15',
-          }, {
-            value: 'Net30',
-            label: 'Net30',
-          }],
-          // formRules: {
-          //   invoiceType: [
-          //       { required: true, message: 'Invoice type is required', trigger: 'change' },
-          //   ],
-          //   billing: [
-          //         { required: true, message: 'Company name is required' },
-          //         { min: 1, message: 'Company name is required'},
-          //     {
-          //       pattern: /^[A-Za-z0-9]+$/,
-          //       message: 'Invalid characters'
-          //     }
-          //   ],
-          //   companyName: [
-          //         { required: true, message: 'Company name is required' },
-          //         { min: 1, message: 'Company name is required'},
-          //     {
-          //       pattern: /^[A-Za-z0-9]+$/,
-          //       message: 'Invalid characters'
-          //     }
-          //   ],
-          //   billingContact: [
-          //         { required: true, message: 'Contact is required' },
-          //         { min: 1, message: 'Contact is required'},
-          //     {
-          //       pattern: /^[A-Za-z0-9]+$/,
-          //       message: 'Invalid characters'
-          //     }
-          //   ],
-          //   contact: [
-          //         { required: true, message: 'Contact is required' },
-          //         { min: 1, message: 'Contact is required'},
-          //     {
-          //       pattern: /^[A-Za-z0-9]+$/,
-          //       message: 'Invalid characters'
-          //     }
-          //   ],
-          //   billingPhone: [
-          //         {required: true, message: 'Phone number is required' },
-          //     {
-          //       pattern: /^(1?(-?\d{3})-?)?(\d{3})(-?\d{4})$/,
-          //       message: 'Phone number is required'
-          //     }
-          //   ],
-          //   phone: [
-          //         {required: true, message: 'Phone number is required' },
-          //     {
-          //       pattern: /^(1?(-?\d{3})-?)?(\d{3})(-?\d{4})$/,
-          //       message: 'Phone number is required'
-          //     }
-          //   ],
-          //   billingEmail: [
-          //         { required: true, message: 'Email is required' },
-          //     {
-          //       pattern: /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,
-          //       message: 'Invalid email'
-          //     }
-          //   ],
-          //   email: [
-          //         { required: true, message: 'Email is required' },
-          //     {
-          //       pattern: /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,
-          //       message: 'Invalid email'
-          //     }
-          //   ],
-          //   billingAddress: [
-          //         { required: true, message: 'Billing address is required' },
-          //   ],
-          //   shippingAddress: [
-          //         { required: true, message: 'Shipping address is required' },
-          //   ],
-          //   paymentTerm: [
-          //         { required: true, message: 'Payment term is required', trigger: 'change' },
-          //   ],
-          //   invoiceNumber: [
-          //         { required: true, message: 'Invoice number is required' },
-          //   ],
-          //   invoiceStatus: [
-          //       { required: true, message: 'Invoice status is required', trigger: 'change' },
-          //   ],
-          //   invoiceDate: [
-          //         { required: true, message: 'Invoice date is required' },
-          //   ],
-          //   dueDate: [
-          //         { required: true, message: 'Due date is required' }
-          //   ],
-          //   shippingVia: [
-          //         { required: true, message: 'Shipping type is required' },
-          //   ],
-          //   trackingNumber: [
-          //         { required: true, message: 'Tracking number is required' },
-          //   ],
-          //   shippingFee: [
-          //         { required: true, message: 'Shipping fee is required' },
-          //     {
-          //       pattern: /^\d+(,\d{3})*(\.\d{1,2})?$/,
-          //       message: 'Invalid price'
-          //     },
-          //   ],
-          // },
-        };
-      },
-      methods: {
-        showDialog() {
-          this.isOpen = true;
-        },
-        resetFields() {
-          this.invoiceForm = {};
-          this.form = {};
-          this.customerServiceForm = {};
-          this.$refs.form.resetFields();
-        },
-        handleCommand() {
-          alert('clicked');
-        },
-        addPaymentHandle() {
-          this.getDates();
-          addPayment({},{amount: this.total,
-            invoiceNo: this.customerServiceForm.invoiceNumber,
-            customer: this.form.billing,
-            invoiceDate: this.customerServiceForm.invoiceDate,
-            dueDate: this.invoiceForm.dueDate,
-            status: this.invoiceForm.status,
-            sales: 'NULL',
-            billingCompany: this.form.billing,
-            billingContact: this.form.billingContact,
-            billingNumber: this.form.billingPhone,
-            billingEmail: this.form.billingEmail,
-            billingAddress: this.form.billingAddress,
-            shippingCompany: this.form.companyName,
-            shippingContact: this.form.contact,
-            shippingNumber: this.form.phone,
-            shippingEmail: this.form.email,
-            shippingAddress: this.form.shippingAddress,
-            note: this.invoiceForm.note,
-            shippingVia: this.customerServiceForm.shippingVia,
-            paymentTerm: this.form.paymentTerm,
-            invoiceType: this.invoiceForm.invoiceType,
-            shippingFee: this.customerServiceForm.shippingFee,
-            trackingNo: this.customerServiceForm.trackingNumber
-          }).then(result => {
-            if (result) {
-              this.$message.success('Save successful!');
-              this.reloadTable();
-              this.isOpen = false;
-            }
-          });
-        },
-        getDates() {
-          let invoice = new Date(this.customerServiceForm.invoiceDate);
-          let due = new Date(this.invoiceForm.dueDate);
+  data: function() {
+    return {
+      isOpen: false,
+      loading: false,
+      append: true,
+      labelPosition: 'right',
 
-          this.customerServiceForm.invoiceDate = invoice.getFullYear()
-              + '-' + (invoice.getMonth()+1)
-              + '-' + invoice.getDate()
-              + ' ' + invoice.getHours()
-              + ':' + invoice.getMinutes();
-          this.invoiceForm.dueDate = due.getFullYear()
-              + '-' + (due.getMonth()+1)
-              + '-' + due.getDate()
-              + ' ' + due.getHours()
-              + ':' + due.getMinutes();
-        },
-        // getTableData(td) {
-        //   this.tableData = td.slice();
-        // }
+    /* RESET THESE */
+      invoiceForm: {
+        dueDate: '',
+        invoiceType: '',
+        note: '',
+        status: '',
       },
-      computed: {
-        tax: function() {
-          let t = 0;
-          let et;
-          const copy = this.tableData.slice();
-          if(copy.length !== 0) {
-            copy.forEach(function(item, index) {
-              if ((item.tax === 'Y')) {
-                et = Number(item.amount) * .0775;
-              } else {
-                et = 0;
-              }
-              t += et;
-            });
-          }
-          return (Math.floor(t * 100) / 100);
-        },
-        total: function() {
-          let tot = 0;
-          const copy = this.tableData.slice();
-          if(copy.length !== 0) {
-            copy.forEach(function(item, index) {
-              tot += item.amount;
-            });
-            tot += this.tax;
-          }
-          if (!isNaN(this.customerServiceForm.shippingFee)) {
-            tot += Number(this.customerServiceForm.shippingFee);
-          }
-          return (Math.floor(tot * 100) / 100);
+
+    /* DROPDOWN OPTIONS */
+      invoiceOptions: [{
+        value: 'RMA',
+        label: 'RMA'
+      }, {
+        value: 'Purchase',
+        label: 'Purchase'
+      }, {
+        value: 'Evaluation',
+        label: 'Evaluation'
+      }, {
+        value: 'Service Plan',
+        label: 'Service Plan'
+      }],
+      statusOptions: [{
+        status: 'refund',
+        label: 'refund'
+      }, {
+        status: 'void',
+        label: 'void'
+      }, {
+        status: 'paid',
+        label: 'paid'
+      }, {
+        status: 'pending',
+        label: 'pending'
+      }, {
+        status: 'overdue',
+        label: 'overdue'
+      }],
+      paymentOptions: [{
+        value: 'Net15',
+        label: 'Net15',
+      }, {
+        value: 'Net30',
+        label: 'Net30',
+      }],
+
+    /* FORM RULES */
+      // formRules: {
+      //   invoiceType: [
+      //           { required: true, message: 'Invoice type is required', trigger: 'change' },
+      //   ],
+      //   billing: [
+      //             { required: true, message: 'Company name is required' },
+      //             { min: 1, message: 'Company name is required'},
+      //     {
+      //       pattern: /^[A-Za-z0-9]+$/,
+      //       message: 'Invalid characters'
+      //     }
+      //   ],
+      //   companyName: [
+      //             { required: true, message: 'Company name is required' },
+      //             { min: 1, message: 'Company name is required'},
+      //     {
+      //       pattern: /^[A-Za-z0-9]+$/,
+      //       message: 'Invalid characters'
+      //     }
+      //   ],
+      //   billingContact: [
+      //             { required: true, message: 'Contact is required' },
+      //             { min: 1, message: 'Contact is required'},
+      //     {
+      //       pattern: /^[A-Za-z0-9]+$/,
+      //       message: 'Invalid characters'
+      //     }
+      //   ],
+      //   contact: [
+      //             { required: true, message: 'Contact is required' },
+      //             { min: 1, message: 'Contact is required'},
+      //     {
+      //       pattern: /^[A-Za-z0-9]+$/,
+      //       message: 'Invalid characters'
+      //     }
+      //   ],
+      //   billingPhone: [
+      //             {required: true, message: 'Phone number is required' },
+      //     {
+      //       pattern: /^(1?(-?\d{3})-?)?(\d{3})(-?\d{4})$/,
+      //       message: 'Phone number is required'
+      //     }
+      //   ],
+      //   phone: [
+      //             {required: true, message: 'Phone number is required' },
+      //     {
+      //       pattern: /^(1?(-?\d{3})-?)?(\d{3})(-?\d{4})$/,
+      //       message: 'Phone number is required'
+      //     }
+      //   ],
+      //   billingEmail: [
+      //             { required: true, message: 'Email is required' },
+      //     {
+      //       pattern: /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,
+      //       message: 'Invalid email'
+      //     }
+      //   ],
+      //   email: [
+      //             { required: true, message: 'Email is required' },
+      //     {
+      //       pattern: /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,
+      //       message: 'Invalid email'
+      //     }
+      //   ],
+      //   billingAddress: [
+      //             { required: true, message: 'Billing address is required' },
+      //   ],
+      //   shippingAddress: [
+      //             { required: true, message: 'Shipping address is required' },
+      //   ],
+      //   paymentTerm: [
+      //             { required: true, message: 'Payment term is required', trigger: 'change' },
+      //   ],
+      //   invoiceNumber: [
+      //             { required: true, message: 'Invoice number is required' },
+      //   ],
+      //   invoiceStatus: [
+      //           { required: true, message: 'Invoice status is required', trigger: 'change' },
+      //   ],
+      //   invoiceDate: [
+      //             { required: true, message: 'Invoice date is required' },
+      //   ],
+      //   dueDate: [
+      //             { required: true, message: 'Due date is required' }
+      //   ],
+      //   shippingVia: [
+      //             { required: true, message: 'Shipping type is required' },
+      //   ],
+      //   trackingNumber: [
+      //             { required: true, message: 'Tracking number is required' },
+      //   ],
+      //   shippingFee: [
+      //             { required: true, message: 'Shipping fee is required' },
+      //     {
+      //       pattern: /^\d+(,\d{3})*(\.\d{1,2})?$/,
+      //       message: 'Invalid price'
+      //     },
+      //   ],
+      // },
+    };
+  },
+
+  props: {
+    form: {
+      type: Object,
+      default: () => ({
+        billing: '',
+        billingContact: '',
+        billingPhone: '',
+        billingEmail: '',
+        billingAddress: '',
+        companyName: '',
+        contact: '',
+        email: '',
+        phone: '',
+        shippingAddress: '',
+        paymentTerm: '',
+      })
+    },
+    customerServiceForm: {
+      type: Object,
+      default: () => ({
+        status: '',
+        invoiceNumber: '',
+        invoiceDate: '',
+        shippingVia: '',
+        trackingNumber: '',
+        shippingFee: '',
+      })
+    },
+    tableData: {
+      type: Array,
+      default: () => [],
+    },
+    reloadTable: Function,
+  },
+
+  methods: {
+    /* AUXILIARY FUNCTIONS */
+    showDialog() {
+      this.isOpen = true;
+    },
+    resetFields() {
+      this.invoiceForm = {};
+      this.form = {};
+      this.customerServiceForm = {};
+      this.$refs.form.resetFields();
+    },
+
+    /* HANDLER FUNCTIONS */
+    addPaymentHandle() {
+      this.getDates();
+      addPayment({},{amount: this.total,
+        invoiceNo: this.customerServiceForm.invoiceNumber,
+        customer: this.form.billing,
+        invoiceDate: this.customerServiceForm.invoiceDate,
+        dueDate: this.invoiceForm.dueDate,
+        status: this.invoiceForm.status,
+        sales: 'NULL',
+        billingCompany: this.form.billing,
+        billingContact: this.form.billingContact,
+        billingNumber: this.form.billingPhone,
+        billingEmail: this.form.billingEmail,
+        billingAddress: this.form.billingAddress,
+        shippingCompany: this.form.companyName,
+        shippingContact: this.form.contact,
+        shippingNumber: this.form.phone,
+        shippingEmail: this.form.email,
+        shippingAddress: this.form.shippingAddress,
+        note: this.invoiceForm.note,
+        shippingVia: this.customerServiceForm.shippingVia,
+        paymentTerm: this.form.paymentTerm,
+        invoiceType: this.invoiceForm.invoiceType,
+        shippingFee: this.customerServiceForm.shippingFee,
+        trackingNo: this.customerServiceForm.trackingNumber
+      }).then(result => {
+        if (result) {
+          this.$message.success('Save successful!');
+          this.reloadTable();
+          this.isOpen = false;
         }
-      }
+      });
+    },
 
+    /* FORMAT INVOICE AND DUE DATES */
+    getDates() {
+      let invoice = new Date(this.customerServiceForm.invoiceDate);
+      let due = new Date(this.invoiceForm.dueDate);
+
+      this.customerServiceForm.invoiceDate = invoice.getFullYear()
+          + '-' + (invoice.getMonth()+1)
+          + '-' + invoice.getDate()
+          + ' ' + invoice.getHours()
+          + ':' + invoice.getMinutes();
+      this.invoiceForm.dueDate = due.getFullYear()
+          + '-' + (due.getMonth()+1)
+          + '-' + due.getDate()
+          + ' ' + due.getHours()
+          + ':' + due.getMinutes();
+    },
+  },
+
+  computed: {
+    tax: function() {
+      let t = 0;
+      let et;
+      const copy = this.tableData.slice();
+      if(copy.length !== 0) {
+        copy.forEach(function(item, index) {
+          if ((item.tax === 'Y')) {
+            et = Number(item.amount) * .0775;
+          } else {
+            et = 0;
+          }
+          t += et;
+        });
+      }
+      return (Math.floor(t * 100) / 100);
+    },
+    total: function() {
+      let tot = 0;
+      const copy = this.tableData.slice();
+      if(copy.length !== 0) {
+        copy.forEach(function(item, index) {
+          tot += item.amount;
+        });
+        tot += this.tax;
+      }
+      if (!isNaN(this.customerServiceForm.shippingFee)) {
+        tot += Number(this.customerServiceForm.shippingFee);
+      }
+      return (Math.floor(tot * 100) / 100);
+    }
+  }
 };
 </script>
 

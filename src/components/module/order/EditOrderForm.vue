@@ -8,8 +8,8 @@
         width="50%"
         :append-to-body="true">
         <div class="form-box">
-            <el-form ref="form" :model="editForm" size="mini" :rules="formRules" style="margin: 0; padding-left: 10px">
-                <el-form-item label="Order Type" prop="orderType">
+            <el-form ref="form" :model="editForm" size="mini" style="margin: 0; padding-left: 10px">
+                <el-form-item label="Order Type">
                     <el-select v-model="editForm.type" placeholder="Select">
                         <el-option
                             v-for="option in orderOptions"
@@ -34,66 +34,66 @@
                     </tr>
                     <tr>
                         <td>
-                            <el-form-item label="Company Name: " prop="billing">
+                            <el-form-item label="Company Name: ">
                                 <el-input v-model="editForm.billingCompany"></el-input>
                             </el-form-item>
                         </td>
                         <td>
-                            <el-form-item label="Company Name: " prop="companyName">
+                            <el-form-item label="Company Name: ">
                                 <el-input v-model="sameAsBilling ? editForm.billingCompany : editForm.shippingCompany" :disabled="sameAsBilling"></el-input>
                             </el-form-item>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <el-form-item label="Contact: " prop="billingContact">
+                            <el-form-item label="Contact: ">
                                 <el-input v-model="editForm.billingContact"></el-input>
                             </el-form-item>
                         </td>
                         <td>
-                            <el-form-item label="Contact: " prop="contact">
+                            <el-form-item label="Contact: ">
                                 <el-input v-model="sameAsBilling ? editForm.billingContact : editForm.shippingContact" :disabled="sameAsBilling"></el-input>
                             </el-form-item>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <el-form-item label="Phone Number: " prop="billingPhone">
+                            <el-form-item label="Phone Number: ">
                                 <el-input v-model="editForm.billingNumber"></el-input>
                             </el-form-item>
                         </td>
                         <td>
-                            <el-form-item label="Phone Number: " prop="phone">
+                            <el-form-item label="Phone Number: ">
                                 <el-input v-model="sameAsBilling ? editForm.billingNumber : editForm.shippingNumber" :disabled="sameAsBilling"></el-input>
                             </el-form-item>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <el-form-item label="Email: " prop="billingEmail">
+                            <el-form-item label="Email: ">
                                 <el-input v-model="editForm.billingEmail"></el-input>
                             </el-form-item>
                         </td>
                         <td>
-                            <el-form-item label="Email: " prop="email">
+                            <el-form-item label="Email: ">
                                 <el-input v-model="sameAsBilling ? editForm.billingEmail : editForm.shippingEmail" :disabled="sameAsBilling"></el-input>
                             </el-form-item>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <el-form-item label="Billing Address: " prop="billingAddress">
+                            <el-form-item label="Billing Address: ">
                                 <el-input v-model="editForm.billingAddress"></el-input>
                             </el-form-item>
                         </td>
                         <td>
-                            <el-form-item label="Shipping Address: " prop="shippingAddress">
+                            <el-form-item label="Shipping Address: ">
                                 <el-input v-model="sameAsBilling ? editForm.billingAddress : editForm.shippingAddress" :disabled="sameAsBilling"></el-input>
                             </el-form-item>
                         </td>
                     </tr>
                 </table>
-                <el-form-item label="Payment Term" prop="paymentTerm">
+                <el-form-item label="Payment Term">
                     <el-select v-model="editForm.paymentTerm" placeholder="Select">
                         <el-option
                             v-for="option in paymentOptions"
@@ -118,11 +118,7 @@
                     style="width: 100%; margin-left: 50px"
                 >
                     <el-table-column label="Product" prop="product" width="150"></el-table-column>
-                    <el-table-column label="QTY" prop="quantity" width="96">
-                        <!--                        <template slot-scope="scope">-->
-                        <!--                            <el-input-number v-model="tableData.quantity" controls-position="right" size="mini"></el-input-number>-->
-                        <!--                        </template>-->
-                    </el-table-column>
+                    <el-table-column label="QTY" prop="quantity" width="96"></el-table-column>
                     <el-table-column label="Rate" prop="rate" width="96"></el-table-column>
                     <el-table-column label="Amount" prop="amount" width="96"></el-table-column>
                     <el-table-column label="Tax" prop="tax" width="50"></el-table-column>
@@ -148,7 +144,7 @@
                 <table style="width: 100%">
                     <tr>
                         <td>
-                            <el-form-item label="Note:" style="display: block; margin-left: 30px; margin-right: 30px" prop="note">
+                            <el-form-item label="Note:" style="display: block; margin-left: 30px; margin-right: 30px">
                                 <el-input
                                     type="textarea"
                                     :rows="2"
@@ -182,7 +178,7 @@
                     <table class="secondaryForm" style="width: 100%; text-align: right">
                         <tr>
                             <td>
-                                <el-form-item label="Status:" prop="status">
+                                <el-form-item label="Status:">
                                     <el-select v-model="editForm.status" placeholder="select" style="width: 160px">
                                         <el-option
                                             v-for="option in statusOptions"
@@ -194,19 +190,19 @@
                                 </el-form-item>
                             </td>
                             <td>
-                                <el-form-item label="Shipping Fee" prop="shippingFee">
+                                <el-form-item label="Shipping Fee">
                                     <el-input v-model="editForm.shippingFee" ></el-input>
                                 </el-form-item>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <el-form-item label="Invoice #" prop="invoiceNumber">
+                                <el-form-item label="Invoice #">
                                     <el-input v-model="editForm.invoiceNo"></el-input>
                                 </el-form-item>
                             </td>
                             <td>
-                                <el-form-item label="Invoice Date" prop="invoiceDate">
+                                <el-form-item label="Invoice Date">
                                     <el-date-picker
                                         v-model="editForm.invoiceDate"
                                         type="datetime"
@@ -218,12 +214,12 @@
                         </tr>
                         <tr>
                             <td>
-                                <el-form-item label="Shipping Via" prop="shippingVia">
+                                <el-form-item label="Shipping Via">
                                     <el-input v-model="editForm.shippingVia"></el-input>
                                 </el-form-item>
                             </td>
                             <td>
-                                <el-form-item label="Tracking Number" prop="trackingNumber">
+                                <el-form-item label="Tracking Number">
                                     <el-input v-model="editForm.trackingNo"></el-input>
                                 </el-form-item>
                             </td>
@@ -255,524 +251,525 @@
 </template>
 
 <script>
-    import { addUser, editUser } from '@/api/getData';
-    import SelectOrgTree from '@/components/common/SelectOrgTree.vue';
-    import { exceptionUtil } from '@/utils/exceptionUtil.js';
-    import { mapActions, mapState } from 'vuex';
-    import ProductDetailForm from './ProductDetailForm.vue';
-    import CreateInvoiceForm from './CreateInvoiceForm.vue';
-    import AccessoryDetailForm from './AccessoryDetailForm.vue';
-    import ServicePlanForm from './ServicePlanForm.vue';
-    import { cancelOrder, deleteOrderItem, editOrder } from '@/api/getData';
+import ProductDetailForm from './ProductDetailForm.vue';
+import CreateInvoiceForm from './CreateInvoiceForm.vue';
+import AccessoryDetailForm from './AccessoryDetailForm.vue';
+import ServicePlanForm from './ServicePlanForm.vue';
+import { cancelOrder, deleteOrderItem, editOrder } from '@/api/getData';
 
-    export default {
-      name: 'EditOrderForm',
-      components: {
-        ServicePlanForm,
-        ProductDetailForm,
-        CreateInvoiceForm,
-        AccessoryDetailForm
-      },
-      props: {
-        editForm: {
-          type: Object,
-          default: () =>({
-            orderId: '',
-            type: '',
-            status: '',
-            invoiceNo: '',
-            invoiceDate: '',
-            trackingNo: '',
-            sales: '',
-            billingCompany: '',
-            billingContact: '',
-            billingAddress: '',
-            billingEmail: '',
-            billingNumber: '',
-            shippingCompany: '',
-            shippingContact: '',
-            shippingAddress: '',
-            shippingNumber: '',
-            shippingEmail: '',
-            paymentTerm: '',
-            shippingVia: '',
-            shippingFee: '',
-            note: '',
-          })
-        },
-        sameAsBilling: Boolean,
-        tableData: {
-          type: Array,
-          default: () => [],
-        },
-        offset: Number,
-        initData: Function,
-      },
-      data: function() {
-        return {
-          loading: false,
-          isOpen: false,
-          sameInfo: false,
-          sameAsBillingBool: 0,
-          newData: [],
-          toDelete: [],
-          itemOffset: this.offset,
-          form: {
-            accName: '',
-            accPrice: '',
-            accQty: '',
-            prodName: '',
-            prodPrice: '',
-            prodQty: '',
-            planQty: '',
-            planAmt: '',
-            planName: '',
-            prodPicked: '',
-            accPicked: '',
-            planPicked: '',
-          },
-          orderOptions: [{
-            value: 'evaluation',
-            label: 'evaluation',
-          }, {
-            value: 'purchase',
-            label: 'purchase',
-          }, {
-            value: 'RMA',
-            label: 'RMA',
-          }],
-          paymentOptions: [{
-            value: 'Net15',
-            label: 'Net15',
-          }, {
-            value: 'Net30',
-            label: 'Net30',
-          }],
-          statusOptions: [{
-            status: 'delivered',
-            label: 'delivered'
-          }, {
-            status: 'cancelled',
-            label: 'cancelled'
-          }, {
-            status: 'shipped',
-            label: 'shipped'
-          }, {
-            status: 'pending',
-            label: 'pending'
-          }, {
-            status: 'new',
-            label: 'new'
-          }],
-          // formRules: {
-          //   type: [
-          //           { required: true, message: 'Order type is required', trigger: 'change' },
-          //   ],
-          //   billingCompany: [
-          //           { required: true, message: 'Company name is required' },
-          //           { min: 1, message: 'Company name is required'},
-          //     {
-          //       pattern: /^[A-Za-z0-9]+$/,
-          //       message: 'Invalid characters'
-          //     }
-          //   ],
-          //   shippingCompany: [
-          //           { required: true, message: 'Company name is required' },
-          //           { min: 1, message: 'Company name is required'},
-          //     {
-          //       pattern: /^[A-Za-z0-9]+$/,
-          //       message: 'Invalid characters'
-          //     }
-          //   ],
-          //   billingContact: [
-          //           { required: true, message: 'Contact is required' },
-          //           { min: 1, message: 'Contact is required'},
-          //     {
-          //       pattern: /^[A-Za-z0-9]+$/,
-          //       message: 'Invalid characters'
-          //     }
-          //   ],
-          //   shippingContact: [
-          //           { required: true, message: 'Contact is required' },
-          //           { min: 1, message: 'Contact is required'},
-          //     {
-          //       pattern: /^[A-Za-z0-9]+$/,
-          //       message: 'Invalid characters'
-          //     }
-          //   ],
-          //   billingNumber: [
-          //           {required: true, message: 'Phone number is required' },
-          //     {
-          //       pattern: /^(1?(-?\d{3})-?)?(\d{3})(-?\d{4})$/,
-          //       message: 'Invalid phone number'
-          //     }
-          //   ],
-          //   shippingNumber: [
-          //           {required: true, message: 'Phone number is required' },
-          //     {
-          //       pattern: /^(1?(-?\d{3})-?)?(\d{3})(-?\d{4})$/,
-          //       message: 'Invalid phone number'
-          //     }
-          //   ],
-          //   billingEmail: [
-          //           { required: true, message: 'Email is required' },
-          //     {
-          //       pattern: /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,
-          //       message: 'Invalid email'
-          //     }
-          //   ],
-          //   shippingEmail: [
-          //           { required: true, message: 'Email is required' },
-          //     {
-          //       pattern: /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,
-          //       message: 'Invalid email'
-          //     }
-          //   ],
-          //   billingAddress: [
-          //           { required: true, message: 'Billing address is required' },
-          //   ],
-          //   shippingAddress: [
-          //           { required: true, message: 'Shipping address is required' },
-          //   ],
-          //   paymentTerm: [
-          //           { required: true, message: 'Payment term is required', trigger: 'change' },
-          //   ],
-          //       // note: [
-          //       //     { max: 200, message: 'Maximum character limit: 200' }
-          //       // ],
-          //   status: [
-          //           { required: true, message: 'Status is required', trigger: 'change' },
-          //   ],
-          //   invoiceNo: [
-          //           { required: true, message: 'Invoice number is required' },
-          //   ],
-          //   invoiceDate: [
-          //           { required: true, message: 'Invoice date is required' },
-          //   ],
-          //   shippingVia: [
-          //           { required: true, message: 'Shipping type is required' },
-          //   ],
-          //   trackingNumber: [
-          //           { required: true, message: 'Tracking number is required' },
-          //   ],
-          //   shippingFee: [
-          //           { required: true, message: 'Shipping fee is required' },
-          //     {
-          //       pattern: /^\d+(,\d{3})*(\.\d{1,2})?$/,
-          //       message: 'Invalid price'
-          //     },
-          //   ],
-          // },
-        };
-      },
-      methods: {
-        showDialog() {
-          this.isOpen = true;
-        },
-        resetFields() {
-          this.tableData = [];
-          this.form = {};
-          this.form.prodPicked = false;
-          this.form.accPicked = false;
-          this.form.planPicked = false;
-          this.customerServiceForm = {};
-          this.sameAsBillingBool = 0;
-          this.sameInfo = false;
-          this.customerServiceForm = {};
-          this.newData = [];
-          this.itemOffset = this.offset;
-          this.$refs.form.resetFields();
-        },
-        handleAddDevice() {
-          this.$refs.productDetailForm.showDialog();
-        },
-        async handleDeleteOrderItem(row, index) {
-          this.toDelete.push(row.itemId);
-          this.tableData.splice(index, 1);
-          let newIndex = index - this.itemOffset;
-          if(newIndex < 0) {
-            this.itemOffset--;
-          } else {
-            this.newData.splice(newIndex, 1);
-          }
-        },
-        handleSaveEdit() {
-          this.toDelete.forEach(function(element) {
-            deleteOrderItem({itemId: element});
-          });
-          editOrder({}, {
-            orderId: this.editForm.orderId,
-            type: this.editForm.type,
-            customer: this.editForm.billingCompany,
-            status: this.editForm.status,
-            invoiceNo: this.editForm.invoiceNo,
-            invoiceDate: this.editForm.invoiceDate,
-            dueDate: this.editForm.dueDate,
-            trackingNo: this.editForm.trackingNo,
-            sales: this.editForm.sales,
-            createTime: 'NULL',
-            modifyTime: 'NULL',
-            orderItems: this.newData,
-            billingCompany: this.editForm.billingCompany,
-            billingContact: this.editForm.billingContact,
-            billingNumber: this.editForm.billingNumber,
-            billingEmail: this.editForm.billingEmail,
-            billingAddress: this.editForm.billingAddress,
-            shippingCompany: this.editForm.shippingCompany,
-            shippingContact: this.editForm.shippingContact,
-            shippingNumber: this.editForm.shippingNumber,
-            shippingEmail: this.editForm.shippingEmail,
-            shippingAddress: this.editForm.shippingAddress,
-            note: this.editForm.note,
-            shippingVia: this.editForm.shippingVia,
-            shippingFee: this.editForm.shippingFee,
-            sameAsBilling: this.sameAsBillingBool,
-            paymentTerm: this.editForm.paymentTerm,
-          });
-          this.initData();
-          this.tableData = [];
-          this.newData = [];
-          this.itemOffset = this.offset;
-          this.isOpen = false;
-        },
-        handleSameInfo() {
-          if (this.sameAsBilling) {
-            this.sameAsBillingBool = 1;
-            this.editForm.shippingCompany = this.editForm.billingCompany;
-            this.editForm.shippingContact = this.editForm.billingContact;
-            this.editForm.shippingNumber = this.editForm.billingNumber;
-            this.editForm.shippingEmail = this.editForm.billingEmail;
-            this.editForm.shippingAddress = this.editForm.billingAddress;
-          } else {
-            this.editForm.shippingCompany = '';
-            this.editForm.shippingContact = '';
-            this.editForm.shippingNumber = '';
-            this.editForm.shippingEmail = '';
-            this.editForm.shippingAddress = '';
-          }
-        },
-        handleAddAccessories() {
-          this.$refs.accessoryDetailForm.showDialog();
-        },
-        async handleCancel() {
-          await cancelOrder({orderId: this.editForm.orderId}, {});
-          this.initData();
-          this.isOpen = false;
-        },
-        handleAddService() {
-          this.$refs.servicePlanForm.showDialog();
-        },
-        getDates() {
-          let invoice = new Date(this.customerServiceForm.invoiceDate);
-          let due = new Date(this.customerServiceForm.invoiceDate);
+export default {
+  name: 'EditOrderForm',
 
-          if (this.form.paymentTerm === 'Net15') {
-            due.setDate(this.customerServiceForm.invoiceDate.getDate()+15);
-          } else {
-            due.setDate(this.customerServiceForm.invoiceDate.getDate()+30);
-          }
+  components: {
+    ServicePlanForm,
+    ProductDetailForm,
+    CreateInvoiceForm,
+    AccessoryDetailForm
+  },
 
-          this.customerServiceForm.invoiceDate = invoice.getFullYear()
-                    + '-' + (invoice.getMonth()+1)
-                    + '-' + invoice.getDate()
-                    + ' ' + invoice.getHours()
-                    + ':' + invoice.getMinutes();
-          this.customerServiceForm.dueDate = due.getFullYear()
-                    + '-' + (due.getMonth()+1)
-                    + '-' + due.getDate()
-                    + ' ' + due.getHours()
-                    + ':' + due.getMinutes();
-        },
-        getAccessoryInfo(n, p, q) {
-          this.form.accName = n;
-          this.form.accPrice = p;
-          this.form.accQty = q;
-          const data = {orderId: '',
-            product: this.form.accName,
-            quantity: this.form.accQty,
-            rate: this.form.accPrice,
-            amount: Number(this.form.accPrice) * Number(this.form.accQty),
-            tax: 'Y',
-            description: this.form.accQty + ' * ' + this.form.accName,
-            invoiceNo: this.editForm.invoiceNo
-          };
-          this.tableData.push(data);
-          this.newData.push(data);
-        },
-        getProductInfo(n, p, q) {
-          this.form.prodName = n;
-          this.form.prodPrice = p;
-          this.form.prodQty = q;
-          const data = {orderId: '',
-            product: this.form.prodName,
-            quantity: this.form.prodQty,
-            rate: this.form.prodPrice,
-            amount: Number(this.form.prodPrice) * Number(this.form.prodQty),
-            tax: 'Y',
-            description: this.form.prodQty + ' * ' + this.form.prodName,
-            invoiceNo: this.editForm.invoiceNo
+  data: function() {
+    return {
+      loading: false,
+      isOpen: false,
 
-          };
-          this.tableData.push(data);
-          this.newData.push(data);
-        },
-        getServicePlanFee(q, a, n) {
-          this.form.planQty = q;
-          this.form.planAmt = a;
-          this.form.planName = n;
-          const data = {orderId: '',
-            product: this.form.planName,
-            quantity: this.form.planQty,
-            rate: this.form.planAmt,
-            amount: Number(this.form.planAmt) * Number(this.form.planQty),
-            tax: 'N',
-            description: this.form.planQty + ' * ' + this.form.planName,
-            invoiceNo: this.editForm.invoiceNo
-
-          };
-          this.tableData.push(data);
-          this.newData.push(data);
-        },
-        getProdAndAccInfo(pn, pp, pq, an, ap, aq) {
-          this.form.prodName = pn;
-          this.form.prodPrice = pp;
-          this.form.prodQty = pq;
-          this.form.accName = an;
-          this.form.accPrice = ap;
-          this.form.accQty = aq;
-          const data = {orderId: '',
-            product: this.form.prodName,
-            quantity: this.form.prodQty,
-            rate: this.form.prodPrice,
-            amount: Number(this.form.prodPrice) * Number(this.form.prodQty),
-            tax: 'Y',
-            description: this.form.prodQty + ' * ' + this.form.prodName,
-            invoiceNo: this.editForm.invoiceNo
-
-          };
-          this.tableData.push(data);
-          this.newData.push(data);
-          const data2 = {orderId: '',
-            product: this.form.accName,
-            quantity: this.form.accQty,
-            rate: this.form.accPrice,
-            amount: Number(this.form.accPrice) * Number(this.form.accQty),
-            tax: 'Y',
-            description: this.form.accQty + ' * ' + this.form.accName,
-            invoiceNo: this.editForm.invoiceNo
-
-          };
-          this.tableData.push(data2);
-          this.newData.push(data2);
-        },
-        getProdAndPlanInfo(pn, pp, pq, sq, sa, sn) {
-          this.form.prodName = pn;
-          this.form.prodPrice = pp;
-          this.form.prodQty = pq;
-          this.form.planQty = sq;
-          this.form.planAmt = sa;
-          this.form.planName = sn;
-          const data = {orderId: '',
-            product: this.form.prodName,
-            quantity: this.form.prodQty,
-            rate: this.form.prodPrice,
-            amount: Number(this.form.prodPrice) * Number(this.form.prodQty),
-            tax: 'Y',
-            description: this.form.prodQty + ' * ' + this.form.prodName,
-            invoiceNo: this.editForm.invoiceNo
-
-          };
-          this.tableData.push(data);
-          this.newData.push(data);
-          const data2 = {orderId: '',
-            product: this.form.planName,
-            quantity: this.form.planQty,
-            rate: this.form.planAmt,
-            amount: Number(this.form.planAmt) * Number(this.form.planQty),
-            tax: 'N',
-            description: this.form.planQty + ' * ' + this.form.planName,
-            invoiceNo: this.editForm.invoiceNo
-
-          };
-          this.tableData.push(data2);
-          this.newData.push(data2);
-        },
-        getAllInfo(pn, pp, pq, an, ap, aq, sq, sa, sn) {
-          this.form.prodName = pn;
-          this.form.prodPrice = pp;
-          this.form.prodQty = pq;
-          this.form.accName = an;
-          this.form.accPrice = ap;
-          this.form.accQty = aq;
-          this.form.planQty = sq;
-          this.form.planAmt = sa;
-          this.form.planName = sn;
-          const data = {orderId: '',
-            product: this.form.prodName,
-            quantity: this.form.prodQty,
-            rate: this.form.prodPrice,
-            amount: Number(this.form.prodPrice) * Number(this.form.prodQty),
-            tax: 'Y',
-            description: this.form.prodQty + ' * ' + this.form.prodName,
-            invoiceNo: this.editForm.invoiceNo
-
-          };
-          this.tableData.push(data);
-          this.newData.push(data);
-          const data2 = {orderId: '',
-            product: this.form.accName,
-            quantity: this.form.accQty,
-            rate: this.form.accPrice,
-            amount: Number(this.form.accPrice) * Number(this.form.accQty),
-            tax: 'Y',
-            description: this.form.accQty + ' * ' + this.form.accName,
-            invoiceNo: this.editForm.invoiceNo
-
-          };
-          this.tableData.push(data2);
-          this.newData.push(data2);
-          const data3 = {orderId: '',
-            product: this.form.planName,
-            quantity: this.form.planQty,
-            rate: this.form.planAmt,
-            amount: Number(this.form.planAmt) * Number(this.form.planQty),
-            tax: 'N',
-            description: this.form.planQty + ' * ' + this.form.planName,
-            invoiceNo: this.editForm.invoiceNo
-
-          };
-          this.tableData.push(data3);
-          this.newData.push(data3);
-        },
+    /* RESET THESE */
+      sameInfo: false,
+      sameAsBillingBool: 0,
+      itemOffset: this.offset,
+      newData: [],
+      toDelete: [],
+      form: {
+        accName: '',
+        accPrice: '',
+        accQty: '',
+        prodName: '',
+        prodPrice: '',
+        prodQty: '',
+        planQty: '',
+        planAmt: '',
+        planName: '',
+        prodPicked: '',
+        accPicked: '',
+        planPicked: '',
       },
 
-      computed: {
-        tax: function() {
-          let t = 0;
-          let et;
-          const copy = this.tableData.slice();
-          copy.forEach(function(item, index) {
-            if ((item.tax === 'Y')) {
-              et = Number(item.amount) * .0775;
-            } else {
-              et = 0;
-            }
-            t += et;
-          });
-          return (Math.floor(t * 100) / 100);
-        },
-        total: function() {
-          let t = 0;
-          const copy = this.tableData.slice();
-          copy.forEach(function(item, index) {
-            t += item.amount;
-          });
-          const tot = t + this.tax;
-          return (Math.floor(tot * 100) / 100);
-        }
-      },
+    /* DROPDOWN OPTIONS */
+      orderOptions: [{
+        value: 'evaluation',
+        label: 'evaluation',
+      }, {
+        value: 'purchase',
+        label: 'purchase',
+      }, {
+        value: 'RMA',
+        label: 'RMA',
+      }],
+      paymentOptions: [{
+        value: 'Net15',
+        label: 'Net15',
+      }, {
+        value: 'Net30',
+        label: 'Net30',
+      }],
+      statusOptions: [{
+        status: 'delivered',
+        label: 'delivered'
+      }, {
+        status: 'cancelled',
+        label: 'cancelled'
+      }, {
+        status: 'shipped',
+        label: 'shipped'
+      }, {
+        status: 'pending',
+        label: 'pending'
+      }, {
+        status: 'new',
+        label: 'new'
+      }],
 
+    /* FORM RULES */
+      // formRules: {
+      //   type: [
+      //               { required: true, message: 'Order type is required', trigger: 'change' },
+      //   ],
+      //   billingCompany: [
+      //               { required: true, message: 'Company name is required' },
+      //               { min: 1, message: 'Company name is required'},
+      //     {
+      //       pattern: /^[A-Za-z0-9]+$/,
+      //       message: 'Invalid characters'
+      //     }
+      //   ],
+      //   shippingCompany: [
+      //               { required: true, message: 'Company name is required' },
+      //               { min: 1, message: 'Company name is required'},
+      //     {
+      //       pattern: /^[A-Za-z0-9]+$/,
+      //       message: 'Invalid characters'
+      //     }
+      //   ],
+      //   billingContact: [
+      //               { required: true, message: 'Contact is required' },
+      //               { min: 1, message: 'Contact is required'},
+      //     {
+      //       pattern: /^[A-Za-z0-9]+$/,
+      //       message: 'Invalid characters'
+      //     }
+      //   ],
+      //   shippingContact: [
+      //               { required: true, message: 'Contact is required' },
+      //               { min: 1, message: 'Contact is required'},
+      //     {
+      //       pattern: /^[A-Za-z0-9]+$/,
+      //       message: 'Invalid characters'
+      //     }
+      //   ],
+      //   billingNumber: [
+      //               {required: true, message: 'Phone number is required' },
+      //     {
+      //       pattern: /^(1?(-?\d{3})-?)?(\d{3})(-?\d{4})$/,
+      //       message: 'Invalid phone number'
+      //     }
+      //   ],
+      //   shippingNumber: [
+      //               {required: true, message: 'Phone number is required' },
+      //     {
+      //       pattern: /^(1?(-?\d{3})-?)?(\d{3})(-?\d{4})$/,
+      //       message: 'Invalid phone number'
+      //     }
+      //   ],
+      //   billingEmail: [
+      //               { required: true, message: 'Email is required' },
+      //     {
+      //       pattern: /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,
+      //       message: 'Invalid email'
+      //     }
+      //   ],
+      //   shippingEmail: [
+      //               { required: true, message: 'Email is required' },
+      //     {
+      //       pattern: /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,
+      //       message: 'Invalid email'
+      //     }
+      //   ],
+      //   billingAddress: [
+      //               { required: true, message: 'Billing address is required' },
+      //   ],
+      //   shippingAddress: [
+      //               { required: true, message: 'Shipping address is required' },
+      //   ],
+      //   paymentTerm: [
+      //               { required: true, message: 'Payment term is required', trigger: 'change' },
+      //   ],
+      //           // note: [
+      //           //     { max: 200, message: 'Maximum character limit: 200' }
+      //           // ],
+      //   status: [
+      //               { required: true, message: 'Status is required', trigger: 'change' },
+      //   ],
+      //   invoiceNo: [
+      //               { required: true, message: 'Invoice number is required' },
+      //   ],
+      //   invoiceDate: [
+      //               { required: true, message: 'Invoice date is required' },
+      //   ],
+      //   shippingVia: [
+      //               { required: true, message: 'Shipping type is required' },
+      //   ],
+      //   trackingNumber: [
+      //               { required: true, message: 'Tracking number is required' },
+      //   ],
+      //   shippingFee: [
+      //               { required: true, message: 'Shipping fee is required' },
+      //     {
+      //       pattern: /^\d+(,\d{3})*(\.\d{1,2})?$/,
+      //       message: 'Invalid price'
+      //     },
+      //   ],
+      // },
     };
+  },
+
+  props: {
+    editForm: {
+      type: Object,
+      default: () =>({
+        orderId: '',
+        type: '',
+        status: '',
+        invoiceNo: '',
+        invoiceDate: '',
+        trackingNo: '',
+        sales: '',
+        billingCompany: '',
+        billingContact: '',
+        billingAddress: '',
+        billingEmail: '',
+        billingNumber: '',
+        shippingCompany: '',
+        shippingContact: '',
+        shippingAddress: '',
+        shippingNumber: '',
+        shippingEmail: '',
+        paymentTerm: '',
+        shippingVia: '',
+        shippingFee: '',
+        note: '',
+      })
+    },
+    tableData: {
+      type: Array,
+      default: () => [],
+    },
+    sameAsBilling: Boolean,
+    offset: Number,
+    initData: Function,
+  },
+
+  methods: {
+    /* AUXILIARY FUNCTIONS */
+    showDialog() {
+      this.isOpen = true;
+    },
+    resetFields() {
+      this.sameInfo = false;
+      this.sameAsBillingBool = 0;
+      this.itemOffset = this.offset;
+      this.newData = [];
+      this.toDelete = [];
+      this.form = {};
+      this.$refs.form.resetFields();
+    },
+
+    /* HANDLER FUNCTIONS */
+    handleSameInfo() {
+      if (this.sameAsBilling) {
+        this.sameAsBillingBool = 1;
+        this.editForm.shippingCompany = this.editForm.billingCompany;
+        this.editForm.shippingContact = this.editForm.billingContact;
+        this.editForm.shippingNumber = this.editForm.billingNumber;
+        this.editForm.shippingEmail = this.editForm.billingEmail;
+        this.editForm.shippingAddress = this.editForm.billingAddress;
+      } else {
+        this.editForm.shippingCompany = '';
+        this.editForm.shippingContact = '';
+        this.editForm.shippingNumber = '';
+        this.editForm.shippingEmail = '';
+        this.editForm.shippingAddress = '';
+      }
+    },
+    handleDeleteOrderItem(row, index) {
+      this.toDelete.push(row.itemId);
+      this.tableData.splice(index, 1);
+      let newIndex = index - this.itemOffset;
+      if(newIndex < 0) {
+        this.itemOffset--;
+      } else {
+        this.newData.splice(newIndex, 1);
+      }
+    },
+    async handleCancel() {
+      await cancelOrder({orderId: this.editForm.orderId}, {});
+      this.initData();
+      this.isOpen = false;
+    },
+    handleSaveEdit() {
+      this.toDelete.forEach(function(element) {
+        deleteOrderItem({itemId: element});
+      });
+      editOrder({}, {
+        orderId: this.editForm.orderId,
+        type: this.editForm.type,
+        customer: this.editForm.billingCompany,
+        status: this.editForm.status,
+        invoiceNo: this.editForm.invoiceNo,
+        invoiceDate: this.editForm.invoiceDate,
+        dueDate: this.editForm.dueDate,
+        trackingNo: this.editForm.trackingNo,
+        sales: this.editForm.sales,
+        createTime: 'NULL',
+        modifyTime: 'NULL',
+        orderItems: this.newData,
+        billingCompany: this.editForm.billingCompany,
+        billingContact: this.editForm.billingContact,
+        billingNumber: this.editForm.billingNumber,
+        billingEmail: this.editForm.billingEmail,
+        billingAddress: this.editForm.billingAddress,
+        shippingCompany: this.editForm.shippingCompany,
+        shippingContact: this.editForm.shippingContact,
+        shippingNumber: this.editForm.shippingNumber,
+        shippingEmail: this.editForm.shippingEmail,
+        shippingAddress: this.editForm.shippingAddress,
+        note: this.editForm.note,
+        shippingVia: this.editForm.shippingVia,
+        shippingFee: this.editForm.shippingFee,
+        sameAsBilling: this.sameAsBillingBool,
+        paymentTerm: this.editForm.paymentTerm,
+      });
+      this.initData();
+      this.tableData = [];
+      this.newData = [];
+      this.itemOffset = this.offset;
+      this.isOpen = false;
+    },
+
+    /* HANDLERS FOR SHOWING PRODUCT FORMS */
+    handleAddDevice() {
+      this.$refs.productDetailForm.showDialog();
+    },
+    handleAddAccessories() {
+      this.$refs.accessoryDetailForm.showDialog();
+    },
+    handleAddService() {
+      this.$refs.servicePlanForm.showDialog();
+    },
+
+    /* FORMAT INVOICE AND DUE DATES */
+    getDates() {
+      let invoice = new Date(this.customerServiceForm.invoiceDate);
+      let due = new Date(this.customerServiceForm.invoiceDate);
+
+      if (this.form.paymentTerm === 'Net15') {
+        due.setDate(this.customerServiceForm.invoiceDate.getDate()+15);
+      } else {
+        due.setDate(this.customerServiceForm.invoiceDate.getDate()+30);
+      }
+
+      this.customerServiceForm.invoiceDate = invoice.getFullYear()
+          + '-' + (invoice.getMonth()+1)
+          + '-' + invoice.getDate()
+          + ' ' + invoice.getHours()
+          + ':' + invoice.getMinutes();
+      this.customerServiceForm.dueDate = due.getFullYear()
+          + '-' + (due.getMonth()+1)
+          + '-' + due.getDate()
+          + ' ' + due.getHours()
+          + ':' + due.getMinutes();
+    },
+
+    /* GET ACCESSORIES, PRODUCTS, AND SERVICE PLANS FOR TABLE */
+    getAccessoryInfo(n, p, q) {
+      this.form.accName = n;
+      this.form.accPrice = p;
+      this.form.accQty = q;
+      const data = {orderId: '',
+        product: this.form.accName,
+        quantity: this.form.accQty,
+        rate: this.form.accPrice,
+        amount: Number(this.form.accPrice) * Number(this.form.accQty),
+        tax: 'Y',
+        description: this.form.accQty + ' * ' + this.form.accName,
+        invoiceNo: this.editForm.invoiceNo
+      };
+      this.tableData.push(data);
+      this.newData.push(data);
+    },
+    getProductInfo(n, p, q) {
+      this.form.prodName = n;
+      this.form.prodPrice = p;
+      this.form.prodQty = q;
+      const data = {orderId: '',
+        product: this.form.prodName,
+        quantity: this.form.prodQty,
+        rate: this.form.prodPrice,
+        amount: Number(this.form.prodPrice) * Number(this.form.prodQty),
+        tax: 'Y',
+        description: this.form.prodQty + ' * ' + this.form.prodName,
+        invoiceNo: this.editForm.invoiceNo
+      };
+      this.tableData.push(data);
+      this.newData.push(data);
+    },
+    getServicePlanFee(q, a, n) {
+      this.form.planQty = q;
+      this.form.planAmt = a;
+      this.form.planName = n;
+      const data = {orderId: '',
+        product: this.form.planName,
+        quantity: this.form.planQty,
+        rate: this.form.planAmt,
+        amount: Number(this.form.planAmt) * Number(this.form.planQty),
+        tax: 'N',
+        description: this.form.planQty + ' * ' + this.form.planName,
+        invoiceNo: this.editForm.invoiceNo
+      };
+      this.tableData.push(data);
+      this.newData.push(data);
+    },
+    getProdAndAccInfo(pn, pp, pq, an, ap, aq) {
+      this.form.prodName = pn;
+      this.form.prodPrice = pp;
+      this.form.prodQty = pq;
+      this.form.accName = an;
+      this.form.accPrice = ap;
+      this.form.accQty = aq;
+      const data = {orderId: '',
+        product: this.form.prodName,
+        quantity: this.form.prodQty,
+        rate: this.form.prodPrice,
+        amount: Number(this.form.prodPrice) * Number(this.form.prodQty),
+        tax: 'Y',
+        description: this.form.prodQty + ' * ' + this.form.prodName,
+        invoiceNo: this.editForm.invoiceNo
+      };
+      this.tableData.push(data);
+      this.newData.push(data);
+      const data2 = {orderId: '',
+        product: this.form.accName,
+        quantity: this.form.accQty,
+        rate: this.form.accPrice,
+        amount: Number(this.form.accPrice) * Number(this.form.accQty),
+        tax: 'Y',
+        description: this.form.accQty + ' * ' + this.form.accName,
+        invoiceNo: this.editForm.invoiceNo
+      };
+      this.tableData.push(data2);
+      this.newData.push(data2);
+    },
+    getProdAndPlanInfo(pn, pp, pq, sq, sa, sn) {
+      this.form.prodName = pn;
+      this.form.prodPrice = pp;
+      this.form.prodQty = pq;
+      this.form.planQty = sq;
+      this.form.planAmt = sa;
+      this.form.planName = sn;
+      const data = {orderId: '',
+        product: this.form.prodName,
+        quantity: this.form.prodQty,
+        rate: this.form.prodPrice,
+        amount: Number(this.form.prodPrice) * Number(this.form.prodQty),
+        tax: 'Y',
+        description: this.form.prodQty + ' * ' + this.form.prodName,
+        invoiceNo: this.editForm.invoiceNo
+      };
+      this.tableData.push(data);
+      this.newData.push(data);
+      const data2 = {orderId: '',
+        product: this.form.planName,
+        quantity: this.form.planQty,
+        rate: this.form.planAmt,
+        amount: Number(this.form.planAmt) * Number(this.form.planQty),
+        tax: 'N',
+        description: this.form.planQty + ' * ' + this.form.planName,
+        invoiceNo: this.editForm.invoiceNo
+      };
+      this.tableData.push(data2);
+      this.newData.push(data2);
+    },
+    getAllInfo(pn, pp, pq, an, ap, aq, sq, sa, sn) {
+      this.form.prodName = pn;
+      this.form.prodPrice = pp;
+      this.form.prodQty = pq;
+      this.form.accName = an;
+      this.form.accPrice = ap;
+      this.form.accQty = aq;
+      this.form.planQty = sq;
+      this.form.planAmt = sa;
+      this.form.planName = sn;
+      const data = {orderId: '',
+        product: this.form.prodName,
+        quantity: this.form.prodQty,
+        rate: this.form.prodPrice,
+        amount: Number(this.form.prodPrice) * Number(this.form.prodQty),
+        tax: 'Y',
+        description: this.form.prodQty + ' * ' + this.form.prodName,
+        invoiceNo: this.editForm.invoiceNo
+      };
+      this.tableData.push(data);
+      this.newData.push(data);
+      const data2 = {orderId: '',
+        product: this.form.accName,
+        quantity: this.form.accQty,
+        rate: this.form.accPrice,
+        amount: Number(this.form.accPrice) * Number(this.form.accQty),
+        tax: 'Y',
+        description: this.form.accQty + ' * ' + this.form.accName,
+        invoiceNo: this.editForm.invoiceNo
+      };
+      this.tableData.push(data2);
+      this.newData.push(data2);
+      const data3 = {orderId: '',
+        product: this.form.planName,
+        quantity: this.form.planQty,
+        rate: this.form.planAmt,
+        amount: Number(this.form.planAmt) * Number(this.form.planQty),
+        tax: 'N',
+        description: this.form.planQty + ' * ' + this.form.planName,
+        invoiceNo: this.editForm.invoiceNo
+      };
+      this.tableData.push(data3);
+      this.newData.push(data3);
+    },
+  },
+
+  computed: {
+    tax: function() {
+      let t = 0;
+      let et;
+      const copy = this.tableData.slice();
+      copy.forEach(function(item, index) {
+        if ((item.tax === 'Y')) {
+          et = Number(item.amount) * .0775;
+        } else {
+          et = 0;
+        }
+        t += et;
+      });
+      return (Math.floor(t * 100) / 100);
+    },
+    total: function() {
+      let t = 0;
+      const copy = this.tableData.slice();
+      copy.forEach(function(item, index) {
+        t += item.amount;
+      });
+      const tot = t + this.tax;
+      return (Math.floor(tot * 100) / 100);
+    }
+  },
+
+};
 </script>
 
 <style scoped>

@@ -103,8 +103,8 @@
                     <el-collapse-item title="Price" v-if="form3.showPrice" name="4">
                         <el-row>
                             <el-col :span="10" :offset="6">
-                                <el-form ref="form" :model="form3" :rules="formRules" size="mini" align="right">
-                                    <el-form-item label="Unit Price $" prop="price">
+                                <el-form ref="form" :model="form3" size="mini" align="right">
+                                    <el-form-item label="Unit Price $">
                                         <el-input v-model="form3.price" style="width: 150px; "></el-input>
                                     </el-form-item>
                                     <el-form-item label="Quantity">
@@ -115,12 +115,12 @@
                                                 style="width: 150px">
                                         </el-input-number>
                                     </el-form-item>
-                                    <el-form-item label="Service Plan $" prop="servicePlan">
+                                    <el-form-item label="Service Plan $">
                                         <el-input v-model="form3.servicePlan" style="width: 150px"></el-input>
                                     </el-form-item>
                                     <el-form-item v-if="form3.accPicked" label="Accessory ">
                                         <el-form-item align="center" style="padding-right: 30px">{{ form3.accName }}</el-form-item>
-                                        <el-form-item prop="accPrice">
+                                        <el-form-item>
                                             <el-input v-model="form3.accPrice" style="width: 150px;"></el-input>
                                         </el-form-item>
                                         <el-form-item>
@@ -156,19 +156,20 @@ import ServicePlanForm from './ServicePlanForm.vue';
 
 export default {
   name: 'ProductDetailForm',
-  productCodeData: [],
+
   components: {
     ConfirmationForm,
     AccessoryDetailForm,
     ServicePlanForm
   },
+
   data: function() {
     return {
       loading: false,
       isOpen: false,
       append: true,
-      tableData: [{
-      }],
+
+    /* RESET THESE */
       form3: {
         productName: 'Type',
         activeName: '1',
@@ -189,15 +190,9 @@ export default {
         planAmt: '',
         planName: '',
         servicePlan: '',
-        choices: [{
-          value: 'Yes',
-          label: 'Yes'
-        }, {
-          value: 'No',
-          label: 'No'
-        }],
-        tax: 'Yes',
       },
+
+    /* FORM RULES */
       // formRules: {
       //   price: [
       //         { required: true, message: 'Unit price is required' },
@@ -223,37 +218,50 @@ export default {
       // },
     };
   },
+
   methods: {
+    /* AUXILIARY FUNCTIONS */
     showDialog() {
       this.isOpen = true;
     },
     resetFields() {
+      this.form3.productName = 'Type';
       this.form3.activeName = '1';
       this.form3.isTrackLight = true;
-      this.form3.productName = 'Type';
-      this.form3.QTY = '';
-      this.form3.price = '';
-      this.form3.servicePlan = '';
-      this.form3.network = 'Network';
-      this.form3.color = 'Color';
-      this.form3.tax = 'Yes';
       this.form3.namePicked = false;
       this.form3.networkPicked = false;
       this.form3.showPrice = false;
+      this.form3.network = 'Network';
+      this.form3.color = 'Color';
+      this.form3.QTY = '';
+      this.form3.price = '';
       this.form3.accName = '';
       this.form3.accPrice = '';
-      this.form3.accQty = '';
+      this.form3.accQty = 1;
       this.form3.accPicked = false;
       this.form3.planPicked = false;
+      this.form3.planQty = '';
+      this.form3.planAmt = '';
+      this.form3.planName = '';
+      this.form3.servicePlan = '';
       this.$refs.form.resetFields();
     },
+
+    /* HANDLER FUNCTIONS */
     handleNext(number) {
       let tempNum = Number(this.form3.activeName);
       let nextNum = tempNum + number;
       this.form3.activeName = nextNum.toString();
     },
-    handleSave() {
-      this.$refs.confirmationForm.showDialog();
+    handleNetworkClick(speed) {
+      this.form3.network = speed;
+      this.form3.networkPicked = true;
+      this.handleNext(1);
+    },
+    handleColorClick(color) {
+      this.form3.color = color;
+      this.form3.showPrice = true;
+      this.handleNext(1);
     },
     handleNameClick(num) {
       if (this.form3.productName === 'Type') {
@@ -304,36 +312,6 @@ export default {
         }
       }
     },
-    handleNetworkClick(speed) {
-      this.form3.network = speed;
-      this.form3.networkPicked = true;
-      this.handleNext(1);
-    },
-    handleColorClick(color) {
-      this.form3.color = color;
-      this.form3.showPrice = true;
-      this.handleNext(1);
-    },
-    handleAccessories() {
-      this.$refs.accessoryDetailForm.showDialog();
-    },
-    getAccessoryInfo(n, p, q) {
-      this.form3.accPicked = true;
-      this.form3.accName = n;
-      this.form3.accPrice = p;
-      this.form3.accQty = q;
-    },
-    handleNetwork() {
-      this.$refs.servicePlanForm.showDialog();
-    },
-    getServicePlanFee(qty, amt, name) {
-      this.form3.planPicked = true;
-      this.form3.planQty = qty;
-      this.form3.planAmt = amt;
-      this.form3.planName = name;
-      let price = qty * amt;
-      this.form3.servicePlan = price.toString();
-    },
     handleAddClick(event) {
       let state = 0;
       if (this.form3.accPicked === true) {
@@ -347,18 +325,43 @@ export default {
         this.$emit('productAdded', this.fullProductCode, this.form3.price, this.form3.QTY);
       }      else if (state === 1) {
         this.$emit('prodAndAccAdded', this.fullProductCode, this.form3.price, this.form3.QTY,
-              this.form3.accName, this.form3.accPrice, this.form3.accQty);
+                  this.form3.accName, this.form3.accPrice, this.form3.accQty);
       }      else if (state === 2) {
         this.$emit('prodAndPlanAdded', this.fullProductCode, this.form3.price, this.form3.QTY,
-              this.form3.planQty, this.form3.planAmt, this.form3.planName);
+                  this.form3.planQty, this.form3.planAmt, this.form3.planName);
       }      else {
         this.$emit('allAdded', this.fullProductCode, this.form3.price,
-              this.form3.QTY, this.form3.accName, this.form3.accPrice, this.form3.accQty,
-              this.form3.planQty, this.form3.planAmt, this.form3.planName);
+                  this.form3.QTY, this.form3.accName, this.form3.accPrice, this.form3.accQty,
+                  this.form3.planQty, this.form3.planAmt, this.form3.planName);
       }
       this.isOpen = false;
-    }
+    },
+
+    /* HANDLERS TO SHOW PRODUCT FORMS */
+    handleAccessories() {
+      this.$refs.accessoryDetailForm.showDialog();
+    },
+    handleNetwork() {
+      this.$refs.servicePlanForm.showDialog();
+    },
+
+    /* GET ACCESSORIES, PRODUCTS, AND SERVICE PLANS FOR TABLE */
+    getAccessoryInfo(n, p, q) {
+      this.form3.accPicked = true;
+      this.form3.accName = n;
+      this.form3.accPrice = p;
+      this.form3.accQty = q;
+    },
+    getServicePlanFee(qty, amt, name) {
+      this.form3.planPicked = true;
+      this.form3.planQty = qty;
+      this.form3.planAmt = amt;
+      this.form3.planName = name;
+      let price = qty * amt;
+      this.form3.servicePlan = price.toString();
+    },
   },
+
   computed: {
     fullProductCode: function() {
       if (this.form3.isTrackLight === true) {
@@ -377,7 +380,6 @@ export default {
   }
 };
 </script>
-
 
 <style scoped>
     .containerButton {
@@ -418,6 +420,5 @@ export default {
     .containerButton:hover .overlay {
         opacity: 0.75;
     }
-
 
 </style>
