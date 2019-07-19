@@ -237,7 +237,7 @@
                             </td>
                             <td>
                                 <el-form-item>
-                                    <el-button type="primary" @click="handleCreateInvoice('form', 'customerServiceForm')">Submit and Create Invoice</el-button>
+                                    <el-button type="primary" @click="handleCreateInvoice">Submit and Create Invoice</el-button>
                                 </el-form-item>
                             </td>
                         </tr>
@@ -256,35 +256,34 @@
 </template>
 
 <script>
-import { addUser, editUser } from '@/api/getData';
-import SelectOrgTree from '@/components/common/SelectOrgTree.vue';
-import { exceptionUtil } from '@/utils/exceptionUtil.js';
-import { mapActions, mapState } from 'vuex';
 import ProductDetailForm from './ProductDetailForm.vue';
 import CreateInvoiceForm from './CreateInvoiceForm.vue';
 import AccessoryDetailForm from './AccessoryDetailForm.vue';
 import ServicePlanForm from './ServicePlanForm.vue';
-import { addOrder, addOrderItem } from '@/api/getData';
+import { addOrder } from '@/api/getData';
 
 export default {
   name: 'AddOrderForm',
+
   components: {
     ServicePlanForm,
     ProductDetailForm,
     CreateInvoiceForm,
     AccessoryDetailForm
   },
+
   data: function() {
     return {
       loading: false,
       isOpen: false,
+
+    /* RESET THESE */
       sameInfo: false,
       sameAsBilling: false,
       sameAsBillingBool: 0,
       tableData: [],
       formCopy: {},
       customerServiceFormCopy: {},
-      currentOrderId: '',
       form: {
         billing: '',
         billingContact: '',
@@ -309,6 +308,17 @@ export default {
         planAmt: '',
         planName: '',
       },
+      customerServiceForm: {
+        status: '',
+        invoiceNumber: '',
+        invoiceDate: '',
+        dueDate: '',
+        shippingVia: '',
+        trackingNumber: '',
+        shippingFee: '',
+      },
+
+    /* DROPDOWN OPTIONS */
       orderOptions: [{
         value: 'evaluation',
         label: 'evaluation',
@@ -342,15 +352,8 @@ export default {
         status: 'new',
         label: 'new'
       }],
-      customerServiceForm: {
-        status: '',
-        invoiceNumber: '',
-        invoiceDate: '',
-        dueDate: '',
-        shippingVia: '',
-        trackingNumber: '',
-        shippingFee: '',
-      },
+
+    /* FORM RULES */
       // formRules: {
       //   orderType: [
       //           { required: true, message: 'Order type is required', trigger: 'change' },
@@ -452,54 +455,25 @@ export default {
       // },
     };
   },
+
   methods: {
+    /* AUXILIARY FUNCTIONS */
     showDialog() {
       this.isOpen = true;
     },
     resetFields() {
-      this.tableData = [];
-      this.form = {};
-      this.form.prodPicked = false;
-      this.form.accPicked = false;
-      this.form.planPicked = false;
-      this.customerServiceForm = {};
-      this.sameAsBilling = false;
       this.sameInfo = false;
+      this.sameAsBilling = false;
+      this.sameAsBillingBool = 0;
+      this.tableData = [];
       this.formCopy = {};
+      this.customerServiceFormCopy = {};
+      this.form = {};
       this.customerServiceForm = {};
       this.$refs.form.resetFields();
     },
-    handleCommand(command) {
-      alert('clicked');
-    },
-    handleAddDevice() {
-      this.$refs.productDetailForm.showDialog();
-    },
-    handleDeleteOrderItem(row, index) {
-      this.tableData.splice(index, 1);
-    },
-    async handleCreateInvoice(form1, form2) {
-      // this.sendTableData();
-      this.getDates();
-      this.handleAddOrder();
-      this.formCopy = JSON.parse(JSON.stringify(this.form));
-      this.customerServiceFormCopy = JSON.parse((JSON.stringify(this.customerServiceForm)));
-        // fix this shit dumbass
-      // this.handleAddOrderItems();
-      this.$refs.createInvoiceForm.showDialog();
-      // this.$refs[form1].validate((valid1) => {
-      //   if (valid1) {
-      //     this.$refs[form2].validate((valid2) => {
-      //       if (valid2) {
-      //         this.$refs.createInvoiceForm.showDialog();
-      //       }
-      //     });
-      //   }
-      // });
-    },
-    // sendTableData(event) {
-    //   this.$emit('goToInvoice', this.tableData);
-    // },
+
+    /* HANDLER FUNCTIONS */
     handleSameInfo() {
       if (this.sameAsBilling) {
         this.sameAsBillingBool = 1;
@@ -516,15 +490,19 @@ export default {
         this.form.shippingAddress = '';
       }
     },
-    handleAddAccessories() {
-      this.$refs.accessoryDetailForm.showDialog();
+    handleDeleteOrderItem(row, index) {
+      this.tableData.splice(index, 1);
     },
     handleCancel() {
       this.resetFields();
       this.isOpen = false;
     },
-    handleAddService() {
-      this.$refs.servicePlanForm.showDialog();
+    async handleCreateInvoice() {
+      this.getDates();
+      this.handleAddOrder();
+      this.formCopy = JSON.parse(JSON.stringify(this.form));
+      this.customerServiceFormCopy = JSON.parse((JSON.stringify(this.customerServiceForm)));
+      this.$refs.createInvoiceForm.showDialog();
     },
     handleAddOrder() {
       addOrder({},{
@@ -556,6 +534,19 @@ export default {
         paymentTerm: this.form.paymentTerm,
       });
     },
+
+    /* HANDLERS FOR SHOWING PRODUCT FORMS */
+    handleAddDevice() {
+      this.$refs.productDetailForm.showDialog();
+    },
+    handleAddAccessories() {
+      this.$refs.accessoryDetailForm.showDialog();
+    },
+    handleAddService() {
+      this.$refs.servicePlanForm.showDialog();
+    },
+
+    /* FORMAT INVOICE AND DUE DATES */
     getDates() {
       let invoice = new Date(this.customerServiceForm.invoiceDate);
       let due = new Date(this.customerServiceForm.invoiceDate);
@@ -566,7 +557,6 @@ export default {
         due.setDate(this.customerServiceForm.invoiceDate.getDate()+30);
       }
 
-      // this.customerServiceForm.dueDate = due;
       this.customerServiceForm.invoiceDate = invoice.getFullYear()
             + '-' + (invoice.getMonth()+1)
             + '-' + invoice.getDate()
@@ -578,6 +568,8 @@ export default {
             + ' ' + due.getHours()
             + ':' + due.getMinutes();
     },
+
+    /* GET ACCESSORIES, PRODUCTS, AND SERVICE PLANS FOR TABLE */
     getAccessoryInfo(n, p, q) {
       this.form.accName = n;
       this.form.accPrice = p;
@@ -605,7 +597,6 @@ export default {
         tax: 'Y',
         description: this.form.prodQty + ' * ' + this.form.prodName,
         invoiceNo: this.customerServiceForm.invoiceNumber
-
       };
       this.tableData.push(data);
     },
@@ -621,7 +612,6 @@ export default {
         tax: 'N',
         description: this.form.planQty + ' * ' + this.form.planName,
         invoiceNo: this.customerServiceForm.invoiceNumber
-
       };
       this.tableData.push(data);
     },
@@ -640,7 +630,6 @@ export default {
         tax: 'Y',
         description: this.form.prodQty + ' * ' + this.form.prodName,
         invoiceNo: this.customerServiceForm.invoiceNumber
-
       };
       this.tableData.push(data);
       const data2 = {orderId: '',
@@ -651,7 +640,6 @@ export default {
         tax: 'Y',
         description: this.form.accQty + ' * ' + this.form.accName,
         invoiceNo: this.customerServiceForm.invoiceNumber
-
       };
       this.tableData.push(data2);
     },
@@ -670,7 +658,6 @@ export default {
         tax: 'Y',
         description: this.form.prodQty + ' * ' + this.form.prodName,
         invoiceNo: this.customerServiceForm.invoiceNumber
-
       };
       this.tableData.push(data);
       const data2 = {orderId: '',
@@ -681,7 +668,6 @@ export default {
         tax: 'N',
         description: this.form.planQty + ' * ' + this.form.planName,
         invoiceNo: this.customerServiceForm.invoiceNumber
-
       };
       this.tableData.push(data2);
     },
@@ -703,7 +689,6 @@ export default {
         tax: 'Y',
         description: this.form.prodQty + ' * ' + this.form.prodName,
         invoiceNo: this.customerServiceForm.invoiceNumber
-
       };
       this.tableData.push(data);
       const data2 = {orderId: '',
@@ -714,7 +699,6 @@ export default {
         tax: 'Y',
         description: this.form.accQty + ' * ' + this.form.accName,
         invoiceNo: this.customerServiceForm.invoiceNumber
-
       };
       this.tableData.push(data2);
       const data3 = {orderId: '',
@@ -725,7 +709,6 @@ export default {
         tax: 'N',
         description: this.form.planQty + ' * ' + this.form.planName,
         invoiceNo: this.customerServiceForm.invoiceNumber
-
       };
       this.tableData.push(data3);
     },
@@ -756,7 +739,6 @@ export default {
       return (Math.floor(tot * 100) / 100);
     }
   },
-
 };
 </script>
 

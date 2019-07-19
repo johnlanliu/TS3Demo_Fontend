@@ -176,11 +176,14 @@
 <script>
 export default {
   name: 'AccessoryDetailForm',
+
   data: function() {
     return {
       isOpen: false,
-      append: true,
       loading: false,
+      append: true,
+
+    /* RESET THESE */
       form4: {
         accessoryName: 'Type',
         activeName: '1',
@@ -188,6 +191,8 @@ export default {
         QTY: '',
         showPrice: false,
       },
+
+    /* FORM RULES */
       // formRules: {
       //   price: [
       //         { required: true, message: 'Unit price is required' },
@@ -199,25 +204,16 @@ export default {
       // },
     };
   },
+
   props: {
     product: {
       type: String,
       default: '',
     }
   },
-  computed: {
-    shown: function() {
-      if (this.product === '4" TrackLight (VT1611)' || this.product === '6" TrackLight (VT1711)') {
-        return 1;
-      } else if (this.product === 'In Dash GPS (VT1508)' || this.product === '5" ThermoTrack (VT1702)'
-          || this.product === '6" ThermoTrack (VT1802)') {
-        return 2;
-      } else {
-        return 0;
-      }
-    }
-  },
+
   methods: {
+    /* AUXILIARY FUNCTIONS */
     showDialog() {
       this.isOpen = true;
     },
@@ -229,6 +225,8 @@ export default {
       this.form4.showPrice = false;
       this.$refs.form.resetFields();
     },
+
+    /* HANDLER FUNCTIONS */
     handleNext(number) {
       let tempNum = Number(this.form4.activeName);
       let nextNum = tempNum + number;
@@ -249,6 +247,19 @@ export default {
     handleAddClick(event) {
       this.$emit('accessoryAdded', this.form4.accessoryName, this.form4.price, this.form4.QTY);
       this.isOpen = false;
+    }
+  },
+
+  computed: {
+    shown: function() {
+      if (this.product === '4" TrackLight (VT1611)' || this.product === '6" TrackLight (VT1711)') {
+        return 1;
+      } else if (this.product === 'In Dash GPS (VT1508)' || this.product === '5" ThermoTrack (VT1702)'
+                || this.product === '6" ThermoTrack (VT1802)') {
+        return 2;
+      } else {
+        return 0;
+      }
     }
   },
 };
