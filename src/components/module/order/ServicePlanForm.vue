@@ -43,7 +43,7 @@
                 <el-collapse-item title="Price" v-if="form5.showPrice" name="2">
                     <el-row>
                         <el-col :span="10" :offset="6">
-                            <el-form ref="form" :model="form5" :rules="formRules" size="mini" align="right">
+                            <el-form ref="form" :model="form5" size="mini" align="right">
                                 <el-form-item label="Amount $" prop="amount">
                                     <el-input v-model="form5.amount" style="width: 150px; "></el-input>
                                 </el-form-item>
@@ -56,7 +56,7 @@
                                     </el-input-number>
                                 </el-form-item>
                                 <el-form-item label="Total :">
-                                    <p>${{ form5.QTY * form5.amount }}</p>
+                                    <p>${{ total }}</p>
                                 </el-form-item>
                             </el-form>
                             <el-row>
@@ -82,19 +82,18 @@
             activeName: '1',
             servicePlan: 'Service Plan',
             showPrice: false,
-            QTY: 1,
-            amount: 0,
-            total: 0,
+            QTY: '',
+            amount: '',
           },
-          formRules: {
-            amount: [
-                  { required: true, message: 'Amount is required' },
-              {
-                pattern: /^\d+(,\d{3})*(\.\d{1,2})?$/,
-                message: 'Invalid amount'
-              },
-            ],
-          },
+          // formRules: {
+          //   amount: [
+          //         { required: true, message: 'Amount is required' },
+          //     {
+          //       pattern: /^\d+(,\d{3})*(\.\d{1,2})?$/,
+          //       message: 'Invalid amount'
+          //     },
+          //   ],
+          // },
         };
       },
       methods: {
@@ -136,6 +135,19 @@
         }
 
       },
+      computed: {
+        total: function() {
+          if (this.form5.amount !== null && this.form5.QTY !== null) {
+            if (!isNaN(this.form5.amount) && !isNaN(this.form5.QTY)) {
+              return (Number(this.form5.amount) * Number(this.form5.QTY)).toFixed(2);
+            } else {
+              return 0;
+            }
+          } else {
+            return 0;
+          }
+        }
+      }
     };
 </script>
 

@@ -123,7 +123,11 @@
 <!--                        </template>-->
                     </el-table-column>
                     <el-table-column label="Rate" prop="rate" width="96"></el-table-column>
-                    <el-table-column label="Amount" prop="amount" width="96"></el-table-column>
+                    <el-table-column label="Amount" prop="amount" width="96">
+                        <template slot-scope="scope">
+                            <span>${{ Number(scope.row.amount).toFixed(2) }}</span>
+                        </template>
+                    </el-table-column>
                     <el-table-column label="Tax" prop="tax" width="50"></el-table-column>
                     <el-table-column label="Action" width="100">
                         <template slot-scope="scope">
@@ -201,7 +205,7 @@
                         <tr>
                             <td>
                                 <el-form-item label="Invoice #" prop="invoiceNumber">
-                                    <el-input v-model="customerServiceForm.invoiceNumber"></el-input>
+                                    <el-input v-model="customerServiceForm.invoiceNumber" :placeholder="invoicePlaceholder"></el-input>
                                 </el-form-item>
                             </td>
                             <td>
@@ -256,11 +260,12 @@
 </template>
 
 <script>
+
 import ProductDetailForm from './ProductDetailForm.vue';
 import CreateInvoiceForm from './CreateInvoiceForm.vue';
 import AccessoryDetailForm from './AccessoryDetailForm.vue';
 import ServicePlanForm from './ServicePlanForm.vue';
-import { addOrder } from '@/api/getData';
+import { addOrder, getLastOrderId, getOrderList, validInvoiceNo } from '@/api/getData';
 
 export default {
   name: 'AddOrderForm',
@@ -272,15 +277,18 @@ export default {
     AccessoryDetailForm
   },
 
+  created() {
+    this.getLastOrder();
+  },
+
   data: function() {
     return {
       loading: false,
       isOpen: false,
 
     /* RESET THESE */
-      sameInfo: false,
-      sameAsBilling: false,
-      sameAsBillingBool: 0,
+      sameAsBilling: true,
+      sameAsBillingBool: 1,
       tableData: [],
       formCopy: {},
       customerServiceFormCopy: {},
@@ -308,14 +316,15 @@ export default {
         planAmt: '',
         planName: '',
       },
+      invoicePlaceholder: '',
       customerServiceForm: {
         status: '',
-        invoiceNumber: '',
         invoiceDate: '',
         dueDate: '',
         shippingVia: '',
         trackingNumber: '',
         shippingFee: '',
+        invoiceNumber: this.invoicePlaceholder,
       },
 
     /* DROPDOWN OPTIONS */
@@ -462,7 +471,6 @@ export default {
       this.isOpen = true;
     },
     resetFields() {
-      this.sameInfo = false;
       this.sameAsBilling = false;
       this.sameAsBillingBool = 0;
       this.tableData = [];
@@ -470,6 +478,7 @@ export default {
       this.customerServiceFormCopy = {};
       this.form = {};
       this.customerServiceForm = {};
+      this.getLastOrder();
       this.$refs.form.resetFields();
     },
 
@@ -482,12 +491,6 @@ export default {
         this.form.phone = this.form.billingPhone;
         this.form.email = this.form.billingEmail;
         this.form.shippingAddress = this.form.billingAddress;
-      } else {
-        this.form.companyName = '';
-        this.form.contact = '';
-        this.form.phone = '';
-        this.form.email = '';
-        this.form.shippingAddress = '';
       }
     },
     handleDeleteOrderItem(row, index) {
@@ -533,6 +536,15 @@ export default {
         sameAsBilling: this.sameAsBillingBool,
         paymentTerm: this.form.paymentTerm,
       });
+    },
+    async getLastOrder() {
+      this.invoicePlaceholder = await getLastOrderId() + 1;
+      while (!validInvoiceNo(this.invoicePlaceholder)) {
+        this.invoicePlaceholder += 1;
+      }
+    },
+    async checkForOrder() {
+
     },
 
     /* HANDLERS FOR SHOWING PRODUCT FORMS */
@@ -714,6 +726,12 @@ export default {
     },
   },
 
+  watch: {
+    'customerServiceForm.invoiceNumber': function() {
+      this.checkForOrder();
+    }
+  },
+
   computed: {
     tax: function() {
       let t = 0;
@@ -737,7 +755,7 @@ export default {
       });
       const tot = t + this.tax;
       return (Math.floor(tot * 100) / 100);
-    }
+    },
   },
 };
 </script>

@@ -115,8 +115,19 @@
                                                 style="width: 150px">
                                         </el-input-number>
                                     </el-form-item>
-                                    <el-form-item label="Service Plan $">
-                                        <el-input v-model="form3.servicePlan" style="width: 150px"></el-input>
+                                    <el-form-item v-if="form3.planPicked" label="Service Plan ">
+                                        <el-form-item align="center">{{ form3.planName }}</el-form-item>
+                                        <el-form-item>
+                                            <el-input v-model="form3.planAmt" style="width: 150px;"></el-input>
+                                        </el-form-item>
+                                        <el-form-item>
+                                            <el-input-number
+                                                    v-model="form3.planQty"
+                                                    controls-position="right"
+                                                    :min="form3.planQty"
+                                                    style="width: 150px">
+                                            </el-input-number>
+                                        </el-form-item>
                                     </el-form-item>
                                     <el-form-item v-if="form3.accPicked" label="Accessory ">
                                         <el-form-item align="center" style="padding-right: 30px">{{ form3.accName }}</el-form-item>

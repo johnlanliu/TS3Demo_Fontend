@@ -33,7 +33,6 @@
 <!--          <el-form-item label style="float:right;">-->
 <!--              <el-button v-if="permsAdd" class="inline" type="primary" @click="addUser()">+Add  Account</el-button>-->
 <!--          </el-form-item>-->
-          <add-order-form ref="addOrderForm" :form="form"></add-order-form>
       </el-form>
       <el-table
           ref="orderListTable"
@@ -107,6 +106,7 @@
                          v-bind:init-data="initData"></order-review-form>
       <edit-order-form ref="editOrderForm" :editForm="orderInfoToView" v-bind:table-data="orderItemTable" v-bind:init-data="initData"
                        v-bind:offset="itemOffset" v-bind:same-as-billing="sameAsBilling"></edit-order-form>
+      <add-order-form ref="addOrderForm"></add-order-form>
   </div>
 </template>
 
@@ -133,7 +133,7 @@
   import EditOrderForm from './EditOrderForm.vue';
   import { getOrderList } from '@/api/getData';
   import { getOrderByOrderId } from '@/api/getData';
-  import { getOrderItem } from '@/api/getData';
+  import { getOrderItem, getLastOrderId } from '@/api/getData';
 
   export default {
     mixins: [timeFormatUtil, exceptionUtil],
@@ -152,6 +152,7 @@
         permsVoid: true,
         form: {},
         tableData: [],
+        // last: '',
         orderSearchForm: {
           number: '',
           status: ''
@@ -209,9 +210,12 @@
       search() {
         this.getOrders();
       },
-      handleAdd() {
+      async handleAdd() {
         this.$refs.addOrderForm.showDialog();
       },
+      // async getLast() {
+      //   this.last = await getLastOrderId();
+      // },
       handleCommand(command, row, index) {
         this.getOrderInfo(row, index);
         this.getOrderItems(row,index);

@@ -491,12 +491,6 @@ export default {
         this.editForm.shippingNumber = this.editForm.billingNumber;
         this.editForm.shippingEmail = this.editForm.billingEmail;
         this.editForm.shippingAddress = this.editForm.billingAddress;
-      } else {
-        this.editForm.shippingCompany = '';
-        this.editForm.shippingContact = '';
-        this.editForm.shippingNumber = '';
-        this.editForm.shippingEmail = '';
-        this.editForm.shippingAddress = '';
       }
     },
     handleDeleteOrderItem(row, index) {

@@ -158,7 +158,7 @@
                                         </el-input-number>
                                     </el-form-item>
                                     <el-form-item label="Total :">
-                                        <p>${{ Number(form4.price) * Number(form4.QTY) }}</p>
+                                        <p>${{ total }}</p>
                                     </el-form-item>
                                 </el-form>
                                 <el-row>
@@ -257,6 +257,17 @@ export default {
       } else if (this.product === 'In Dash GPS (VT1508)' || this.product === '5" ThermoTrack (VT1702)'
                 || this.product === '6" ThermoTrack (VT1802)') {
         return 2;
+      } else {
+        return 0;
+      }
+    },
+    total: function() {
+      if (this.form4.price !== null && this.form4.QTY!== null) {
+        if (!isNaN(this.form4.price) && !isNaN(this.form4.QTY)) {
+          return (Number(this.form4.price) * Number(this.form4.QTY)).toFixed(2);
+        } else {
+          return 0;
+        }
       } else {
         return 0;
       }
