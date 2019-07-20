@@ -471,8 +471,8 @@ export default {
       this.isOpen = true;
     },
     resetFields() {
-      this.sameAsBilling = false;
-      this.sameAsBillingBool = 0;
+      this.sameAsBilling = true;
+      this.sameAsBillingBool = 1;
       this.tableData = [];
       this.formCopy = {};
       this.customerServiceFormCopy = {};
@@ -539,8 +539,10 @@ export default {
     },
     async getLastOrder() {
       this.invoicePlaceholder = await getLastOrderId() + 1;
-      while (!validInvoiceNo(this.invoicePlaceholder)) {
+      let valid = await validInvoiceNo({invoiceNo: this.invoicePlaceholder});
+      while (!valid) {
         this.invoicePlaceholder += 1;
+        valid = await validInvoiceNo({invoiceNo: this.invoicePlaceholder});
       }
     },
     async checkForOrder() {
