@@ -117,11 +117,7 @@
                     style="width: 100%; margin-left: 50px"
                 >
                     <el-table-column label="Product" prop="product" width="150"></el-table-column>
-                    <el-table-column label="QTY" prop="quantity" width="96">
-<!--                        <template slot-scope="scope">-->
-<!--                            <el-input-number v-model="tableData.quantity" controls-position="right" size="mini"></el-input-number>-->
-<!--                        </template>-->
-                    </el-table-column>
+                    <el-table-column label="QTY" prop="quantity" width="96"></el-table-column>
                     <el-table-column label="Rate" prop="rate" width="96"></el-table-column>
                     <el-table-column label="Amount" prop="amount" width="96">
                         <template slot-scope="scope">
