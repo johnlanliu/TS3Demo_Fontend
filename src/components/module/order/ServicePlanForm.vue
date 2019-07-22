@@ -74,7 +74,9 @@
     export default {
       name: 'ServicePlanForm',
       props: {
-        prodQTY: Number
+        prodQuantity: {
+          type: Number,
+        }
       },
       data: function() {
         return {
@@ -85,7 +87,7 @@
             activeName: '1',
             servicePlan: 'Service Plan',
             showPrice: false,
-            QTY: this.prodQTY,
+            QTY: 0,
             amount: '',
           },
           // formRules: {
@@ -99,6 +101,11 @@
           // },
         };
       },
+      watch: {
+        prodQuantity(newValue, oldValue){
+          this.form5.QTY=newValue;
+        }
+      },
       methods: {
         showDialog() {
           this.isOpen = true;
@@ -106,7 +113,7 @@
         resetFields() {
           this.form5.showPrice = false;
           this.form5.amount = '';
-          this.form5.QTY = this.prodQTY;
+          this.form5.QTY = this.prodQuantity;
           this.form5.activeName = '1';
           this.form5.servicePlan = 'Service Plan';
           this.$refs.form.resetFields();

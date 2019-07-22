@@ -166,7 +166,7 @@
                                 </el-form>
                                 <el-row>
                                     <el-button type="primary" style="float: left" @click="handleAccessories">+ Add Accessories</el-button>
-                                    <el-button type="primary" style="float: right" @click="handleNetwork">+ Add Service Plan</el-button>
+                                    <el-button type="primary" style="float: right" @click="handlePlan">+ Add Service Plan</el-button>
                                     <el-button type="primary" style="float: right; margin-top: 10px" @click="handleAddClick">Add</el-button>
                                 </el-row>
                             </el-col>
@@ -176,7 +176,7 @@
             </el-form>
         </div>
         <accessory-detail-form ref="accessoryDetailForm" v-bind:product="this.form3.productName" @accessoryAdded="getAccessoryInfo"></accessory-detail-form>
-        <service-plan-form ref="servicePlanForm" @planAdded="getServicePlanFee" v-bind:prod-q-t-y="form3.QTY"></service-plan-form>
+        <service-plan-form ref="servicePlanForm" v-bind:prod-quantity="form3.QTY" @planAdded="getServicePlanFee"></service-plan-form>
     </el-dialog>
 </template>
 
@@ -386,7 +386,8 @@ export default {
     handleAccessories() {
       this.$refs.accessoryDetailForm.showDialog();
     },
-    handleNetwork() {
+    handlePlan() {
+      alert(this.form3.QTY);
       this.$refs.servicePlanForm.showDialog();
     },
 

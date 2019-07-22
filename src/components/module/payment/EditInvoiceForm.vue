@@ -158,15 +158,15 @@
                     border
                     stripe
                     highlight-current-row
-                    :height="200"
+                    :max-height="200"
                     :row-key="row => row.index"
-                    style="width: 65%; margin-left: 50px"
+                    style="width: 80%; margin-left: 75px"
                 >
                     <el-table-column label="Product" prop="product" width="180"></el-table-column>
                     <el-table-column label="QTY" prop="quantity" width="120"></el-table-column>
                     <el-table-column label="Rate" prop="rate" width="120"></el-table-column>
                     <el-table-column label="Amount" prop="amount" width="120"></el-table-column>
-                    <el-table-column label="Tax" prop="tax" width="73"></el-table-column>
+                    <el-table-column label="Tax" prop="tax" width="80"></el-table-column>
                 </el-table>
                 <el-row style="border-spacing: 0px">
                     <el-col :span="12" :offset="13">

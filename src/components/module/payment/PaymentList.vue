@@ -65,7 +65,7 @@
           <el-table-column label="Sales" prop="sales" width="110"></el-table-column>
           <el-table-column fixed="right" label="Action" width="140" v-if="permsEdit || permsVoid">
               <template slot-scope="scope">
-                  <el-dropdown @command="handleCommand($event, scope.row, scope.$index)" trigger="click">
+                  <el-dropdown size="mini" type="text" @command="handleCommand($event, scope.row, scope.$index)" trigger="click">
                       <span class="el-dropdown-link">
                           Action <i class="el-icon-arrow-down"></i></span>
                       <el-dropdown-menu slot="dropdown">
@@ -176,9 +176,7 @@ export default {
     },
     handleCommand(command, row, index) {
       if (command === 'view') {
-        this.getInvoiceInfo(row, index);
-        this.getOrderItems(row, index);
-        this.$refs.invoiceReviewForm.showDialog();
+        this.handleView(index, row);
         this.invoiceInfo = {};
         this.invoiceTableData = [];
       } else if (command === 'edit') {
@@ -196,6 +194,11 @@ export default {
 /* HANDLERS FOR SHOWING FORMS */
     handleAdd() {
       this.$refs.createInvoiceForm.showDialog();
+    },
+    async handleView(index, row) {
+      this.getInvoiceInfo(row, index);
+      this.getOrderItems(row, index);
+      this.$refs.invoiceReviewForm.showDialog();
     },
     async handleEdit(index, row) {
       this.getInvoiceInfo(row, index);
