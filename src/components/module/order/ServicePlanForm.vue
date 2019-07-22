@@ -71,94 +71,104 @@
 </template>
 
 <script>
-    export default {
-      name: 'ServicePlanForm',
-      props: {
-        prodQuantity: {
-          type: Number,
-        }
-      },
-      data: function() {
-        return {
-          isOpen: false,
-          loading: false,
-          append: true,
-          form5: {
-            activeName: '1',
-            servicePlan: 'Service Plan',
-            showPrice: false,
-            QTY: 0,
-            amount: '',
-          },
-          // formRules: {
-          //   amount: [
-          //         { required: true, message: 'Amount is required' },
-          //     {
-          //       pattern: /^\d+(,\d{3})*(\.\d{1,2})?$/,
-          //       message: 'Invalid amount'
-          //     },
-          //   ],
-          // },
-        };
-      },
-      watch: {
-        prodQuantity(newValue, oldValue){
-          this.form5.QTY=newValue;
-        }
-      },
-      methods: {
-        showDialog() {
-          this.isOpen = true;
-        },
-        resetFields() {
-          this.form5.showPrice = false;
-          this.form5.amount = '';
-          this.form5.QTY = this.prodQuantity;
-          this.form5.activeName = '1';
-          this.form5.servicePlan = 'Service Plan';
-          this.$refs.form.resetFields();
-        },
-        handlePlanPick(duration) {
-          if (this.form5.servicePlan === 'Service Plan') {
-            this.form5.servicePlan = duration + ' ' + 'Service Plan';
-            this.form5.showPrice = true;
-            this.handleNext(1);
-          } else {
-            if (this.form5.servicePlan === duration + ' ' + 'Service Plan') {
-              this.handleNext(1);
-            } else {
-              this.resetFields();
-              this.form5.servicePlan = duration + ' ' + 'Service Plan';
-              this.form5.showPrice = true;
-              this.handleNext(1);
-            }
-          }
-        },
-        handleNext(number) {
-          let tempNum = Number(this.form5.activeName);
-          let nextNum = tempNum + number;
-          this.form5.activeName = nextNum.toString();
-        },
-        handleAddPlan(event) {
-          this.$emit('planAdded', this.form5.QTY, this.form5.amount, this.form5.servicePlan);
-          this.isOpen = false;
-        }
+export default {
+  name: 'ServicePlanForm',
 
+  data: function() {
+    return {
+      isOpen: false,
+      loading: false,
+      append: true,
+
+    /* RESET THESE */
+      form5: {
+        activeName: '1',
+        servicePlan: 'Service Plan',
+        showPrice: false,
+        QTY: 0,
+        amount: '',
       },
-      computed: {
-        total: function() {
-          if (this.form5.amount !== null && this.form5.QTY !== null) {
-            if (!isNaN(this.form5.amount) && !isNaN(this.form5.QTY)) {
-              return (Number(this.form5.amount) * Number(this.form5.QTY)).toFixed(2);
-            } else {
-              return 0;
-            }
-          } else {
-            return 0;
-          }
+
+      // formRules: {
+      //   amount: [
+      //             { required: true, message: 'Amount is required' },
+      //     {
+      //       pattern: /^\d+(,\d{3})*(\.\d{1,2})?$/,
+      //       message: 'Invalid amount'
+      //     },
+      //   ],
+      // },
+    };
+  },
+
+  props: {
+    prodQuantity: {
+      type: Number,
+    }
+  },
+
+  watch: {
+    prodQuantity(newValue, oldValue){
+      this.form5.QTY=newValue;
+    }
+  },
+
+  methods: {
+    /* AUXILIARY FUNCTIONS */
+    showDialog() {
+      this.isOpen = true;
+    },
+    resetFields() {
+      this.form5.showPrice = false;
+      this.form5.amount = '';
+      this.form5.QTY = this.prodQuantity;
+      this.form5.activeName = '1';
+      this.form5.servicePlan = 'Service Plan';
+      this.$refs.form.resetFields();
+    },
+
+    /* HANDLER FUNCTIONS */
+    handlePlanPick(duration) {
+      if (this.form5.servicePlan === 'Service Plan') {
+        this.form5.servicePlan = duration + ' ' + 'Service Plan';
+        this.form5.showPrice = true;
+        this.handleNext(1);
+      } else {
+        if (this.form5.servicePlan === duration + ' ' + 'Service Plan') {
+          this.handleNext(1);
+        } else {
+          this.resetFields();
+          this.form5.servicePlan = duration + ' ' + 'Service Plan';
+          this.form5.showPrice = true;
+          this.handleNext(1);
         }
       }
-    };
+    },
+    handleNext(number) {
+      let tempNum = Number(this.form5.activeName);
+      let nextNum = tempNum + number;
+      this.form5.activeName = nextNum.toString();
+    },
+    handleAddPlan(event) {
+      this.$emit('planAdded', this.form5.QTY, this.form5.amount, this.form5.servicePlan);
+      this.isOpen = false;
+    }
+  },
+
+  computed: {
+    total: function() {
+      if (this.form5.amount !== null && this.form5.QTY !== null) {
+        if (!isNaN(this.form5.amount) && !isNaN(this.form5.QTY)) {
+          return (Number(this.form5.amount) * Number(this.form5.QTY)).toFixed(2);
+        } else {
+          return 0;
+        }
+      } else {
+        return 0;
+      }
+    }
+  }
+};
 </script>
 
 <style scoped>

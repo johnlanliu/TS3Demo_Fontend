@@ -7,7 +7,7 @@
         @closed="resetFields"
         width="50%">
         <div class="form-box">
-            <el-form ref="form" :model="form" size="mini" style="margin: 0; padding-left: 10px">
+            <el-form ref="form" :model="form" :rules="formRules" size="mini" style="margin: 0; padding-left: 10px">
                 <el-form-item label="Order Type" prop="orderType">
                     <el-select v-model="form.orderType" placeholder="Select">
                         <el-option
@@ -18,7 +18,7 @@
                         </el-option>
                     </el-select>
                 </el-form-item>
-                <table class="test" style="width: 100%; text-align: right">
+                <table class="test" style="width: 100%; text-align: left">
                     <tr>
                         <td class="bill"><el-form-item label="BILLING INFO"style="font-weight: bold"></el-form-item></td>
                         <td>
@@ -34,65 +34,70 @@
                     <tr>
                         <td>
                             <el-form-item label="Company Name: ">
-                                <el-input v-model="form.billing"></el-input>
+                                <el-input v-model="form.billing" style="width: 250px"></el-input>
                             </el-form-item>
                         </td>
                         <td>
                             <el-form-item label="Company Name: ">
-                                <el-input v-model="sameAsBilling ? form.billing : form.companyName" :disabled="sameAsBilling"></el-input>
+                                <el-input v-model="sameAsBilling ? form.billing : form.companyName"
+                                          style="width: 250px" :disabled="sameAsBilling"></el-input>
                             </el-form-item>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             <el-form-item label="Contact: ">
-                                <el-input v-model="form.billingContact"></el-input>
+                                <el-input v-model="form.billingContact" style="width: 250px"></el-input>
                             </el-form-item>
                         </td>
                         <td>
                             <el-form-item label="Contact: ">
-                                <el-input v-model="sameAsBilling ? form.billingContact : form.contact" :disabled="sameAsBilling"></el-input>
+                                <el-input v-model="sameAsBilling ? form.billingContact : form.contact"
+                                          style="width: 250px" :disabled="sameAsBilling"></el-input>
                             </el-form-item>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             <el-form-item label="Phone Number: ">
-                                <el-input v-model="form.billingPhone"></el-input>
+                                <el-input v-model="form.billingPhone" style="width: 250px"></el-input>
                             </el-form-item>
                         </td>
                         <td>
                             <el-form-item label="Phone Number: ">
-                                <el-input v-model="sameAsBilling ? form.billingPhone : form.phone" :disabled="sameAsBilling"></el-input>
+                                <el-input v-model="sameAsBilling ? form.billingPhone : form.phone"
+                                          style="width: 250px" :disabled="sameAsBilling"></el-input>
                             </el-form-item>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             <el-form-item label="Email: ">
-                                <el-input v-model="form.billingEmail"></el-input>
+                                <el-input v-model="form.billingEmail" style="width: 250px"></el-input>
                             </el-form-item>
                         </td>
                         <td>
                             <el-form-item label="Email: ">
-                                <el-input v-model="sameAsBilling ? form.billingEmail : form.email" :disabled="sameAsBilling"></el-input>
+                                <el-input v-model="sameAsBilling ? form.billingEmail : form.email"
+                                          style="width: 250px" :disabled="sameAsBilling"></el-input>
                             </el-form-item>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             <el-form-item label="Billing Address: ">
-                                <el-input v-model="form.billingAddress"></el-input>
+                                <el-input v-model="form.billingAddress" style="width: 250px"></el-input>
                             </el-form-item>
                         </td>
                         <td>
                             <el-form-item label="Shipping Address: ">
-                                <el-input v-model="sameAsBilling ? form.billingAddress : form.shippingAddress" :disabled="sameAsBilling"></el-input>
+                                <el-input v-model="sameAsBilling ? form.billingAddress : form.shippingAddress"
+                                          style="width: 250px" :disabled="sameAsBilling"></el-input>
                             </el-form-item>
                         </td>
                     </tr>
                 </table>
-                <el-form-item label="Payment Term">
+                <el-form-item label="Payment Term" prop="paymentTerm">
                     <el-select v-model="form.paymentTerm" placeholder="Select">
                         <el-option
                             v-for="option in paymentOptions"
@@ -203,7 +208,7 @@
                                 </el-form-item>
                             </td>
                             <td>
-                                <el-form-item label="Invoice Date">
+                                <el-form-item label="Invoice Date" prop="invoiceDate">
                                     <el-date-picker
                                             v-model="customerServiceForm.invoiceDate"
                                             type="datetime"
@@ -254,21 +259,20 @@
 </template>
 
 <script>
-
 import ProductDetailForm from './ProductDetailForm.vue';
 import CreateInvoiceForm from './CreateInvoiceForm.vue';
 import AccessoryDetailForm from './AccessoryDetailForm.vue';
 import ServicePlanForm from './ServicePlanForm.vue';
-import { addOrder, getLastOrderId, getOrderList, validInvoiceNo } from '@/api/getData';
+import { addOrder, getLastOrderId, validInvoiceNo } from '@/api/getData';
 
 export default {
   name: 'AddOrderForm',
 
   components: {
-    ServicePlanForm,
     ProductDetailForm,
     CreateInvoiceForm,
-    AccessoryDetailForm
+    AccessoryDetailForm,
+    ServicePlanForm,
   },
 
   created() {
@@ -359,7 +363,7 @@ export default {
       }],
 
     /* FORM RULES */
-      // formRules: {
+      formRules: {
       //   orderType: [
       //           { required: true, message: 'Order type is required', trigger: 'change' },
       //   ],
@@ -429,9 +433,9 @@ export default {
       //   shippingAddress: [
       //           { required: true, message: 'Shipping address is required' },
       //   ],
-      //   paymentTerm: [
-      //           { required: true, message: 'Payment term is required', trigger: 'change' },
-      //   ],
+        paymentTerm: [
+                { required: true, message: 'Payment term is required', trigger: 'change' },
+        ],
       //       // note: [
       //       //     { max: 200, message: 'Maximum character limit: 200' }
       //       // ],
@@ -441,9 +445,9 @@ export default {
       //   invoiceNumber: [
       //       { required: true, message: 'Invoice number is required' },
       //   ],
-      //   invoiceDate: [
-      //       { required: true, message: 'Invoice date is required' },
-      //   ],
+        invoiceDate: [
+            { required: true, message: 'Invoice date is required' },
+        ],
       //   shippingVia: [
       //       { required: true, message: 'Shipping type is required' },
       //   ],
@@ -457,7 +461,7 @@ export default {
       //       message: 'Invalid price'
       //     },
       //   ],
-      // },
+      },
     };
   },
 

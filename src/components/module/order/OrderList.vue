@@ -17,7 +17,7 @@
           <el-form-item label="Status:">
               <el-select v-model="orderSearchForm.status" placeholder="All" clearable @change="search" value="">
                   <el-option
-                      v-for="item in statusList"
+                      v-for="item in statusOptions"
                       :key="item.status"
                       :value="item.status"
                       :label="item.label"
@@ -30,9 +30,6 @@
           <el-form-item label style="float:right;">
               <el-button v-if="permsAdd" class="inline" type="primary" @click="handleAdd()">+Add </el-button>
           </el-form-item>
-<!--          <el-form-item label style="float:right;">-->
-<!--              <el-button v-if="permsAdd" class="inline" type="primary" @click="addUser()">+Add  Account</el-button>-->
-<!--          </el-form-item>-->
       </el-form>
       <el-table
           ref="orderListTable"
@@ -45,14 +42,6 @@
           :row-key="row => row.index"
           style="width: 100%;"
       >
-<!--          <el-table-column label="Description" type="expand" width="160">-->
-<!--              -->
-<!--          </el-table-column>-->
-<!--          <el-table-column fixed type="expand">-->
-<!--              <template class="el-description" slot-scope="props">-->
-<!--                  <p style="margin: 5px">Description: {{ props.row.description }}</p>-->
-<!--              </template>-->
-<!--          </el-table-column>-->
           <el-table-column fixed label="Order ID" prop="orderId" width="100"></el-table-column>
           <el-table-column fixed label="Type" prop="type" width="130" >
               <template slot-scope="scope">
@@ -105,170 +94,154 @@
       <order-review-form ref="orderReviewForm" v-bind:form="orderInfoToView" v-bind:table-data="orderItemTable"
                          v-bind:init-data="initData"></order-review-form>
       <edit-order-form ref="editOrderForm" :editForm="orderInfoToView" v-bind:table-data="orderItemTable" v-bind:init-data="initData"
-                       v-bind:offset="itemOffset" v-bind:same-as-billing="sameAsBilling"></edit-order-form>
+                       v-bind:same-as-billing="sameAsBilling"></edit-order-form>
       <add-order-form ref="addOrderForm"></add-order-form>
   </div>
 </template>
 
 <script>
-  import {
-    getOrgById,
-    getDevices,
-    deleteDevice,
-    getFirmeUpdateListByModelId,
-    getDeviceSettingById,
-    getBatchSelect,
-    wakeup,
-    reset
-  } from '@/api/getData';
-  import ModelListSelect from '@/components/common/ModelListSelect.vue';
-  import MapDialog from '@/components/common/MapDialog.vue';
-  import { handlePerms } from '@/utils/perms.js';
-  import { timeFormatUtil } from '@/utils/timeFormatUtil.js';
-  import { exceptionUtil } from '@/utils/exceptionUtil.js';
-  import { getStore } from '@/config/mUtils';
-  import { mapState } from 'vuex';
-  import AddOrderForm from './AddOrderForm.vue';
-  import OrderReviewForm from './OrderReviewForm.vue';
-  import EditOrderForm from './EditOrderForm.vue';
-  import { getOrderList } from '@/api/getData';
-  import { getOrderByOrderId } from '@/api/getData';
-  import { getOrderItem, getLastOrderId } from '@/api/getData';
+import AddOrderForm from './AddOrderForm.vue';
+import OrderReviewForm from './OrderReviewForm.vue';
+import EditOrderForm from './EditOrderForm.vue';
+import { getOrderList, getOrderByOrderId, getOrderItem } from '@/api/getData';
+import { timeFormatUtil } from '@/utils/timeFormatUtil.js';
+import { exceptionUtil } from '@/utils/exceptionUtil.js';
+import { mapState } from 'vuex';
 
-  export default {
-    mixins: [timeFormatUtil, exceptionUtil],
-    components: {
-      AddOrderForm,
-      OrderReviewForm,
-      EditOrderForm
-    },
-    data() {
-      return {
-        userSearchForm: {},
-        dialogVisible: false,
-        loading: false,
-        permsAdd: true,
-        permsEdit: true,
-        permsVoid: true,
-        form: {},
-        tableData: [],
-        // last: '',
-        orderSearchForm: {
-          number: '',
-          status: ''
-        },
-        sameAsBilling: false,
-        orderInfoToView: {},
-        orderItemTable: [],
-        itemOffset: 0,
-        statusList: [{
-          status: 'delivered',
-          label: 'delivered'
-        }, {
-          status: 'cancelled',
-          label: 'cancelled'
-        }, {
-          status: 'shipped',
-          label: 'shipped'
-        }, {
-          status: 'pending',
-          label: 'pending'
-        }]
-      };
-    },
-    computed: {
-      ...mapState([
-        'loginInfo',
-        'modelList',
-        'currentOrgId',
-        'lang',
-        'locale'
-      ]),
+export default {
+  mixins: [timeFormatUtil, exceptionUtil],
 
-      labelWidth() {
-        return this.locale === 'es' ? '122px' : '100px';
+  components: {
+    AddOrderForm,
+    OrderReviewForm,
+    EditOrderForm
+  },
+
+  data() {
+    return {
+      loading: false,
+
+    /* RESET THESE */
+      permsAdd: true,
+      permsEdit: true,
+      permsVoid: true,
+      sameAsBilling: false,
+      orderInfoToView: {},
+      orderItemTable: [],
+      form: {},
+      tableData: [],
+      userSearchForm: {},
+      orderSearchForm: {
+        number: '',
+        status: ''
+      },
+
+    /* DROPDOWN OPTIONS */
+      statusOptions: [{
+        status: 'delivered',
+        label: 'delivered'
+      }, {
+        status: 'cancelled',
+        label: 'cancelled'
+      }, {
+        status: 'shipped',
+        label: 'shipped'
+      }, {
+        status: 'pending',
+        label: 'pending'
+      }]
+    };
+  },
+
+  mounted() {
+
+  },
+
+  beforeDestroy() {
+    window.removeEventListener('resize', this.bindResize);
+  },
+
+  created() {
+    this.initData();
+  },
+
+  methods: {
+    /* AUXILIARY FUNCTIONS */
+    search() {
+      this.getOrders();
+    },
+    async initData() {
+      this.getOrders();
+    },
+
+    /* HANDLER FUNCTIONS */
+    handleCommand(command, row, index) {
+      this.getOrderInfo(row, index);
+      this.getOrderItems(row,index);
+      if(command==='view') {
+        this.$refs.orderReviewForm.showDialog();
+      } else {
+        this.$refs.editOrderForm.showDialog();
+      }
+      this.orderInfoToView = {};
+      this.orderItemTable = [];
+    },
+    async getOrderInfo(row, index) {
+      this.orderInfoToView = await getOrderByOrderId({orderId: row.orderId});
+      if (this.orderInfoToView.sameAsBilling === 1) {
+        this.sameAsBilling = true;
+      }
+    },
+    async getOrderItems(row,index) {
+      const res = await getOrderItem({orderId: row.orderId});
+      if (res) {
+        this.orderItemTable = [];
+        res.forEach((item, index) => {
+          let orderItem = item;
+          orderItem.index = index + 1;
+          this.orderItemTable.push(orderItem);
+        });
+      }
+    },
+    async getOrders() {
+      const result = await getOrderList(
+        {invoiceNo: this.orderSearchForm.number,
+          status: this.orderSearchForm.status});
+      if (result) {
+        this.tableData = [];
+        result.forEach((item, index) => {
+          let g = [];
+          if(item.description !== null) {
+            g = item.description.split(', ');
+          }
+          let tableData = item;
+          tableData.description = g;
+          tableData.index = index + 1;
+          this.tableData.push(tableData);
+        });
       }
     },
 
-    mounted() {
-
+    /* HANDLERS FOR SHOWING FORMS */
+    async handleAdd() {
+      this.$refs.addOrderForm.showDialog();
     },
+  },
 
-    beforeDestroy() {
-      window.removeEventListener('resize', this.bindResize);
-    },
+  computed: {
+    ...mapState([
+      'loginInfo',
+      'modelList',
+      'currentOrgId',
+      'lang',
+      'locale'
+    ]),
 
-    created() {
-      this.initData();
-    },
-
-    watch: {
-
-    },
-
-    methods: {
-      search() {
-        this.getOrders();
-      },
-      async handleAdd() {
-        this.$refs.addOrderForm.showDialog();
-      },
-      // async getLast() {
-      //   this.last = await getLastOrderId();
-      // },
-      handleCommand(command, row, index) {
-        this.getOrderInfo(row, index);
-        this.getOrderItems(row,index);
-        if(command==='view') {
-          this.$refs.orderReviewForm.showDialog();
-        } else {
-          this.$refs.editOrderForm.showDialog();
-        }
-        this.orderInfoToView = {};
-        this.orderItemTable = [];
-      },
-      async getOrderInfo(row, index) {
-        this.orderInfoToView = await getOrderByOrderId({orderId: row.orderId});
-        if (this.orderInfoToView.sameAsBilling === 1) {
-          this.sameAsBilling = true;
-        }
-      },
-      async getOrderItems(row,index) {
-        const res = await getOrderItem({orderId: row.orderId});
-        if (res) {
-          this.orderItemTable = [];
-          res.forEach((item, index) => {
-            let orderItem = item;
-            orderItem.index = index + 1;
-            this.orderItemTable.push(orderItem);
-          });
-        }
-        this.itemOffset = this.orderItemTable.length;
-      },
-      async initData() {
-            // const result = await getValidRoleList({});
-        this.getOrders();
-      },
-      async getOrders() {
-        const result = await getOrderList(
-          {invoiceNo: this.orderSearchForm.number,
-            status: this.orderSearchForm.status});
-        if (result) { // && !result.errorCode) {
-          this.tableData = [];
-          result.forEach((item, index) => {
-            let g = [];
-            if(item.description !== null) {
-              g = item.description.split(', ');
-            }
-            let tableData = item;
-            tableData.description = g;
-            tableData.index = index + 1;
-            this.tableData.push(tableData);
-          });
-        }
-      },
+    labelWidth() {
+      return this.locale === 'es' ? '122px' : '100px';
     }
-  };
+  },
+};
 </script>
 
 <style>
