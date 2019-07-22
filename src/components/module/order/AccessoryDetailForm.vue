@@ -4,7 +4,7 @@
             :center="true"
             top="15vh"
             :visible.sync="isOpen"
-            append-to-body="append"
+            :append-to-body="append"
             @close="resetFields">
         <div class="accessoryCode">
             <el-form ref="form" :model="form4" size="mini" style="text-align: center">
@@ -157,6 +157,16 @@
                                                 style="width: 150px">
                                         </el-input-number>
                                     </el-form-item>
+                                    <el-form-item label="Tax: ">
+                                        <el-select v-model="form4.tax" placeholder="" style="width: 150px">
+                                            <el-option
+                                                    v-for="option in taxOptions"
+                                                    :key="option.value"
+                                                    :label="option.label"
+                                                    :value="option.value">
+                                            </el-option>
+                                        </el-select>
+                                    </el-form-item>
                                     <el-form-item label="Total :">
                                         <p>${{ total }}</p>
                                     </el-form-item>
@@ -188,9 +198,20 @@ export default {
         accessoryName: 'Type',
         activeName: '1',
         price: '',
-        QTY: '',
+        QTY: 1,
         showPrice: false,
+        tax: '',
       },
+      taxOptions: [
+        {
+          value: 'Y',
+          label: 'Y'
+        },
+        {
+          value: 'N',
+          label: 'N'
+        }
+      ]
 
     /* FORM RULES */
       // formRules: {
@@ -221,7 +242,7 @@ export default {
       this.form4.activeName = '1';
       this.form4.accessoryName = 'Type';
       this.form4.price = '';
-      this.form4.QTY = '';
+      this.form4.QTY = 1;
       this.form4.showPrice = false;
       this.$refs.form.resetFields();
     },
@@ -245,7 +266,7 @@ export default {
       }
     },
     handleAddClick(event) {
-      this.$emit('accessoryAdded', this.form4.accessoryName, this.form4.price, this.form4.QTY);
+      this.$emit('accessoryAdded', this.form4.accessoryName, this.form4.price, this.form4.QTY, this.form4.tax);
       this.isOpen = false;
     }
   },

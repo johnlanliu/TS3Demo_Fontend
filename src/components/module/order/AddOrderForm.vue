@@ -7,7 +7,7 @@
         @closed="resetFields"
         width="50%">
         <div class="form-box">
-            <el-form ref="form" :model="form" size="mini" :rules="formRules" style="margin: 0; padding-left: 10px">
+            <el-form ref="form" :model="form" size="mini" style="margin: 0; padding-left: 10px">
                 <el-form-item label="Order Type" prop="orderType">
                     <el-select v-model="form.orderType" placeholder="Select">
                         <el-option
@@ -33,66 +33,66 @@
                     </tr>
                     <tr>
                         <td>
-                            <el-form-item label="Company Name: " prop="billing">
+                            <el-form-item label="Company Name: ">
                                 <el-input v-model="form.billing"></el-input>
                             </el-form-item>
                         </td>
                         <td>
-                            <el-form-item label="Company Name: " prop="companyName">
+                            <el-form-item label="Company Name: ">
                                 <el-input v-model="sameAsBilling ? form.billing : form.companyName" :disabled="sameAsBilling"></el-input>
                             </el-form-item>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <el-form-item label="Contact: " prop="billingContact">
+                            <el-form-item label="Contact: ">
                                 <el-input v-model="form.billingContact"></el-input>
                             </el-form-item>
                         </td>
                         <td>
-                            <el-form-item label="Contact: " prop="contact">
+                            <el-form-item label="Contact: ">
                                 <el-input v-model="sameAsBilling ? form.billingContact : form.contact" :disabled="sameAsBilling"></el-input>
                             </el-form-item>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <el-form-item label="Phone Number: " prop="billingPhone">
+                            <el-form-item label="Phone Number: ">
                                 <el-input v-model="form.billingPhone"></el-input>
                             </el-form-item>
                         </td>
                         <td>
-                            <el-form-item label="Phone Number: " prop="phone">
+                            <el-form-item label="Phone Number: ">
                                 <el-input v-model="sameAsBilling ? form.billingPhone : form.phone" :disabled="sameAsBilling"></el-input>
                             </el-form-item>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <el-form-item label="Email: " prop="billingEmail">
+                            <el-form-item label="Email: ">
                                 <el-input v-model="form.billingEmail"></el-input>
                             </el-form-item>
                         </td>
                         <td>
-                            <el-form-item label="Email: " prop="email">
+                            <el-form-item label="Email: ">
                                 <el-input v-model="sameAsBilling ? form.billingEmail : form.email" :disabled="sameAsBilling"></el-input>
                             </el-form-item>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <el-form-item label="Billing Address: " prop="billingAddress">
+                            <el-form-item label="Billing Address: ">
                                 <el-input v-model="form.billingAddress"></el-input>
                             </el-form-item>
                         </td>
                         <td>
-                            <el-form-item label="Shipping Address: " prop="shippingAddress">
+                            <el-form-item label="Shipping Address: ">
                                 <el-input v-model="sameAsBilling ? form.billingAddress : form.shippingAddress" :disabled="sameAsBilling"></el-input>
                             </el-form-item>
                         </td>
                     </tr>
                 </table>
-                <el-form-item label="Payment Term" prop="paymentTerm">
+                <el-form-item label="Payment Term">
                     <el-select v-model="form.paymentTerm" placeholder="Select">
                         <el-option
                             v-for="option in paymentOptions"
@@ -114,7 +114,7 @@
                     :row-key="row => row.index"
                     style="width: 100%; margin-left: 50px"
                 >
-                    <el-table-column label="Product" prop="product" width="150"></el-table-column>
+                    <el-table-column label="Product" prop="product" width="155"></el-table-column>
                     <el-table-column label="QTY" prop="quantity" width="96"></el-table-column>
                     <el-table-column label="Rate" prop="rate" width="96"></el-table-column>
                     <el-table-column label="Amount" prop="amount" width="96">
@@ -122,7 +122,7 @@
                             <span>${{ Number(scope.row.amount).toFixed(2) }}</span>
                         </template>
                     </el-table-column>
-                    <el-table-column label="Tax" prop="tax" width="50"></el-table-column>
+                    <el-table-column label="Tax" prop="tax" width="45"></el-table-column>
                     <el-table-column label="Action" width="100">
                         <template slot-scope="scope">
                             <el-button type="text" @click="handleDeleteOrderItem(scope.row, scope.$index)">Delete</el-button>
@@ -175,7 +175,7 @@
                         </td>
                     </tr>
                 </table>
-                <el-form ref="form" :model="customerServiceForm" :rules="formRules" size="mini">
+                <el-form ref="form" :model="customerServiceForm" size="mini">
                     <table class="secondaryForm" style="width: 100%; text-align: right">
                         <tr>
                             <td>
@@ -191,19 +191,19 @@
                                 </el-form-item>
                             </td>
                             <td>
-                                <el-form-item label="Shipping Fee" prop="shippingFee">
+                                <el-form-item label="Shipping Fee">
                                     <el-input v-model="customerServiceForm.shippingFee" ></el-input>
                                 </el-form-item>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <el-form-item label="Invoice #" prop="invoiceNumber">
+                                <el-form-item label="Invoice #">
                                     <el-input v-model="customerServiceForm.invoiceNumber" :placeholder="invoicePlaceholder"></el-input>
                                 </el-form-item>
                             </td>
                             <td>
-                                <el-form-item label="Invoice Date" prop="invoiceDate">
+                                <el-form-item label="Invoice Date">
                                     <el-date-picker
                                             v-model="customerServiceForm.invoiceDate"
                                             type="datetime"
@@ -215,12 +215,12 @@
                         </tr>
                         <tr>
                             <td>
-                                <el-form-item label="Shipping Via" prop="shippingVia">
+                                <el-form-item label="Shipping Via">
                                     <el-input v-model="customerServiceForm.shippingVia"></el-input>
                                 </el-form-item>
                             </td>
                             <td>
-                                <el-form-item label="Tracking Number" prop="trackingNumber">
+                                <el-form-item label="Tracking Number">
                                     <el-input v-model="customerServiceForm.trackingNumber"></el-input>
                                 </el-form-item>
                             </td>
@@ -303,9 +303,11 @@ export default {
         accName: '',
         accPrice: '',
         accQty: '',
+        accTax: '',
         prodName: '',
         prodPrice: '',
         prodQty: '',
+        prodTax: '',
         planQty: '',
         planAmt: '',
         planName: '',
@@ -578,31 +580,33 @@ export default {
     },
 
     /* GET ACCESSORIES, PRODUCTS, AND SERVICE PLANS FOR TABLE */
-    getAccessoryInfo(n, p, q) {
+    getAccessoryInfo(n, p, q, r) {
       this.form.accName = n;
       this.form.accPrice = p;
       this.form.accQty = q;
+      this.form.accTax = r;
       const data = {orderId: '',
         product: this.form.accName,
         quantity: this.form.accQty,
         rate: this.form.accPrice,
         amount: Number(this.form.accPrice) * Number(this.form.accQty),
-        tax: 'Y',
+        tax: this.form.accTax,
         description: this.form.accQty + ' * ' + this.form.accName,
         invoiceNo: this.customerServiceForm.invoiceNumber
       };
       this.tableData.push(data);
     },
-    getProductInfo(n, p, q) {
+    getProductInfo(n, p, q, r) {
       this.form.prodName = n;
       this.form.prodPrice = p;
       this.form.prodQty = q;
+      this.form.prodTax = r;
       const data = {orderId: '',
         product: this.form.prodName,
         quantity: this.form.prodQty,
         rate: this.form.prodPrice,
         amount: Number(this.form.prodPrice) * Number(this.form.prodQty),
-        tax: 'Y',
+        tax: this.form.prodTax,
         description: this.form.prodQty + ' * ' + this.form.prodName,
         invoiceNo: this.customerServiceForm.invoiceNumber
       };
@@ -623,19 +627,21 @@ export default {
       };
       this.tableData.push(data);
     },
-    getProdAndAccInfo(pn, pp, pq, an, ap, aq) {
+    getProdAndAccInfo(pn, pp, pq, pt, an, ap, aq, at) {
       this.form.prodName = pn;
       this.form.prodPrice = pp;
       this.form.prodQty = pq;
+      this.form.prodTax = pt;
       this.form.accName = an;
       this.form.accPrice = ap;
       this.form.accQty = aq;
+      this.form.accTax = at;
       const data = {orderId: '',
         product: this.form.prodName,
         quantity: this.form.prodQty,
         rate: this.form.prodPrice,
         amount: Number(this.form.prodPrice) * Number(this.form.prodQty),
-        tax: 'Y',
+        tax: this.form.prodTax,
         description: this.form.prodQty + ' * ' + this.form.prodName,
         invoiceNo: this.customerServiceForm.invoiceNumber
       };
@@ -645,16 +651,17 @@ export default {
         quantity: this.form.accQty,
         rate: this.form.accPrice,
         amount: Number(this.form.accPrice) * Number(this.form.accQty),
-        tax: 'Y',
+        tax: this.form.accTax,
         description: this.form.accQty + ' * ' + this.form.accName,
         invoiceNo: this.customerServiceForm.invoiceNumber
       };
       this.tableData.push(data2);
     },
-    getProdAndPlanInfo(pn, pp, pq, sq, sa, sn) {
+    getProdAndPlanInfo(pn, pp, pq, pt, sq, sa, sn) {
       this.form.prodName = pn;
       this.form.prodPrice = pp;
       this.form.prodQty = pq;
+      this.form.prodTax = pt;
       this.form.planQty = sq;
       this.form.planAmt = sa;
       this.form.planName = sn;
@@ -663,7 +670,7 @@ export default {
         quantity: this.form.prodQty,
         rate: this.form.prodPrice,
         amount: Number(this.form.prodPrice) * Number(this.form.prodQty),
-        tax: 'Y',
+        tax: this.form.prodTax,
         description: this.form.prodQty + ' * ' + this.form.prodName,
         invoiceNo: this.customerServiceForm.invoiceNumber
       };
@@ -679,13 +686,15 @@ export default {
       };
       this.tableData.push(data2);
     },
-    getAllInfo(pn, pp, pq, an, ap, aq, sq, sa, sn) {
+    getAllInfo(pn, pp, pq, pt, an, ap, aq, at, sq, sa, sn) {
       this.form.prodName = pn;
       this.form.prodPrice = pp;
       this.form.prodQty = pq;
+      this.form.prodTax = pt;
       this.form.accName = an;
       this.form.accPrice = ap;
       this.form.accQty = aq;
+      this.form.accTax = at;
       this.form.planQty = sq;
       this.form.planAmt = sa;
       this.form.planName = sn;
@@ -694,7 +703,7 @@ export default {
         quantity: this.form.prodQty,
         rate: this.form.prodPrice,
         amount: Number(this.form.prodPrice) * Number(this.form.prodQty),
-        tax: 'Y',
+        tax: this.form.prodTax,
         description: this.form.prodQty + ' * ' + this.form.prodName,
         invoiceNo: this.customerServiceForm.invoiceNumber
       };
@@ -704,7 +713,7 @@ export default {
         quantity: this.form.accQty,
         rate: this.form.accPrice,
         amount: Number(this.form.accPrice) * Number(this.form.accQty),
-        tax: 'Y',
+        tax: this.form.accTax,
         description: this.form.accQty + ' * ' + this.form.accName,
         invoiceNo: this.customerServiceForm.invoiceNumber
       };

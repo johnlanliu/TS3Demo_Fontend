@@ -172,7 +172,7 @@
                         </td>
                     </tr>
                 </table>
-                <el-form ref="form" :model="editForm" :rules="formRules" size="mini">
+                <el-form ref="form" :model="editForm" size="mini">
                     <table class="secondaryForm" style="width: 100%; text-align: right">
                         <tr>
                             <td>

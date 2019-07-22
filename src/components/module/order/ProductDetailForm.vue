@@ -115,30 +115,50 @@
                                                 style="width: 150px">
                                         </el-input-number>
                                     </el-form-item>
-                                    <el-form-item v-if="form3.planPicked" label="Service Plan ">
-                                        <el-form-item align="center">{{ form3.planName }}</el-form-item>
-                                        <el-form-item>
-                                            <el-input v-model="form3.planAmt" style="width: 150px;"></el-input>
-                                        </el-form-item>
-                                        <el-form-item>
-                                            <el-input-number
-                                                    v-model="form3.planQty"
-                                                    controls-position="right"
-                                                    :min="form3.planQty"
-                                                    style="width: 150px">
-                                            </el-input-number>
-                                        </el-form-item>
+                                    <el-form-item label="Tax: ">
+                                        <el-select v-model="form3.prodTax" placeholder="" style="width: 150px">
+                                            <el-option
+                                                v-for="option in taxOptions"
+                                                :key="option.value"
+                                                :label="option.label"
+                                                :value="option.value">
+                                            </el-option>
+                                        </el-select>
                                     </el-form-item>
-                                    <el-form-item v-if="form3.accPicked" label="Accessory ">
-                                        <el-form-item align="center" style="padding-right: 30px">{{ form3.accName }}</el-form-item>
-                                        <el-form-item>
+                                    <el-form-item v-if="form3.accPicked">
+                                        <el-form-item align="center" style="padding-right: 30px" label="Accessory: ">{{ form3.accName }}</el-form-item>
+                                        <el-form-item label="Accessory Price: ">
                                             <el-input v-model="form3.accPrice" style="width: 150px;"></el-input>
                                         </el-form-item>
-                                        <el-form-item>
+                                        <el-form-item label="Accessory QTY: ">
                                             <el-input-number
                                                     v-model="form3.accQty"
                                                     controls-position="right"
-                                                    :min="form3.accQty"
+                                                    :min="1"
+                                                    style="width: 150px">
+                                            </el-input-number>
+                                        </el-form-item>
+                                        <el-form-item label="Accessory Tax: ">
+                                            <el-select v-model="form3.accTax" placeholder="" style="width: 150px">
+                                                <el-option
+                                                        v-for="option in taxOptions"
+                                                        :key="option.value"
+                                                        :label="option.label"
+                                                        :value="option.value">
+                                                </el-option>
+                                            </el-select>
+                                        </el-form-item>
+                                    </el-form-item>
+                                    <el-form-item v-if="form3.planPicked">
+                                        <el-form-item align="center" label="Service Plan: ">{{ form3.planName }}</el-form-item>
+                                        <el-form-item label="Service Plan Price: ">
+                                            <el-input v-model="form3.planAmt" style="width: 150px;"></el-input>
+                                        </el-form-item>
+                                        <el-form-item label="Service Plan QTY: ">
+                                            <el-input-number
+                                                    v-model="form3.planQty"
+                                                    controls-position="right"
+                                                    :min="1"
                                                     style="width: 150px">
                                             </el-input-number>
                                         </el-form-item>
@@ -156,7 +176,7 @@
             </el-form>
         </div>
         <accessory-detail-form ref="accessoryDetailForm" v-bind:product="this.form3.productName" @accessoryAdded="getAccessoryInfo"></accessory-detail-form>
-        <service-plan-form ref="servicePlanForm" @planAdded="getServicePlanFee"></service-plan-form>
+        <service-plan-form ref="servicePlanForm" @planAdded="getServicePlanFee" v-bind:prod-q-t-y="form3.QTY"></service-plan-form>
     </el-dialog>
 </template>
 
@@ -190,18 +210,30 @@ export default {
         showPrice: false,
         network: 'Network',
         color: 'Color',
-        QTY: '',
+        QTY: 1,
         price: '',
         accName: '',
         accPrice: '',
         accQty: 1,
+        accTax: '',
         accPicked: false,
         planPicked: false,
-        planQty: '',
+        planQty: 1,
         planAmt: '',
         planName: '',
         servicePlan: '',
+        prodTax: '',
       },
+      taxOptions: [
+        {
+          value: 'Y',
+          label: 'Y'
+        },
+        {
+          value: 'N',
+          label: 'N'
+        }
+      ]
 
     /* FORM RULES */
       // formRules: {
@@ -244,14 +276,16 @@ export default {
       this.form3.showPrice = false;
       this.form3.network = 'Network';
       this.form3.color = 'Color';
-      this.form3.QTY = '';
+      this.form3.QTY = 1;
       this.form3.price = '';
+      this.form3.prodTax = '';
       this.form3.accName = '';
       this.form3.accPrice = '';
       this.form3.accQty = 1;
+      this.form3.accTax = '';
       this.form3.accPicked = false;
       this.form3.planPicked = false;
-      this.form3.planQty = '';
+      this.form3.planQty = 1;
       this.form3.planAmt = '';
       this.form3.planName = '';
       this.form3.servicePlan = '';
@@ -333,17 +367,17 @@ export default {
       }
 
       if (state === 0) {
-        this.$emit('productAdded', this.fullProductCode, this.form3.price, this.form3.QTY);
+        this.$emit('productAdded', this.fullProductCode, this.form3.price, this.form3.QTY, this.form3.prodTax);
       }      else if (state === 1) {
-        this.$emit('prodAndAccAdded', this.fullProductCode, this.form3.price, this.form3.QTY,
-                  this.form3.accName, this.form3.accPrice, this.form3.accQty);
+        this.$emit('prodAndAccAdded', this.fullProductCode, this.form3.price, this.form3.QTY, this.form3.prodTax,
+                  this.form3.accName, this.form3.accPrice, this.form3.accQty, this.form3.accTax);
       }      else if (state === 2) {
-        this.$emit('prodAndPlanAdded', this.fullProductCode, this.form3.price, this.form3.QTY,
+        this.$emit('prodAndPlanAdded', this.fullProductCode, this.form3.price, this.form3.QTY, this.form3.prodTax,
                   this.form3.planQty, this.form3.planAmt, this.form3.planName);
       }      else {
         this.$emit('allAdded', this.fullProductCode, this.form3.price,
-                  this.form3.QTY, this.form3.accName, this.form3.accPrice, this.form3.accQty,
-                  this.form3.planQty, this.form3.planAmt, this.form3.planName);
+                  this.form3.QTY, this.form3.prodTax, this.form3.accName, this.form3.accPrice, this.form3.accQty,
+                  this.form3.accTax, this.form3.planQty, this.form3.planAmt, this.form3.planName);
       }
       this.isOpen = false;
     },
@@ -357,11 +391,12 @@ export default {
     },
 
     /* GET ACCESSORIES, PRODUCTS, AND SERVICE PLANS FOR TABLE */
-    getAccessoryInfo(n, p, q) {
+    getAccessoryInfo(n, p, q, r) {
       this.form3.accPicked = true;
       this.form3.accName = n;
       this.form3.accPrice = p;
       this.form3.accQty = q;
+      this.form3.accTax = r;
     },
     getServicePlanFee(qty, amt, name) {
       this.form3.planPicked = true;

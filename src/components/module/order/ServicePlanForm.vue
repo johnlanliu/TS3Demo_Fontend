@@ -4,7 +4,7 @@
             :center="true"
             top="15vh"
             :visible.sync="isOpen"
-            append-to-body="append"
+            :append-to-body="append"
             @close="resetFields">
         <el-form ref="form" :model="form5" size="mini" style="text-align: center">
             <el-collapse v-model="form5.activeName" accordion>
@@ -73,6 +73,9 @@
 <script>
     export default {
       name: 'ServicePlanForm',
+      props: {
+        prodQTY: Number
+      },
       data: function() {
         return {
           isOpen: false,
@@ -82,7 +85,7 @@
             activeName: '1',
             servicePlan: 'Service Plan',
             showPrice: false,
-            QTY: '',
+            QTY: this.prodQTY,
             amount: '',
           },
           // formRules: {
@@ -102,8 +105,8 @@
         },
         resetFields() {
           this.form5.showPrice = false;
-          this.form5.QTY = 1;
-          this.form5.amount = 0;
+          this.form5.amount = '';
+          this.form5.QTY = this.prodQTY;
           this.form5.activeName = '1';
           this.form5.servicePlan = 'Service Plan';
           this.$refs.form.resetFields();
