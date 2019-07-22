@@ -96,6 +96,54 @@
                             </el-form-item>
                         </td>
                     </tr>
+                    <tr>
+                        <td>
+                            <el-form-item label="Billing City: ">
+                                <el-input v-model="form.billingCity" style="width: 250px"></el-input>
+                            </el-form-item>
+                        </td>
+                        <td>
+                            <el-form-item label="Billing State/Province: ">
+                                <el-input v-model="form.billingState" style="width: 250px"></el-input>
+                            </el-form-item>
+                        </td>
+                        <td>
+                            <el-form-item label="Shipping City: ">
+                                <el-input v-model="sameAsBilling ? form.billingCity : form.shippingCity"
+                                          style="width: 250px" :disabled="sameAsBilling"></el-input>
+                            </el-form-item>
+                        </td>
+                        <td>
+                            <el-form-item label="Shipping State/Province: ">
+                                <el-input v-model="sameAsBilling ? form.billingState : form.shippingState"
+                                          style="width: 250px" :disabled="sameAsBilling"></el-input>
+                            </el-form-item>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <el-form-item label="Billing Country: ">
+                                <el-input v-model="form.billingCountry" style="width: 75px"></el-input>
+                            </el-form-item>
+                        </td>
+                        <td>
+                            <el-form-item label="Billing Zip/Postal Code: ">
+                                <el-input v-model="form.billingZip" style="width: 75px"></el-input>
+                            </el-form-item>
+                        </td>
+                        <td>
+                            <el-form-item label="Shipping Country: ">
+                                <el-input v-model="sameAsBilling ? form.billingCountry : form.shippingCountry"
+                                          style="width: 75px" :disabled="sameAsBilling"></el-input>
+                            </el-form-item>
+                        </td>
+                        <td>
+                            <el-form-item label="Shipping Zip/Postal Code: ">
+                                <el-input v-model="sameAsBilling ? form.billingZip : form.shippingZip"
+                                          style="width: 75px" :disabled="sameAsBilling"></el-input>
+                            </el-form-item>
+                        </td>
+                    </tr>
                 </table>
                 <el-form-item label="Payment Term" prop="paymentTerm">
                     <el-select v-model="form.paymentTerm" placeholder="Select">
@@ -296,11 +344,19 @@ export default {
         billingPhone: '',
         billingEmail: '',
         billingAddress: '',
+        billingCity: '',
+        billingState: '',
+        billingCountry: '',
+        billingZip: '',
         companyName: '',
         contact: '',
         email: '',
         phone: '',
         shippingAddress: '',
+        shippingCity: '',
+        shippingState: '',
+        shippingCountry: '',
+        shippingZip: '',
         orderType: '',
         paymentTerm: '',
         note: '',
@@ -491,6 +547,10 @@ export default {
         this.form.phone = this.form.billingPhone;
         this.form.email = this.form.billingEmail;
         this.form.shippingAddress = this.form.billingAddress;
+        this.form.shippingCity = this.form.billingCity;
+        this.form.shippingState = this.form.billingState;
+        this.form.shippingCountry = this.form.billingCountry;
+        this.form.shippingZip = this.form.billingZip;
       }
     },
     handleDeleteOrderItem(row, index) {
@@ -525,11 +585,19 @@ export default {
         billingNumber: this.form.billingPhone,
         billingEmail: this.form.billingEmail,
         billingAddress: this.form.billingAddress,
+        billingCity: this.form.billingCity,
+        billingState: this.form.billingState,
+        billingCountry: this.form.billingCountry,
+        billingZip: this.form.billingZip,
         shippingCompany: this.form.companyName,
         shippingContact: this.form.contact,
         shippingNumber: this.form.phone,
         shippingEmail: this.form.email,
         shippingAddress: this.form.shippingAddress,
+        shippingCity: this.form.shippingCity,
+        shippingState: this.form.shippingState,
+        shippingCountry: this.form.shippingCountry,
+        shippingZip: this.form.shippingZip,
         note: this.form.note,
         shippingVia: this.customerServiceForm.shippingVia,
         shippingFee: this.customerServiceForm.shippingFee,
