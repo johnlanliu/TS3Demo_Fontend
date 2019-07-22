@@ -152,15 +152,15 @@
                     </el-col>
                 </el-row>
                 <el-table
-                        ref="orderDetailTable"
-                        :data="tableData"
-                        v-loading="loading"
-                        border
-                        stripe
-                        highlight-current-row
-                        max-height="200px"
-                        :row-key="row => row.index"
-                        style="width: 100%"
+                    ref="orderDetailTable"
+                    :data="tableData"
+                    v-loading="loading"
+                    border
+                    stripe
+                    highlight-current-row
+                    :height="200"
+                    :row-key="row => row.index"
+                    style="width: 65%; margin-left: 50px"
                 >
                     <el-table-column label="Product" prop="product" width="150"></el-table-column>
                     <el-table-column label="QTY" prop="quantity" width="120"></el-table-column>

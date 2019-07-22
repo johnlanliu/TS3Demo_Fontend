@@ -103,9 +103,7 @@
                         </el-option>
                     </el-select>
                 </el-form-item>
-                <br>
                 <el-form-item label="Order Details" style="font-weight: 900"></el-form-item>
-                <br>
                 <el-table
                     ref="orderDetailTable"
                     :data="tableData"
