@@ -93,6 +93,7 @@
                         </td>
                     </tr>
                 </table>
+
                 <el-form-item label="Payment Term">
                     <el-select v-model="editForm.paymentTerm" placeholder="Select">
                         <el-option
@@ -103,6 +104,7 @@
                         </el-option>
                     </el-select>
                 </el-form-item>
+
                 <el-form-item label="Order Details" style="font-weight: 900"></el-form-item>
                 <el-table
                     ref="orderDetailTable"
@@ -113,7 +115,7 @@
                     highlight-current-row
                     :height="200"
                     :row-key="row => row.index"
-                    style="width: 100%; margin-left: 50px"
+                    style="width: 100%; margin-left: 50px; margin-bottom: 5px"
                 >
                     <el-table-column label="Product" prop="product" width="150"></el-table-column>
                     <el-table-column label="QTY" prop="quantity" width="96"></el-table-column>
@@ -130,7 +132,8 @@
                         </template>
                     </el-table-column>
                 </el-table>
-                <table style="width: 100%; text-align: right; padding-left: 150px; margin-left: 50px">
+
+                <table style="width: 100%; text-align: right; padding-left: 150px; margin-left: 50px; margin-bottom: 10px">
                     <tr>
                         <td>
                             <el-button type="primary" @click="handleAddDevice()">+ Add Device</el-button>
@@ -143,7 +146,8 @@
                         </td>
                     </tr>
                 </table>
-                <table style="width: 100%">
+
+                <table style="width: 100%; border-spacing: 0px">
                     <tr>
                         <td>
                             <el-form-item label="Note:" style="display: block; margin-left: 30px; margin-right: 30px">
@@ -156,32 +160,24 @@
                                 </el-input>
                             </el-form-item>
                         </td>
-                        <td>
-                            <table style="width: 100%; text-align: right">
-                                <tr>
-                                    <td>
-                                        <el-form-item label="Tax: " style="padding-left: 100px">
-                                            <p v-model="tax">${{ tax }}</p>
-                                        </el-form-item>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <el-form-item label="Total: " style="padding-left: 100px">
-                                            <p v-model="total">${{ total }} plus shipping fee</p>
-                                        </el-form-item>
-                                    </td>
-                                </tr>
-                            </table>
+                        <td style="text-align: right">
+                            <el-form-item label="Tax: " style="padding-left: 100px">
+                                <p v-model="tax">${{ tax }}</p>
+                            </el-form-item>
+                            <el-form-item label="Total: " style="padding-left: 100px">
+                                <p v-model="total">${{ total }}</p>
+                                <p>plus shipping fee</p>
+                            </el-form-item>
                         </td>
                     </tr>
                 </table>
+
                 <el-form ref="form" :model="editForm" size="mini">
-                    <table class="secondaryForm" style="width: 100%; text-align: right">
+                    <table class="secondaryForm" style="width: 100%; text-align: left; border-spacing: 0px">
                         <tr>
-                            <td>
+                            <td style="padding-left: 20px">
                                 <el-form-item label="Status:">
-                                    <el-select v-model="editForm.status" placeholder="select" style="width: 160px">
+                                    <el-select v-model="editForm.status" placeholder="select" style="width: 250px">
                                         <el-option
                                             v-for="option in statusOptions"
                                             :key="option.status"
@@ -193,14 +189,14 @@
                             </td>
                             <td>
                                 <el-form-item label="Shipping Fee">
-                                    <el-input v-model="editForm.shippingFee" ></el-input>
+                                    <el-input v-model="editForm.shippingFee" style="width: 250px"></el-input>
                                 </el-form-item>
                             </td>
                         </tr>
                         <tr>
-                            <td>
+                            <td style="padding-left: 20px">
                                 <el-form-item label="Invoice #">
-                                    <el-input v-model="editForm.invoiceNo"></el-input>
+                                    <el-input v-model="editForm.invoiceNo" style="width: 250px"></el-input>
                                 </el-form-item>
                             </td>
                             <td>
@@ -209,24 +205,25 @@
                                         v-model="editForm.invoiceDate"
                                         type="datetime"
                                         placeholder="Select date and time"
-                                        style="width: 160px">
+                                        style="width: 250px">
                                     </el-date-picker>
                                 </el-form-item>
                             </td>
                         </tr>
                         <tr>
-                            <td>
+                            <td style="padding-left: 20px">
                                 <el-form-item label="Shipping Via">
-                                    <el-input v-model="editForm.shippingVia"></el-input>
+                                    <el-input v-model="editForm.shippingVia" style="width: 250px"></el-input>
                                 </el-form-item>
                             </td>
                             <td>
                                 <el-form-item label="Tracking Number">
-                                    <el-input v-model="editForm.trackingNo"></el-input>
+                                    <el-input v-model="editForm.trackingNo" style="width: 250px"></el-input>
                                 </el-form-item>
                             </td>
                         </tr>
                     </table>
+
                     <table style="width: 100%; text-align: right; padding-left: 150px; margin-left: 50px">
                         <tr>
                             <td>
@@ -819,7 +816,6 @@ export default {
         margin-left: auto;
         margin-right: auto;
         padding-right: 50px;
-        background: gainsboro;
     }
 
     table.test{

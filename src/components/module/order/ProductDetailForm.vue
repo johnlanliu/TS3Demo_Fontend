@@ -66,12 +66,12 @@
                             {{ form3.network }}
                         </template>
                         <el-row>
-                            <el-col :span="2">
+                            <el-col :span="2" style="padding-left: 10px">
                                 <el-form-item>
                                     <el-button type="warning" style="width: 50px" @click="handleNetworkClick('3G')">3G</el-button>
                                 </el-form-item>
                             </el-col>
-                            <el-col :span="2">
+                            <el-col :span="2" style="padding-left: 19px">
                                 <el-form-item>
                                     <el-button type="warning" style="width: 50px" @click="handleNetworkClick('4G')">4G</el-button>
                                 </el-form-item>
