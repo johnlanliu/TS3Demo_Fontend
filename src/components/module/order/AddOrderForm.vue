@@ -266,7 +266,10 @@
                         <tr>
                             <td>
                                 <el-form-item label="Invoice #">
-                                    <el-input v-model="customerServiceForm.invoiceNumber" :placeholder="invoicePlaceholder"></el-input>
+                                    <el-input v-model="customerServiceForm.invoiceNumber"
+                                              :placeholder="invoicePlaceholder"
+                                              ></el-input>
+                                    <p class="warning" v-if="!validInvoice">invalid invoice number</p>
                                 </el-form-item>
                             </td>
                             <td>
@@ -302,7 +305,7 @@
                             </td>
                             <td>
                                 <el-form-item>
-                                    <el-button type="primary" @click="handleCreateInvoice">Submit and Create Invoice</el-button>
+                                    <el-button type="primary" @click="handleCreateInvoice" :disabled="!validInvoice">Submit and Create Invoice</el-button>
                                 </el-form-item>
                             </td>
                         </tr>
@@ -347,6 +350,7 @@ export default {
       isOpen: false,
 
     /* RESET THESE */
+      validInvoice: true,
       sameAsBilling: true,
       sameAsBillingBool: 1,
       tableData: [],
@@ -628,7 +632,7 @@ export default {
       }
     },
     async checkForOrder() {
-
+      this.validInvoice = await validInvoiceNo({invoiceNo: this.customerServiceForm.invoiceNumber});
     },
 
     /* HANDLERS FOR SHOWING PRODUCT FORMS */
@@ -862,6 +866,14 @@ export default {
 
     table.test{
         line-height: 40px;
+    }
+
+    .warning {
+        font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+        font-size: 9pt;
+        color: #F56C6C;
+        position: absolute;
+        padding-left: 5px;
     }
 
 </style>
