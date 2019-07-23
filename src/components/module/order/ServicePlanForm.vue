@@ -109,7 +109,7 @@ export default {
 
   watch: {
     prodQuantity(newValue, oldValue){
-      this.form5.QTY=newValue;
+      this.form5.QTY = newValue;
     }
   },
 

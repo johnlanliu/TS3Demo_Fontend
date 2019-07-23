@@ -188,9 +188,7 @@ export default {
     },
     async getOrderInfo(row, index) {
       this.orderInfoToView = await getOrderByOrderId({orderId: row.orderId});
-      if (this.orderInfoToView.sameAsBilling === 1) {
-        this.sameAsBilling = true;
-      }
+      this.sameAsBilling = this.orderInfoToView.sameAsBilling === 1;
     },
     async getOrderItems(row,index) {
       const res = await getOrderItem({orderId: row.orderId});

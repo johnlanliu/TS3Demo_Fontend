@@ -24,7 +24,7 @@
                         <td class="bill"><el-form-item label="BILLING INFO"style="font-weight: bold"></el-form-item></td>
                         <td>
                             <el-form-item label="SHIPPING INFO" style="font-weight: bold">
-                                <el-checkbox v-model="sameAsBilling"
+                                <el-checkbox v-model="sameInfo"
                                              style="display: inline"
                                              @change="handleSameInfo()"
                                 >the same as billing info
@@ -40,7 +40,7 @@
                         </td>
                         <td>
                             <el-form-item label="Company Name: ">
-                                <el-input v-model="sameAsBilling ? editForm.billingCompany : editForm.shippingCompany" :disabled="sameAsBilling"></el-input>
+                                <el-input v-model="sameInfo ? editForm.billingCompany : editForm.shippingCompany" :disabled="sameInfo"></el-input>
                             </el-form-item>
                         </td>
                     </tr>
@@ -52,7 +52,7 @@
                         </td>
                         <td>
                             <el-form-item label="Contact: ">
-                                <el-input v-model="sameAsBilling ? editForm.billingContact : editForm.shippingContact" :disabled="sameAsBilling"></el-input>
+                                <el-input v-model="sameInfo ? editForm.billingContact : editForm.shippingContact" :disabled="sameInfo"></el-input>
                             </el-form-item>
                         </td>
                     </tr>
@@ -64,7 +64,7 @@
                         </td>
                         <td>
                             <el-form-item label="Phone Number: ">
-                                <el-input v-model="sameAsBilling ? editForm.billingNumber : editForm.shippingNumber" :disabled="sameAsBilling"></el-input>
+                                <el-input v-model="sameInfo ? editForm.billingNumber : editForm.shippingNumber" :disabled="sameInfo"></el-input>
                             </el-form-item>
                         </td>
                     </tr>
@@ -76,7 +76,7 @@
                         </td>
                         <td>
                             <el-form-item label="Email: ">
-                                <el-input v-model="sameAsBilling ? editForm.billingEmail : editForm.shippingEmail" :disabled="sameAsBilling"></el-input>
+                                <el-input v-model="sameInfo ? editForm.billingEmail : editForm.shippingEmail" :disabled="sameInfo"></el-input>
                             </el-form-item>
                         </td>
                     </tr>
@@ -88,7 +88,7 @@
                         </td>
                         <td>
                             <el-form-item label="Shipping Address: ">
-                                <el-input v-model="sameAsBilling ? editForm.billingAddress : editForm.shippingAddress" :disabled="sameAsBilling"></el-input>
+                                <el-input v-model="sameInfo ? editForm.billingAddress : editForm.shippingAddress" :disabled="sameInfo"></el-input>
                             </el-form-item>
                         </td>
                     </tr>
@@ -444,6 +444,7 @@ export default {
         status: '',
         invoiceNo: '',
         invoiceDate: '',
+        dueDate: '',
         trackingNo: '',
         sales: '',
         billingCompany: '',
@@ -470,6 +471,11 @@ export default {
     offset: Number,
     initData: Function,
   },
+  watch: {
+    sameAsBilling(newValue, oldValue) {
+      this.sameInfo = newValue;
+    },
+  },
 
   methods: {
     /* AUXILIARY FUNCTIONS */
@@ -477,7 +483,8 @@ export default {
       this.isOpen = true;
     },
     resetFields() {
-      this.sameInfo = false;
+      this.sameInfo = this.sameAsBilling;
+      this.editForm = {};
       this.sameAsBillingBool = 0;
       this.itemOffset = this.offset;
       this.newData = [];
@@ -488,13 +495,15 @@ export default {
 
     /* HANDLER FUNCTIONS */
     handleSameInfo() {
-      if (this.sameAsBilling) {
+      if (this.sameInfo) {
         this.sameAsBillingBool = 1;
         this.editForm.shippingCompany = this.editForm.billingCompany;
         this.editForm.shippingContact = this.editForm.billingContact;
         this.editForm.shippingNumber = this.editForm.billingNumber;
         this.editForm.shippingEmail = this.editForm.billingEmail;
         this.editForm.shippingAddress = this.editForm.billingAddress;
+      } else {
+        this.sameAsBillingBool = 0;
       }
     },
     handleDeleteOrderItem(row, index) {
@@ -532,6 +541,7 @@ export default {
       this.isOpen = false;
     },
     handleSaveEdit() {
+      this.getDates();
       this.toDelete.forEach(function(element) {
         deleteOrderItem({itemId: element});
       });
@@ -584,21 +594,24 @@ export default {
 
     /* FORMAT INVOICE AND DUE DATES */
     getDates() {
-      let invoice = new Date(this.customerServiceForm.invoiceDate);
-      let due = new Date(this.customerServiceForm.invoiceDate);
-
-      if (this.form.paymentTerm === 'Net15') {
-        due.setDate(this.customerServiceForm.invoiceDate.getDate()+15);
+      if (this.editForm.paymentTerm === null || this.editForm.invoiceDate === null) {
+        this.editForm.dueDate = null;
+        return;
+      }
+      let invoice = new Date(this.editForm.invoiceDate);
+      let due = new Date(this.editForm.invoiceDate);
+      if (this.editForm.paymentTerm === 'Net15') {
+        due.setDate(invoice.getDate()+15);
       } else {
-        due.setDate(this.customerServiceForm.invoiceDate.getDate()+30);
+        due.setDate(invoice.getDate()+30);
       }
 
-      this.customerServiceForm.invoiceDate = invoice.getFullYear()
+      this.editForm.invoiceDate = invoice.getFullYear()
           + '-' + (invoice.getMonth()+1)
           + '-' + invoice.getDate()
           + ' ' + invoice.getHours()
           + ':' + invoice.getMinutes();
-      this.customerServiceForm.dueDate = due.getFullYear()
+      this.editForm.dueDate = due.getFullYear()
           + '-' + (due.getMonth()+1)
           + '-' + due.getDate()
           + ' ' + due.getHours()
