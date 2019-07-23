@@ -387,7 +387,6 @@ export default {
       this.$refs.accessoryDetailForm.showDialog();
     },
     handlePlan() {
-      alert(this.form3.QTY);
       this.$refs.servicePlanForm.showDialog();
     },
 

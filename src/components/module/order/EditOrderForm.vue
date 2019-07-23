@@ -118,7 +118,11 @@
                     <el-table-column label="Product" prop="product" width="150"></el-table-column>
                     <el-table-column label="QTY" prop="quantity" width="96"></el-table-column>
                     <el-table-column label="Rate" prop="rate" width="96"></el-table-column>
-                    <el-table-column label="Amount" prop="amount" width="96"></el-table-column>
+                    <el-table-column label="Amount" prop="amount" width="96">
+                        <template slot-scope="scope">
+                            <span v-model="scope.row.amount">${{ scope.row.amount.toFixed(2) }}</span>
+                        </template>
+                    </el-table-column>
                     <el-table-column label="Tax" prop="tax" width="50"></el-table-column>
                     <el-table-column label="Action" width="100">
                         <template slot-scope="scope">
@@ -280,9 +284,11 @@ export default {
         accName: '',
         accPrice: '',
         accQty: '',
+        accTax: '',
         prodName: '',
         prodPrice: '',
         prodQty: '',
+        prodTax: '',
         planQty: '',
         planAmt: '',
         planName: '',
@@ -492,13 +498,32 @@ export default {
       }
     },
     handleDeleteOrderItem(row, index) {
-      this.toDelete.push(row.itemId);
-      this.tableData.splice(index, 1);
-      let newIndex = index - this.itemOffset;
-      if(newIndex < 0) {
-        this.itemOffset--;
+      if (row.itemId) {
+        this.toDelete.push(row.itemId);
+        alert(this.toDelete);
+        this.tableData.splice(index, 1);
       } else {
-        this.newData.splice(newIndex, 1);
+        this.tableData.splice(index, 1);
+        const indexToDelete = this.findIndex(row);
+        this.newData.splice(indexToDelete, 1);
+      }
+    },
+    findIndex(toFind) {
+      const a = this.newData.find(function(value) {
+        return value.product === toFind.product
+            && value.quantity === toFind.quantity
+            && value.rate === toFind.rate
+            && value.amount === toFind.amount
+            && value.tax === toFind.tax
+            && value.description === toFind.description
+            && value.orderId === toFind.orderId
+            && value.invoiceNo === toFind.invoiceNo;
+      });
+      if (a === null) {
+        alert('not found');
+      } else {
+        const b = this.newData.indexOf(a);
+        return b;
       }
     },
     async handleCancel() {
@@ -581,32 +606,34 @@ export default {
     },
 
     /* GET ACCESSORIES, PRODUCTS, AND SERVICE PLANS FOR TABLE */
-    getAccessoryInfo(n, p, q) {
+    getAccessoryInfo(n, p, q, r) {
       this.form.accName = n;
       this.form.accPrice = p;
       this.form.accQty = q;
+      this.form.accTax = r;
       const data = {orderId: '',
         product: this.form.accName,
         quantity: this.form.accQty,
         rate: this.form.accPrice,
         amount: Number(this.form.accPrice) * Number(this.form.accQty),
-        tax: 'Y',
+        tax: this.form.accTax,
         description: this.form.accQty + ' * ' + this.form.accName,
         invoiceNo: this.editForm.invoiceNo
       };
       this.tableData.push(data);
       this.newData.push(data);
     },
-    getProductInfo(n, p, q) {
+    getProductInfo(n, p, q, r) {
       this.form.prodName = n;
       this.form.prodPrice = p;
       this.form.prodQty = q;
+      this.form.prodTax = r;
       const data = {orderId: '',
         product: this.form.prodName,
         quantity: this.form.prodQty,
         rate: this.form.prodPrice,
         amount: Number(this.form.prodPrice) * Number(this.form.prodQty),
-        tax: 'Y',
+        tax: this.form.prodTax,
         description: this.form.prodQty + ' * ' + this.form.prodName,
         invoiceNo: this.editForm.invoiceNo
       };
@@ -629,19 +656,21 @@ export default {
       this.tableData.push(data);
       this.newData.push(data);
     },
-    getProdAndAccInfo(pn, pp, pq, an, ap, aq) {
+    getProdAndAccInfo(pn, pp, pq, pt, an, ap, aq, at) {
       this.form.prodName = pn;
       this.form.prodPrice = pp;
       this.form.prodQty = pq;
+      this.form.prodTax = pt;
       this.form.accName = an;
       this.form.accPrice = ap;
       this.form.accQty = aq;
+      this.form.accTax = at;
       const data = {orderId: '',
         product: this.form.prodName,
         quantity: this.form.prodQty,
         rate: this.form.prodPrice,
         amount: Number(this.form.prodPrice) * Number(this.form.prodQty),
-        tax: 'Y',
+        tax: this.form.prodTax,
         description: this.form.prodQty + ' * ' + this.form.prodName,
         invoiceNo: this.editForm.invoiceNo
       };
@@ -652,17 +681,18 @@ export default {
         quantity: this.form.accQty,
         rate: this.form.accPrice,
         amount: Number(this.form.accPrice) * Number(this.form.accQty),
-        tax: 'Y',
+        tax: this.form.accTax,
         description: this.form.accQty + ' * ' + this.form.accName,
         invoiceNo: this.editForm.invoiceNo
       };
       this.tableData.push(data2);
       this.newData.push(data2);
     },
-    getProdAndPlanInfo(pn, pp, pq, sq, sa, sn) {
+    getProdAndPlanInfo(pn, pp, pq, pt, sq, sa, sn) {
       this.form.prodName = pn;
       this.form.prodPrice = pp;
       this.form.prodQty = pq;
+      this.form.prodTax = pt;
       this.form.planQty = sq;
       this.form.planAmt = sa;
       this.form.planName = sn;
@@ -671,7 +701,7 @@ export default {
         quantity: this.form.prodQty,
         rate: this.form.prodPrice,
         amount: Number(this.form.prodPrice) * Number(this.form.prodQty),
-        tax: 'Y',
+        tax: this.form.prodTax,
         description: this.form.prodQty + ' * ' + this.form.prodName,
         invoiceNo: this.editForm.invoiceNo
       };
@@ -689,13 +719,15 @@ export default {
       this.tableData.push(data2);
       this.newData.push(data2);
     },
-    getAllInfo(pn, pp, pq, an, ap, aq, sq, sa, sn) {
+    getAllInfo(pn, pp, pq, pt, an, ap, aq, at, sq, sa, sn) {
       this.form.prodName = pn;
       this.form.prodPrice = pp;
       this.form.prodQty = pq;
+      this.form.prodTax = pt;
       this.form.accName = an;
       this.form.accPrice = ap;
       this.form.accQty = aq;
+      this.form.accTax = at;
       this.form.planQty = sq;
       this.form.planAmt = sa;
       this.form.planName = sn;
@@ -704,7 +736,7 @@ export default {
         quantity: this.form.prodQty,
         rate: this.form.prodPrice,
         amount: Number(this.form.prodPrice) * Number(this.form.prodQty),
-        tax: 'Y',
+        tax: this.form.prodTax,
         description: this.form.prodQty + ' * ' + this.form.prodName,
         invoiceNo: this.editForm.invoiceNo
       };
@@ -715,7 +747,7 @@ export default {
         quantity: this.form.accQty,
         rate: this.form.accPrice,
         amount: Number(this.form.accPrice) * Number(this.form.accQty),
-        tax: 'Y',
+        tax: this.form.accTax,
         description: this.form.accQty + ' * ' + this.form.accName,
         invoiceNo: this.editForm.invoiceNo
       };
