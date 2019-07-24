@@ -185,7 +185,11 @@
                 >
                     <el-table-column label="Product" prop="product" width="155"></el-table-column>
                     <el-table-column label="QTY" prop="quantity" width="96"></el-table-column>
-                    <el-table-column label="Rate" prop="rate" width="96"></el-table-column>
+                    <el-table-column label="Rate" prop="rate" width="96">
+                        <template slot-scope="scope">
+                            <span>${{ Number(scope.row.rate).toFixed(2) }}</span>
+                        </template>
+                    </el-table-column>
                     <el-table-column label="Amount" prop="amount" width="96">
                         <template slot-scope="scope">
                             <span>${{ Number(scope.row.amount).toFixed(2) }}</span>
@@ -395,7 +399,7 @@ export default {
         shippingVia: '',
         trackingNumber: '',
         shippingFee: '',
-        invoiceNumber: this.invoicePlaceholder,
+        invoiceNumber: '',
       },
 
     /* DROPDOWN OPTIONS */
@@ -623,9 +627,11 @@ export default {
     },
     async getLastOrder() {
       this.invoicePlaceholder = await getLastOrderId() + 1;
+      this.customerServiceForm.invoiceNumber = await getLastOrderId() + 1;
       let valid = await validInvoiceNo({invoiceNo: this.invoicePlaceholder});
       while (!valid) {
         this.invoicePlaceholder += 1;
+        this.customerServiceForm.invoiceNumber += 1;
         valid = await validInvoiceNo({invoiceNo: this.invoicePlaceholder});
       }
     },
