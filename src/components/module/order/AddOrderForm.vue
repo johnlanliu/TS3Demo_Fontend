@@ -646,6 +646,10 @@ export default {
 
     /* FORMAT INVOICE AND DUE DATES */
     getDates() {
+      if (this.customerServiceForm.invoiceDate === null || this.form.paymentTerm === null) {
+        this.customerServiceForm.dueDate = null;
+        return;
+      }
       let invoice = new Date(this.customerServiceForm.invoiceDate);
       let due = new Date(this.customerServiceForm.invoiceDate);
 
