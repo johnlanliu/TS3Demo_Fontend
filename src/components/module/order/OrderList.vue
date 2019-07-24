@@ -95,7 +95,7 @@
                          v-bind:init-data="initData"></order-review-form>
       <edit-order-form ref="editOrderForm" :editForm="orderInfoToView" v-bind:table-data="orderItemTable" v-bind:init-data="initData"
                        v-bind:same-as-billing="sameAsBilling"></edit-order-form>
-      <add-order-form ref="addOrderForm"></add-order-form>
+      <add-order-form ref="addOrderForm" v-bind:org="orgCopy"></add-order-form>
   </div>
 </template>
 
@@ -103,7 +103,7 @@
 import AddOrderForm from './AddOrderForm.vue';
 import OrderReviewForm from './OrderReviewForm.vue';
 import EditOrderForm from './EditOrderForm.vue';
-import { getOrderList, getOrderByOrderId, getOrderItem } from '@/api/getData';
+import { getOrderList, getOrderByOrderId, getOrderItem, getOrgById } from '@/api/getData';
 import { timeFormatUtil } from '@/utils/timeFormatUtil.js';
 import { exceptionUtil } from '@/utils/exceptionUtil.js';
 import { mapState } from 'vuex';
@@ -129,6 +129,7 @@ export default {
       orderInfoToView: {},
       orderItemTable: [],
       form: {},
+      orgCopy: {},
       tableData: [],
       userSearchForm: {},
       orderSearchForm: {
@@ -219,9 +220,9 @@ export default {
         });
       }
     },
-
     /* HANDLERS FOR SHOWING FORMS */
     async handleAdd() {
+      this.orgCopy = JSON.parse(JSON.stringify(this.org));
       this.$refs.addOrderForm.showDialog();
     },
   },
@@ -232,8 +233,12 @@ export default {
       'modelList',
       'currentOrgId',
       'lang',
-      'locale'
+      'locale',
+      'currentOrg'
     ]),
+    org: function() {
+      return this.currentOrg;
+    },
 
     labelWidth() {
       return this.locale === 'es' ? '122px' : '100px';

@@ -7,9 +7,9 @@
         @closed="resetFields"
         width="50%">
         <div class="form-box">
-            <el-form ref="form" :model="form" :rules="formRules" size="mini" style="margin: 0; padding-left: 10px">
-                <el-form-item label="Order Type" prop="orderType">
-                    <el-select v-model="form.orderType" placeholder="Select">
+            <el-form ref="form" :model="org" size="mini" style="margin: 0; padding-left: 10px">
+                <el-form-item label="Order Type">
+                    <el-select v-model="org.orderType" placeholder="Select">
                         <el-option
                             v-for="option in orderOptions"
                             :key="option.value"
@@ -42,12 +42,12 @@
                     <tr>
                         <td>
                             <el-form-item label="Company Name: ">
-                                <el-input v-model="form.billing" style="width: 275px"></el-input>
+                                <el-input v-model="org.orgName" style="width: 275px"></el-input>
                             </el-form-item>
                         </td>
                         <td style="padding-left: 14px">
                             <el-form-item label="Company Name: ">
-                                <el-input v-model="sameAsBilling ? form.billing : form.companyName"
+                                <el-input v-model="sameAsBilling ? org.orgName : org.shippingCompany"
                                           style="width: 275px" :disabled="sameAsBilling"></el-input>
                             </el-form-item>
                         </td>
@@ -55,12 +55,12 @@
                     <tr>
                         <td>
                             <el-form-item label="Contact: ">
-                                <el-input v-model="form.billingContact" style="width: 275px"></el-input>
+                                <el-input v-model="org.contacts" style="width: 275px"></el-input>
                             </el-form-item>
                         </td>
                         <td style="padding-left: 14px">
                             <el-form-item label="Contact: ">
-                                <el-input v-model="sameAsBilling ? form.billingContact : form.contact"
+                                <el-input v-model="sameAsBilling ? org.contacts : org.shippingContact"
                                           style="width: 275px" :disabled="sameAsBilling"></el-input>
                             </el-form-item>
                         </td>
@@ -68,12 +68,12 @@
                     <tr>
                         <td>
                             <el-form-item label="Phone Number: ">
-                                <el-input v-model="form.billingPhone" style="width: 275px"></el-input>
+                                <el-input v-model="org.phone" style="width: 275px"></el-input>
                             </el-form-item>
                         </td>
                         <td style="padding-left: 14px">
                             <el-form-item label="Phone Number: ">
-                                <el-input v-model="sameAsBilling ? form.billingPhone : form.phone"
+                                <el-input v-model="sameAsBilling ? org.phone : org.shippingPhone"
                                           style="width: 275px" :disabled="sameAsBilling"></el-input>
                             </el-form-item>
                         </td>
@@ -81,12 +81,12 @@
                     <tr>
                         <td>
                             <el-form-item label="Email: ">
-                                <el-input v-model="form.billingEmail" style="width: 275px"></el-input>
+                                <el-input v-model="org.email" style="width: 275px"></el-input>
                             </el-form-item>
                         </td>
                         <td style="padding-left: 14px">
                             <el-form-item label="Email: ">
-                                <el-input v-model="sameAsBilling ? form.billingEmail : form.email"
+                                <el-input v-model="sameAsBilling ? org.email : org.shippingEmail"
                                           style="width: 275px" :disabled="sameAsBilling"></el-input>
                             </el-form-item>
                         </td>
@@ -94,12 +94,12 @@
                     <tr>
                         <td>
                             <el-form-item label="Address: ">
-                                <el-input v-model="form.billingAddress" style="width: 275px"></el-input>
+                                <el-input v-model="org.streetAddress" style="width: 275px"></el-input>
                             </el-form-item>
                         </td>
                         <td style="padding-left: 14px">
                             <el-form-item label="Address: ">
-                                <el-input v-model="sameAsBilling ? form.billingAddress : form.shippingAddress"
+                                <el-input v-model="sameAsBilling ? org.streetAddress : org.shippingAddress"
                                           style="width: 275px" :disabled="sameAsBilling"></el-input>
                             </el-form-item>
                         </td>
@@ -110,23 +110,23 @@
                     <tr>
                         <td>
                             <el-form-item label="City: ">
-                                <el-input v-model="form.billingCity" style="width: 145px"></el-input>
+                                <el-input v-model="org.city" style="width: 145px"></el-input>
                             </el-form-item>
                         </td>
                         <td style="padding-left: 10px">
                             <el-form-item label="Zip/Postal Code: ">
-                                <el-input v-model="form.billingZip" style="width: 120px"></el-input>
+                                <el-input v-model="org.zip" style="width: 120px"></el-input>
                             </el-form-item>
                         </td>
                         <td style="padding-left: 22px">
                             <el-form-item label="City: ">
-                                <el-input v-model="sameAsBilling ? form.billingCity : form.shippingCity"
+                                <el-input v-model="sameAsBilling ? org.city : org.shippingCity"
                                           style="width: 145px" :disabled="sameAsBilling"></el-input>
                             </el-form-item>
                         </td>
                         <td style="padding-left: 10px">
                             <el-form-item label="Zip/Postal Code: ">
-                                <el-input v-model="sameAsBilling ? form.billingZip : form.shippingZip"
+                                <el-input v-model="sameAsBilling ? org.zip : org.shippingZip"
                                           style="width: 120px" :disabled="sameAsBilling"></el-input>
                             </el-form-item>
                         </td>
@@ -137,31 +137,31 @@
                     <tr>
                         <td>
                             <el-form-item label="Country: ">
-                                <el-input v-model="form.billingCountry" style="width: 133px"></el-input>
+                                <el-input v-model="org.country" style="width: 133px"></el-input>
                             </el-form-item>
                         </td>
                         <td style="padding-left: 10px">
                             <el-form-item label="State/Province: ">
-                                <el-input v-model="form.billingState" style="width: 132px"></el-input>
+                                <el-input v-model="org.state" style="width: 132px"></el-input>
                             </el-form-item>
                         </td>
                         <td style="padding-left: 25px">
                             <el-form-item label="Country: ">
-                                <el-input v-model="sameAsBilling ? form.billingCountry : form.shippingCountry"
+                                <el-input v-model="sameAsBilling ? org.country : org.shippingCountry"
                                           style="width: 133px" :disabled="sameAsBilling"></el-input>
                             </el-form-item>
                         </td>
                         <td style="padding-left: 10px">
                             <el-form-item label="State/Province: ">
-                                <el-input v-model="sameAsBilling ? form.billingState : form.shippingState"
+                                <el-input v-model="sameAsBilling ? org.state : org.shippingState"
                                           style="width: 132px" :disabled="sameAsBilling"></el-input>
                             </el-form-item>
                         </td>
                     </tr>
                 </table>
 
-                <el-form-item label="Payment Term" prop="paymentTerm">
-                    <el-select v-model="form.paymentTerm" placeholder="Select">
+                <el-form-item label="Payment Term">
+                    <el-select v-model="org.paymentTerm" placeholder="Select">
                         <el-option
                             v-for="option in paymentOptions"
                             :key="option.value"
@@ -225,7 +225,7 @@
                                         type="textarea"
                                         :rows="2"
                                         placeholder="notes"
-                                        v-model="form.note"
+                                        v-model="org.note"
                                 >
                                 </el-input>
                             </el-form-item>
@@ -246,7 +246,7 @@
                     <table class="secondaryForm" style="text-align: left; border-spacing: 0px; padding-right: 143px">
                         <tr>
                             <td>
-                                <el-form-item label="Status:" prop="status">
+                                <el-form-item label="Status:">
                                     <el-select v-model="customerServiceForm.status" placeholder="select" style="width: 185px">
                                         <el-option
                                                 v-for="option in statusOptions"
@@ -273,7 +273,7 @@
                                 </el-form-item>
                             </td>
                             <td style="padding-left: 20px">
-                                <el-form-item label="Invoice Date:" prop="invoiceDate">
+                                <el-form-item label="Invoice Date:">
                                     <el-date-picker
                                             v-model="customerServiceForm.invoiceDate"
                                             type="datetime"
@@ -329,7 +329,9 @@ import ProductDetailForm from './ProductDetailForm.vue';
 import CreateInvoiceForm from './CreateInvoiceForm.vue';
 import AccessoryDetailForm from './AccessoryDetailForm.vue';
 import ServicePlanForm from './ServicePlanForm.vue';
-import { addOrder, getLastOrderId, validInvoiceNo } from '@/api/getData';
+import { addOrder, getLastOrderId, validInvoiceNo, getOrgById } from '@/api/getData';
+import { mapState } from 'vuex';
+
 
 export default {
   name: 'AddOrderForm',
@@ -343,10 +345,32 @@ export default {
 
   created() {
     this.getLastOrder();
+    this.org.shippingCompany = this.org.orgName;
+    this.org.shippingContact = this.org.contacts;
+    this.org.shippingPhone = this.org.phone;
+    this.org.shippingEmail = this.org.email;
+    this.org.shippingAddress = this.org.streetAddress;
+    this.org.shippingCity = this.org.city;
+    this.org.shippingState = this.org.state;
+    this.org.shippingCountry = this.org.country;
+    this.org.shippingZip = this.org.zip;
+  },
+  mounted: function() {
+  },
+  props: {
+    org: Object,
   },
 
   data: function() {
     return {
+      // orderRules: {
+      //   paymentTerm: [
+      //      { required: true, message: 'Payment term is required', trigger: 'change' },
+      //   ],
+      //   invoiceDate: [
+      //      { required: true, message: 'Invoice date is required' },
+      //   ],
+      // },
       loading: false,
       isOpen: false,
 
@@ -358,19 +382,10 @@ export default {
       formCopy: {},
       customerServiceFormCopy: {},
       form: {
-        billing: '',
-        billingContact: '',
-        billingPhone: '',
-        billingEmail: '',
-        billingAddress: '',
-        billingCity: '',
-        billingState: '',
-        billingCountry: '',
-        billingZip: '',
-        companyName: '',
-        contact: '',
-        email: '',
-        phone: '',
+        shippingCompany: '',
+        shippingContact: '',
+        shippingEmail: '',
+        shippingPhone: '',
         shippingAddress: '',
         shippingCity: '',
         shippingState: '',
@@ -438,7 +453,7 @@ export default {
       }],
 
     /* FORM RULES */
-      formRules: {
+      // formRules: {
       //   orderType: [
       //           { required: true, message: 'Order type is required', trigger: 'change' },
       //   ],
@@ -508,9 +523,9 @@ export default {
       //   shippingAddress: [
       //           { required: true, message: 'Shipping address is required' },
       //   ],
-        paymentTerm: [
-                { required: true, message: 'Payment term is required', trigger: 'change' },
-        ],
+      //   paymentTerm: [
+      //           { required: true, message: 'Payment term is required', trigger: 'change' },
+      //   ],
       //       // note: [
       //       //     { max: 200, message: 'Maximum character limit: 200' }
       //       // ],
@@ -520,9 +535,9 @@ export default {
       //   invoiceNumber: [
       //       { required: true, message: 'Invoice number is required' },
       //   ],
-        invoiceDate: [
-            { required: true, message: 'Invoice date is required' },
-        ],
+      //   invoiceDate: [
+      //       { required: true, message: 'Invoice date is required' },
+      //   ],
       //   shippingVia: [
       //       { required: true, message: 'Shipping type is required' },
       //   ],
@@ -536,13 +551,25 @@ export default {
       //       message: 'Invalid price'
       //     },
       //   ],
-      },
+      // },
     };
   },
 
   methods: {
     /* AUXILIARY FUNCTIONS */
     showDialog() {
+      Object.assign(this.org, this.form);
+      this.org.shippingCompany = this.org.orgName;
+      this.org.shippingContact = this.org.contacts;
+      this.org.shippingPhone = this.org.phone;
+      this.org.shippingEmail = this.org.email;
+      this.org.shippingAddress = this.org.streetAddress;
+      this.org.shippingCity = this.org.city;
+      this.org.shippingState = this.org.state;
+      this.org.shippingCountry = this.org.country;
+      this.org.shippingZip = this.org.zip;
+      this.getLastOrder();
+      this.validInvoice = true;
       this.isOpen = true;
     },
     resetFields() {
@@ -562,15 +589,17 @@ export default {
     handleSameInfo() {
       if (this.sameAsBilling) {
         this.sameAsBillingBool = 1;
-        this.form.companyName = this.form.billing;
-        this.form.contact = this.form.billingContact;
-        this.form.phone = this.form.billingPhone;
-        this.form.email = this.form.billingEmail;
-        this.form.shippingAddress = this.form.billingAddress;
-        this.form.shippingCity = this.form.billingCity;
-        this.form.shippingState = this.form.billingState;
-        this.form.shippingCountry = this.form.billingCountry;
-        this.form.shippingZip = this.form.billingZip;
+        this.org.shippingCompany = this.org.orgName;
+        this.org.shippingContact = this.org.contacts;
+        this.org.shippingPhone = this.org.phone;
+        this.org.shippingEmail = this.org.email;
+        this.org.shippingAddress = this.org.streetAddress;
+        this.org.shippingCity = this.org.city;
+        this.org.shippingState = this.org.state;
+        this.org.shippingCountry = this.org.country;
+        this.org.shippingZip = this.org.zip;
+      } else {
+        this.sameAsBillingBool = 0;
       }
     },
     handleDeleteOrderItem(row, index) {
@@ -581,16 +610,18 @@ export default {
       this.isOpen = false;
     },
     async handleCreateInvoice() {
+
       this.getDates();
       this.handleAddOrder();
-      this.formCopy = JSON.parse(JSON.stringify(this.form));
+      this.formCopy = JSON.parse(JSON.stringify(this.org));
       this.customerServiceFormCopy = JSON.parse((JSON.stringify(this.customerServiceForm)));
       this.$refs.createInvoiceForm.showDialog();
     },
     handleAddOrder() {
+      this.handleSameInfo();
       addOrder({},{
-        type: this.form.orderType,
-        customer: this.form.billing,
+        type: this.org.orderType,
+        customer: this.org.billing,
         status: this.customerServiceForm.status,
         invoiceNo: this.customerServiceForm.invoiceNumber,
         invoiceDate: this.customerServiceForm.invoiceDate,
@@ -600,38 +631,36 @@ export default {
         createTime: 'NULL',
         modifyTime: 'NULL',
         orderItems: this.tableData,
-        billingCompany: this.form.billing,
-        billingContact: this.form.billingContact,
-        billingNumber: this.form.billingPhone,
-        billingEmail: this.form.billingEmail,
-        billingAddress: this.form.billingAddress,
-        billingCity: this.form.billingCity,
-        billingState: this.form.billingState,
-        billingCountry: this.form.billingCountry,
-        billingZip: this.form.billingZip,
-        shippingCompany: this.form.companyName,
-        shippingContact: this.form.contact,
-        shippingNumber: this.form.phone,
-        shippingEmail: this.form.email,
-        shippingAddress: this.form.shippingAddress,
-        shippingCity: this.form.shippingCity,
-        shippingState: this.form.shippingState,
-        shippingCountry: this.form.shippingCountry,
-        shippingZip: this.form.shippingZip,
-        note: this.form.note,
+        billingCompany: this.org.orgName,
+        billingContact: this.org.contacts,
+        billingNumber: this.org.phone,
+        billingEmail: this.org.email,
+        billingAddress: this.org.streetAddress,
+        billingCity: this.org.city,
+        billingState: this.org.state,
+        billingCountry: this.org.country,
+        billingZip: this.org.zip,
+        shippingCompany: this.org.shippingCompany,
+        shippingContact: this.org.shippingContact,
+        shippingNumber: this.org.shippingPhone,
+        shippingEmail: this.org.shippingEmail,
+        shippingAddress: this.org.shippingAddress,
+        shippingCity: this.org.shippingCity,
+        shippingState: this.org.shippingState,
+        shippingCountry: this.org.shippingCountry,
+        shippingZip: this.org.shippingZip,
+        note: this.org.note,
         shippingVia: this.customerServiceForm.shippingVia,
         shippingFee: this.customerServiceForm.shippingFee,
         sameAsBilling: this.sameAsBillingBool,
-        paymentTerm: this.form.paymentTerm,
+        paymentTerm: this.org.paymentTerm,
       });
     },
     async getLastOrder() {
       this.invoicePlaceholder = await getLastOrderId() + 1;
-      this.customerServiceForm.invoiceNumber = await getLastOrderId() + 1;
       let valid = await validInvoiceNo({invoiceNo: this.invoicePlaceholder});
       while (!valid) {
         this.invoicePlaceholder += 1;
-        this.customerServiceForm.invoiceNumber += 1;
         valid = await validInvoiceNo({invoiceNo: this.invoicePlaceholder});
       }
     },
@@ -652,14 +681,15 @@ export default {
 
     /* FORMAT INVOICE AND DUE DATES */
     getDates() {
-      if (this.customerServiceForm.invoiceDate === null || this.form.paymentTerm === null) {
+      if (this.customerServiceForm.invoiceDate === null || this.org.paymentTerm === null
+          || this.customerServiceForm.invoiceDate === '' || this.org.paymentTerm === '') {
         this.customerServiceForm.dueDate = null;
         return;
       }
       let invoice = new Date(this.customerServiceForm.invoiceDate);
       let due = new Date(this.customerServiceForm.invoiceDate);
 
-      if (this.form.paymentTerm === 'Net15') {
+      if (this.org.paymentTerm === 'Net15') {
         due.setDate(this.customerServiceForm.invoiceDate.getDate()+15);
       } else {
         due.setDate(this.customerServiceForm.invoiceDate.getDate()+30);
@@ -679,150 +709,150 @@ export default {
 
     /* GET ACCESSORIES, PRODUCTS, AND SERVICE PLANS FOR TABLE */
     getAccessoryInfo(n, p, q, r) {
-      this.form.accName = n;
-      this.form.accPrice = p;
-      this.form.accQty = q;
-      this.form.accTax = r;
+      this.org.accName = n;
+      this.org.accPrice = p;
+      this.org.accQty = q;
+      this.org.accTax = r;
       const data = {orderId: '',
-        product: this.form.accName,
-        quantity: this.form.accQty,
-        rate: this.form.accPrice,
-        amount: Number(this.form.accPrice) * Number(this.form.accQty),
-        tax: this.form.accTax,
-        description: this.form.accQty + ' * ' + this.form.accName,
+        product: this.org.accName,
+        quantity: this.org.accQty,
+        rate: this.org.accPrice,
+        amount: Number(this.org.accPrice) * Number(this.org.accQty),
+        tax: this.org.accTax,
+        description: this.org.accQty + ' * ' + this.org.accName,
         invoiceNo: this.customerServiceForm.invoiceNumber
       };
       this.tableData.push(data);
     },
     getProductInfo(n, p, q, r) {
-      this.form.prodName = n;
-      this.form.prodPrice = p;
-      this.form.prodQty = q;
-      this.form.prodTax = r;
+      this.org.prodName = n;
+      this.org.prodPrice = p;
+      this.org.prodQty = q;
+      this.org.prodTax = r;
       const data = {orderId: '',
-        product: this.form.prodName,
-        quantity: this.form.prodQty,
-        rate: this.form.prodPrice,
-        amount: Number(this.form.prodPrice) * Number(this.form.prodQty),
-        tax: this.form.prodTax,
-        description: this.form.prodQty + ' * ' + this.form.prodName,
+        product: this.org.prodName,
+        quantity: this.org.prodQty,
+        rate: this.org.prodPrice,
+        amount: Number(this.org.prodPrice) * Number(this.org.prodQty),
+        tax: this.org.prodTax,
+        description: this.org.prodQty + ' * ' + this.org.prodName,
         invoiceNo: this.customerServiceForm.invoiceNumber
       };
       this.tableData.push(data);
     },
     getServicePlanFee(q, a, n) {
-      this.form.planQty = q;
-      this.form.planAmt = a;
-      this.form.planName = n;
+      this.org.planQty = q;
+      this.org.planAmt = a;
+      this.org.planName = n;
       const data = {orderId: '',
-        product: this.form.planName,
-        quantity: this.form.planQty,
-        rate: this.form.planAmt,
-        amount: Number(this.form.planAmt) * Number(this.form.planQty),
+        product: this.org.planName,
+        quantity: this.org.planQty,
+        rate: this.org.planAmt,
+        amount: Number(this.org.planAmt) * Number(this.org.planQty),
         tax: 'N',
-        description: this.form.planQty + ' * ' + this.form.planName,
+        description: this.org.planQty + ' * ' + this.org.planName,
         invoiceNo: this.customerServiceForm.invoiceNumber
       };
       this.tableData.push(data);
     },
     getProdAndAccInfo(pn, pp, pq, pt, an, ap, aq, at) {
-      this.form.prodName = pn;
-      this.form.prodPrice = pp;
-      this.form.prodQty = pq;
-      this.form.prodTax = pt;
-      this.form.accName = an;
-      this.form.accPrice = ap;
-      this.form.accQty = aq;
-      this.form.accTax = at;
+      this.org.prodName = pn;
+      this.org.prodPrice = pp;
+      this.org.prodQty = pq;
+      this.org.prodTax = pt;
+      this.org.accName = an;
+      this.org.accPrice = ap;
+      this.org.accQty = aq;
+      this.org.accTax = at;
       const data = {orderId: '',
-        product: this.form.prodName,
-        quantity: this.form.prodQty,
-        rate: this.form.prodPrice,
-        amount: Number(this.form.prodPrice) * Number(this.form.prodQty),
-        tax: this.form.prodTax,
-        description: this.form.prodQty + ' * ' + this.form.prodName,
+        product: this.org.prodName,
+        quantity: this.org.prodQty,
+        rate: this.org.prodPrice,
+        amount: Number(this.org.prodPrice) * Number(this.org.prodQty),
+        tax: this.org.prodTax,
+        description: this.org.prodQty + ' * ' + this.org.prodName,
         invoiceNo: this.customerServiceForm.invoiceNumber
       };
       this.tableData.push(data);
       const data2 = {orderId: '',
-        product: this.form.accName,
-        quantity: this.form.accQty,
-        rate: this.form.accPrice,
-        amount: Number(this.form.accPrice) * Number(this.form.accQty),
-        tax: this.form.accTax,
-        description: this.form.accQty + ' * ' + this.form.accName,
+        product: this.org.accName,
+        quantity: this.org.accQty,
+        rate: this.org.accPrice,
+        amount: Number(this.org.accPrice) * Number(this.org.accQty),
+        tax: this.org.accTax,
+        description: this.org.accQty + ' * ' + this.org.accName,
         invoiceNo: this.customerServiceForm.invoiceNumber
       };
       this.tableData.push(data2);
     },
     getProdAndPlanInfo(pn, pp, pq, pt, sq, sa, sn) {
-      this.form.prodName = pn;
-      this.form.prodPrice = pp;
-      this.form.prodQty = pq;
-      this.form.prodTax = pt;
-      this.form.planQty = sq;
-      this.form.planAmt = sa;
-      this.form.planName = sn;
+      this.org.prodName = pn;
+      this.org.prodPrice = pp;
+      this.org.prodQty = pq;
+      this.org.prodTax = pt;
+      this.org.planQty = sq;
+      this.org.planAmt = sa;
+      this.org.planName = sn;
       const data = {orderId: '',
-        product: this.form.prodName,
-        quantity: this.form.prodQty,
-        rate: this.form.prodPrice,
-        amount: Number(this.form.prodPrice) * Number(this.form.prodQty),
-        tax: this.form.prodTax,
-        description: this.form.prodQty + ' * ' + this.form.prodName,
+        product: this.org.prodName,
+        quantity: this.org.prodQty,
+        rate: this.org.prodPrice,
+        amount: Number(this.org.prodPrice) * Number(this.org.prodQty),
+        tax: this.org.prodTax,
+        description: this.org.prodQty + ' * ' + this.org.prodName,
         invoiceNo: this.customerServiceForm.invoiceNumber
       };
       this.tableData.push(data);
       const data2 = {orderId: '',
-        product: this.form.planName,
-        quantity: this.form.planQty,
-        rate: this.form.planAmt,
-        amount: Number(this.form.planAmt) * Number(this.form.planQty),
+        product: this.org.planName,
+        quantity: this.org.planQty,
+        rate: this.org.planAmt,
+        amount: Number(this.org.planAmt) * Number(this.org.planQty),
         tax: 'N',
-        description: this.form.planQty + ' * ' + this.form.planName,
+        description: this.org.planQty + ' * ' + this.org.planName,
         invoiceNo: this.customerServiceForm.invoiceNumber
       };
       this.tableData.push(data2);
     },
     getAllInfo(pn, pp, pq, pt, an, ap, aq, at, sq, sa, sn) {
-      this.form.prodName = pn;
-      this.form.prodPrice = pp;
-      this.form.prodQty = pq;
-      this.form.prodTax = pt;
-      this.form.accName = an;
-      this.form.accPrice = ap;
-      this.form.accQty = aq;
-      this.form.accTax = at;
-      this.form.planQty = sq;
-      this.form.planAmt = sa;
-      this.form.planName = sn;
+      this.org.prodName = pn;
+      this.org.prodPrice = pp;
+      this.org.prodQty = pq;
+      this.org.prodTax = pt;
+      this.org.accName = an;
+      this.org.accPrice = ap;
+      this.org.accQty = aq;
+      this.org.accTax = at;
+      this.org.planQty = sq;
+      this.org.planAmt = sa;
+      this.org.planName = sn;
       const data = {orderId: '',
-        product: this.form.prodName,
-        quantity: this.form.prodQty,
-        rate: this.form.prodPrice,
-        amount: Number(this.form.prodPrice) * Number(this.form.prodQty),
-        tax: this.form.prodTax,
-        description: this.form.prodQty + ' * ' + this.form.prodName,
+        product: this.org.prodName,
+        quantity: this.org.prodQty,
+        rate: this.org.prodPrice,
+        amount: Number(this.org.prodPrice) * Number(this.org.prodQty),
+        tax: this.org.prodTax,
+        description: this.org.prodQty + ' * ' + this.org.prodName,
         invoiceNo: this.customerServiceForm.invoiceNumber
       };
       this.tableData.push(data);
       const data2 = {orderId: '',
-        product: this.form.accName,
-        quantity: this.form.accQty,
-        rate: this.form.accPrice,
-        amount: Number(this.form.accPrice) * Number(this.form.accQty),
-        tax: this.form.accTax,
-        description: this.form.accQty + ' * ' + this.form.accName,
+        product: this.org.accName,
+        quantity: this.org.accQty,
+        rate: this.org.accPrice,
+        amount: Number(this.org.accPrice) * Number(this.org.accQty),
+        tax: this.org.accTax,
+        description: this.org.accQty + ' * ' + this.org.accName,
         invoiceNo: this.customerServiceForm.invoiceNumber
       };
       this.tableData.push(data2);
       const data3 = {orderId: '',
-        product: this.form.planName,
-        quantity: this.form.planQty,
-        rate: this.form.planAmt,
-        amount: Number(this.form.planAmt) * Number(this.form.planQty),
+        product: this.org.planName,
+        quantity: this.org.planQty,
+        rate: this.org.planAmt,
+        amount: Number(this.org.planAmt) * Number(this.org.planQty),
         tax: 'N',
-        description: this.form.planQty + ' * ' + this.form.planName,
+        description: this.org.planQty + ' * ' + this.org.planName,
         invoiceNo: this.customerServiceForm.invoiceNumber
       };
       this.tableData.push(data3);
@@ -832,7 +862,7 @@ export default {
   watch: {
     'customerServiceForm.invoiceNumber': function() {
       this.checkForOrder();
-    }
+    },
   },
 
   computed: {
@@ -859,6 +889,14 @@ export default {
       const tot = t + this.tax;
       return (Math.floor(tot * 100) / 100);
     },
+    ...mapState([
+      'loginInfo',
+      'modelList',
+      'currentOrgId',
+      'lang',
+      'locale',
+      'currentOrg'
+    ]),
   },
 };
 </script>

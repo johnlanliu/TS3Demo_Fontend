@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 // import {authToken,getOrgList} from '@/api/getData'
 import { setStore } from '@/config/mUtils';
+import { getOrgById } from '@/api/getData';
 
 Vue.use(Vuex);
 
@@ -20,12 +21,14 @@ const state = {
   lang: {},
   // 侧栏折叠
   collapse: true,
+  // current org
+  currentOrg: {},
 
   // 监控界面--{vehicleList, orgList}
-  monitoringData: {vehicleList:[], orgList:[]},
+  monitoringData: {vehicleList: [], orgList: []},
   // 选择的当前device
   currDevice: {},
-  //地图是否居中
+  // 地图是否居中
   autoZoom: false,
   structureTree: [],
   rootOrgId: 0
@@ -58,6 +61,7 @@ const mutations = {
   saveCurrentOrgId(state, selectedOrgId) {
     state.currentOrgId = selectedOrgId;
     setStore('currentOrgId', selectedOrgId);
+
   },
   saveOrgTreeList(state, orgTreeList) {
     if (!!orgTreeList) {
@@ -120,6 +124,11 @@ const mutations = {
     localStorage.removeItem('currentOrgId');
     localStorage.removeItem('orgTreeList');
     localStorage.removeItem('modelList');
+  },
+
+  saveCurrentOrg(state, currentOrg) {
+    state.currentOrg = currentOrg;
+    setStore('currentOrg', currentOrg);
   }
 };
 
@@ -209,6 +218,13 @@ const actions = {
       console.error(err);
     }
   },
+  async saveCurrentOrg({commit}, currentOrg) {
+    try {
+      commit('saveCurrentOrg', currentOrg);
+    } catch (err) {
+      console.error(err);
+    }
+  }
 };
 
 export default new Vuex.Store({

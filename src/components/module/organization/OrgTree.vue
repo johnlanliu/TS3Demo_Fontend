@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import {  } from '@/api/getData';
+import { getOrgById } from '@/api/getData';
 import { mapState, mapMutations } from 'vuex';
 
 export default {
@@ -37,6 +37,7 @@ export default {
     this.$nextTick(() => {
       this.$refs.orgTree.setCurrentKey(this.currentOrgId);
     });
+    this.handleSetOrg();
   },
 
   data() {
@@ -49,11 +50,15 @@ export default {
   },
 
   methods: {
-    ...mapMutations(['saveCurrentOrgId']),
+    ...mapMutations(['saveCurrentOrgId', 'saveCurrentOrg']),
 
     handleNodeClick(data) {
       this.saveCurrentOrgId(data.orgId);
-    }
+      this.handleSetOrg();
+    },
+    async handleSetOrg() {
+      this.saveCurrentOrg(await getOrgById({orgId: this.currentOrgId}));
+    },
   },
   watch: {
     orgTreeList() {
