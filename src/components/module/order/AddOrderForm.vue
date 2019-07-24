@@ -621,7 +621,7 @@ export default {
       this.handleSameInfo();
       addOrder({},{
         type: this.org.orderType,
-        customer: this.org.billing,
+        customer: this.org.orgName,
         status: this.customerServiceForm.status,
         invoiceNo: this.customerServiceForm.invoiceNumber,
         invoiceDate: this.customerServiceForm.invoiceDate,
