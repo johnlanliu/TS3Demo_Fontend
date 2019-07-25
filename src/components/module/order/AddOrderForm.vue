@@ -340,15 +340,6 @@ export default {
 
   created() {
     this.getLastOrder();
-    this.org.shippingCompany = this.org.orgName;
-    this.org.shippingContact = this.org.contacts;
-    this.org.shippingPhone = this.org.phone;
-    this.org.shippingEmail = this.org.email;
-    this.org.shippingAddress = this.org.streetAddress;
-    this.org.shippingCity = this.org.city;
-    this.org.shippingState = this.org.state;
-    this.org.shippingCountry = this.org.country;
-    this.org.shippingZip = this.org.zip;
   },
   mounted: function() {
   },
@@ -554,15 +545,6 @@ export default {
     /* AUXILIARY FUNCTIONS */
     showDialog() {
       Object.assign(this.org, this.form);
-      this.org.shippingCompany = this.org.orgName;
-      this.org.shippingContact = this.org.contacts;
-      this.org.shippingPhone = this.org.phone;
-      this.org.shippingEmail = this.org.email;
-      this.org.shippingAddress = this.org.streetAddress;
-      this.org.shippingCity = this.org.city;
-      this.org.shippingState = this.org.state;
-      this.org.shippingCountry = this.org.country;
-      this.org.shippingZip = this.org.zip;
       this.getLastOrder();
       this.validInvoice = true;
       this.isOpen = true;
@@ -584,15 +566,15 @@ export default {
     handleSameInfo() {
       if (this.sameAsBilling) {
         this.sameAsBillingBool = 1;
-        this.org.shippingCompany = this.org.orgName;
-        this.org.shippingContact = this.org.contacts;
-        this.org.shippingPhone = this.org.phone;
-        this.org.shippingEmail = this.org.email;
-        this.org.shippingAddress = this.org.streetAddress;
-        this.org.shippingCity = this.org.city;
-        this.org.shippingState = this.org.state;
-        this.org.shippingCountry = this.org.country;
-        this.org.shippingZip = this.org.zip;
+        // this.org.shippingCompany = this.org.orgName;
+        // this.org.shippingContact = this.org.contacts;
+        // this.org.shippingPhone = this.org.phone;
+        // this.org.shippingEmail = this.org.email;
+        // this.org.shippingAddress = this.org.streetAddress;
+        // this.org.shippingCity = this.org.city;
+        // this.org.shippingState = this.org.state;
+        // this.org.shippingCountry = this.org.country;
+        // this.org.shippingZip = this.org.zip;
       } else {
         this.sameAsBillingBool = 0;
       }
@@ -609,6 +591,15 @@ export default {
       this.getDates();
       this.handleAddOrder();
       this.formCopy = JSON.parse(JSON.stringify(this.org));
+      // this.formCopy.shippingCompany = this.formCopy.orgName;
+      // this.formCopy.shippingContact = this.formCopy.contacts;
+      // this.formCopy.shippingPhone = this.formCopy.phone;
+      // this.formCopy.shippingEmail = this.formCopy.email;
+      // this.formCopy.shippingAddress = this.formCopy.streetAddress;
+      // this.formCopy.shippingCity = this.formCopy.city;
+      // this.formCopy.shippingState = this.formCopy.state;
+      // this.formCopy.shippingCountry = this.formCopy.country;
+      // this.formCopy.shippingZip = this.formCopy.zip;
       this.customerServiceFormCopy = JSON.parse((JSON.stringify(this.customerServiceForm)));
       this.$refs.createInvoiceForm.showDialog();
     },
@@ -677,7 +668,9 @@ export default {
     /* FORMAT INVOICE AND DUE DATES */
     getDates() {
       if (this.customerServiceForm.invoiceDate === null || this.org.paymentTerm === null
-          || this.customerServiceForm.invoiceDate === '' || this.org.paymentTerm === '') {
+          || this.customerServiceForm.invoiceDate === '' || this.org.paymentTerm === ''
+          || typeof this.customerServiceForm.invoiceDate === 'undefined'
+          || typeof this.org.paymentTerm === 'undefined') {
         this.customerServiceForm.dueDate = null;
         return;
       }
