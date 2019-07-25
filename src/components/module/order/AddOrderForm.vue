@@ -179,12 +179,12 @@
                     border
                     stripe
                     highlight-current-row
-                    :height="200"
+                    :height="167"
                     :row-key="row => row.index"
                     style="width: 100%; margin-left: 50px; margin-bottom: 5px"
                 >
-                    <el-table-column label="Product" prop="product" width="155"></el-table-column>
-                    <el-table-column label="QTY" prop="quantity" width="96"></el-table-column>
+                    <el-table-column label="Product" prop="product" width="162"></el-table-column>
+                    <el-table-column label="QTY" prop="quantity" width="90"></el-table-column>
                     <el-table-column label="Rate" prop="rate" width="96">
                         <template slot-scope="scope">
                             <span>${{ Number(scope.row.rate).toFixed(2) }}</span>
@@ -195,15 +195,15 @@
                             <span>${{ Number(scope.row.amount).toFixed(2) }}</span>
                         </template>
                     </el-table-column>
-                    <el-table-column label="Tax" prop="tax" width="45"></el-table-column>
-                    <el-table-column label="Action" width="100">
+                    <el-table-column label="Tax" prop="tax" width="50"></el-table-column>
+                    <el-table-column label="Action" width="95">
                         <template slot-scope="scope">
                             <el-button type="text" @click="handleDeleteOrderItem(scope.row, scope.$index)">Delete</el-button>
                         </template>
                     </el-table-column>
                 </el-table>
 
-                <table style="width: 100%; text-align: right; padding-left: 150px; margin-left: 50px; margin-bottom: 10px">
+                <table style="width: 100%; text-align: right; padding-left: 150px; margin-left: 52px; margin-bottom: 10px">
                     <tr>
                         <td>
                             <el-button type="primary" @click="handleAddDevice()">+ Add Device</el-button>
@@ -226,15 +226,16 @@
                                         :rows="2"
                                         placeholder="notes"
                                         v-model="org.note"
+                                        style="width: 375px"
                                 >
                                 </el-input>
                             </el-form-item>
                         </td>
                         <td style="text-align: right">
-                            <el-form-item label="Tax: " style="padding-left: 100px">
+                            <el-form-item label="Tax: ">
                                 <p v-model="tax">${{ tax }}</p>
                             </el-form-item>
-                            <el-form-item label="Total: " style="padding-left: 100px">
+                            <el-form-item label="Total: ">
                                 <p v-model="total">${{ total }}</p>
                                 <p>plus shipping fee</p>
                             </el-form-item>
@@ -243,64 +244,58 @@
                 </table>
 
                 <el-form ref="form" :model="customerServiceForm" size="mini">
-                    <table class="secondaryForm" style="text-align: left; border-spacing: 0px; padding-right: 143px">
+                    <table style="width: 110%; text-align: right; border-spacing: 0px 1px">
                         <tr>
-                            <td>
-                                <el-form-item label="Status:">
-                                    <el-select v-model="customerServiceForm.status" placeholder="select" style="width: 185px">
-                                        <el-option
-                                                v-for="option in statusOptions"
-                                                :key="option.status"
-                                                :value="option.status"
-                                                :label="option.label"
-                                        ></el-option>
-                                    </el-select>
-                                </el-form-item>
+                            <td style="padding-left: 39px">
+                                <el-form-item label="Status: " style="float: left"></el-form-item>
+                                <el-select v-model="customerServiceForm.status" placeholder="select" style="width: 188px">
+                                    <el-option
+                                        v-for="option in statusOptions"
+                                        :key="option.status"
+                                        :value="option.status"
+                                        :label="option.label"
+                                    ></el-option>
+                                </el-select>
                             </td>
-                            <td style="padding-left: 20px">
-                                <el-form-item label="Shipping Fee:">
-                                    <el-input v-model="customerServiceForm.shippingFee" style="width: 185px"></el-input>
-                                </el-form-item>
+                            <td style="padding-right: 9px; padding-left: 66px">
+                                <el-form-item label="Shipping Fee: " style="float: left"></el-form-item>
+                                <el-input v-model="customerServiceForm.shippingFee" style="width: 188px"></el-input>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding-left: 23px">
+                                <el-form-item label="Invoice #: " style="float: left"></el-form-item>
+                                <el-input v-model="customerServiceForm.invoiceNumber"
+                                          :placeholder="invoicePlaceholder"
+                                          style="width: 188px"></el-input>
+                                <p class="warning" v-if="!validInvoice">invalid invoice number</p>
+                            </td>
+                            <td style="padding-right: 9px; padding-left: 71px">
+                                <el-form-item label="Invoice Date: " style="float: left"></el-form-item>
+                                <el-date-picker
+                                    v-model="customerServiceForm.invoiceDate"
+                                    type="datetime"
+                                    placeholder="Select date and time"
+                                    style="width: 188px">
+                                </el-date-picker>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <el-form-item label="Invoice #:">
-                                    <el-input v-model="customerServiceForm.invoiceNumber"
-                                              :placeholder="invoicePlaceholder"
-                                              style="width: 185px"></el-input>
-                                    <p class="warning" v-if="!validInvoice">invalid invoice number</p>
-                                </el-form-item>
+                                <el-form-item label="Shipping Via: " style="float: left"></el-form-item>
+                                <el-input v-model="customerServiceForm.shippingVia" style="width: 188px"></el-input>
                             </td>
-                            <td style="padding-left: 20px">
-                                <el-form-item label="Invoice Date:">
-                                    <el-date-picker
-                                            v-model="customerServiceForm.invoiceDate"
-                                            type="datetime"
-                                            placeholder="Select date and time"
-                                            style="width: 185px">
-                                    </el-date-picker>
-                                </el-form-item>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <el-form-item label="Shipping Via:">
-                                    <el-input v-model="customerServiceForm.shippingVia" style="width: 185px"></el-input>
-                                </el-form-item>
-                            </td>
-                            <td style="padding-left: 20px">
-                                <el-form-item label="Tracking Number:">
-                                    <el-input v-model="customerServiceForm.trackingNumber" style="width: 185px"></el-input>
-                                </el-form-item>
+                            <td style="padding-right: 9px; padding-left: 39px">
+                                <el-form-item label="Tracking Number: " style="float: left"></el-form-item>
+                                <el-input v-model="customerServiceForm.trackingNumber" style="width: 188px"></el-input>
                             </td>
                         </tr>
                     </table>
 
-                    <table style="width: 100%; text-align: right; padding-left: 150px; margin-left: 50px">
+                    <table style="width: 100%; text-align: right; padding-left: 150px; margin-left: 52px">
                         <tr>
                             <td>
-                                <el-form-item>
+                                <el-form-item style="padding-left: 105px">
                                     <el-button type="primary" @click="handleCancel">Cancel Order</el-button>
                                 </el-form-item>
                             </td>
@@ -902,13 +897,6 @@ export default {
 </script>
 
 <style scoped>
-    table.secondaryForm {
-        text-align: center;
-        margin-left: auto;
-        margin-right: auto;
-        padding-right: 50px;
-    }
-
     table.test{
         line-height: 40px;
     }

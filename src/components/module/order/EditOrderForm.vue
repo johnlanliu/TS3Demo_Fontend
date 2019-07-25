@@ -19,76 +19,143 @@
                         </el-option>
                     </el-select>
                 </el-form-item>
-                <table class="test" style="width: 100%; text-align: right">
+
+                <table class="test" style="text-align: left; border-spacing: 0px">
                     <tr>
-                        <td class="bill"><el-form-item label="BILLING INFO"style="font-weight: bold"></el-form-item></td>
                         <td>
-                            <el-form-item label="SHIPPING INFO" style="font-weight: bold">
-                                <el-checkbox v-model="sameInfo"
-                                             style="display: inline"
-                                             @change="handleSameInfo()"
-                                >the same as billing info
-                                </el-checkbox>
-                            </el-form-item>
+                            <el-form-item label="BILLING INFO"style="font-weight: bold"></el-form-item>
+                        </td>
+                        <td style="padding-left: 196px">
+                            <el-form-item label="SHIPPING INFO" style="font-weight: bold"></el-form-item>
                         </td>
                     </tr>
+                </table>
+
+                <div style="padding-left: 300px; margin-bottom: 10px">
+                    <el-checkbox v-model="sameInfo"
+                                 style="display: inline"
+                                 @change="handleSameInfo()"
+                    >the same as billing info
+                    </el-checkbox>
+                </div>
+
+                <table class="test" style="width: 100%; text-align: left; border-spacing: 0px">
                     <tr>
                         <td>
                             <el-form-item label="Company Name: ">
-                                <el-input v-model="editForm.billingCompany"></el-input>
+                                <el-input v-model="editForm.billingCompany" style="width: 275px"></el-input>
                             </el-form-item>
                         </td>
-                        <td>
+                        <td style="padding-left: 14px">
                             <el-form-item label="Company Name: ">
-                                <el-input v-model="sameInfo ? editForm.billingCompany : editForm.shippingCompany" :disabled="sameInfo"></el-input>
+                                <el-input v-model="sameInfo ? editForm.billingCompany : editForm.shippingCompany"
+                                          style="width: 275px" :disabled="sameInfo"></el-input>
                             </el-form-item>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             <el-form-item label="Contact: ">
-                                <el-input v-model="editForm.billingContact"></el-input>
+                                <el-input v-model="editForm.billingContact" style="width: 275px"></el-input>
                             </el-form-item>
                         </td>
-                        <td>
+                        <td style="padding-left: 14px">
                             <el-form-item label="Contact: ">
-                                <el-input v-model="sameInfo ? editForm.billingContact : editForm.shippingContact" :disabled="sameInfo"></el-input>
+                                <el-input v-model="sameInfo ? editForm.billingContact : editForm.shippingContact"
+                                          style="width: 275px" :disabled="sameInfo"></el-input>
                             </el-form-item>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             <el-form-item label="Phone Number: ">
-                                <el-input v-model="editForm.billingNumber"></el-input>
+                                <el-input v-model="editForm.billingNumber" style="width: 275px"></el-input>
                             </el-form-item>
                         </td>
-                        <td>
+                        <td style="padding-left: 14px">
                             <el-form-item label="Phone Number: ">
-                                <el-input v-model="sameInfo ? editForm.billingNumber : editForm.shippingNumber" :disabled="sameInfo"></el-input>
+                                <el-input v-model="sameInfo ? editForm.billingNumber : editForm.shippingNumber"
+                                          style="width: 275px" :disabled="sameInfo"></el-input>
                             </el-form-item>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             <el-form-item label="Email: ">
-                                <el-input v-model="editForm.billingEmail"></el-input>
+                                <el-input v-model="editForm.billingEmail" style="width: 275px"></el-input>
                             </el-form-item>
                         </td>
-                        <td>
+                        <td style="padding-left: 14px">
                             <el-form-item label="Email: ">
-                                <el-input v-model="sameInfo ? editForm.billingEmail : editForm.shippingEmail" :disabled="sameInfo"></el-input>
+                                <el-input v-model="sameInfo ? editForm.billingEmail : editForm.shippingEmail"
+                                          style="width: 275px" :disabled="sameInfo"></el-input>
                             </el-form-item>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <el-form-item label="Billing Address: ">
-                                <el-input v-model="editForm.billingAddress"></el-input>
+                            <el-form-item label="Address: ">
+                                <el-input v-model="editForm.billingAddress" style="width: 275px"></el-input>
                             </el-form-item>
                         </td>
+                        <td style="padding-left: 14px">
+                            <el-form-item label="Address: ">
+                                <el-input v-model="sameInfo ? editForm.billingAddress : editForm.shippingAddress"
+                                          style="width: 275px" :disabled="sameInfo"></el-input>
+                            </el-form-item>
+                        </td>
+                    </tr>
+                </table>
+
+                <table class="test" style="text-align: left; border-spacing: 0px">
+                    <tr>
                         <td>
-                            <el-form-item label="Shipping Address: ">
-                                <el-input v-model="sameInfo ? editForm.billingAddress : editForm.shippingAddress" :disabled="sameInfo"></el-input>
+                            <el-form-item label="City: ">
+                                <el-input v-model="editForm.billingCity" style="width: 145px"></el-input>
+                            </el-form-item>
+                        </td>
+                        <td style="padding-left: 10px">
+                            <el-form-item label="Zip/Postal Code: ">
+                                <el-input v-model="editForm.billingZip" style="width: 120px"></el-input>
+                            </el-form-item>
+                        </td>
+                        <td style="padding-left: 22px">
+                            <el-form-item label="City: ">
+                                <el-input v-model="sameInfo ? editForm.billingCity : editForm.shippingCity"
+                                          style="width: 145px" :disabled="sameInfo"></el-input>
+                            </el-form-item>
+                        </td>
+                        <td style="padding-left: 10px">
+                            <el-form-item label="Zip/Postal Code: ">
+                                <el-input v-model="sameInfo ? editForm.billingZip : editForm.shippingZip"
+                                          style="width: 120px" :disabled="sameInfo"></el-input>
+                            </el-form-item>
+                        </td>
+                    </tr>
+                </table>
+
+                <table class="test" style="text-align: left; border-spacing: 0px">
+                    <tr>
+                        <td>
+                            <el-form-item label="Country: ">
+                                <el-input v-model="editForm.billingCountry" style="width: 133px"></el-input>
+                            </el-form-item>
+                        </td>
+                        <td style="padding-left: 10px">
+                            <el-form-item label="State/Province: ">
+                                <el-input v-model="editForm.billingState" style="width: 132px"></el-input>
+                            </el-form-item>
+                        </td>
+                        <td style="padding-left: 25px">
+                            <el-form-item label="Country: ">
+                                <el-input v-model="sameInfo ? editForm.billingCountry : editForm.shippingCountry"
+                                          style="width: 133px" :disabled="sameInfo"></el-input>
+                            </el-form-item>
+                        </td>
+                        <td style="padding-left: 10px">
+                            <el-form-item label="State/Province: ">
+                                <el-input v-model="sameInfo ? editForm.billingState : editForm.shippingState"
+                                          style="width: 132px" :disabled="sameInfo"></el-input>
                             </el-form-item>
                         </td>
                     </tr>
@@ -113,12 +180,12 @@
                     border
                     stripe
                     highlight-current-row
-                    :height="200"
+                    :height="167"
                     :row-key="row => row.index"
                     style="width: 100%; margin-left: 50px; margin-bottom: 5px"
                 >
-                    <el-table-column label="Product" prop="product" width="150"></el-table-column>
-                    <el-table-column label="QTY" prop="quantity" width="96"></el-table-column>
+                    <el-table-column label="Product" prop="product" width="162"></el-table-column>
+                    <el-table-column label="QTY" prop="quantity" width="90"></el-table-column>
                     <el-table-column label="Rate" prop="rate" width="96"></el-table-column>
                     <el-table-column label="Amount" prop="amount" width="96">
                         <template slot-scope="scope">
@@ -126,22 +193,22 @@
                         </template>
                     </el-table-column>
                     <el-table-column label="Tax" prop="tax" width="50"></el-table-column>
-                    <el-table-column label="Action" width="100">
+                    <el-table-column label="Action" width="95">
                         <template slot-scope="scope">
                             <el-button type="text" @click="handleDeleteOrderItem(scope.row, scope.$index)">Delete</el-button>
                         </template>
                     </el-table-column>
                 </el-table>
 
-                <table style="width: 100%; text-align: right; padding-left: 150px; margin-left: 50px; margin-bottom: 10px">
+                <table style="width: 100%; text-align: right; padding-left: 150px; margin-left: 52px; margin-bottom: 10px">
                     <tr>
                         <td>
                             <el-button type="primary" @click="handleAddDevice()">+ Add Device</el-button>
                         </td>
-                        <td>
+                        <td style="padding-left: 5px">
                             <el-button type="primary" @click="handleAddAccessories()">+ Add Accessories</el-button>
                         </td>
-                        <td>
+                        <td style="padding-left: 2px">
                             <el-button type="primary" @click="handleAddService()">+ Add Service Plan</el-button>
                         </td>
                     </tr>
@@ -156,15 +223,16 @@
                                     :rows="2"
                                     placeholder="notes"
                                     v-model="editForm.note"
+                                    style="width: 375px"
                                 >
                                 </el-input>
                             </el-form-item>
                         </td>
                         <td style="text-align: right">
-                            <el-form-item label="Tax: " style="padding-left: 100px">
+                            <el-form-item label="Tax: ">
                                 <p v-model="tax">${{ tax }}</p>
                             </el-form-item>
-                            <el-form-item label="Total: " style="padding-left: 100px">
+                            <el-form-item label="Total: ">
                                 <p v-model="total">${{ total }}</p>
                                 <p>plus shipping fee</p>
                             </el-form-item>
@@ -173,60 +241,54 @@
                 </table>
 
                 <el-form ref="form" :model="editForm" size="mini">
-                    <table class="secondaryForm" style="width: 100%; text-align: left; border-spacing: 0px">
+                    <table style="width: 110%; text-align: right; border-spacing: 0px 1px">
                         <tr>
-                            <td style="padding-left: 20px">
-                                <el-form-item label="Status:">
-                                    <el-select v-model="editForm.status" placeholder="select" style="width: 250px">
-                                        <el-option
-                                            v-for="option in statusOptions"
-                                            :key="option.status"
-                                            :value="option.status"
-                                            :label="option.label"
-                                        ></el-option>
-                                    </el-select>
-                                </el-form-item>
+                            <td style="padding-left: 39px">
+                                <el-form-item label="Status: " style="float: left"></el-form-item>
+                                <el-select v-model="editForm.status" placeholder="select" style="width: 188px">
+                                    <el-option
+                                        v-for="option in statusOptions"
+                                        :key="option.status"
+                                        :value="option.status"
+                                        :label="option.label"
+                                    ></el-option>
+                                </el-select>
                             </td>
-                            <td>
-                                <el-form-item label="Shipping Fee">
-                                    <el-input v-model="editForm.shippingFee" style="width: 250px"></el-input>
-                                </el-form-item>
+                            <td style="padding-right: 9px; padding-left: 66px">
+                                <el-form-item label="Shipping Fee: " style="float: left"></el-form-item>
+                                <el-input v-model="editForm.shippingFee" style="width: 188px"></el-input>
                             </td>
                         </tr>
                         <tr>
-                            <td style="padding-left: 20px">
-                                <el-form-item label="Invoice #">
-                                    <el-input v-model="editForm.invoiceNo" style="width: 250px"></el-input>
-                                </el-form-item>
+                            <td style="padding-left: 23px">
+                                <el-form-item label="Invoice #: " style="float: left"></el-form-item>
+                                <el-input v-model="editForm.invoiceNo" style="width: 188px"></el-input>
                             </td>
-                            <td>
-                                <el-form-item label="Invoice Date">
-                                    <el-date-picker
-                                        v-model="editForm.invoiceDate"
-                                        type="datetime"
-                                        placeholder="Select date and time"
-                                        style="width: 250px">
-                                    </el-date-picker>
-                                </el-form-item>
+                            <td style="padding-right: 9px; padding-left: 71px">
+                                <el-form-item label="Invoice Date: " style="float: left"></el-form-item>
+                                <el-date-picker
+                                    v-model="editForm.invoiceDate"
+                                    type="datetime"
+                                    placeholder="Select date and time"
+                                    style="width: 188px">
+                                </el-date-picker>
                             </td>
                         </tr>
                         <tr>
-                            <td style="padding-left: 20px">
-                                <el-form-item label="Shipping Via">
-                                    <el-input v-model="editForm.shippingVia" style="width: 250px"></el-input>
-                                </el-form-item>
-                            </td>
                             <td>
-                                <el-form-item label="Tracking Number">
-                                    <el-input v-model="editForm.trackingNo" style="width: 250px"></el-input>
-                                </el-form-item>
+                                <el-form-item label="Shipping Via: " style="float: left"></el-form-item>
+                                <el-input v-model="editForm.shippingVia" style="width: 188px"></el-input>
+                            </td>
+                            <td style="padding-right: 9px; padding-left: 39px">
+                                <el-form-item label="Tracking Number: " style="float: left"></el-form-item>
+                                <el-input v-model="editForm.trackingNo" style="width: 188px"></el-input>
                             </td>
                         </tr>
                     </table>
 
-                    <table style="width: 100%; text-align: right; padding-left: 150px; margin-left: 50px">
+                    <table style="width: 100%; text-align: right; padding-left: 150px; margin-left: 52px">
                         <tr>
-                            <td>
+                            <td style="padding-left: 160px">
                                 <el-form-item>
                                     <el-button type="primary" @click="handleCancel">Cancel Order</el-button>
                                 </el-form-item>
@@ -447,11 +509,19 @@ export default {
         billingCompany: '',
         billingContact: '',
         billingAddress: '',
+        billingCity: '',
+        billingState: '',
+        billingCountry: '',
+        billingZip: '',
         billingEmail: '',
         billingNumber: '',
         shippingCompany: '',
         shippingContact: '',
         shippingAddress: '',
+        shippingCity: '',
+        shippingState: '',
+        shippingCountry: '',
+        shippingZip: '',
         shippingNumber: '',
         shippingEmail: '',
         paymentTerm: '',
@@ -499,6 +569,10 @@ export default {
         this.editForm.shippingNumber = this.editForm.billingNumber;
         this.editForm.shippingEmail = this.editForm.billingEmail;
         this.editForm.shippingAddress = this.editForm.billingAddress;
+        this.editForm.shippingCity = this.editForm.billingCity;
+        this.editForm.shippingState = this.editForm.billingState;
+        this.editForm.shippingCountry = this.editForm.billingCountry;
+        this.editForm.shippingZip = this.editForm.billingZip;
       } else {
         this.sameAsBillingBool = 0;
       }
@@ -506,7 +580,6 @@ export default {
     handleDeleteOrderItem(row, index) {
       if (row.itemId) {
         this.toDelete.push(row.itemId);
-        alert(this.toDelete);
         this.tableData.splice(index, 1);
       } else {
         this.tableData.splice(index, 1);
@@ -560,11 +633,19 @@ export default {
         billingNumber: this.editForm.billingNumber,
         billingEmail: this.editForm.billingEmail,
         billingAddress: this.editForm.billingAddress,
+        billingCity: this.editForm.billingCity,
+        billingState: this.editForm.billingState,
+        billingCountry: this.editForm.billingCountry,
+        billingZip: this.editForm.billingZip,
         shippingCompany: this.editForm.shippingCompany,
         shippingContact: this.editForm.shippingContact,
         shippingNumber: this.editForm.shippingNumber,
         shippingEmail: this.editForm.shippingEmail,
         shippingAddress: this.editForm.shippingAddress,
+        shippingCity: this.editForm.shippingCity,
+        shippingState: this.editForm.shippingState,
+        shippingCountry: this.editForm.shippingCountry,
+        shippingZip: this.editForm.shippingZip,
         note: this.editForm.note,
         shippingVia: this.editForm.shippingVia,
         shippingFee: this.editForm.shippingFee,
@@ -807,19 +888,7 @@ export default {
 </script>
 
 <style scoped>
-    .bill {
-        text-align: left;
-    }
-
-    table.secondaryForm {
-        text-align: center;
-        margin-left: auto;
-        margin-right: auto;
-        padding-right: 50px;
-    }
-
     table.test{
         line-height: 40px;
     }
-
 </style>

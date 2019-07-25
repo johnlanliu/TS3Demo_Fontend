@@ -6,151 +6,204 @@
             :visible.sync="isOpen"
             :append-to-body="append"
             @closed="resetFields"
-            width="55%">
-        <el-form ref="form" :model="invoiceForm" size="mini" label-width="150px" style="margin: 0;">
-            <div class="invoiceSpacing">
-                <el-form-item label="Invoice Type">
-                    <el-select v-model="invoiceForm.invoiceType" placeholder="select">
-                        <el-option
-                                v-for="type in invoiceOptions"
-                                :key="type.value"
-                                :value="type.value"
-                                :label="type.label">
-                        </el-option>
-                    </el-select>
-                </el-form-item>
-                <table class="no-padding" style="width: 100%; border-spacing: 0px">
-                    <tr>
-                        <td class="bill"><el-form-item label="BILLING INFO"style="font-weight: bold"></el-form-item></td>
-                        <td>
-                            <el-form-item label="SHIPPING INFO" style="font-weight: bold">
-                            </el-form-item>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <el-form-item label="Company Name: ">
-                                <el-input v-model="form.billing"></el-input>
-                            </el-form-item>
-                        </td>
-                        <td>
-                            <el-form-item label="Company Name: ">
-                                <el-input v-model="form.companyName"></el-input>
-                            </el-form-item>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <el-form-item label="Contact: ">
-                                <el-input v-model="form.billingContact"></el-input>
-                            </el-form-item>
-                        </td>
-                        <td>
-                            <el-form-item label="Contact: ">
-                                <el-input v-model="form.contact"></el-input>
-                            </el-form-item>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <el-form-item label="Phone Number: ">
-                                <el-input v-model="form.billingPhone"></el-input>
-                            </el-form-item>
-                        </td>
-                        <td>
-                            <el-form-item label="Phone Number: ">
-                                <el-input v-model="form.phone"></el-input>
-                            </el-form-item>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <el-form-item label="Email: ">
-                                <el-input v-model="form.billingEmail"></el-input>
-                            </el-form-item>
-                        </td>
-                        <td>
-                            <el-form-item label="Email: ">
-                                <el-input v-model="form.email"></el-input>
-                            </el-form-item>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <el-form-item label="Billing Address: ">
-                                <el-input v-model="form.billingAddress"></el-input>
-                            </el-form-item>
-                        </td>
-                        <td>
-                            <el-form-item label="Shipping Address: ">
-                                <el-input v-model="form.shippingAddress"></el-input>
-                            </el-form-item>
-                        </td>
-                    </tr>
-                </table>
-                <el-form-item label="Payment Term" style="padding-top: 10px">
-                    <el-select v-model="form.paymentTerm" placeholder="Select">
-                        <el-option
-                                v-for="option in paymentOptions"
-                                :key="option.value"
-                                :label="option.value"
-                                :value="option.label">
-                        </el-option>
-                    </el-select>
-                </el-form-item>
-                <el-row style="border-spacing: 0px">
-                    <el-col :span="12">
-                        <el-form-item label="Invoice #" style="border-spacing: 0px">
-                            <el-input v-model="customerServiceForm.invoiceNumber" style="width: 150px"></el-input>
+            width="50%">
+        <el-form ref="form" :model="invoiceForm" size="mini" style="margin: 0; padding-left: 10px">
+            <el-form-item label="Invoice Type">
+                <el-select v-model="invoiceForm.invoiceType" placeholder="select">
+                    <el-option
+                        v-for="type in invoiceOptions"
+                        :key="type.value"
+                        :value="type.value"
+                        :label="type.label">
+                    </el-option>
+                </el-select>
+            </el-form-item>
+
+            <table style="text-align: left; border-spacing: 0px">
+                <tr>
+                    <td class="bill">
+                        <el-form-item label="BILLING INFO"style="font-weight: bold"></el-form-item>
+                    </td>
+                    <td style="padding-left: 196px">
+                        <el-form-item label="SHIPPING INFO" style="font-weight: bold"></el-form-item>
+                    </td>
+                </tr>
+            </table>
+
+            <table style="text-align: left; border-spacing: 0px">
+                <tr>
+                    <td>
+                        <el-form-item label="Company Name: ">
+                            <el-input v-model="form.orgName" style="width: 275px"></el-input>
                         </el-form-item>
-                    </el-col>
-                    <el-col :span="12">
-                        <el-form-item label="Invoice Status">
-                            <el-select v-model="invoiceForm.status" placeholder="Select" clearable style="width: 150px">
-                                <el-option
-                                        v-for="item in statusOptions"
-                                        :key="item.status"
-                                        :value="item.status"
-                                        :label="item.label"
-                                ></el-option>
-                            </el-select>
+                    </td>
+                    <td style="padding-left: 25px">
+                        <el-form-item label="Company Name: ">
+                            <el-input v-model="form.shippingCompany" style="width: 275px"></el-input>
                         </el-form-item>
-                    </el-col>
-                </el-row>
-                <el-row style="border-spacing: 0px">
-                    <el-col :span="12">
-                        <el-form-item label="Invoice Date">
-                            <el-date-picker
-                                    v-model="customerServiceForm.invoiceDate"
-                                    type="datetime"
-                                    placeholder="Select date and time"
-                                    style="width: 150px">
-                            </el-date-picker>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <el-form-item label="Contact: ">
+                            <el-input v-model="form.contacts" style="width: 275px"></el-input>
                         </el-form-item>
-                    </el-col>
-                    <el-col :span="12">
-                        <el-form-item label="Due Date">
-                            <el-date-picker
-                                    v-model="invoiceForm.dueDate"
-                                    type="datetime"
-                                    placeholder="Select date and time"
-                                    style="width: 150px">
-                            </el-date-picker>
+                    </td>
+                    <td style="padding-left: 25px">
+                        <el-form-item label="Contact: ">
+                            <el-input v-model="form.shippingContact" style="width: 275px"></el-input>
                         </el-form-item>
-                    </el-col>
-                </el-row>
-                <el-row style="border-spacing: 0px">
-                    <el-col :span="12">
-                        <el-form-item label="Shipping via">
-                            <el-input v-model="customerServiceForm.shippingVia" style="width: 150px"></el-input>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <el-form-item label="Phone Number: ">
+                            <el-input v-model="form.phone" style="width: 275px"></el-input>
                         </el-form-item>
-                    </el-col>
-                    <el-col :span="12">
-                        <el-form-item label="Tracking Number">
-                            <el-input v-model="customerServiceForm.trackingNumber" style="width: 150px"></el-input>
+                    </td>
+                    <td style="padding-left: 25px">
+                        <el-form-item label="Phone Number: ">
+                            <el-input v-model="form.shippingPhone" style="width: 275px"></el-input>
                         </el-form-item>
-                    </el-col>
-                </el-row>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <el-form-item label="Email: ">
+                            <el-input v-model="form.email" style="width: 275px"></el-input>
+                        </el-form-item>
+                    </td>
+                    <td style="padding-left: 25px">
+                        <el-form-item label="Email: ">
+                            <el-input v-model="form.shippingEmail" style="width: 275px"></el-input>
+                        </el-form-item>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <el-form-item label="Address: ">
+                            <el-input v-model="form.streetAddress" style="width: 275px"></el-input>
+                        </el-form-item>
+                    </td>
+                    <td style="padding-left: 25px">
+                        <el-form-item label="Address: ">
+                            <el-input v-model="form.shippingAddress" style="width: 275px"></el-input>
+                        </el-form-item>
+                    </td>
+                </tr>
+            </table>
+
+            <table class="test" style="text-align: left; border-spacing: 0px">
+                <tr>
+                    <td>
+                        <el-form-item label="City: ">
+                            <el-input v-model="form.city" style="width: 145px"></el-input>
+                        </el-form-item>
+                    </td>
+                    <td style="padding-left: 10px">
+                        <el-form-item label="Zip/Postal Code: ">
+                            <el-input v-model="form.zip" style="width: 120px"></el-input>
+                        </el-form-item>
+                    </td>
+                    <td style="padding-left: 22px">
+                        <el-form-item label="City: ">
+                            <el-input v-model="form.shippingCity" style="width: 145px"></el-input>
+                        </el-form-item>
+                    </td>
+                    <td style="padding-left: 10px">
+                        <el-form-item label="Zip/Postal Code: ">
+                            <el-input v-model="form.shippingZip" style="width: 120px"></el-input>
+                        </el-form-item>
+                    </td>
+                </tr>
+            </table>
+
+            <table class="test" style="text-align: left; border-spacing: 0px">
+                <tr>
+                    <td>
+                        <el-form-item label="Country: ">
+                            <el-input v-model="form.country" style="width: 133px"></el-input>
+                        </el-form-item>
+                    </td>
+                    <td style="padding-left: 10px">
+                        <el-form-item label="State/Province: ">
+                            <el-input v-model="form.state" style="width: 132px"></el-input>
+                        </el-form-item>
+                    </td>
+                    <td style="padding-left: 25px">
+                        <el-form-item label="Country: ">
+                            <el-input v-model="form.shippingCountry" style="width: 133px"></el-input>
+                        </el-form-item>
+                    </td>
+                    <td style="padding-left: 10px">
+                        <el-form-item label="State/Province: ">
+                            <el-input v-model="form.shippingState" style="width: 132px"></el-input>
+                        </el-form-item>
+                    </td>
+                </tr>
+            </table>
+
+            <el-form-item label="Payment Term">
+                <el-select v-model="form.paymentTerm" placeholder="Select">
+                    <el-option
+                        v-for="option in paymentOptions"
+                        :key="option.value"
+                        :label="option.value"
+                        :value="option.label">
+                    </el-option>
+                </el-select>
+            </el-form-item>
+
+            <table style="text-align: right; border-spacing: 0px 1px">
+                <tr>
+                    <td style="padding-left: 22px">
+                        <el-form-item label="Invoice #: " style="float: left"></el-form-item>
+                        <el-input v-model="customerServiceForm.invoiceNumber" style="width: 188px"></el-input>
+                    </td>
+                    <td style="padding-left: 41px">
+                        <el-form-item label="Invoice Status: " style="float: left"></el-form-item>
+                        <el-select v-model="invoiceForm.status" placeholder="Select" clearable style="width: 188px">
+                            <el-option
+                                v-for="item in statusOptions"
+                                :key="item.status"
+                                :value="item.status"
+                                :label="item.label"
+                            ></el-option>
+                        </el-select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <el-form-item label="Invoice Date: " style="float: left"></el-form-item>
+                        <el-date-picker
+                            v-model="customerServiceForm.invoiceDate"
+                            type="datetime"
+                            placeholder="Select date and time"
+                            style="width: 188px">
+                        </el-date-picker>
+                    </td>
+                    <td style="padding-left: 71px">
+                        <el-form-item label="Due Date: " style="float: left"></el-form-item>
+                        <el-date-picker
+                            v-model="invoiceForm.dueDate"
+                            type="datetime"
+                            placeholder="Select date and time"
+                            style="width: 188px">
+                        </el-date-picker>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding-left: 1px">
+                        <el-form-item label="Shipping via: " style="float: left"></el-form-item>
+                        <el-input v-model="customerServiceForm.shippingVia" style="width: 188px"></el-input>
+                    </td>
+                    <td style="padding-left: 20px">
+                        <el-form-item label="Tracking Number: " style="float: left"></el-form-item>
+                        <el-input v-model="customerServiceForm.trackingNumber" style="width: 188px"></el-input>
+                    </td>
+                </tr>
+            </table>
+
                 <el-table
                     ref="orderDetailTable"
                     :data="tableData"
@@ -160,40 +213,42 @@
                     highlight-current-row
                     :max-height="200"
                     :row-key="row => row.index"
-                    style="width: 80%; margin-left: 75px"
+                    style="width: 85%; margin-left: 50px; margin-top: 5px; margin-bottom: 10px"
                 >
-                    <el-table-column label="Product" prop="product" width="180"></el-table-column>
-                    <el-table-column label="QTY" prop="quantity" width="120"></el-table-column>
-                    <el-table-column label="Rate" prop="rate" width="120"></el-table-column>
-                    <el-table-column label="Amount" prop="amount" width="120"></el-table-column>
-                    <el-table-column label="Tax" prop="tax" width="80"></el-table-column>
+                    <el-table-column label="Product" prop="product" width="170"></el-table-column>
+                    <el-table-column label="QTY" prop="quantity" width="105"></el-table-column>
+                    <el-table-column label="Rate" prop="rate" width="130"></el-table-column>
+                    <el-table-column label="Amount" prop="amount" width="130"></el-table-column>
+                    <el-table-column label="Tax" prop="tax" width="54"></el-table-column>
                 </el-table>
+
                 <el-row style="border-spacing: 0px">
                     <el-col :span="12" :offset="15">
-                        <el-form-item label="Tax: ">
-                            <p v-model="tax">${{ tax }}</p>
+                        <el-form-item label="Tax: " style="padding-left: 20px">
+                            <p v-model="tax" style="text-align: right; margin-right: 150px">${{ tax }}</p>
                         </el-form-item>
-                        <el-form-item label="Shipping fee: ">
-                            <el-input v-model="customerServiceForm.shippingFee" style="width: 100px"></el-input>
+                        <el-form-item label="Shipping fee: " style="padding-left: 20px">
+                            <el-input v-model="customerServiceForm.shippingFee" style="width: 75px; padding-left: 5px"></el-input>
                         </el-form-item>
-                        <el-form-item label="Total: ">
-                            <p v-model="total">${{ total }}</p>
+                        <el-form-item label="Total: " style="padding-left: 20px">
+                            <p v-model="total" style="text-align: right; margin-right: 150px">${{ total }}</p>
                         </el-form-item>
                     </el-col>
                 </el-row>
-                <el-form-item label="Note:" style="display: block; margin-left: 30px; margin-right: 30px">
+
+                <el-form-item label="Note:" style="display: block; margin-left: 30px; margin-right: 30px; border-spacing: 0px">
                     <el-input
                             type="textarea"
                             :rows="2"
                             placeholder="notes"
                             v-model="invoiceForm.note"
+                            style="width: 618px"
                     >
                     </el-input>
                 </el-form-item>
-                <el-button type="primary" style="display: inline; margin-left: 350px;">Pay</el-button>
-                <el-button type="primary" style="display: inline; margin-left: 30px;" @click="addPaymentHandle">Save</el-button>
-                <el-button type="primary" style="display: inline; margin-left: 30px;">Save and Send</el-button>
-            </div>
+                <el-button type="primary" style="display: inline; margin-left: 378px;">Pay</el-button>
+                <el-button type="primary" style="display: inline; margin-left: 16px;" @click="addPaymentHandle">Save</el-button>
+                <el-button type="primary" style="display: inline; margin-left: 16px;">Save and Send</el-button>
         </el-form>
     </el-dialog>
 </template>
@@ -364,16 +419,24 @@ export default {
     form: {
       type: Object,
       default: () => ({
-        billing: '',
-        billingContact: '',
-        billingPhone: '',
-        billingEmail: '',
-        billingAddress: '',
-        companyName: '',
-        contact: '',
-        email: '',
+        orgName: '',
+        contacts: '',
         phone: '',
+        email: '',
+        streetAddress: '',
+        city: '',
+        state: '',
+        country: '',
+        zip: '',
+        shippingCompany: '',
+        shippingContact: '',
+        shippingEmail: '',
+        shippingPhone: '',
         shippingAddress: '',
+        shippingCity: '',
+        shippingState: '',
+        shippingCountry: '',
+        shippingZip: '',
         paymentTerm: '',
       })
     },
@@ -412,21 +475,29 @@ export default {
       this.getDates();
       addPayment({},{amount: this.total,
         invoiceNo: this.customerServiceForm.invoiceNumber,
-        customer: this.form.billing,
+        customer: this.form.orgName,
         invoiceDate: this.customerServiceForm.invoiceDate,
         dueDate: this.invoiceForm.dueDate,
         status: this.invoiceForm.status,
         sales: 'NULL',
-        billingCompany: this.form.billing,
-        billingContact: this.form.billingContact,
-        billingNumber: this.form.billingPhone,
-        billingEmail: this.form.billingEmail,
-        billingAddress: this.form.billingAddress,
-        shippingCompany: this.form.companyName,
-        shippingContact: this.form.contact,
-        shippingNumber: this.form.phone,
-        shippingEmail: this.form.email,
+        billingCompany: this.form.orgName,
+        billingContact: this.form.contacts,
+        billingNumber: this.form.phone,
+        billingEmail: this.form.email,
+        billingAddress: this.form.streetAddress,
+        billingCity: this.form.city,
+        billingState: this.form.state,
+        billingCountry: this.form.country,
+        billingZip: this.form.zip,
+        shippingCompany: this.form.shippingCompany,
+        shippingContact: this.form.shippingContact,
+        shippingNumber: this.form.shippingPhone,
+        shippingEmail: this.form.shippingEmail,
         shippingAddress: this.form.shippingAddress,
+        shippingCity: this.form.shippingCity,
+        shippingState: this.form.shippingState,
+        shippingCountry: this.form.shippingCountry,
+        shippingZip: this.form.shippingZip,
         note: this.invoiceForm.note,
         shippingVia: this.customerServiceForm.shippingVia,
         paymentTerm: this.form.paymentTerm,
@@ -498,11 +569,6 @@ export default {
 <style>
     .invoiceSpacing > .el-form-item {
         border-spacing: 0px;
-    }
-    table.no-padding {
-        padding: 0;
-        text-align: right;
-        vertical-align: top;
     }
 </style>
 
