@@ -9,42 +9,64 @@
         >
         <div class="form-box">
             <el-form ref="form":label-position="labelPosition" :model="form" size="mini">
-                <el-row style="padding-left: 50px">
-                    <el-col :span="12">
-                        <el-form-item label="Bill to" style="font-weight: 900"></el-form-item>
-                        <el-form-item label="Company: ">
-                            <p v-model="form.billingCompany">{{ form.billingCompany }}</p>
-                        </el-form-item>
-                        <el-form-item label="Address: ">
-                            <p v-model="form.billingAddress">{{ form.billingAddress }}</p>
-                        </el-form-item>
-                        <el-form-item label="Phone Number: ">
-                            <p v-model="form.billingNumber">{{ form.billingNumber }}</p>
-                        </el-form-item>
-                        <el-form-item label="Email: ">
-                            <p v-model="form.billingEmail">{{ form.billingEmail }}</p>
-                        </el-form-item>
-                    </el-col>
-                    <el-col :span="12">
-                        <el-form-item label="Ship to" style="font-weight: 900"></el-form-item>
-                        <el-form-item label="Company: ">
-                            <p v-model="form.shippingCompany">{{ form.shippingCompany}}</p>
-                        </el-form-item>
-                        <el-form-item label="Address: ">
-                            <p v-model="form.shippingAddress">{{ form.shippingAddress }}</p>
-                        </el-form-item>
-                        <el-form-item label="Phone Number: ">
-                            <p v-model="form.shippingNumber">{{ form.shippingNumber }}</p>
-                        </el-form-item>
-                        <el-form-item label="Email: ">
-                            <p v-model="form.shippingEmail">{{ form.shippingEmail }}</p>
-                        </el-form-item>
-                    </el-col>
-                </el-row>
-                <el-form-item label="Order Type: " style="font-weight: 900; padding-left: 50px">
-                    <p v-model="form.type">{{ form.type }}</p>
-                </el-form-item>
-                <el-form-item label="Items" style="font-weight: 900; padding-left: 50px"></el-form-item>
+                <table style="width: 115%; text-align: left; border-spacing: 0px">
+                    <tr>
+                        <td class="firstSpacing">
+                            <el-form-item label="Bill to" style="font-weight: 900"></el-form-item>
+                        </td>
+                        <td class="secondSpacing">
+                            <el-form-item label="Ship to" style="font-weight: 900"></el-form-item>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="firstSpacing">
+                            <el-form-item label="Company: " style="float: left"></el-form-item>
+                            <el-form-item v-model="form.billingCompany">{{ form.billingCompany }}</el-form-item>
+                        </td>
+                        <td class="secondSpacing">
+                            <el-form-item label="Company: " style="float: left"></el-form-item>
+                            <el-form-item v-model="form.shippingCompany">{{ form.shippingCompany}}</el-form-item>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="firstSpacing">
+                            <el-form-item label="Address: " style="float: left"></el-form-item>
+                            <el-form-item v-model="form.billingAddress">{{ form.billingAddress }}</el-form-item>
+                        </td>
+                        <td class="secondSpacing">
+                            <el-form-item label="Address: " style="float: left"></el-form-item>
+                            <el-form-item v-model="form.shippingAddress">{{ form.shippingAddress }}</el-form-item>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="firstSpacing">
+                            <el-form-item label="Phone Number: " style="float: left"></el-form-item>
+                            <el-form-item v-model="form.billingNumber">{{ form.billingNumber }}</el-form-item>
+                        </td>
+                        <td class="secondSpacing">
+                            <el-form-item label="Phone Number: " style="float: left"></el-form-item>
+                            <el-form-item v-model="form.shippingNumber">{{ form.shippingNumber }}</el-form-item>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="firstSpacing">
+                            <el-form-item label="Email: " style="float: left"></el-form-item>
+                            <el-form-item v-model="form.billingEmail">{{ form.billingEmail }}</el-form-item>
+                        </td>
+                        <td class="secondSpacing">
+                            <el-form-item label="Email: " style="float: left"></el-form-item>
+                            <el-form-item v-model="form.shippingEmail">{{ form.shippingEmail }}</el-form-item>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="firstSpacing">
+                            <el-form-item label="Order Type: " style="font-weight: 900; float: left"></el-form-item>
+                            <el-form-item v-model="form.type">{{ form.type }}</el-form-item>
+                        </td>
+                    </tr>
+                </table>
+
+                <el-form-item label="Items" style="font-weight: 900; padding-left: 50px; border-spacing: 0px"></el-form-item>
                 <el-table
                     ref="orderDetailTable"
                     :data="tableData"
@@ -52,9 +74,9 @@
                     border
                     stripe
                     highlight-current-row
-                    height="200px"
+                    height="131px"
                     :row-key="row => row.index"
-                    style="width: 170%; margin-left: 50px"
+                    style="width: 170%; margin-left: 50px; margin-bottom: 10px"
                 >
                     <el-table-column label="Product" prop="product" width="150"></el-table-column>
                     <el-table-column label="QTY" prop="quantity" width="120"></el-table-column>
@@ -62,13 +84,22 @@
                     <el-table-column label="Amount" prop="amount" width="120"></el-table-column>
                     <el-table-column label="Tax" prop="tax" width="89"></el-table-column>
                 </el-table>
-                <el-row>
-                    <el-col :span="10" offset="15">
+
+                <table style="width: 21%; border-spacing: 0px; text-align: right; margin-left: 525px">
+                    <tr>
                         <el-form-item label="Tax: " style="font-weight: 900"> ${{ tax }}</el-form-item>
-                        <el-form-item label="Total: " style="font-weight: 900">${{ total }} plus shipping fee</el-form-item>
-                        <el-button type="primary" @click="handleCancelOrder">cancel order</el-button>
-                    </el-col>
-                </el-row>
+                    </tr>
+                    <tr>
+                        <el-form-item label="Total: " style="font-weight: 900">
+                            <p v-model="total">${{ total }}</p>
+                            <p>plus shipping fee</p>
+                        </el-form-item>
+                    </tr>
+                </table>
+
+                <div style="margin-left: 547px; margin-top: 5px">
+                    <el-button type="primary" @click="handleCancelOrder">cancel order</el-button>
+                </div>
             </el-form>
         </div>
 
@@ -158,5 +189,15 @@ export default {
 </script>
 
 <style scoped>
+    td.firstSpacing {
+        vertical-align: top;
+        padding-left: 50px;
+        width: 300px
+    }
+
+    td.secondSpacing {
+        vertical-align: top;
+        padding-right: 165px;
+    }
 
 </style>

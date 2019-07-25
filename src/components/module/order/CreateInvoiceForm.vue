@@ -21,10 +21,10 @@
 
             <table style="text-align: left; border-spacing: 0px">
                 <tr>
-                    <td class="bill">
+                    <td class="alignTop">
                         <el-form-item label="BILLING INFO"style="font-weight: bold"></el-form-item>
                     </td>
-                    <td style="padding-left: 196px">
+                    <td class="alignTop" style="padding-left: 196px">
                         <el-form-item label="SHIPPING INFO" style="font-weight: bold"></el-form-item>
                     </td>
                 </tr>
@@ -32,60 +32,60 @@
 
             <table style="text-align: left; border-spacing: 0px">
                 <tr>
-                    <td>
+                    <td class="alignTop">
                         <el-form-item label="Company Name: ">
                             <el-input v-model="form.orgName" style="width: 275px"></el-input>
                         </el-form-item>
                     </td>
-                    <td style="padding-left: 25px">
+                    <td class="alignTop" style="padding-left: 25px">
                         <el-form-item label="Company Name: ">
                             <el-input v-model="form.shippingCompany" style="width: 275px"></el-input>
                         </el-form-item>
                     </td>
                 </tr>
                 <tr>
-                    <td>
+                    <td class="alignTop">
                         <el-form-item label="Contact: ">
                             <el-input v-model="form.contacts" style="width: 275px"></el-input>
                         </el-form-item>
                     </td>
-                    <td style="padding-left: 25px">
+                    <td class="alignTop" style="padding-left: 25px">
                         <el-form-item label="Contact: ">
                             <el-input v-model="form.shippingContact" style="width: 275px"></el-input>
                         </el-form-item>
                     </td>
                 </tr>
                 <tr>
-                    <td>
+                    <td class="alignTop">
                         <el-form-item label="Phone Number: ">
                             <el-input v-model="form.phone" style="width: 275px"></el-input>
                         </el-form-item>
                     </td>
-                    <td style="padding-left: 25px">
+                    <td class="alignTop" style="padding-left: 25px">
                         <el-form-item label="Phone Number: ">
                             <el-input v-model="form.shippingPhone" style="width: 275px"></el-input>
                         </el-form-item>
                     </td>
                 </tr>
                 <tr>
-                    <td>
+                    <td class="alignTop">
                         <el-form-item label="Email: ">
                             <el-input v-model="form.email" style="width: 275px"></el-input>
                         </el-form-item>
                     </td>
-                    <td style="padding-left: 25px">
+                    <td class="alignTop" style="padding-left: 25px">
                         <el-form-item label="Email: ">
                             <el-input v-model="form.shippingEmail" style="width: 275px"></el-input>
                         </el-form-item>
                     </td>
                 </tr>
                 <tr>
-                    <td>
+                    <td class="alignTop">
                         <el-form-item label="Address: ">
                             <el-input v-model="form.streetAddress" style="width: 275px"></el-input>
                         </el-form-item>
                     </td>
-                    <td style="padding-left: 25px">
+                    <td class="alignTop" style="padding-left: 25px">
                         <el-form-item label="Address: ">
                             <el-input v-model="form.shippingAddress" style="width: 275px"></el-input>
                         </el-form-item>
@@ -95,22 +95,22 @@
 
             <table class="test" style="text-align: left; border-spacing: 0px">
                 <tr>
-                    <td>
+                    <td class="alignTop">
                         <el-form-item label="City: ">
                             <el-input v-model="form.city" style="width: 145px"></el-input>
                         </el-form-item>
                     </td>
-                    <td style="padding-left: 10px">
+                    <td class="alignTop" style="padding-left: 10px">
                         <el-form-item label="Zip/Postal Code: ">
                             <el-input v-model="form.zip" style="width: 120px"></el-input>
                         </el-form-item>
                     </td>
-                    <td style="padding-left: 22px">
+                    <td class="alignTop" style="padding-left: 22px">
                         <el-form-item label="City: ">
                             <el-input v-model="form.shippingCity" style="width: 145px"></el-input>
                         </el-form-item>
                     </td>
-                    <td style="padding-left: 10px">
+                    <td class="alignTop" style="padding-left: 10px">
                         <el-form-item label="Zip/Postal Code: ">
                             <el-input v-model="form.shippingZip" style="width: 120px"></el-input>
                         </el-form-item>
@@ -120,22 +120,22 @@
 
             <table class="test" style="text-align: left; border-spacing: 0px">
                 <tr>
-                    <td>
+                    <td class="alignTop">
                         <el-form-item label="Country: ">
                             <el-input v-model="form.country" style="width: 133px"></el-input>
                         </el-form-item>
                     </td>
-                    <td style="padding-left: 10px">
+                    <td class="alignTop" style="padding-left: 10px">
                         <el-form-item label="State/Province: ">
                             <el-input v-model="form.state" style="width: 132px"></el-input>
                         </el-form-item>
                     </td>
-                    <td style="padding-left: 25px">
+                    <td class="alignTop" style="padding-left: 25px">
                         <el-form-item label="Country: ">
                             <el-input v-model="form.shippingCountry" style="width: 133px"></el-input>
                         </el-form-item>
                     </td>
-                    <td style="padding-left: 10px">
+                    <td class="alignTop" style="padding-left: 10px">
                         <el-form-item label="State/Province: ">
                             <el-input v-model="form.shippingState" style="width: 132px"></el-input>
                         </el-form-item>
@@ -156,11 +156,11 @@
 
             <table style="text-align: right; border-spacing: 0px 1px">
                 <tr>
-                    <td style="padding-left: 22px">
+                    <td class="alignTop" style="padding-left: 22px">
                         <el-form-item label="Invoice #: " style="float: left"></el-form-item>
                         <el-input v-model="customerServiceForm.invoiceNumber" style="width: 188px"></el-input>
                     </td>
-                    <td style="padding-left: 41px">
+                    <td class="alignTop" style="padding-left: 41px">
                         <el-form-item label="Invoice Status: " style="float: left"></el-form-item>
                         <el-select v-model="invoiceForm.status" placeholder="Select" clearable style="width: 188px">
                             <el-option
@@ -173,7 +173,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>
+                    <td class="alignTop">
                         <el-form-item label="Invoice Date: " style="float: left"></el-form-item>
                         <el-date-picker
                             v-model="customerServiceForm.invoiceDate"
@@ -182,7 +182,7 @@
                             style="width: 188px">
                         </el-date-picker>
                     </td>
-                    <td style="padding-left: 71px">
+                    <td class="alignTop" style="padding-left: 71px">
                         <el-form-item label="Due Date: " style="float: left"></el-form-item>
                         <el-date-picker
                             v-model="invoiceForm.dueDate"
@@ -193,11 +193,11 @@
                     </td>
                 </tr>
                 <tr>
-                    <td style="padding-left: 1px">
+                    <td class="alignTop" style="padding-left: 1px">
                         <el-form-item label="Shipping via: " style="float: left"></el-form-item>
                         <el-input v-model="customerServiceForm.shippingVia" style="width: 188px"></el-input>
                     </td>
-                    <td style="padding-left: 20px">
+                    <td class="alignTop" style="padding-left: 20px">
                         <el-form-item label="Tracking Number: " style="float: left"></el-form-item>
                         <el-input v-model="customerServiceForm.trackingNumber" style="width: 188px"></el-input>
                     </td>
@@ -224,14 +224,14 @@
 
                 <el-row style="border-spacing: 0px">
                     <el-col :span="12" :offset="15">
-                        <el-form-item label="Tax: " style="padding-left: 20px">
-                            <p v-model="tax" style="text-align: right; margin-right: 150px">${{ tax }}</p>
+                        <el-form-item label="Tax: " style="padding-left: 30px">
+                            <p v-model="tax" style="text-align: right; margin-right: 140px">${{ tax }}</p>
                         </el-form-item>
-                        <el-form-item label="Shipping fee: " style="padding-left: 20px">
+                        <el-form-item label="Shipping fee: " style="padding-left: 30px">
                             <el-input v-model="customerServiceForm.shippingFee" style="width: 75px; padding-left: 5px"></el-input>
                         </el-form-item>
-                        <el-form-item label="Total: " style="padding-left: 20px">
-                            <p v-model="total" style="text-align: right; margin-right: 150px">${{ total }}</p>
+                        <el-form-item label="Total: " style="padding-left: 30px">
+                            <p v-model="total" style="text-align: right; margin-right: 140px">${{ total }}</p>
                         </el-form-item>
                     </el-col>
                 </el-row>
@@ -573,6 +573,8 @@ export default {
 </style>
 
 <style scoped>
-
+    td.alignTop {
+        vertical-align: top;
+    }
 
 </style>

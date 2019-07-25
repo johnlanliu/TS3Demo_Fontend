@@ -22,10 +22,10 @@
 
                 <table class="test" style="text-align: left; border-spacing: 0px">
                     <tr>
-                        <td>
+                        <td class="alignTop">
                             <el-form-item label="BILLING INFO"style="font-weight: bold"></el-form-item>
                         </td>
-                        <td style="padding-left: 196px">
+                        <td class="alignTop" style="padding-left: 196px">
                             <el-form-item label="SHIPPING INFO" style="font-weight: bold"></el-form-item>
                         </td>
                     </tr>
@@ -41,12 +41,12 @@
 
                 <table class="test" style="width: 100%; text-align: left; border-spacing: 0px">
                     <tr>
-                        <td>
+                        <td class="alignTop">
                             <el-form-item label="Company Name: ">
                                 <el-input v-model="editForm.billingCompany" style="width: 275px"></el-input>
                             </el-form-item>
                         </td>
-                        <td style="padding-left: 14px">
+                        <td class="alignTop" style="padding-left: 14px">
                             <el-form-item label="Company Name: ">
                                 <el-input v-model="sameInfo ? editForm.billingCompany : editForm.shippingCompany"
                                           style="width: 275px" :disabled="sameInfo"></el-input>
@@ -54,12 +54,12 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>
+                        <td class="alignTop">
                             <el-form-item label="Contact: ">
                                 <el-input v-model="editForm.billingContact" style="width: 275px"></el-input>
                             </el-form-item>
                         </td>
-                        <td style="padding-left: 14px">
+                        <td class="alignTop" style="padding-left: 14px">
                             <el-form-item label="Contact: ">
                                 <el-input v-model="sameInfo ? editForm.billingContact : editForm.shippingContact"
                                           style="width: 275px" :disabled="sameInfo"></el-input>
@@ -67,12 +67,12 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>
+                        <td class="alignTop">
                             <el-form-item label="Phone Number: ">
                                 <el-input v-model="editForm.billingNumber" style="width: 275px"></el-input>
                             </el-form-item>
                         </td>
-                        <td style="padding-left: 14px">
+                        <td class="alignTop" style="padding-left: 14px">
                             <el-form-item label="Phone Number: ">
                                 <el-input v-model="sameInfo ? editForm.billingNumber : editForm.shippingNumber"
                                           style="width: 275px" :disabled="sameInfo"></el-input>
@@ -80,12 +80,12 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>
+                        <td class="alignTop">
                             <el-form-item label="Email: ">
                                 <el-input v-model="editForm.billingEmail" style="width: 275px"></el-input>
                             </el-form-item>
                         </td>
-                        <td style="padding-left: 14px">
+                        <td class="alignTop" style="padding-left: 14px">
                             <el-form-item label="Email: ">
                                 <el-input v-model="sameInfo ? editForm.billingEmail : editForm.shippingEmail"
                                           style="width: 275px" :disabled="sameInfo"></el-input>
@@ -93,12 +93,12 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>
+                        <td class="alignTop">
                             <el-form-item label="Address: ">
                                 <el-input v-model="editForm.billingAddress" style="width: 275px"></el-input>
                             </el-form-item>
                         </td>
-                        <td style="padding-left: 14px">
+                        <td class="alignTop" style="padding-left: 14px">
                             <el-form-item label="Address: ">
                                 <el-input v-model="sameInfo ? editForm.billingAddress : editForm.shippingAddress"
                                           style="width: 275px" :disabled="sameInfo"></el-input>
@@ -109,23 +109,23 @@
 
                 <table class="test" style="text-align: left; border-spacing: 0px">
                     <tr>
-                        <td>
+                        <td class="alignTop">
                             <el-form-item label="City: ">
                                 <el-input v-model="editForm.billingCity" style="width: 145px"></el-input>
                             </el-form-item>
                         </td>
-                        <td style="padding-left: 10px">
+                        <td class="alignTop" style="padding-left: 10px">
                             <el-form-item label="Zip/Postal Code: ">
                                 <el-input v-model="editForm.billingZip" style="width: 120px"></el-input>
                             </el-form-item>
                         </td>
-                        <td style="padding-left: 22px">
+                        <td class="alignTop" style="padding-left: 22px">
                             <el-form-item label="City: ">
                                 <el-input v-model="sameInfo ? editForm.billingCity : editForm.shippingCity"
                                           style="width: 145px" :disabled="sameInfo"></el-input>
                             </el-form-item>
                         </td>
-                        <td style="padding-left: 10px">
+                        <td class="alignTop" style="padding-left: 10px">
                             <el-form-item label="Zip/Postal Code: ">
                                 <el-input v-model="sameInfo ? editForm.billingZip : editForm.shippingZip"
                                           style="width: 120px" :disabled="sameInfo"></el-input>
@@ -136,23 +136,23 @@
 
                 <table class="test" style="text-align: left; border-spacing: 0px">
                     <tr>
-                        <td>
+                        <td class="alignTop">
                             <el-form-item label="Country: ">
                                 <el-input v-model="editForm.billingCountry" style="width: 133px"></el-input>
                             </el-form-item>
                         </td>
-                        <td style="padding-left: 10px">
+                        <td class="alignTop" style="padding-left: 10px">
                             <el-form-item label="State/Province: ">
                                 <el-input v-model="editForm.billingState" style="width: 132px"></el-input>
                             </el-form-item>
                         </td>
-                        <td style="padding-left: 25px">
+                        <td class="alignTop" style="padding-left: 25px">
                             <el-form-item label="Country: ">
                                 <el-input v-model="sameInfo ? editForm.billingCountry : editForm.shippingCountry"
                                           style="width: 133px" :disabled="sameInfo"></el-input>
                             </el-form-item>
                         </td>
-                        <td style="padding-left: 10px">
+                        <td class="alignTop" style="padding-left: 10px">
                             <el-form-item label="State/Province: ">
                                 <el-input v-model="sameInfo ? editForm.billingState : editForm.shippingState"
                                           style="width: 132px" :disabled="sameInfo"></el-input>
@@ -202,33 +202,33 @@
 
                 <table style="width: 100%; text-align: right; padding-left: 150px; margin-left: 52px; margin-bottom: 10px">
                     <tr>
-                        <td>
+                        <td class="alignTop">
                             <el-button type="primary" @click="handleAddDevice()">+ Add Device</el-button>
                         </td>
-                        <td style="padding-left: 5px">
+                        <td class="alignTop" style="padding-left: 5px">
                             <el-button type="primary" @click="handleAddAccessories()">+ Add Accessories</el-button>
                         </td>
-                        <td style="padding-left: 2px">
+                        <td class="alignTop" style="padding-left: 2px">
                             <el-button type="primary" @click="handleAddService()">+ Add Service Plan</el-button>
                         </td>
                     </tr>
                 </table>
 
-                <table style="width: 100%; border-spacing: 0px">
+                <table style="width: 115%; border-spacing: 0px">
                     <tr>
-                        <td>
+                        <td class="alignTop">
                             <el-form-item label="Note:" style="display: block; margin-left: 30px; margin-right: 30px">
                                 <el-input
                                     type="textarea"
                                     :rows="2"
                                     placeholder="notes"
                                     v-model="editForm.note"
-                                    style="width: 375px"
+                                    style="width: 405px"
                                 >
                                 </el-input>
                             </el-form-item>
                         </td>
-                        <td style="text-align: right">
+                        <td class="alignTop" style="text-align: right; padding-right: 39px">
                             <el-form-item label="Tax: ">
                                 <p v-model="tax">${{ tax }}</p>
                             </el-form-item>
@@ -243,7 +243,7 @@
                 <el-form ref="form" :model="editForm" size="mini">
                     <table style="width: 110%; text-align: right; border-spacing: 0px 1px">
                         <tr>
-                            <td style="padding-left: 39px">
+                            <td class="alignTop" style="padding-left: 39px">
                                 <el-form-item label="Status: " style="float: left"></el-form-item>
                                 <el-select v-model="editForm.status" placeholder="select" style="width: 188px">
                                     <el-option
@@ -254,17 +254,17 @@
                                     ></el-option>
                                 </el-select>
                             </td>
-                            <td style="padding-right: 9px; padding-left: 66px">
+                            <td class="alignTop" style="padding-right: 9px; padding-left: 66px">
                                 <el-form-item label="Shipping Fee: " style="float: left"></el-form-item>
                                 <el-input v-model="editForm.shippingFee" style="width: 188px"></el-input>
                             </td>
                         </tr>
                         <tr>
-                            <td style="padding-left: 23px">
+                            <td class="alignTop" style="padding-left: 23px">
                                 <el-form-item label="Invoice #: " style="float: left"></el-form-item>
                                 <el-input v-model="editForm.invoiceNo" style="width: 188px"></el-input>
                             </td>
-                            <td style="padding-right: 9px; padding-left: 71px">
+                            <td class="alignTop" style="padding-right: 9px; padding-left: 71px">
                                 <el-form-item label="Invoice Date: " style="float: left"></el-form-item>
                                 <el-date-picker
                                     v-model="editForm.invoiceDate"
@@ -275,11 +275,11 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>
+                            <td class="alignTop">
                                 <el-form-item label="Shipping Via: " style="float: left"></el-form-item>
                                 <el-input v-model="editForm.shippingVia" style="width: 188px"></el-input>
                             </td>
-                            <td style="padding-right: 9px; padding-left: 39px">
+                            <td class="alignTop" style="padding-right: 9px; padding-left: 39px">
                                 <el-form-item label="Tracking Number: " style="float: left"></el-form-item>
                                 <el-input v-model="editForm.trackingNo" style="width: 188px"></el-input>
                             </td>
@@ -288,12 +288,12 @@
 
                     <table style="width: 100%; text-align: right; padding-left: 150px; margin-left: 52px">
                         <tr>
-                            <td style="padding-left: 160px">
+                            <td class="alignTop" style="padding-left: 160px">
                                 <el-form-item>
                                     <el-button type="primary" @click="handleCancel">Cancel Order</el-button>
                                 </el-form-item>
                             </td>
-                            <td>
+                            <td class="alignTop">
                                 <el-form-item>
                                     <el-button type="primary" @click="handleSaveEdit()">Save Changes</el-button>
                                 </el-form-item>
@@ -888,7 +888,11 @@ export default {
 </script>
 
 <style scoped>
-    table.test{
+    table.test {
         line-height: 40px;
+    }
+
+    td.alignTop {
+        vertical-align: top;
     }
 </style>
