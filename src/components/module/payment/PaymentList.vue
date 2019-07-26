@@ -45,12 +45,12 @@
           :row-key="row => row.index"
           style="width: 100%;"
       >
-          <el-table-column fixed label="Invoice Id" prop="paymentId" width="100"></el-table-column>
-          <el-table-column fixed label="Invoice No." prop="invoiceNo" width="150"></el-table-column>
-          <el-table-column label="Customer" prop="customer" width="150"></el-table-column>
-          <el-table-column label="Invoice Date" prop="invoiceDate" :formatter="formatDate" width="150"></el-table-column>
-          <el-table-column label="Due Date" prop="dueDate" :formatter="formatDate" width="150"></el-table-column>
-          <el-table-column label="Amount" prop="amount" width="110">
+          <el-table-column fixed label="Invoice ID" prop="paymentId" width="100"></el-table-column>
+          <el-table-column fixed label="Invoice No." prop="invoiceNo" width="110"></el-table-column>
+          <el-table-column label="Customer" prop="customer" width="130"></el-table-column>
+          <el-table-column label="Invoice Date" prop="invoiceDate" :formatter="formatDate" width="140"></el-table-column>
+          <el-table-column label="Due Date" prop="dueDate" :formatter="formatDate" width="140"></el-table-column>
+          <el-table-column label="Amount" prop="amount" width="109">
               <template slot-scope="scope">
                   <span>${{ scope.row.amount === null ? ' ' : scope.row.amount.toFixed(2) }}</span>
               </template>
@@ -62,7 +62,7 @@
                   <span v-else >{{scope.row.status}}</span>
               </template>
           </el-table-column>
-          <el-table-column label="Sales" prop="sales" width="110"></el-table-column>
+          <el-table-column label="Sales" prop="sales" width="90"></el-table-column>
           <el-table-column fixed="right" label="Action" width="140" v-if="permsEdit || permsVoid">
               <template slot-scope="scope">
                   <el-dropdown size="mini" type="text" @command="handleCommand($event, scope.row, scope.$index)" trigger="click">

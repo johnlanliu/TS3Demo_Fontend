@@ -44,13 +44,13 @@
           style="width: 100%;"
       >
           <el-table-column fixed label="Order ID" prop="orderId" width="100"></el-table-column>
-          <el-table-column fixed label="Type" prop="type" width="130" >
+          <el-table-column fixed label="Type" prop="type" width="110" >
               <template slot-scope="scope">
                   <span style="color:green;">{{scope.row.type}}</span>
               </template>
           </el-table-column>
-          <el-table-column fixed label="Customer" prop="customer" width="160"></el-table-column>
-          <el-table-column label="Description" prop="description" width="200">
+          <el-table-column fixed label="Customer" prop="customer" width="130"></el-table-column>
+          <el-table-column label="Description" prop="description" width="180">
               <template slot-scope="scope">
                   <ul id="descriptionList">
                       <li v-for="des in scope.row.description">
@@ -59,7 +59,7 @@
                   </ul>
               </template>
           </el-table-column>
-          <el-table-column label="Status" prop="status" width="160">
+          <el-table-column label="Status" prop="status" width="110">
               <template slot-scope="scope">
                   <span v-if="scope.row.status==='shipped'" style="color:green;">{{scope.row.status}}</span>
                   <span v-else-if="scope.row.status==='delivered'" style="color:green;">{{scope.row.status}}</span>
@@ -67,16 +67,16 @@
                   <span v-else>{{scope.row.status}}</span>
               </template>
           </el-table-column>
-          <el-table-column label="Invoice No." prop="invoiceNo" width="150"></el-table-column>
-          <el-table-column label="Invoice Date" prop="invoiceDate" :formatter="formatDate" width="150"></el-table-column>
-          <el-table-column label="Due Date" prop="dueDate" :formatter="formatDate" width="130"></el-table-column>
-          <el-table-column label="Tracking No." prop="trackingNo" width="120">
+          <el-table-column label="Invoice No." prop="invoiceNo" width="110"></el-table-column>
+          <el-table-column label="Invoice Date" prop="invoiceDate" :formatter="formatDate" width="140"></el-table-column>
+          <el-table-column label="Due Date" prop="dueDate" :formatter="formatDate" width="140"></el-table-column>
+          <el-table-column label="Tracking No." prop="trackingNo" width="140">
               <template slot-scope="scope">
                   <a href="https://www.anytrek.com/">{{scope.row.trackingNo}}</a>
               </template>
           </el-table-column>
-          <el-table-column label="Sales" prop="sales" width="120"></el-table-column>
-          <el-table-column label="Create Time" prop="createTime" :formatter="formatDate" width="120"></el-table-column>
+          <el-table-column label="Sales" prop="sales" width="90"></el-table-column>
+          <el-table-column label="Create Time" prop="createTime" :formatter="formatDate" width="140"></el-table-column>
           <el-table-column fixed="right" label="Action" width="140" v-if="permsEdit || permsVoid">
               <template slot-scope="scope">
                   <el-dropdown size="mini" type="text" @command="handleCommand($event, scope.row, scope.$index)" trigger="click">
