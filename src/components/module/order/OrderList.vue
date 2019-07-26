@@ -77,7 +77,7 @@
           </el-table-column>
           <el-table-column label="Sales" prop="sales" width="120"></el-table-column>
           <el-table-column label="Create Time" prop="createTime" :formatter="formatDate" width="120"></el-table-column>
-          <el-table-column fixed="right" label="Action" width="160" v-if="permsEdit || permsVoid">
+          <el-table-column fixed="right" label="Action" width="140" v-if="permsEdit || permsVoid">
               <template slot-scope="scope">
                   <el-dropdown size="mini" type="text" @command="handleCommand($event, scope.row, scope.$index)" trigger="click">
                   <span class="el-dropdown-link">
