@@ -87,7 +87,7 @@
 import InvoiceReviewForm from './InvoiceReviewForm.vue';
 import CreateInvoiceForm from '../order/CreateInvoiceForm.vue';
 import EditInvoiceForm from './EditInvoiceForm';
-import { getPaymentList, voidPayment, getPaymentByPaymentId, getOrderItemListByInvoiceNo } from '@/api/getData';
+import { getPaymentList, voidPayment, getPaymentByPaymentId, getPaymentItem } from '@/api/getData';
 import { timeFormatUtil } from '@/utils/timeFormatUtil.js';
 import { exceptionUtil } from '@/utils/exceptionUtil.js';
 import { mapState } from 'vuex';
@@ -197,22 +197,22 @@ export default {
     },
     async handleView(index, row) {
       this.getInvoiceInfo(row, index);
-      this.getOrderItems(row, index);
+      this.getPaymentItems(row, index);
       this.$refs.invoiceReviewForm.showDialog();
     },
     async handleEdit(index, row) {
       this.getInvoiceInfo(row, index);
-      this.getOrderItems(row, index);
+      this.getPaymentItems(row, index);
       this.$refs.editInvoiceForm.showDialog();
     },
     async getInvoiceInfo(row, index) {
       this.invoiceInfo = await getPaymentByPaymentId({paymentId: row.paymentId});
     },
-    async getOrderItems(row, index) {
-      if(row.invoiceNo === null) {
+    async getPaymentItems(row, index) {
+      if(row.paymentId === null) {
         this.orderItemTable = [];
       } else {
-        const res = await getOrderItemListByInvoiceNo({invoiceNo: row.invoiceNo});
+        const res = await getPaymentItem({paymentId: row.paymentId});
         if (res) {
           this.orderItemTable = [];
           res.forEach((item, index) => {

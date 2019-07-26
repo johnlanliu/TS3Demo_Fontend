@@ -141,5 +141,10 @@ export const editOrder = (data, body) => axios.post('/orgMOrder/editOrder', data
  * Order Item
  */
 export const getOrderItem = data => axios.get('/orgMOrderItem/getOrderItemList', data);
-export const getOrderItemListByInvoiceNo = data => axios.get('/orgMOrderItem/getOrderItemListByInvoiceNo', data);
 export const deleteOrderItem = (data, body) => axios.post('/orgMOrderItem/deleteOrderItem', data, body);
+
+/**
+ * Payment Item
+ */
+export const getPaymentItem = data => axios.get('/orgMPaymentItem/getPaymentItemList', data);
+export const deletePaymentItem = (data, body) => axios.post('/orgMPaymentItem/deletePaymentItem');
