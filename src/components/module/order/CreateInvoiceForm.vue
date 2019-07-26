@@ -213,15 +213,40 @@
                 highlight-current-row
                 :max-height="200"
                 :row-key="row => row.index"
-                style="width: 85%; margin-left: 50px; margin-top: 5px; margin-bottom: 10px"
+                style="width: 90%; margin-left: 25px; margin-top: 5px; margin-bottom: 10px"
             >
                 <el-table-column label="Product" prop="product" width="170"></el-table-column>
                 <el-table-column label="QTY" prop="quantity" width="105"></el-table-column>
-                <el-table-column label="Rate" prop="rate" width="130"></el-table-column>
-                <el-table-column label="Amount" prop="amount" width="130"></el-table-column>
+                <el-table-column label="Rate" prop="rate" width="100">
+                    <template slot-scope="scope">
+                        <span>${{ Number(scope.row.rate).toFixed(2) }}</span>
+                    </template>
+                </el-table-column>
+                <el-table-column label="Amount" prop="amount" width="100">
+                    <template slot-scope="scope">
+                        <span>${{ Number(scope.row.amount).toFixed(2) }}</span>
+                    </template>
+                </el-table-column>
                 <el-table-column label="Tax" prop="tax" width="54"></el-table-column>
+                <el-table-column label="Action" width="95">
+                    <template slot-scope="scope">
+                        <el-button type="text" @click="handleDeleteItem(scope.row, scope.$index)">Delete</el-button>
+                    </template>
+                </el-table-column>
             </el-table>
-
+            <table style="width: 100%; padding-left: 100px; margin-left: 20px; margin-bottom: 10px">
+                <tr>
+                    <td class="alignTop">
+                        <el-button type="primary" @click="handleAddDevice()">+ Add Device</el-button>
+                    </td>
+                    <td class="alignTop" style="padding-left: 0">
+                        <el-button type="primary" @click="handleAddAccessories()">+ Add Accessories</el-button>
+                    </td>
+                    <td class="alignTop" style="padding-left: 0">
+                        <el-button type="primary" @click="handleAddService()">+ Add Service Plan</el-button>
+                    </td>
+                </tr>
+            </table>
             <el-row style="border-spacing: 0px">
                 <el-col :span="12" :offset="15">
                     <el-form-item label="Tax: " style="padding-left: 30px">
@@ -250,14 +275,27 @@
             <el-button type="primary" style="display: inline; margin-left: 16px;" @click="addPaymentHandle">Save</el-button>
             <el-button type="primary" style="display: inline; margin-left: 16px;">Save and Send</el-button>
         </el-form>
+        <product-detail-form ref="productDetailForm" @productAdded="getProductInfo" @prodAndAccAdded="getProdAndAccInfo"
+        @prodAndPlanAdded="getProdAndPlanInfo" @allAdded="getAllInfo"></product-detail-form>
+        <accessory-detail-form ref="accessoryDetailForm" @accessoryAdded="getAccessoryInfo"></accessory-detail-form>
+        <service-plan-form ref="servicePlanForm" @planAdded="getServicePlanFee"></service-plan-form>
     </el-dialog>
 </template>
 
 <script>
 import { addPayment } from '@/api/getData';
+import ProductDetailForm from './ProductDetailForm.vue';
+import ServicePlanForm from './ServicePlanForm.vue';
+import AccessoryDetailForm from './AccessoryDetailForm.vue';
 
 export default {
   name: 'CreateInvoiceForm',
+
+  components: {
+    ProductDetailForm,
+    AccessoryDetailForm,
+    ServicePlanForm,
+  },
 
   data: function() {
     return {
@@ -272,6 +310,19 @@ export default {
         invoiceType: '',
         note: '',
         status: '',
+      },
+      itemInfo: {
+        accName: '',
+        accPrice: '',
+        accQty: '',
+        accTax: '',
+        prodName: '',
+        prodPrice: '',
+        prodQty: '',
+        prodTax: '',
+        planQty: '',
+        planAmt: '',
+        planName: '',
       },
 
     /* DROPDOWN OPTIONS */
@@ -513,6 +564,19 @@ export default {
       });
     },
 
+    handleAddDevice() {
+      this.$refs.productDetailForm.showDialog();
+    },
+    handleAddAccessories() {
+      this.$refs.accessoryDetailForm.showDialog();
+    },
+    handleAddService() {
+      this.$refs.servicePlanForm.showDialog();
+    },
+    handleDeleteItem(row, index) {
+      this.tableData.splice(index, 1);
+    },
+
     /* FORMAT INVOICE AND DUE DATES */
     getDates() {
       let invoice = new Date(this.customerServiceForm.invoiceDate);
@@ -528,6 +592,156 @@ export default {
           + '-' + due.getDate()
           + ' ' + due.getHours()
           + ':' + due.getMinutes();
+    },
+    /* GET ACCESSORIES, PRODUCTS, AND SERVICE PLANS FOR TABLE */
+    getAccessoryInfo(n, p, q, r) {
+      this.itemInfo.accName = n;
+      this.itemInfo.accPrice = p;
+      this.itemInfo.accQty = q;
+      this.itemInfo.accTax = r;
+      const data = {orderId: '',
+        product: this.itemInfo.accName,
+        quantity: this.itemInfo.accQty,
+        rate: this.itemInfo.accPrice,
+        amount: Number(this.itemInfo.accPrice) * Number(this.itemInfo.accQty),
+        tax: this.itemInfo.accTax,
+        description: this.itemInfo.accQty + ' * ' + this.itemInfo.accName,
+        invoiceNo: this.customerServiceForm.invoiceNumber
+      };
+      this.tableData.push(data);
+    },
+    getProductInfo(n, p, q, r) {
+      this.itemInfo.prodName = n;
+      this.itemInfo.prodPrice = p;
+      this.itemInfo.prodQty = q;
+      this.itemInfo.prodTax = r;
+      const data = {orderId: '',
+        product: this.itemInfo.prodName,
+        quantity: this.itemInfo.prodQty,
+        rate: this.itemInfo.prodPrice,
+        amount: Number(this.itemInfo.prodPrice) * Number(this.itemInfo.prodQty),
+        tax: this.itemInfo.prodTax,
+        description: this.itemInfo.prodQty + ' * ' + this.itemInfo.prodName,
+        invoiceNo: this.customerServiceForm.invoiceNumber
+      };
+      this.tableData.push(data);
+    },
+    getServicePlanFee(q, a, n) {
+      this.itemInfo.planQty = q;
+      this.itemInfo.planAmt = a;
+      this.itemInfo.planName = n;
+      const data = {orderId: '',
+        product: this.itemInfo.planName,
+        quantity: this.itemInfo.planQty,
+        rate: this.itemInfo.planAmt,
+        amount: Number(this.itemInfo.planAmt) * Number(this.itemInfo.planQty),
+        tax: 'N',
+        description: this.itemInfo.planQty + ' * ' + this.itemInfo.planName,
+        invoiceNo: this.customerServiceForm.invoiceNumber
+      };
+      this.tableData.push(data);
+    },
+    getProdAndAccInfo(pn, pp, pq, pt, an, ap, aq, at) {
+      this.itemInfo.prodName = pn;
+      this.itemInfo.prodPrice = pp;
+      this.itemInfo.prodQty = pq;
+      this.itemInfo.prodTax = pt;
+      this.itemInfo.accName = an;
+      this.itemInfo.accPrice = ap;
+      this.itemInfo.accQty = aq;
+      this.itemInfo.accTax = at;
+      const data = {orderId: '',
+        product: this.itemInfo.prodName,
+        quantity: this.itemInfo.prodQty,
+        rate: this.itemInfo.prodPrice,
+        amount: Number(this.itemInfo.prodPrice) * Number(this.itemInfo.prodQty),
+        tax: this.itemInfo.prodTax,
+        description: this.itemInfo.prodQty + ' * ' + this.itemInfo.prodName,
+        invoiceNo: this.customerServiceForm.invoiceNumber
+      };
+      this.tableData.push(data);
+      const data2 = {orderId: '',
+        product: this.itemInfo.accName,
+        quantity: this.itemInfo.accQty,
+        rate: this.itemInfo.accPrice,
+        amount: Number(this.itemInfo.accPrice) * Number(this.itemInfo.accQty),
+        tax: this.itemInfo.accTax,
+        description: this.itemInfo.accQty + ' * ' + this.itemInfo.accName,
+        invoiceNo: this.customerServiceForm.invoiceNumber
+      };
+      this.tableData.push(data2);
+    },
+    getProdAndPlanInfo(pn, pp, pq, pt, sq, sa, sn) {
+      this.itemInfo.prodName = pn;
+      this.itemInfo.prodPrice = pp;
+      this.itemInfo.prodQty = pq;
+      this.itemInfo.prodTax = pt;
+      this.itemInfo.planQty = sq;
+      this.itemInfo.planAmt = sa;
+      this.itemInfo.planName = sn;
+      const data = {orderId: '',
+        product: this.itemInfo.prodName,
+        quantity: this.itemInfo.prodQty,
+        rate: this.itemInfo.prodPrice,
+        amount: Number(this.itemInfo.prodPrice) * Number(this.itemInfo.prodQty),
+        tax: this.itemInfo.prodTax,
+        description: this.itemInfo.prodQty + ' * ' + this.itemInfo.prodName,
+        invoiceNo: this.customerServiceForm.invoiceNumber
+      };
+      this.tableData.push(data);
+      const data2 = {orderId: '',
+        product: this.itemInfo.planName,
+        quantity: this.itemInfo.planQty,
+        rate: this.itemInfo.planAmt,
+        amount: Number(this.itemInfo.planAmt) * Number(this.itemInfo.planQty),
+        tax: 'N',
+        description: this.itemInfo.planQty + ' * ' + this.itemInfo.planName,
+        invoiceNo: this.customerServiceForm.invoiceNumber
+      };
+      this.tableData.push(data2);
+    },
+    getAllInfo(pn, pp, pq, pt, an, ap, aq, at, sq, sa, sn) {
+      this.itemInfo.prodName = pn;
+      this.itemInfo.prodPrice = pp;
+      this.itemInfo.prodQty = pq;
+      this.itemInfo.prodTax = pt;
+      this.itemInfo.accName = an;
+      this.itemInfo.accPrice = ap;
+      this.itemInfo.accQty = aq;
+      this.itemInfo.accTax = at;
+      this.itemInfo.planQty = sq;
+      this.itemInfo.planAmt = sa;
+      this.itemInfo.planName = sn;
+      const data = {orderId: '',
+        product: this.itemInfo.prodName,
+        quantity: this.itemInfo.prodQty,
+        rate: this.itemInfo.prodPrice,
+        amount: Number(this.itemInfo.prodPrice) * Number(this.itemInfo.prodQty),
+        tax: this.itemInfo.prodTax,
+        description: this.itemInfo.prodQty + ' * ' + this.itemInfo.prodName,
+        invoiceNo: this.customerServiceForm.invoiceNumber
+      };
+      this.tableData.push(data);
+      const data2 = {orderId: '',
+        product: this.itemInfo.accName,
+        quantity: this.itemInfo.accQty,
+        rate: this.itemInfo.accPrice,
+        amount: Number(this.itemInfo.accPrice) * Number(this.itemInfo.accQty),
+        tax: this.itemInfo.accTax,
+        description: this.itemInfo.accQty + ' * ' + this.itemInfo.accName,
+        invoiceNo: this.customerServiceForm.invoiceNumber
+      };
+      this.tableData.push(data2);
+      const data3 = {orderId: '',
+        product: this.itemInfo.planName,
+        quantity: this.itemInfo.planQty,
+        rate: this.itemInfo.planAmt,
+        amount: Number(this.itemInfo.planAmt) * Number(this.itemInfo.planQty),
+        tax: 'N',
+        description: this.itemInfo.planQty + ' * ' + this.itemInfo.planName,
+        invoiceNo: this.customerServiceForm.invoiceNumber
+      };
+      this.tableData.push(data3);
     },
   },
 

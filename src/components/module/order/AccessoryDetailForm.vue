@@ -244,6 +244,7 @@ export default {
       this.form4.price = '';
       this.form4.QTY = 1;
       this.form4.showPrice = false;
+      this.form4.tax = '';
       this.$refs.form.resetFields();
     },
 
