@@ -15,7 +15,7 @@
               <el-input v-model="orderSearchForm.number" @change="search"></el-input>
           </el-form-item>
           <el-form-item label="Status:">
-              <el-select v-model="orderSearchForm.status" placeholder="All" clearable @change="search" value="">
+              <el-select v-model="orderSearchForm.status" placeholder="All" clearable @change="search">
                   <el-option
                       v-for="item in statusOptions"
                       :key="item.status"
@@ -24,11 +24,12 @@
                   ></el-option>
               </el-select>
           </el-form-item>
-          <el-form-item label>
+          <el-form-item>
               <el-button class="inline" type="primary" @click="search" style="margin-left:10px;">Search/Update</el-button>
           </el-form-item>
-          <el-form-item label style="float:right;">
-              <el-button v-if="permsAdd" class="inline" type="primary" @click="handleAdd()">+Add </el-button>
+          <el-form-item>
+              <el-button v-if="permsAdd" class="inline" type="primary" @click="handleAdd()"
+              style="margin-left: 324px">+ Add</el-button>
           </el-form-item>
       </el-form>
       <el-table
@@ -85,7 +86,6 @@
                       <el-dropdown-menu slot="dropdown">
                           <el-dropdown-item command="view">View</el-dropdown-item>
                           <el-dropdown-item command="edit">Edit</el-dropdown-item>
-
                       </el-dropdown-menu>
                   </el-dropdown>
               </template>

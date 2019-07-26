@@ -24,14 +24,14 @@
                   ></el-option>
               </el-select>
           </el-form-item>
-          <el-form-item label="Customer:">
+          <el-form-item label="Customer:" style="padding-left: 20px">
               <el-input v-model="paymentSearchForm.customer" @change="search"></el-input>
           </el-form-item>
-          <el-form-item label>
-              <el-button class="inline" type="primary" @click="search" style="margin-left:10px;">Search/Update</el-button>
+          <el-form-item>
+              <el-button class="inline" type="primary" @click="search" style="margin-left: 10px;">Search/Update</el-button>
           </el-form-item>
           <el-form-item>
-              <el-button class="inline" type="primary" @click="handleAdd()" style="margin-left:120px">+ Add</el-button>
+              <el-button class="inline" type="primary" @click="handleAdd()" style="margin-left: 80px">+ Add</el-button>
           </el-form-item>
       </el-form>
       <el-table
