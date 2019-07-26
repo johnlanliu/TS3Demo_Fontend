@@ -19,10 +19,10 @@
                 </el-select>
             </el-form-item>
 
-            <table style="text-align: left; border-spacing: 0px">
+            <table class="format">
                 <tr>
                     <td class="alignTop">
-                        <el-form-item label="BILLING INFO"style="font-weight: bold"></el-form-item>
+                        <el-form-item label="BILLING INFO" style="font-weight: bold"></el-form-item>
                     </td>
                     <td class="alignTop" style="padding-left: 196px">
                         <el-form-item label="SHIPPING INFO" style="font-weight: bold"></el-form-item>
@@ -30,7 +30,7 @@
                 </tr>
             </table>
 
-            <table style="text-align: left; border-spacing: 0px">
+            <table class="format">
                 <tr>
                     <td class="alignTop">
                         <el-form-item label="Company Name: ">
@@ -93,7 +93,7 @@
                 </tr>
             </table>
 
-            <table class="test" style="text-align: left; border-spacing: 0px">
+            <table class="format">
                 <tr>
                     <td class="alignTop">
                         <el-form-item label="City: ">
@@ -118,7 +118,7 @@
                 </tr>
             </table>
 
-            <table class="test" style="text-align: left; border-spacing: 0px">
+            <table class="format">
                 <tr>
                     <td class="alignTop">
                         <el-form-item label="Country: ">
@@ -204,51 +204,51 @@
                 </tr>
             </table>
 
-                <el-table
-                    ref="orderDetailTable"
-                    :data="tableData"
-                    v-loading="loading"
-                    border
-                    stripe
-                    highlight-current-row
-                    :max-height="200"
-                    :row-key="row => row.index"
-                    style="width: 85%; margin-left: 50px; margin-top: 5px; margin-bottom: 10px"
+            <el-table
+                ref="orderDetailTable"
+                :data="tableData"
+                v-loading="loading"
+                border
+                stripe
+                highlight-current-row
+                :max-height="200"
+                :row-key="row => row.index"
+                style="width: 85%; margin-left: 50px; margin-top: 5px; margin-bottom: 10px"
+            >
+                <el-table-column label="Product" prop="product" width="170"></el-table-column>
+                <el-table-column label="QTY" prop="quantity" width="105"></el-table-column>
+                <el-table-column label="Rate" prop="rate" width="130"></el-table-column>
+                <el-table-column label="Amount" prop="amount" width="130"></el-table-column>
+                <el-table-column label="Tax" prop="tax" width="54"></el-table-column>
+            </el-table>
+
+            <el-row style="border-spacing: 0px">
+                <el-col :span="12" :offset="15">
+                    <el-form-item label="Tax: " style="padding-left: 30px">
+                        <p v-model="tax" style="text-align: right; margin-right: 140px">${{ tax }}</p>
+                    </el-form-item>
+                    <el-form-item label="Shipping fee: " style="padding-left: 30px">
+                        <el-input v-model="customerServiceForm.shippingFee" style="width: 75px; padding-left: 5px"></el-input>
+                    </el-form-item>
+                    <el-form-item label="Total: " style="padding-left: 30px">
+                        <p v-model="total" style="text-align: right; margin-right: 140px">${{ total }}</p>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+
+            <el-form-item label="Note:" style="display: block; margin-left: 30px; margin-right: 30px; border-spacing: 0px">
+                <el-input
+                    type="textarea"
+                    :rows="2"
+                    placeholder="notes"
+                    v-model="invoiceForm.note"
+                    style="width: 618px"
                 >
-                    <el-table-column label="Product" prop="product" width="170"></el-table-column>
-                    <el-table-column label="QTY" prop="quantity" width="105"></el-table-column>
-                    <el-table-column label="Rate" prop="rate" width="130"></el-table-column>
-                    <el-table-column label="Amount" prop="amount" width="130"></el-table-column>
-                    <el-table-column label="Tax" prop="tax" width="54"></el-table-column>
-                </el-table>
-
-                <el-row style="border-spacing: 0px">
-                    <el-col :span="12" :offset="15">
-                        <el-form-item label="Tax: " style="padding-left: 30px">
-                            <p v-model="tax" style="text-align: right; margin-right: 140px">${{ tax }}</p>
-                        </el-form-item>
-                        <el-form-item label="Shipping fee: " style="padding-left: 30px">
-                            <el-input v-model="customerServiceForm.shippingFee" style="width: 75px; padding-left: 5px"></el-input>
-                        </el-form-item>
-                        <el-form-item label="Total: " style="padding-left: 30px">
-                            <p v-model="total" style="text-align: right; margin-right: 140px">${{ total }}</p>
-                        </el-form-item>
-                    </el-col>
-                </el-row>
-
-                <el-form-item label="Note:" style="display: block; margin-left: 30px; margin-right: 30px; border-spacing: 0px">
-                    <el-input
-                            type="textarea"
-                            :rows="2"
-                            placeholder="notes"
-                            v-model="invoiceForm.note"
-                            style="width: 618px"
-                    >
-                    </el-input>
-                </el-form-item>
-                <el-button type="primary" style="display: inline; margin-left: 378px;">Pay</el-button>
-                <el-button type="primary" style="display: inline; margin-left: 16px;" @click="addPaymentHandle">Save</el-button>
-                <el-button type="primary" style="display: inline; margin-left: 16px;">Save and Send</el-button>
+                </el-input>
+            </el-form-item>
+            <el-button type="primary" style="display: inline; margin-left: 378px;">Pay</el-button>
+            <el-button type="primary" style="display: inline; margin-left: 16px;" @click="addPaymentHandle">Save</el-button>
+            <el-button type="primary" style="display: inline; margin-left: 16px;">Save and Send</el-button>
         </el-form>
     </el-dialog>
 </template>
@@ -567,14 +567,16 @@ export default {
 </script>
 
 <style>
-    .invoiceSpacing > .el-form-item {
+    td.alignTop {
+        vertical-align: top;
+    }
+
+    table.format {
+        text-align: left;
         border-spacing: 0px;
     }
 </style>
 
 <style scoped>
-    td.alignTop {
-        vertical-align: top;
-    }
 
 </style>
