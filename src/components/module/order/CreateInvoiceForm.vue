@@ -554,7 +554,8 @@ export default {
         paymentTerm: this.form.paymentTerm,
         invoiceType: this.invoiceForm.invoiceType,
         shippingFee: this.customerServiceForm.shippingFee,
-        trackingNo: this.customerServiceForm.trackingNumber
+        trackingNo: this.customerServiceForm.trackingNumber,
+        paymentItems: this.tableData,
       }).then(result => {
         if (result) {
           this.$message.success('Save successful!');
@@ -599,14 +600,13 @@ export default {
       this.itemInfo.accPrice = p;
       this.itemInfo.accQty = q;
       this.itemInfo.accTax = r;
-      const data = {orderId: '',
+      const data = {paymentId: '',
         product: this.itemInfo.accName,
         quantity: this.itemInfo.accQty,
         rate: this.itemInfo.accPrice,
         amount: Number(this.itemInfo.accPrice) * Number(this.itemInfo.accQty),
         tax: this.itemInfo.accTax,
         description: this.itemInfo.accQty + ' * ' + this.itemInfo.accName,
-        invoiceNo: this.customerServiceForm.invoiceNumber
       };
       this.tableData.push(data);
     },
@@ -615,14 +615,13 @@ export default {
       this.itemInfo.prodPrice = p;
       this.itemInfo.prodQty = q;
       this.itemInfo.prodTax = r;
-      const data = {orderId: '',
+      const data = {paymentId: '',
         product: this.itemInfo.prodName,
         quantity: this.itemInfo.prodQty,
         rate: this.itemInfo.prodPrice,
         amount: Number(this.itemInfo.prodPrice) * Number(this.itemInfo.prodQty),
         tax: this.itemInfo.prodTax,
         description: this.itemInfo.prodQty + ' * ' + this.itemInfo.prodName,
-        invoiceNo: this.customerServiceForm.invoiceNumber
       };
       this.tableData.push(data);
     },
@@ -630,14 +629,13 @@ export default {
       this.itemInfo.planQty = q;
       this.itemInfo.planAmt = a;
       this.itemInfo.planName = n;
-      const data = {orderId: '',
+      const data = {paymentId: '',
         product: this.itemInfo.planName,
         quantity: this.itemInfo.planQty,
         rate: this.itemInfo.planAmt,
         amount: Number(this.itemInfo.planAmt) * Number(this.itemInfo.planQty),
         tax: 'N',
         description: this.itemInfo.planQty + ' * ' + this.itemInfo.planName,
-        invoiceNo: this.customerServiceForm.invoiceNumber
       };
       this.tableData.push(data);
     },
@@ -650,24 +648,22 @@ export default {
       this.itemInfo.accPrice = ap;
       this.itemInfo.accQty = aq;
       this.itemInfo.accTax = at;
-      const data = {orderId: '',
+      const data = {paymentId: '',
         product: this.itemInfo.prodName,
         quantity: this.itemInfo.prodQty,
         rate: this.itemInfo.prodPrice,
         amount: Number(this.itemInfo.prodPrice) * Number(this.itemInfo.prodQty),
         tax: this.itemInfo.prodTax,
         description: this.itemInfo.prodQty + ' * ' + this.itemInfo.prodName,
-        invoiceNo: this.customerServiceForm.invoiceNumber
       };
       this.tableData.push(data);
-      const data2 = {orderId: '',
+      const data2 = {paymentId: '',
         product: this.itemInfo.accName,
         quantity: this.itemInfo.accQty,
         rate: this.itemInfo.accPrice,
         amount: Number(this.itemInfo.accPrice) * Number(this.itemInfo.accQty),
         tax: this.itemInfo.accTax,
         description: this.itemInfo.accQty + ' * ' + this.itemInfo.accName,
-        invoiceNo: this.customerServiceForm.invoiceNumber
       };
       this.tableData.push(data2);
     },
@@ -679,24 +675,22 @@ export default {
       this.itemInfo.planQty = sq;
       this.itemInfo.planAmt = sa;
       this.itemInfo.planName = sn;
-      const data = {orderId: '',
+      const data = {paymentId: '',
         product: this.itemInfo.prodName,
         quantity: this.itemInfo.prodQty,
         rate: this.itemInfo.prodPrice,
         amount: Number(this.itemInfo.prodPrice) * Number(this.itemInfo.prodQty),
         tax: this.itemInfo.prodTax,
         description: this.itemInfo.prodQty + ' * ' + this.itemInfo.prodName,
-        invoiceNo: this.customerServiceForm.invoiceNumber
       };
       this.tableData.push(data);
-      const data2 = {orderId: '',
+      const data2 = {paymentId: '',
         product: this.itemInfo.planName,
         quantity: this.itemInfo.planQty,
         rate: this.itemInfo.planAmt,
         amount: Number(this.itemInfo.planAmt) * Number(this.itemInfo.planQty),
         tax: 'N',
         description: this.itemInfo.planQty + ' * ' + this.itemInfo.planName,
-        invoiceNo: this.customerServiceForm.invoiceNumber
       };
       this.tableData.push(data2);
     },
@@ -712,34 +706,31 @@ export default {
       this.itemInfo.planQty = sq;
       this.itemInfo.planAmt = sa;
       this.itemInfo.planName = sn;
-      const data = {orderId: '',
+      const data = {paymentId: '',
         product: this.itemInfo.prodName,
         quantity: this.itemInfo.prodQty,
         rate: this.itemInfo.prodPrice,
         amount: Number(this.itemInfo.prodPrice) * Number(this.itemInfo.prodQty),
         tax: this.itemInfo.prodTax,
         description: this.itemInfo.prodQty + ' * ' + this.itemInfo.prodName,
-        invoiceNo: this.customerServiceForm.invoiceNumber
       };
       this.tableData.push(data);
-      const data2 = {orderId: '',
+      const data2 = {paymentId: '',
         product: this.itemInfo.accName,
         quantity: this.itemInfo.accQty,
         rate: this.itemInfo.accPrice,
         amount: Number(this.itemInfo.accPrice) * Number(this.itemInfo.accQty),
         tax: this.itemInfo.accTax,
         description: this.itemInfo.accQty + ' * ' + this.itemInfo.accName,
-        invoiceNo: this.customerServiceForm.invoiceNumber
       };
       this.tableData.push(data2);
-      const data3 = {orderId: '',
+      const data3 = {paymentId: '',
         product: this.itemInfo.planName,
         quantity: this.itemInfo.planQty,
         rate: this.itemInfo.planAmt,
         amount: Number(this.itemInfo.planAmt) * Number(this.itemInfo.planQty),
         tax: 'N',
         description: this.itemInfo.planQty + ' * ' + this.itemInfo.planName,
-        invoiceNo: this.customerServiceForm.invoiceNumber
       };
       this.tableData.push(data3);
     },

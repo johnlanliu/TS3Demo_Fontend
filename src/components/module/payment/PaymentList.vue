@@ -77,8 +77,8 @@
                  </template>
           </el-table-column>
       </el-table>
-      <invoice-review-form ref="invoiceReviewForm" v-bind:form="invoiceInfo" v-bind:table-data="orderItemTable" @reload-table="initData"></invoice-review-form>
-      <edit-invoice-form ref="editInvoiceForm" v-bind:form="invoiceInfo" v-bind:table-data="orderItemTable" v-bind:reload-table="initData"></edit-invoice-form>
+      <invoice-review-form ref="invoiceReviewForm" v-bind:form="invoiceInfo" v-bind:table-data="paymentItemTable" @reload-table="initData"></invoice-review-form>
+      <edit-invoice-form ref="editInvoiceForm" v-bind:form="invoiceInfo" v-bind:table-data="paymentItemTable" v-bind:reload-table="initData"></edit-invoice-form>
       <create-invoice-form ref="createInvoiceForm" v-bind:reload-table="initData"></create-invoice-form>
   </div>
 </template>
@@ -113,7 +113,7 @@ export default {
       permsVoid: true,
       invoiceTableData: [],
       tableData: [],
-      orderItemTable: [],
+      paymentItemTable: [],
       invoiceInfo: {},
       userSearchForm: {},
       paymentSearchForm: {
@@ -210,15 +210,15 @@ export default {
     },
     async getPaymentItems(row, index) {
       if(row.paymentId === null) {
-        this.orderItemTable = [];
+        this.paymentItemTable = [];
       } else {
         const res = await getPaymentItem({paymentId: row.paymentId});
         if (res) {
-          this.orderItemTable = [];
+          this.paymentItemTable = [];
           res.forEach((item, index) => {
-            let orderItem = item;
-            orderItem.index = index + 1;
-            this.orderItemTable.push(orderItem);
+            let paymentItem = item;
+            paymentItem.index = index + 1;
+            this.paymentItemTable.push(paymentItem);
           });
         }
       }
