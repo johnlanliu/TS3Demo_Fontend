@@ -213,25 +213,52 @@
                 highlight-current-row
                 :max-height="200"
                 :row-key="row => row.index"
-                style="width: 85%; margin-left: 50px; margin-top: 5px; margin-bottom: 10px"
+                style="width: 90%; margin-left: 25px; margin-top: 5px; margin-bottom: 5px"
             >
                 <el-table-column label="Product" prop="product" width="170"></el-table-column>
                 <el-table-column label="QTY" prop="quantity" width="105"></el-table-column>
-                <el-table-column label="Rate" prop="rate" width="130"></el-table-column>
-                <el-table-column label="Amount" prop="amount" width="130"></el-table-column>
+                <el-table-column label="Rate" prop="rate" width="100">
+                    <template slot-scope="scope">
+                        <span>${{ Number(scope.row.rate).toFixed(2) }}</span>
+                    </template>
+                </el-table-column>
+                <el-table-column label="Amount" prop="amount" width="100">
+                    <template slot-scope="scope">
+                        <span>${{ Number(scope.row.amount).toFixed(2) }}</span>
+                    </template>
+                </el-table-column>
                 <el-table-column label="Tax" prop="tax" width="54"></el-table-column>
+                <el-table-column label="Action" width="95">
+                    <template slot-scope="scope">
+                        <el-button type="text" @click="handleDeleteItem(scope.row, scope.$index)">Delete</el-button>
+                    </template>
+                </el-table-column>
             </el-table>
+
+            <table style="width: 100%; text-align: right; padding-right: 42px; margin-bottom: 10px">
+                <tr>
+                    <td class="alignTop" style="padding-left: 206px">
+                        <el-button type="primary" @click="handleAddDevice()">+ Add Device</el-button>
+                    </td>
+                    <td class="alignTop" style="padding-left: 10px">
+                        <el-button type="primary" @click="handleAddAccessories()">+ Add Accessories</el-button>
+                    </td>
+                    <td class="alignTop" style="padding-left: 8px">
+                        <el-button type="primary" @click="handleAddService()">+ Add Service Plan</el-button>
+                    </td>
+                </tr>
+            </table>
 
             <el-row style="border-spacing: 0px">
                 <el-col :span="12" :offset="15">
-                    <el-form-item label="Tax: " style="padding-left: 30px">
-                        <p v-model="tax" style="text-align: right; margin-right: 140px">${{ tax }}</p>
+                    <el-form-item label="Tax: " style="padding-left: 40px">
+                        <p v-model="tax" style="text-align: right; margin-right: 130px">${{ tax }}</p>
                     </el-form-item>
-                    <el-form-item label="Shipping fee: " style="padding-left: 30px">
+                    <el-form-item label="Shipping fee: " style="padding-left: 40px">
                         <el-input v-model="form.shippingFee" style="width: 75px; padding-left: 5px"></el-input>
                     </el-form-item>
-                    <el-form-item label="Total: " style="padding-left: 30px">
-                        <p v-model="total" style="text-align: right; margin-right: 140px">${{ total }}</p>
+                    <el-form-item label="Total: " style="padding-left: 40px">
+                        <p v-model="total" style="text-align: right; margin-right: 130px">${{ total }}</p>
                     </el-form-item>
                 </el-col>
             </el-row>
@@ -242,11 +269,11 @@
                     :rows="2"
                     placeholder="notes"
                     v-model="form.note"
-                    style="width: 618px"
+                    style="width: 622px"
                 >
                 </el-input>
             </el-form-item>
-            <el-button type="primary" style="display: inline; margin-left: 378px;">Pay</el-button>
+            <el-button type="primary" style="display: inline; margin-left: 382px;">Pay</el-button>
             <el-button type="primary" style="display: inline; margin-left: 16px;" @click="addPaymentHandle">Save</el-button>
             <el-button type="primary" style="display: inline; margin-left: 16px;">Save and Send</el-button>
         </el-form>

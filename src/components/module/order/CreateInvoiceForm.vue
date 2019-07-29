@@ -251,14 +251,14 @@
 
             <el-row style="border-spacing: 0px">
                 <el-col :span="12" :offset="15">
-                    <el-form-item label="Tax: " style="padding-left: 30px">
-                        <p v-model="tax" style="text-align: right; margin-right: 140px">${{ tax }}</p>
+                    <el-form-item label="Tax: " style="padding-left: 40px">
+                        <p v-model="tax" style="text-align: right; margin-right: 130px">${{ tax }}</p>
                     </el-form-item>
-                    <el-form-item label="Shipping fee: " style="padding-left: 30px">
+                    <el-form-item label="Shipping fee: " style="padding-left: 40px">
                         <el-input v-model="customerServiceForm.shippingFee" style="width: 75px; padding-left: 5px"></el-input>
                     </el-form-item>
-                    <el-form-item label="Total: " style="padding-left: 30px">
-                        <p v-model="total" style="text-align: right; margin-right: 140px">${{ total }}</p>
+                    <el-form-item label="Total: " style="padding-left: 40px">
+                        <p v-model="total" style="text-align: right; margin-right: 130px">${{ total }}</p>
                     </el-form-item>
                 </el-col>
             </el-row>
@@ -269,11 +269,11 @@
                     :rows="2"
                     placeholder="notes"
                     v-model="invoiceForm.note"
-                    style="width: 618px"
+                    style="width: 622px"
                 >
                 </el-input>
             </el-form-item>
-            <el-button type="primary" style="display: inline; margin-left: 378px;">Pay</el-button>
+            <el-button type="primary" style="display: inline; margin-left: 382px;">Pay</el-button>
             <el-button type="primary" style="display: inline; margin-left: 16px;" @click="addPaymentHandle">Save</el-button>
             <el-button type="primary" style="display: inline; margin-left: 16px;">Save and Send</el-button>
         </el-form>
