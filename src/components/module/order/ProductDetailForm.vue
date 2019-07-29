@@ -17,7 +17,7 @@
                             <el-col :span="8">
                                 <el-form-item>
                                     <button type="button" class="containerButton" style="width: 180px; height: 120px"
-                                            @click="handleNameClick('4&quot; TrackLight (VT1611)')">
+                                            @click="handleNameClick('4&quot; TrackLight (VT1611)', 'VT1611')">
                                         <img src="./pic/Product/VT1611.png" alt="VT1611" class="image"/>
                                         <div class="overlay">4" TrackLight</div>
                                     </button>
@@ -26,7 +26,7 @@
                             <el-col :span="8">
                                 <el-form-item>
                                     <button type="button" class="containerButton" style="width: 180px; height: 120px"
-                                            @click="handleNameClick('6&quot; TrackLight (VT1711)')">
+                                            @click="handleNameClick('6&quot; TrackLight (VT1711)', 'VT1711')">
                                         <img src="./pic/Product/VT1711.png" alt="VT1711" class="image"/>
                                         <div class="overlay">6" TrackLight</div>
                                     </button>
@@ -35,7 +35,7 @@
                             <el-col :span="8">
                                 <el-form-item>
                                     <button type="button" class="containerButton" style="width: 180px; height: 120px"
-                                            @click="handleNameClick('In Dash GPS (VT1508)')">
+                                            @click="handleNameClick('In Dash GPS (VT1508)', 'VT1508')">
                                         <img src="./pic/Product/VT1508.png" alt="VT1508" class="image"/>
                                         <div class="overlay">In Dash GPS</div>
                                     </button>
@@ -44,7 +44,7 @@
                             <el-col :span="8">
                                 <el-form-item>
                                     <button type="button" class="containerButton" style="width: 180px; height: 120px"
-                                            @click="handleNameClick('5&quot; ThermoTrack (VT1702)')">
+                                            @click="handleNameClick('5&quot; ThermoTrack (VT1702)', 'VT1702')">
                                         <img src="./pic/Product/VT1702.png" alt="VT1702" class="image"/>
                                         <div class="overlay">5" ThermoTrack</div>
                                     </button>
@@ -53,7 +53,7 @@
                             <el-col :span="8">
                                 <el-form-item>
                                     <button type="button" class="containerButton" style="width: 180px; height: 120px"
-                                            @click="handleNameClick('6&quot; ThermoTrack (VT1802)')">
+                                            @click="handleNameClick('6&quot; ThermoTrack (VT1802)', 'VT1802')">
                                         <img src="./pic/Product/VT1802.png" alt="VT802" class="image">
                                         <div class="overlay">6" ThermoTrack</div>
                                     </button>
@@ -203,6 +203,7 @@ export default {
     /* RESET THESE */
       form3: {
         productName: 'Type',
+        productCode: '',
         activeName: '1',
         isTrackLight: true,
         namePicked: false,
@@ -269,6 +270,7 @@ export default {
     },
     resetFields() {
       this.form3.productName = 'Type';
+      this.form3.productCode = '';
       this.form3.activeName = '1';
       this.form3.isTrackLight = true;
       this.form3.namePicked = false;
@@ -308,9 +310,10 @@ export default {
       this.form3.showPrice = true;
       this.handleNext(1);
     },
-    handleNameClick(num) {
+    handleNameClick(num, code) {
       if (this.form3.productName === 'Type') {
         this.form3.productName = num;
+        this.form3.productCode = code;
         if (num !== '4" TrackLight (VT1611)' && num !== '6" TrackLight (VT1711)') {
           this.form3.showPrice = true;
           this.form3.isTrackLight = false;
@@ -328,6 +331,7 @@ export default {
         if (this.form3.productName !== '4" TrackLight (VT1611)' && this.form3.productName !== '6" TrackLight (VT1711)') {
           this.resetFields();
           this.form3.productName = num;
+          this.form3.productCode = code;
           if (num !== '4" TrackLight (VT1611)' && num !== '6" TrackLight (VT1711)') {
             this.form3.showPrice = true;
             this.form3.isTrackLight = false;
@@ -340,6 +344,7 @@ export default {
         } else {
           if (num !== '4" TrackLight (VT1611)' && num !== '6" TrackLight (VT1711)') {
             this.form3.productName = num;
+            this.form3.productCode = code;
             this.form3.showPrice = true;
             this.form3.isTrackLight = false;
             this.handleNext(3);
@@ -348,6 +353,7 @@ export default {
               this.handleNext(1);
             } else {
               this.form3.productName = num;
+              this.form3.productCode = code;
               this.form3.price = '';
               this.form3.QTY = '';
               this.form3.servicePlan = '';
@@ -412,15 +418,15 @@ export default {
     fullProductCode: function() {
       if (this.form3.isTrackLight === true) {
         if (this.form3.showPrice) {
-          return this.form3.productName.substring(this.form3.productName.length - 1, 15)
-                      + ' ' + this.form3.color.substring(0, 1)
-                      + this.form3.network.substring(0, 1)
-                      + '0-00';
+          return this.form3.productCode + ' '
+              + this.form3.color.substring(0, 1)
+              + this.form3.network.substring(0, 1)
+              + '0-00';
         } else {
-          return this.form3.productName;
+          return this.form3.productCode;
         }
       } else {
-        return this.form3.productName;
+        return this.form3.productCode;
       }
     }
   }

@@ -213,7 +213,7 @@
                 highlight-current-row
                 :max-height="200"
                 :row-key="row => row.index"
-                style="width: 90%; margin-left: 25px; margin-top: 5px; margin-bottom: 10px"
+                style="width: 90%; margin-left: 25px; margin-top: 5px; margin-bottom: 5px"
             >
                 <el-table-column label="Product" prop="product" width="170"></el-table-column>
                 <el-table-column label="QTY" prop="quantity" width="105"></el-table-column>
@@ -234,19 +234,21 @@
                     </template>
                 </el-table-column>
             </el-table>
-            <table style="width: 100%; padding-left: 100px; margin-left: 20px; margin-bottom: 10px">
+
+            <table style="width: 100%; text-align: right; padding-right: 42px; margin-bottom: 10px">
                 <tr>
-                    <td class="alignTop">
+                    <td class="alignTop" style="padding-left: 206px">
                         <el-button type="primary" @click="handleAddDevice()">+ Add Device</el-button>
                     </td>
-                    <td class="alignTop" style="padding-left: 0">
+                    <td class="alignTop" style="padding-left: 10px">
                         <el-button type="primary" @click="handleAddAccessories()">+ Add Accessories</el-button>
                     </td>
-                    <td class="alignTop" style="padding-left: 0">
+                    <td class="alignTop" style="padding-left: 8px">
                         <el-button type="primary" @click="handleAddService()">+ Add Service Plan</el-button>
                     </td>
                 </tr>
             </table>
+
             <el-row style="border-spacing: 0px">
                 <el-col :span="12" :offset="15">
                     <el-form-item label="Tax: " style="padding-left: 30px">

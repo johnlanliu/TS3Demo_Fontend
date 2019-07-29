@@ -208,7 +208,7 @@
                         <td class="alignTop">
                             <el-button type="primary" @click="handleAddDevice()">+ Add Device</el-button>
                         </td>
-                        <td class="alignTop" style="padding-left: 5px">
+                        <td class="alignTop" style="padding-left: 4px">
                             <el-button type="primary" @click="handleAddAccessories()">+ Add Accessories</el-button>
                         </td>
                         <td class="alignTop" style="padding-left: 3px">
