@@ -323,9 +323,8 @@ import ProductDetailForm from './ProductDetailForm.vue';
 import CreateInvoiceForm from './CreateInvoiceForm.vue';
 import AccessoryDetailForm from './AccessoryDetailForm.vue';
 import ServicePlanForm from './ServicePlanForm.vue';
-import { addOrder, getLastOrderId, validInvoiceNo, getOrgById } from '@/api/getData';
+import { addOrder, getLastInvoiceNo, validInvoiceNo, getOrgById } from '@/api/getData';
 import { mapState } from 'vuex';
-
 
 export default {
   name: 'AddOrderForm',
@@ -360,7 +359,7 @@ export default {
       isOpen: false,
 
     /* RESET THESE */
-      validInvoice: true,
+      validInvoice: false,
       sameAsBilling: true,
       sameAsBillingBool: 1,
       tableData: [],
@@ -556,7 +555,7 @@ export default {
       this.customerServiceFormCopy = {};
       this.form = {};
       this.customerServiceForm = {};
-      this.validInvoice = true;
+      this.validInvoice = false;
       this.getLastOrder();
       this.$refs.form.resetFields();
     },
@@ -642,7 +641,12 @@ export default {
       });
     },
     async getLastOrder() {
-      this.invoicePlaceholder = await getLastOrderId() + 1;
+      this.invoicePlaceholder = await getLastInvoiceNo() + 1;
+      if (typeof this.invoicePlaceholder !== 'number') {
+        this.invoicePlaceholder = '';
+        return;
+      }
+
       let valid = await validInvoiceNo({invoiceNo: this.invoicePlaceholder});
       while (!valid) {
         this.invoicePlaceholder += 1;
