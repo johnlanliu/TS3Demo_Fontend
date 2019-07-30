@@ -80,8 +80,16 @@
                 >
                     <el-table-column label="Product" prop="product" width="150"></el-table-column>
                     <el-table-column label="QTY" prop="quantity" width="120"></el-table-column>
-                    <el-table-column label="Rate" prop="rate" width="120"></el-table-column>
-                    <el-table-column label="Amount" prop="amount" width="120"></el-table-column>
+                    <el-table-column label="Rate" prop="rate" width="120">
+                        <template slot-scope="scope">
+                            <span>${{ Number(scope.row.rate).toFixed(2) }}</span>
+                        </template>
+                    </el-table-column>
+                    <el-table-column label="Amount" prop="amount" width="120">
+                        <template slot-scope="scope">
+                            <span>${{ Number(scope.row.amount).toFixed(2) }}</span>
+                        </template>
+                    </el-table-column>
                     <el-table-column label="Tax" prop="tax" width="89"></el-table-column>
                 </el-table>
 

@@ -274,18 +274,29 @@
                 </el-input>
             </el-form-item>
             <el-button type="primary" style="display: inline; margin-left: 382px;">Pay</el-button>
-            <el-button type="primary" style="display: inline; margin-left: 16px;" @click="addPaymentHandle">Save</el-button>
+            <el-button type="primary" style="display: inline; margin-left: 16px;" @click="editPaymentHandle">Save</el-button>
             <el-button type="primary" style="display: inline; margin-left: 16px;">Save and Send</el-button>
         </el-form>
+        <product-detail-form ref="productDetailForm" @productAdded="getProductInfo" @prodAndAccAdded="getProdAndAccInfo"
+        @prodAndPlanAdded="getProdAndPlanInfo" @allAdded="getAllInfo"></product-detail-form>
+        <accessory-detail-form ref="accessoryDetailForm" @accessoryAdded="getAccessoryInfo"></accessory-detail-form>
+        <service-plan-form ref="servicePlanForm" @planAdded="getServicePlanFee"></service-plan-form>
     </el-dialog>
 </template>
 
 <script>
-import { editPayment } from '@/api/getData';
-
+import { editPayment, deletePaymentItem } from '@/api/getData';
+import ProductDetailForm from '../order/ProductDetailForm.vue';
+import AccessoryDetailForm from '../order/AccessoryDetailForm.vue';
+import ServicePlanForm from '../order/ServicePlanForm.vue';
 export default {
   name: 'EditInvoiceForm',
 
+  components: {
+    ProductDetailForm,
+    AccessoryDetailForm,
+    ServicePlanForm,
+  },
   data: function() {
     return {
       isOpen: false,
@@ -301,7 +312,24 @@ export default {
         status: '',
         trackingNo: '',
       },
-
+      newData: [],
+      toDelete: [],
+      itemInfo: {
+        accName: '',
+        accPrice: '',
+        accQty: '',
+        accTax: '',
+        prodName: '',
+        prodPrice: '',
+        prodQty: '',
+        prodTax: '',
+        planQty: '',
+        planAmt: '',
+        planName: '',
+        prodPicked: '',
+        accPicked: '',
+        planPicked: '',
+      },
     /* DROPDOWN OPTIONS */
       invoiceOptions: [{
         value: 'RMA',
@@ -508,9 +536,51 @@ export default {
         }
       });
     },
+    handleAddDevice() {
+      this.$refs.productDetailForm.showDialog();
+    },
+    handleAddAccessories() {
+      this.$refs.accessoryDetailForm.showDialog();
+    },
+    handleAddService() {
+      this.$refs.servicePlanForm.showDialog();
+    },
+
+    handleDeleteOrderItem(row, index) {
+      if (row.itemId) {
+        this.toDelete.push(row.itemId);
+        this.tableData.splice(index, 1);
+      } else {
+        this.tableData.splice(index, 1);
+        const indexToDelete = this.findIndex(row);
+        this.newData.splice(indexToDelete, 1);
+      }
+    },
+    findIndex(toFind) {
+      const a = this.newData.find(function(value) {
+        return value.product === toFind.product
+                  && value.quantity === toFind.quantity
+                  && value.rate === toFind.rate
+                  && value.amount === toFind.amount
+                  && value.tax === toFind.tax
+                  && value.description === toFind.description
+                  && value.paymentId === toFind.paymentId;
+      });
+      if (a === null) {
+        alert('not found');
+      } else {
+        const b = this.newData.indexOf(a);
+        return b;
+      }
+    },
+
 
     /* FORMAT INVOICE AND DUE DATES */
     getDates() {
+      if (this.form.paymentTerm === null || this.form.invoiceDate === null) {
+        this.form.dueDate = null;
+        return;
+      }
       let invoice = new Date(this.form.invoiceDate);
       let due = new Date(this.form.dueDate);
 
@@ -524,6 +594,157 @@ export default {
           + '-' + due.getDate()
           + ' ' + due.getHours()
           + ':' + due.getMinutes();
+    },
+
+    /* GET ACCESSORIES, PRODUCTS, AND SERVICE PLANS FOR TABLE */
+    getAccessoryInfo(n, p, q, r) {
+      this.itemInfo.accName = n;
+      this.itemInfo.accPrice = p;
+      this.itemInfo.accQty = q;
+      this.itemInfo.accTax = r;
+      const data = {paymentId: '',
+        product: this.itemInfo.accName,
+        quantity: this.itemInfo.accQty,
+        rate: this.itemInfo.accPrice,
+        amount: Number(this.itemInfo.accPrice) * Number(this.itemInfo.accQty),
+        tax: this.itemInfo.accTax,
+        description: this.itemInfo.accQty + ' * ' + this.itemInfo.accName,
+      };
+      this.tableData.push(data);
+      this.newData.push(data);
+    },
+    getProductInfo(n, p, q, r) {
+      this.itemInfo.prodName = n;
+      this.itemInfo.prodPrice = p;
+      this.itemInfo.prodQty = q;
+      this.itemInfo.prodTax = r;
+      const data = {paymentId: '',
+        product: this.itemInfo.prodName,
+        quantity: this.itemInfo.prodQty,
+        rate: this.itemInfo.prodPrice,
+        amount: Number(this.itemInfo.prodPrice) * Number(this.itemInfo.prodQty),
+        tax: this.itemInfo.prodTax,
+        description: this.itemInfo.prodQty + ' * ' + this.itemInfo.prodName,
+      };
+      this.tableData.push(data);
+      this.newData.push(data);
+    },
+    getServicePlanFee(q, a, n) {
+      this.itemInfo.planQty = q;
+      this.itemInfo.planAmt = a;
+      this.itemInfo.planName = n;
+      const data = {paymentId: '',
+        product: this.itemInfo.planName,
+        quantity: this.itemInfo.planQty,
+        rate: this.itemInfo.planAmt,
+        amount: Number(this.itemInfo.planAmt) * Number(this.itemInfo.planQty),
+        tax: 'N',
+        description: this.itemInfo.planQty + ' * ' + this.itemInfo.planName,
+      };
+      this.tableData.push(data);
+      this.newData.push(data);
+    },
+    getProdAndAccInfo(pn, pp, pq, pt, an, ap, aq, at) {
+      this.itemInfo.prodName = pn;
+      this.itemInfo.prodPrice = pp;
+      this.itemInfo.prodQty = pq;
+      this.itemInfo.prodTax = pt;
+      this.itemInfo.accName = an;
+      this.itemInfo.accPrice = ap;
+      this.itemInfo.accQty = aq;
+      this.itemInfo.accTax = at;
+      const data = {paymentId: '',
+        product: this.itemInfo.prodName,
+        quantity: this.itemInfo.prodQty,
+        rate: this.itemInfo.prodPrice,
+        amount: Number(this.itemInfo.prodPrice) * Number(this.itemInfo.prodQty),
+        tax: this.itemInfo.prodTax,
+        description: this.itemInfo.prodQty + ' * ' + this.itemInfo.prodName,
+      };
+      this.tableData.push(data);
+      this.newData.push(data);
+      const data2 = {paymentId: '',
+        product: this.itemInfo.accName,
+        quantity: this.itemInfo.accQty,
+        rate: this.itemInfo.accPrice,
+        amount: Number(this.itemInfo.accPrice) * Number(this.itemInfo.accQty),
+        tax: this.itemInfo.accTax,
+        description: this.itemInfo.accQty + ' * ' + this.itemInfo.accName,
+      };
+      this.tableData.push(data2);
+      this.newData.push(data2);
+    },
+    getProdAndPlanInfo(pn, pp, pq, pt, sq, sa, sn) {
+      this.itemInfo.prodName = pn;
+      this.itemInfo.prodPrice = pp;
+      this.itemInfo.prodQty = pq;
+      this.itemInfo.prodTax = pt;
+      this.itemInfo.planQty = sq;
+      this.itemInfo.planAmt = sa;
+      this.itemInfo.planName = sn;
+      const data = {paymentId: '',
+        product: this.itemInfo.prodName,
+        quantity: this.itemInfo.prodQty,
+        rate: this.itemInfo.prodPrice,
+        amount: Number(this.itemInfo.prodPrice) * Number(this.itemInfo.prodQty),
+        tax: this.itemInfo.prodTax,
+        description: this.itemInfo.prodQty + ' * ' + this.itemInfo.prodName,
+      };
+      this.tableData.push(data);
+      this.newData.push(data);
+      const data2 = {paymentId: '',
+        product: this.itemInfo.planName,
+        quantity: this.itemInfo.planQty,
+        rate: this.itemInfo.planAmt,
+        amount: Number(this.itemInfo.planAmt) * Number(this.itemInfo.planQty),
+        tax: 'N',
+        description: this.itemInfo.planQty + ' * ' + this.itemInfo.planName,
+      };
+      this.tableData.push(data2);
+      this.newData.push(data2);
+    },
+    getAllInfo(pn, pp, pq, pt, an, ap, aq, at, sq, sa, sn) {
+      this.itemInfo.prodName = pn;
+      this.itemInfo.prodPrice = pp;
+      this.itemInfo.prodQty = pq;
+      this.itemInfo.prodTax = pt;
+      this.itemInfo.accName = an;
+      this.itemInfo.accPrice = ap;
+      this.itemInfo.accQty = aq;
+      this.itemInfo.accTax = at;
+      this.itemInfo.planQty = sq;
+      this.itemInfo.planAmt = sa;
+      this.itemInfo.planName = sn;
+      const data = {paymentId: '',
+        product: this.itemInfo.prodName,
+        quantity: this.itemInfo.prodQty,
+        rate: this.itemInfo.prodPrice,
+        amount: Number(this.itemInfo.prodPrice) * Number(this.itemInfo.prodQty),
+        tax: this.itemInfo.prodTax,
+        description: this.itemInfo.prodQty + ' * ' + this.itemInfo.prodName,
+      };
+      this.tableData.push(data);
+      this.newData.push(data);
+      const data2 = {paymentId: '',
+        product: this.itemInfo.accName,
+        quantity: this.itemInfo.accQty,
+        rate: this.itemInfo.accPrice,
+        amount: Number(this.itemInfo.accPrice) * Number(this.itemInfo.accQty),
+        tax: this.itemInfo.accTax,
+        description: this.itemInfo.accQty + ' * ' + this.itemInfo.accName,
+      };
+      this.tableData.push(data2);
+      this.newData.push(data2);
+      const data3 = {paymentId: '',
+        product: this.itemInfo.planName,
+        quantity: this.itemInfo.planQty,
+        rate: this.itemInfo.planAmt,
+        amount: Number(this.itemInfo.planAmt) * Number(this.itemInfo.planQty),
+        tax: 'N',
+        description: this.itemInfo.planQty + ' * ' + this.itemInfo.planName,
+      };
+      this.tableData.push(data3);
+      this.newData.push(data3);
     },
   },
 
