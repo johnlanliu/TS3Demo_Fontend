@@ -147,4 +147,4 @@ export const deleteOrderItem = (data, body) => axios.post('/orgMOrderItem/delete
  * Payment Item
  */
 export const getPaymentItem = data => axios.get('/orgMPaymentItem/getPaymentItemList', data);
-export const deletePaymentItem = (data, body) => axios.post('/orgMPaymentItem/deletePaymentItem');
+export const deletePaymentItem = (data, body) => axios.post('/orgMPaymentItem/deletePaymentItem', data, body);

@@ -274,7 +274,7 @@
                 </el-input>
             </el-form-item>
             <el-button type="primary" style="display: inline; margin-left: 382px;">Pay</el-button>
-            <el-button type="primary" style="display: inline; margin-left: 16px;" @click="editPaymentHandle">Save</el-button>
+            <el-button type="primary" style="display: inline; margin-left: 16px;" @click="handleEditPayment">Save</el-button>
             <el-button type="primary" style="display: inline; margin-left: 16px;">Save and Send</el-button>
         </el-form>
         <product-detail-form ref="productDetailForm" @productAdded="getProductInfo" @prodAndAccAdded="getProdAndAccInfo"
@@ -520,13 +520,19 @@ export default {
     },
     resetFields() {
       this.invoiceForm = {};
+      this.newData = [];
+      this.toDelete = [];
+      this.itemInfo = {};
       this.$refs.form.resetFields();
     },
 
     /* HANDLER FUNCTIONS */
     handleEditPayment() {
       this.getDates();
-      const second = {amount: this.total, customer: this.form.billingCompany, shippingFee: this.form.shippingFee};
+      this.toDelete.forEach(function(element) {
+        deletePaymentItem({itemId: element});
+      });
+      const second = {amount: this.total, customer: this.form.billingCompany, shippingFee: this.form.shippingFee, paymentItems: this.newData};
       Object.assign(this.form, second);
       editPayment({  }, this.form).then(result => {
         if (result) {
@@ -546,7 +552,7 @@ export default {
       this.$refs.servicePlanForm.showDialog();
     },
 
-    handleDeleteOrderItem(row, index) {
+    handleDeleteItem(row, index) {
       if (row.itemId) {
         this.toDelete.push(row.itemId);
         this.tableData.splice(index, 1);
