@@ -228,9 +228,9 @@ export default {
       this.orgCopy = JSON.parse(JSON.stringify(this.org));
       this.$refs.addOrderForm.showDialog();
     },
-      async handleConnect() {
-        await connectToQuickBooks();
-      },
+    async handleConnect() {
+      await connectToQuickBooks();
+    },
   },
 
   computed: {
