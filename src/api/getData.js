@@ -148,3 +148,5 @@ export const deleteOrderItem = (data, body) => axios.post('/orgMOrderItem/delete
  */
 export const getPaymentItem = data => axios.get('/orgMPaymentItem/getPaymentItemList', data);
 export const deletePaymentItem = (data, body) => axios.post('/orgMPaymentItem/deletePaymentItem', data, body);
+
+export const connectToQuickBooks = data => axios.get('/home/connectToQuickbooks', data);

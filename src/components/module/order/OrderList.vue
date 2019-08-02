@@ -28,6 +28,9 @@
               <el-button class="inline" type="primary" @click="search" style="margin-left:10px;">Search/Update</el-button>
           </el-form-item>
           <el-form-item>
+              <el-button class="inline" type="primary" @click="handleConnect()" style="margin-left: 250px">connect</el-button>
+          </el-form-item>
+          <el-form-item>
               <el-button v-if="permsAdd" class="inline" type="primary" @click="handleAdd()"
               style="margin-left: 324px">+ Add</el-button>
           </el-form-item>
@@ -103,7 +106,7 @@
 import AddOrderForm from './AddOrderForm.vue';
 import OrderReviewForm from './OrderReviewForm.vue';
 import EditOrderForm from './EditOrderForm.vue';
-import { getOrderList, getOrderByOrderId, getOrderItem, getOrgById } from '@/api/getData';
+import { getOrderList, getOrderByOrderId, getOrderItem, getOrgById, connectToQuickBooks } from '@/api/getData';
 import { timeFormatUtil } from '@/utils/timeFormatUtil.js';
 import { exceptionUtil } from '@/utils/exceptionUtil.js';
 import { mapState } from 'vuex';
@@ -225,6 +228,9 @@ export default {
       this.orgCopy = JSON.parse(JSON.stringify(this.org));
       this.$refs.addOrderForm.showDialog();
     },
+      async handleConnect() {
+        await connectToQuickBooks();
+      },
   },
 
   computed: {
