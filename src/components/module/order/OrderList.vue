@@ -28,9 +28,6 @@
               <el-button class="inline" type="primary" @click="search" style="margin-left:10px;">Search/Update</el-button>
           </el-form-item>
           <el-form-item>
-              <el-button class="inline" type="primary" @click="handleConnect()" style="margin-left: 250px">connect</el-button>
-          </el-form-item>
-          <el-form-item>
               <el-button v-if="permsAdd" class="inline" type="primary" @click="handleAdd()"
               style="margin-left: 324px">+ Add</el-button>
           </el-form-item>
@@ -227,9 +224,6 @@ export default {
     async handleAdd() {
       this.orgCopy = JSON.parse(JSON.stringify(this.org));
       this.$refs.addOrderForm.showDialog();
-    },
-    async handleConnect() {
-      await connectToQuickBooks();
     },
   },
 
