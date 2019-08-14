@@ -24,7 +24,7 @@
           <el-col :span="12">
             <el-form-item label="BILLING INFO" style="font-weight: bold"></el-form-item>
           </el-col>
-          <el-col :span="12">
+          <el-col :span="12" :push="1">
             <el-form-item label="SHIPPING INFO" style="font-weight: bold"></el-form-item>
           </el-col>
         </el-row>
@@ -43,7 +43,7 @@
               <el-input v-model="form.billingCompany" style="width: 275px"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="12">
+          <el-col :span="12" :push="1">
             <el-form-item label="Company Name: ">
               <el-input
                 v-model="form.shippingCompany"
@@ -60,7 +60,7 @@
               <el-input v-model="form.billingContact" style="width: 275px"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="12">
+          <el-col :span="12" :push="1">
             <el-form-item label="Contact: ">
               <el-input
                 v-model="form.shippingContact"
@@ -76,7 +76,7 @@
               <el-input v-model="form.billingPhone" style="width: 275px"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="12">
+          <el-col :span="12" :push="1">
             <el-form-item label="Phone Number: ">
               <el-input v-model="form.shippingPhone" style="width: 275px" :disabled="sameAsBilling"></el-input>
             </el-form-item>
@@ -89,7 +89,7 @@
               <el-input v-model="form.billingEmail" style="width: 275px"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="12">
+          <el-col :span="12" :push="1">
             <el-form-item label="Email: ">
               <el-input v-model="form.shippingEmail" style="width: 275px" :disabled="sameAsBilling"></el-input>
             </el-form-item>
@@ -101,7 +101,7 @@
               <el-input v-model="form.billingAddress" style="width: 275px"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="12">
+          <el-col :span="12" :push="1">
             <el-form-item label="Address: ">
               <el-input
                 v-model="form.shippingAddress"
@@ -115,22 +115,22 @@
         <el-row>
           <el-col :span="6">
             <el-form-item label="City: ">
-              <el-input v-model="form.billingCity" style="width: 145px"></el-input>
+              <el-input v-model="form.billingCity" style="width: 130px"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="6">
             <el-form-item label="Zip/Postal Code: ">
-              <el-input v-model="form.billingZip" style="width: 120px"></el-input>
+              <el-input v-model="form.billingZip" style="width: 130px"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="6">
+          <el-col :span="6" :push="1">
             <el-form-item label="City: ">
-              <el-input v-model="form.shippingCity" style="width: 145px" :disabled="sameAsBilling"></el-input>
+              <el-input v-model="form.shippingCity" style="width: 130px" :disabled="sameAsBilling"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="6">
+          <el-col :span="6" :push="1">
             <el-form-item label="Zip/Postal Code: ">
-              <el-input v-model="form.shippingZip" style="width: 120px" :disabled="sameAsBilling"></el-input>
+              <el-input v-model="form.shippingZip" style="width: 130px" :disabled="sameAsBilling"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -138,15 +138,15 @@
         <el-row>
           <el-col :span="6">
             <el-form-item label="Country: ">
-              <el-input v-model="form.billingCountry" style="width: 133px"></el-input>
+              <el-input v-model="form.billingCountry" style="width: 130px"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="6">
             <el-form-item label="State/Province: ">
-              <el-input v-model="form.billingState" style="width: 132px"></el-input>
+              <el-input v-model="form.billingState" style="width: 130px"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="6">
+          <el-col :span="6" :push="1">
             <el-form-item label="Country: ">
               <el-input
                 v-model="form.shippingCountry"
@@ -155,9 +155,9 @@
               ></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="6">
+          <el-col :span="6" :push="1">
             <el-form-item label="State/Province: ">
-              <el-input v-model="form.shippingState" style="width: 132px" :disabled="sameAsBilling"></el-input>
+              <el-input v-model="form.shippingState" style="width: 130px" :disabled="sameAsBilling"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -263,7 +263,7 @@
               ></el-option>
             </el-select>
           </el-col>
-          <el-col :span="13">
+          <el-col :span="13" :push="1">
             <el-form-item label="Shipping Fee: " style="float: left"></el-form-item>
             <el-input v-model="form.shippingFee" style="width: 188px"></el-input>
           </el-col>
@@ -278,7 +278,7 @@
             ></el-input>
             <el-form-item class="warning" v-if="!validInvoice">invalid invoice number</el-form-item>
           </el-col>
-          <el-col :span="13">
+          <el-col :span="13" :push="1">
             <el-form-item label="Invoice Date: " style="float: left"></el-form-item>
             <el-date-picker
               v-model="form.invoiceDate"
@@ -289,11 +289,11 @@
           </el-col>
         </el-row>
         <el-row style="margin-top:10px">
-          <el-col :span="12">
+          <el-col :span="11">
             <el-form-item label="Shipping Via: " style="float: left"></el-form-item>
-            <el-input v-model="form.shippingVia" style="width: 188px"></el-input>
+            <el-input v-model="form.shippingVia" style="width: 175px"></el-input>
           </el-col>
-          <el-col :span="12">
+          <el-col :span="13" :push="1">
             <el-form-item label="Tracking Number: " style="float: left"></el-form-item>
             <el-input v-model="form.trackingNo" style="width: 188px"></el-input>
           </el-col>
@@ -323,7 +323,7 @@
               <el-button
                 style="margin-left:10px"
                 type="primary"
-                @click="handleSave"
+                @click="handleCreateInvoice"
                 :disabled="validInvoice"
               >Submit and Create Invoice</el-button>
             </el-form-item>
@@ -540,10 +540,19 @@ export default {
   },
 
   methods: {
+    /* AUXILIARY FUNCTIONS */
+    // showDialog() {
+    //   Object.assign(this.form);
+    //   // this.getLastOrder();
+    //   this.validInvoice = true;
+    //   this.visible = true;
+    // },
     clearValidate() {
       this.sameAsBilling = false;
       // this.tableData = [];
       // this.form = {};
+      // this.validInvoice = false;
+      // this.getLastOrder();
       this.$refs.form.clearValidate();
     },
 
@@ -564,28 +573,82 @@ export default {
     handleDeleteOrderItem(row, index) {
       this.tableData.splice(index, 1);
     },
-    handleSave() {
-      this.loading = true;
-      this.$refs.form.validate(valid => {
-        if(!valid) {
-          this.loading = false;
-          return;
-        }
+    async handleCreateInvoice() {
       this.getDates();
-      this.fetchSaveOrder();
+      this.handleAddOrder();
+      // this.formCopy = JSON.parse(JSON.stringify(this.org));
+      // this.formCopy.shippingCompany = this.formCopy.orgName;
+      // this.formCopy.shippingContact = this.formCopy.contacts;
+      // this.formCopy.shippingPhone = this.formCopy.phone;
+      // this.formCopy.shippingEmail = this.formCopy.email;
+      // this.formCopy.shippingAddress = this.formCopy.streetAddress;
+      // this.formCopy.shippingCity = this.formCopy.city;
+      // this.formCopy.shippingState = this.formCopy.state;
+      // this.formCopy.shippingCountry = this.formCopy.country;
+      // this.formCopy.shippingZip = this.formCopy.zip;
+      // this.$refs.createInvoiceForm.showDialog();
       this.createInvoiceFormVisible = true;
-      });
     },
-    async fetchSaveOrder() {
-      const param = Object.assign({}, this.form, {
+    handleAddOrder() {
+      this.handleSameInfo();
+      const param = Object.assign({}, this.form, this.customerServiceForm, {
         orderItems: this.tableData
       });
-      const result = this.form.orderId ? await editOrder({},param) : await addOrder({},param);
-    },
+      addOrder(
+        {},
+        {
+          type: this.org.orderType,
+          customer: this.org.orgName,
+          status: this.customerServiceForm.status,
+          invoiceNo: this.customerServiceForm.invoiceNumber,
+          invoiceDate: this.customerServiceForm.invoiceDate,
+          dueDate: this.customerServiceForm.dueDate,
+          trackingNo: this.customerServiceForm.trackingNumber,
 
+          createTime: 'NULL',
+          modifyTime: 'NULL',
+          orderItems: this.tableData,
+          billingCompany: this.org.orgName,
+          billingContact: this.org.contacts,
+          billingNumber: this.org.phone,
+          billingEmail: this.org.email,
+          billingAddress: this.org.streetAddress,
+          billingCity: this.org.city,
+          billingState: this.org.state,
+          billingCountry: this.org.country,
+          billingZip: this.org.zip,
+          shippingCompany: this.org.shippingCompany,
+          shippingContact: this.org.shippingContact,
+          shippingNumber: this.org.shippingPhone,
+          shippingEmail: this.org.shippingEmail,
+          shippingAddress: this.org.shippingAddress,
+          shippingCity: this.org.shippingCity,
+          shippingState: this.org.shippingState,
+          shippingCountry: this.org.shippingCountry,
+          shippingZip: this.org.shippingZip,
+          note: this.org.note,
+          shippingVia: this.customerServiceForm.shippingVia,
+          shippingFee: this.customerServiceForm.shippingFee,
+          paymentTerm: this.org.paymentTerm
+        }
+      );
+    },
+    // async getLastOrder() {
+    //   this.invoicePlaceholder = (await getLastInvoiceNo()) + 1;
+    //   if (typeof this.invoicePlaceholder !== 'number') {
+    //     this.invoicePlaceholder = '';
+    //     return;
+    //   }
+
+    //   let valid = await validInvoiceNo({ invoiceNo: this.invoicePlaceholder });
+    //   while (!valid) {
+    //     this.invoicePlaceholder += 1;
+    //     valid = await validInvoiceNo({ invoiceNo: this.invoicePlaceholder });
+    //   }
+    // },
     async checkForOrder() {
       this.validInvoice = await validInvoiceNo({
-        invoiceNo: this.form.invoiceNumber
+        invoiceNo: this.customerServiceForm.invoiceNumber
       });
     },
 
@@ -593,8 +656,6 @@ export default {
     handleAddDevice() {
       // this.$refs.productDetailForm.showDialog();
       // this.createInvoiceFormVisible = true;
-      this.form = {};
-      this.form.activeName = '1';
       this.productDetailFormVisible = true;
     },
     handleAddAccessories() {
@@ -609,26 +670,26 @@ export default {
     /* FORMAT INVOICE AND DUE DATES */
     getDates() {
       if (
-        this.form.invoiceDate === null ||
-        this.form.paymentTerm === null ||
-        this.form.invoiceDate === '' ||
-        this.form.paymentTerm === '' ||
-        typeof this.form.invoiceDate === 'undefined' ||
-        typeof this.form.paymentTerm === 'undefined'
+        this.customerServiceForm.invoiceDate === null ||
+        this.org.paymentTerm === null ||
+        this.customerServiceForm.invoiceDate === '' ||
+        this.org.paymentTerm === '' ||
+        typeof this.customerServiceForm.invoiceDate === 'undefined' ||
+        typeof this.org.paymentTerm === 'undefined'
       ) {
-        this.form.dueDate = null;
+        this.customerServiceForm.dueDate = null;
         return;
       }
-      let invoice = new Date(this.form.invoiceDate);
-      let due = new Date(this.form.invoiceDate);
+      let invoice = new Date(this.customerServiceForm.invoiceDate);
+      let due = new Date(this.customerServiceForm.invoiceDate);
 
-      if (this.form.paymentTerm === 'Net15') {
-        due.setDate(this.form.invoiceDate.getDate() + 15);
+      if (this.org.paymentTerm === 'Net15') {
+        due.setDate(this.customerServiceForm.invoiceDate.getDate() + 15);
       } else {
-        due.setDate(this.form.invoiceDate.getDate() + 30);
+        due.setDate(this.customerServiceForm.invoiceDate.getDate() + 30);
       }
 
-      this.form.invoiceDate =
+      this.customerServiceForm.invoiceDate =
         invoice.getFullYear() +
         '-' +
         (invoice.getMonth() + 1) +
@@ -638,7 +699,7 @@ export default {
         invoice.getHours() +
         ':' +
         invoice.getMinutes();
-      this.form.dueDate =
+      this.customerServiceForm.dueDate =
         due.getFullYear() +
         '-' +
         (due.getMonth() + 1) +
@@ -652,161 +713,161 @@ export default {
 
     /* GET ACCESSORIES, PRODUCTS, AND SERVICE PLANS FOR TABLE */
     getAccessoryInfo(n, p, q, r) {
-      this.form.accName = n;
-      this.form.accPrice = p;
-      this.form.accQty = q;
-      this.form.accTax = r;
+      this.org.accName = n;
+      this.org.accPrice = p;
+      this.org.accQty = q;
+      this.org.accTax = r;
       const data = {
         orderId: '',
-        product: this.form.accName,
-        quantity: this.form.accQty,
-        rate: this.form.accPrice,
-        amount: Number(this.form.accPrice) * Number(this.form.accQty),
-        tax: this.form.accTax,
-        description: this.form.accQty + ' * ' + this.form.accName,
-        invoiceNo: this.form.invoiceNumber
+        product: this.org.accName,
+        quantity: this.org.accQty,
+        rate: this.org.accPrice,
+        amount: Number(this.org.accPrice) * Number(this.org.accQty),
+        tax: this.org.accTax,
+        description: this.org.accQty + ' * ' + this.org.accName,
+        invoiceNo: this.customerServiceForm.invoiceNumber
       };
       this.tableData.push(data);
     },
     getProductInfo(n, p, q, r) {
-      this.form.prodName = n;
-      this.form.prodPrice = p;
-      this.form.prodQty = q;
-      this.form.prodTax = r;
+      this.org.prodName = n;
+      this.org.prodPrice = p;
+      this.org.prodQty = q;
+      this.org.prodTax = r;
       const data = {
         orderId: '',
-        product: this.form.prodName,
-        quantity: this.form.prodQty,
-        rate: this.form.prodPrice,
-        amount: Number(this.form.prodPrice) * Number(this.form.prodQty),
-        tax: this.form.prodTax,
-        description: this.form.prodQty + ' * ' + this.form.prodName,
-        invoiceNo: this.form.invoiceNumber
+        product: this.org.prodName,
+        quantity: this.org.prodQty,
+        rate: this.org.prodPrice,
+        amount: Number(this.org.prodPrice) * Number(this.org.prodQty),
+        tax: this.org.prodTax,
+        description: this.org.prodQty + ' * ' + this.org.prodName,
+        invoiceNo: this.customerServiceForm.invoiceNumber
       };
       this.tableData.push(data);
     },
     getServicePlanFee(q, a, n) {
-      this.form.planQty = q;
-      this.form.planAmt = a;
-      this.form.planName = n;
+      this.org.planQty = q;
+      this.org.planAmt = a;
+      this.org.planName = n;
       const data = {
         orderId: '',
-        product: this.form.planName,
-        quantity: this.form.planQty,
-        rate: this.form.planAmt,
-        amount: Number(this.form.planAmt) * Number(this.form.planQty),
+        product: this.org.planName,
+        quantity: this.org.planQty,
+        rate: this.org.planAmt,
+        amount: Number(this.org.planAmt) * Number(this.org.planQty),
         tax: 'N',
-        description: this.form.planQty + ' * ' + this.form.planName,
-        invoiceNo: this.form.invoiceNumber
+        description: this.org.planQty + ' * ' + this.org.planName,
+        invoiceNo: this.customerServiceForm.invoiceNumber
       };
       this.tableData.push(data);
     },
     getProdAndAccInfo(pn, pp, pq, pt, an, ap, aq, at) {
-      this.form.prodName = pn;
-      this.form.prodPrice = pp;
-      this.form.prodQty = pq;
-      this.form.prodTax = pt;
-      this.form.accName = an;
-      this.form.accPrice = ap;
-      this.form.accQty = aq;
-      this.form.accTax = at;
+      this.org.prodName = pn;
+      this.org.prodPrice = pp;
+      this.org.prodQty = pq;
+      this.org.prodTax = pt;
+      this.org.accName = an;
+      this.org.accPrice = ap;
+      this.org.accQty = aq;
+      this.org.accTax = at;
       const data = {
         orderId: '',
-        product: this.form.prodName,
-        quantity: this.form.prodQty,
-        rate: this.form.prodPrice,
-        amount: Number(this.form.prodPrice) * Number(this.form.prodQty),
-        tax: this.form.prodTax,
-        description: this.form.prodQty + ' * ' + this.form.prodName,
-        invoiceNo: this.form.invoiceNumber
+        product: this.org.prodName,
+        quantity: this.org.prodQty,
+        rate: this.org.prodPrice,
+        amount: Number(this.org.prodPrice) * Number(this.org.prodQty),
+        tax: this.org.prodTax,
+        description: this.org.prodQty + ' * ' + this.org.prodName,
+        invoiceNo: this.customerServiceForm.invoiceNumber
       };
       this.tableData.push(data);
       const data2 = {
         orderId: '',
-        product: this.form.accName,
-        quantity: this.form.accQty,
-        rate: this.form.accPrice,
-        amount: Number(this.form.accPrice) * Number(this.form.accQty),
-        tax: this.form.accTax,
-        description: this.form.accQty + ' * ' + this.form.accName,
-        invoiceNo: this.form.invoiceNumber
+        product: this.org.accName,
+        quantity: this.org.accQty,
+        rate: this.org.accPrice,
+        amount: Number(this.org.accPrice) * Number(this.org.accQty),
+        tax: this.org.accTax,
+        description: this.org.accQty + ' * ' + this.org.accName,
+        invoiceNo: this.customerServiceForm.invoiceNumber
       };
       this.tableData.push(data2);
     },
     getProdAndPlanInfo(pn, pp, pq, pt, sq, sa, sn) {
-      this.form.prodName = pn;
-      this.form.prodPrice = pp;
-      this.form.prodQty = pq;
-      this.form.prodTax = pt;
-      this.form.planQty = sq;
-      this.form.planAmt = sa;
-      this.form.planName = sn;
+      this.org.prodName = pn;
+      this.org.prodPrice = pp;
+      this.org.prodQty = pq;
+      this.org.prodTax = pt;
+      this.org.planQty = sq;
+      this.org.planAmt = sa;
+      this.org.planName = sn;
       const data = {
         orderId: '',
-        product: this.form.prodName,
-        quantity: this.form.prodQty,
-        rate: this.form.prodPrice,
-        amount: Number(this.form.prodPrice) * Number(this.form.prodQty),
-        tax: this.form.prodTax,
-        description: this.form.prodQty + ' * ' + this.form.prodName,
-        invoiceNo: this.form.invoiceNumber
+        product: this.org.prodName,
+        quantity: this.org.prodQty,
+        rate: this.org.prodPrice,
+        amount: Number(this.org.prodPrice) * Number(this.org.prodQty),
+        tax: this.org.prodTax,
+        description: this.org.prodQty + ' * ' + this.org.prodName,
+        invoiceNo: this.customerServiceForm.invoiceNumber
       };
       this.tableData.push(data);
       const data2 = {
         orderId: '',
-        product: this.form.planName,
-        quantity: this.form.planQty,
-        rate: this.form.planAmt,
-        amount: Number(this.form.planAmt) * Number(this.form.planQty),
+        product: this.org.planName,
+        quantity: this.org.planQty,
+        rate: this.org.planAmt,
+        amount: Number(this.org.planAmt) * Number(this.org.planQty),
         tax: 'N',
-        description: this.form.planQty + ' * ' + this.form.planName,
-        invoiceNo: this.form.invoiceNumber
+        description: this.org.planQty + ' * ' + this.org.planName,
+        invoiceNo: this.customerServiceForm.invoiceNumber
       };
       this.tableData.push(data2);
     },
     getAllInfo(pn, pp, pq, pt, an, ap, aq, at, sq, sa, sn) {
-      this.form.prodName = pn;
-      this.form.prodPrice = pp;
-      this.form.prodQty = pq;
-      this.form.prodTax = pt;
-      this.form.accName = an;
-      this.form.accPrice = ap;
-      this.form.accQty = aq;
-      this.form.accTax = at;
-      this.form.planQty = sq;
-      this.form.planAmt = sa;
-      this.form.planName = sn;
+      this.org.prodName = pn;
+      this.org.prodPrice = pp;
+      this.org.prodQty = pq;
+      this.org.prodTax = pt;
+      this.org.accName = an;
+      this.org.accPrice = ap;
+      this.org.accQty = aq;
+      this.org.accTax = at;
+      this.org.planQty = sq;
+      this.org.planAmt = sa;
+      this.org.planName = sn;
       const data = {
         orderId: '',
-        product: this.form.prodName,
-        quantity: this.form.prodQty,
-        rate: this.form.prodPrice,
-        amount: Number(this.form.prodPrice) * Number(this.form.prodQty),
-        tax: this.form.prodTax,
-        description: this.form.prodQty + ' * ' + this.form.prodName,
-        invoiceNo: this.form.invoiceNumber
+        product: this.org.prodName,
+        quantity: this.org.prodQty,
+        rate: this.org.prodPrice,
+        amount: Number(this.org.prodPrice) * Number(this.org.prodQty),
+        tax: this.org.prodTax,
+        description: this.org.prodQty + ' * ' + this.org.prodName,
+        invoiceNo: this.customerServiceForm.invoiceNumber
       };
       this.tableData.push(data);
       const data2 = {
         orderId: '',
-        product: this.form.accName,
-        quantity: this.form.accQty,
-        rate: this.form.accPrice,
-        amount: Number(this.form.accPrice) * Number(this.form.accQty),
-        tax: this.form.accTax,
-        description: this.form.accQty + ' * ' + this.form.accName,
-        invoiceNo: this.form.invoiceNumber
+        product: this.org.accName,
+        quantity: this.org.accQty,
+        rate: this.org.accPrice,
+        amount: Number(this.org.accPrice) * Number(this.org.accQty),
+        tax: this.org.accTax,
+        description: this.org.accQty + ' * ' + this.org.accName,
+        invoiceNo: this.customerServiceForm.invoiceNumber
       };
       this.tableData.push(data2);
       const data3 = {
         orderId: '',
-        product: this.form.planName,
-        quantity: this.form.planQty,
-        rate: this.form.planAmt,
-        amount: Number(this.form.planAmt) * Number(this.form.planQty),
+        product: this.org.planName,
+        quantity: this.org.planQty,
+        rate: this.org.planAmt,
+        amount: Number(this.org.planAmt) * Number(this.org.planQty),
         tax: 'N',
-        description: this.form.planQty + ' * ' + this.form.planName,
-        invoiceNo: this.form.invoiceNumber
+        description: this.org.planQty + ' * ' + this.org.planName,
+        invoiceNo: this.customerServiceForm.invoiceNumber
       };
       this.tableData.push(data3);
     }
@@ -817,7 +878,7 @@ export default {
     this.$refs.form.clearValidate();
   },
   watch: {
-    'form.invoiceNumber': function() {
+    'customerServiceForm.invoiceNumber': function() {
       this.checkForOrder();
     }
   },
@@ -868,7 +929,6 @@ export default {
 </script>
 
 <style scoped>
-
 table.test {
   line-height: 40px;
 }
@@ -876,6 +936,7 @@ table.test {
 .el-form-item.plus{
   margin-top:-18px;
 }
+
 
 td.alignTop {
   vertical-align: top;

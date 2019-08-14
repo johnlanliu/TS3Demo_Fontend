@@ -96,14 +96,24 @@
         </el-table>
 
         <el-row>
-          <el-col :span="3" :offset="18" style="font-weight: 900">
-            <el-form-item label="Tax: ">${{ tax }}</el-form-item>
+          <el-col :span="2" :offset="18" style="font-weight: 900">
+            <el-form-item label="Tax: " class="plus"></el-form-item>
+          </el-col>
+          <el-col :span="2" :offset="2" style="font-weight: 900">
+            <el-form-item :tax="tax" class="plus">${{ tax }}</el-form-item>
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="6" :offset="18" style="font-weight: 900">
-            <el-form-item label="Total: " >${{ total }}</el-form-item>
-            <el-form-item >plus shipping fee</el-form-item>
+          <el-col :span="2" :offset="18" style="font-weight: 900">
+            <el-form-item label="Total: " class="plus"></el-form-item>
+          </el-col>
+          <el-col :span="2" :offset="2" style="font-weight: 900">
+            <el-form-item :total="total" class="plus">${{ total }}</el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="8" :offset="18" style="font-weight: 900">
+            <el-form-item label="plus shipping fee" class="plus"></el-form-item>
           </el-col>
         </el-row>
 
@@ -214,6 +224,10 @@ export default {
 </script>
 
 <style scoped>
+.el-form-item.plus {
+  margin-left: 50px;
+}
+
 td.firstSpacing {
   vertical-align: top;
   padding-left: 50px;
