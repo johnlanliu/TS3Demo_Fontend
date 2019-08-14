@@ -274,3 +274,27 @@ export const animate = (element, target, duration = 400, mode = 'ease-out', call
     });
   }, 20);
 };
+
+export function debounce(func, wait) {
+  var timeout;
+  return function() {
+    var context = this;
+    var args = arguments;
+
+    clearTimeout(timeout);
+    timeout = setTimeout(function() {
+      func.apply(context, args);
+    }, wait);
+  };
+};
+
+export function tile(root, obj) {
+  for (let key in obj) {
+    let subv = obj[key];
+    if(subv.constructor === Object) {
+      tile(root, subv);
+    } else {
+      root[key] = subv;
+    }
+  }
+}
