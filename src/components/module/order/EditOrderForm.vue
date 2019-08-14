@@ -24,7 +24,7 @@
           <el-col :span="12">
             <el-form-item label="BILLING INFO" style="font-weight: bold"></el-form-item>
           </el-col>
-          <el-col :span="12">
+          <el-col :span="12" :push="1">
             <el-form-item label="SHIPPING INFO" style="font-weight: bold"></el-form-item>
           </el-col>
         </el-row>
@@ -43,7 +43,7 @@
               <el-input v-model="form.billingCompany" style="width: 275px"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="12">
+          <el-col :span="12" :push="1">
             <el-form-item label="Company Name: ">
               <el-input
                 v-model="form.shippingCompany"
@@ -60,7 +60,7 @@
               <el-input v-model="form.billingContact" style="width: 275px"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="12">
+          <el-col :span="12" :push="1">
             <el-form-item label="Contact: ">
               <el-input
                 v-model="form.shippingContact"
@@ -76,7 +76,7 @@
               <el-input v-model="form.billingPhone" style="width: 275px"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="12">
+          <el-col :span="12" :push="1">
             <el-form-item label="Phone Number: ">
               <el-input v-model="form.shippingPhone" style="width: 275px" :disabled="sameAsBilling"></el-input>
             </el-form-item>
@@ -89,7 +89,7 @@
               <el-input v-model="form.billingEmail" style="width: 275px"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="12">
+          <el-col :span="12" :push="1">
             <el-form-item label="Email: ">
               <el-input v-model="form.shippingEmail" style="width: 275px" :disabled="sameAsBilling"></el-input>
             </el-form-item>
@@ -101,7 +101,7 @@
               <el-input v-model="form.billingAddress" style="width: 275px"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="12">
+          <el-col :span="12" :push="1">
             <el-form-item label="Address: ">
               <el-input
                 v-model="form.shippingAddress"
@@ -115,22 +115,22 @@
         <el-row>
           <el-col :span="6">
             <el-form-item label="City: ">
-              <el-input v-model="form.billingCity" style="width: 145px"></el-input>
+              <el-input v-model="form.billingCity" style="width: 130px"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="6">
             <el-form-item label="Zip/Postal Code: ">
-              <el-input v-model="form.billingZip" style="width: 120px"></el-input>
+              <el-input v-model="form.billingZip" style="width: 130px"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="6">
+          <el-col :span="6" :push="1">
             <el-form-item label="City: ">
-              <el-input v-model="form.shippingCity" style="width: 145px" :disabled="sameAsBilling"></el-input>
+              <el-input v-model="form.shippingCity" style="width: 130px" :disabled="sameAsBilling"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="6">
+          <el-col :span="6" :push="1">
             <el-form-item label="Zip/Postal Code: ">
-              <el-input v-model="form.shippingZip" style="width: 120px" :disabled="sameAsBilling"></el-input>
+              <el-input v-model="form.shippingZip" style="width: 130px" :disabled="sameAsBilling"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -138,15 +138,15 @@
         <el-row>
           <el-col :span="6">
             <el-form-item label="Country: ">
-              <el-input v-model="form.billingCountry" style="width: 133px"></el-input>
+              <el-input v-model="form.billingCountry" style="width: 130px"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="6">
             <el-form-item label="State/Province: ">
-              <el-input v-model="form.billingState" style="width: 132px"></el-input>
+              <el-input v-model="form.billingState" style="width: 130px"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="6">
+          <el-col :span="6" :push="1">
             <el-form-item label="Country: ">
               <el-input
                 v-model="form.shippingCountry"
@@ -155,9 +155,9 @@
               ></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="6">
+          <el-col :span="6" :push="1">
             <el-form-item label="State/Province: ">
-              <el-input v-model="form.shippingState" style="width: 132px" :disabled="sameAsBilling"></el-input>
+              <el-input v-model="form.shippingState" style="width: 130px" :disabled="sameAsBilling"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -263,7 +263,7 @@
               ></el-option>
             </el-select>
           </el-col>
-          <el-col :span="13">
+          <el-col :span="13" :push="1">
             <el-form-item label="Shipping Fee: " style="float: left"></el-form-item>
             <el-input v-model="form.shippingFee" style="width: 188px"></el-input>
           </el-col>
@@ -278,7 +278,7 @@
             ></el-input>
             <el-form-item class="warning" v-if="!validInvoice">invalid invoice number</el-form-item>
           </el-col>
-          <el-col :span="13">
+          <el-col :span="13" :push="1">
             <el-form-item label="Invoice Date: " style="float: left"></el-form-item>
             <el-date-picker
               v-model="form.invoiceDate"
@@ -293,7 +293,7 @@
             <el-form-item label="Shipping Via: " style="float: left"></el-form-item>
             <el-input v-model="form.shippingVia" style="width: 175px"></el-input>
           </el-col>
-          <el-col :span="13">
+          <el-col :span="13" :push="1">
             <el-form-item label="Tracking Number: " style="float: left"></el-form-item>
             <el-input v-model="form.trackingNo" style="width: 188px"></el-input>
           </el-col>
