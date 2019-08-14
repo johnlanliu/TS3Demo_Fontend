@@ -1,186 +1,246 @@
 <template>
-    <el-dialog
-            :title="'Accessories'"
-            :center="true"
-            top="15vh"
-            :visible.sync="isOpen"
-            :append-to-body="append"
-            @close="resetFields">
-        <div class="accessoryCode">
-            <el-form ref="form" :model="form4" size="mini" style="text-align: center">
-                <el-collapse v-model="form4.activeName" accordion>
-                    <el-collapse-item name="1">
-                        <template slot="title">
-                            {{ form4.accessoryName }}
-                        </template>
-                        <el-row>
-                            <el-col v-if="shown === 0 || shown === 1" :span="6">
-                                <el-form-item>
-                                    <button class="containerButton" style="width: 150px; height: 120px"
-                                               type="button" @click="handleNameClick('LA17011')">
-                                        <img src="./pic/Accessories/LA17011.png" alt="LA17011" class="image"/>
-                                        <div class="overlay">TrackLight 3PL Adapter Cable</div>
-                                    </button>
-                                </el-form-item>
-                            </el-col>
-                            <el-col v-if="shown === 0 || shown === 1" :span="6">
-                                <el-form-item>
-                                    <button class="containerButton" style="width: 150px; height: 120px"
-                                               type="button" @click="handleNameClick('LA17021')">
-                                        <img src="./pic/Accessories/la17021.png" alt="la17021" class="image"/>
-                                        <div class="overlay">TrackLight Grote Adapter Cable</div>
-                                    </button>
-                                </el-form-item>
-                            </el-col>
-                            <el-col v-if="shown === 0 || shown === 1" :span="6">
-                                <el-form-item>
-                                    <button class="containerButton" style="width: 150px; height: 120px"
-                                               type="button" @click="handleNameClick('LA16111')">
-                                        <img src="./pic/Accessories/LA16111.png" alt="LA1611" class="image"/>
-                                        <div class="overlay">TrackLight Hardshell Pigtail</div>
-                                    </button>
-                                </el-form-item>
-                            </el-col>
-                            <el-col v-if="shown === 0 || shown === 1" :span="6">
-                                <el-form-item>
-                                    <button class="containerButton" style="width: 150px; height: 120px"
-                                               type="button" @click="handleNameClick('LA17031')">
-                                        <img src="./pic/Accessories/la17031.png" alt="la17031" class="image"/>
-                                        <div class="overlay">Perma-Lok Retaining Ring</div>
-                                    </button>
-                                </el-form-item>
-                            </el-col>
-                            <el-col v-if="shown === 0 || shown === 1" :span="6">
-                                <el-form-item>
-                                    <button class="containerButton" style="width: 150px; height: 120px"
-                                               type="button" @click="handleNameClick('LA17041')">
-                                        <img src="./pic/Accessories/LA17041.png" alt="LA17041" class="image"/>
-                                        <div class="overlay">Metal Ring for Perma-Lok</div>
-                                    </button>
-                                </el-form-item>
-                            </el-col>
-                            <el-col v-if="shown === 0 || shown === 1" :span="6">
-                                <el-form-item>
-                                    <button class="containerButton" style="width: 150px; height: 120px"
-                                               type="button" @click="handleNameClick('LA17081')">
-                                        <img src="./pic/Accessories/LA17081.png" alt="LA17081" class="image"/>
-                                        <div class="overlay">Plastic Retaining Flange</div>
-                                    </button>
-                                </el-form-item>
-                            </el-col>
-                            <el-col v-if="shown === 0 || shown === 1" :span="6">
-                                <el-form-item>
-                                    <button class="containerButton" style="width: 150px; height: 120px"
-                                               type="button" @click="handleNameClick('LA17051')">
-                                        <img src="./pic/Accessories/LA17051.png" alt="LA17051" class="image"/>
-                                        <div class="overlay">Test Cable</div>
-                                    </button>
-                                </el-form-item>
-                            </el-col>
-                            <el-col v-if="shown === 0 || shown === 1" :span="6">
-                                <el-form-item>
-                                    <button class="containerButton" style="width: 150px; height: 120px"
-                                               type="button" @click="handleNameClick('LA16121 R00')">
-                                        <img src="./pic/Accessories/LA16121_R00.png" alt="LA16121 R00" class="image"/>
-                                        <div class="overlay">Decoy 4" Round Red Lens</div>
-                                    </button>
-                                </el-form-item>
-                            </el-col>
-                            <el-col v-if="shown === 0 || shown === 1" :span="6">
-                                <el-form-item>
-                                    <button class="containerButton" style="width: 150px; height: 120px"
-                                               type="button" @click="handleNameClick('LA16121 C00')">
-                                        <img src="./pic/Accessories/LA16121_C00.png" alt="LA16121 C00" class="image"/>
-                                        <div class="overlay">Decoy 4" Round Clear Lens</div>
-                                    </button>
-                                </el-form-item>
-                            </el-col>
-                            <el-col v-if="shown === 0 || shown === 1" :span="6">
-                                <el-form-item>
-                                    <button class="containerButton" style="width: 150px; height: 120px"
-                                               type="button" @click="handleNameClick('LA17121 R00')">
-                                        <img src="./pic/Accessories/LA17121_R00.png" alt="LA17121 R00" class="image"/>
-                                        <div class="overlay">Decoy 6" Oval Red Lens</div>
-                                    </button>
-                                </el-form-item>
-                            </el-col>
-                            <el-col v-if="shown === 0 || shown === 1" :span="6">
-                                <el-form-item>
-                                    <button class="containerButton" style="width: 150px; height: 120px"
-                                               type="button" @click="handleNameClick('LA17121 A00')">
-                                        <img src="./pic/Accessories/LA17121_A00.png" alt="LA17121 A00" class="image"/>
-                                        <div class="overlay">Decoy 6" Oval Amber Lens</div>
-                                    </button>
-                                </el-form-item>
-                            </el-col>
-                            <el-col v-if="shown === 0 || shown === 1" :span="6">
-                                <el-form-item>
-                                    <button class="containerButton" style="width: 150px; height: 120px"
-                                               type="button" @click="handleNameClick('LA17121 C00')">
-                                        <img src="./pic/Accessories/LA17121_C00.png" alt="LA17121 C00" class="image"/>
-                                        <div class="overlay">Decoy 6" Oval Clear Lens</div>
-                                    </button>
-                                </el-form-item>
-                            </el-col>
-                            <el-col v-if="shown === 0 || shown === 2" :span="6">
-                                <el-form-item>
-                                    <button class="containerButton" style="width: 150px; height: 120px"
-                                                type="button" @click="handleNameClick('BP17021')">
-                                        <img src="./pic/Accessories/BP17021.png" alt="BP17021" class="image"/>
-                                        <div class="overlay">Battery Pack 7.2V 6000mAH</div>
-                                    </button>
-                                </el-form-item>
-                            </el-col>
-                            <el-col v-if="shown === 0 || shown === 2" :span="6">
-                                <el-form-item>
-                                    <button class="containerButton" style="width: 150px; height: 120px"
-                                                type="button" @click="handleNameClick('BP18021')">
-                                        <img src="./pic/Accessories/BP18021.png" alt="BP18021" class="image"/>
-                                        <div class="overlay">Battery Pack 3.7V 9000mAH</div>
-                                    </button>
-                                </el-form-item>
-                            </el-col>
-                        </el-row>
-                    </el-collapse-item>
-                    <el-collapse-item title="Price" v-if="form4.showPrice" name="2">
-                        <el-row>
-                            <el-col :span="10" :offset="6">
-                                <el-form ref="form" :model="form4" :rules="formRules" size="mini" align="right">
-                                    <el-form-item label="Unit Price $" prop="price">
-                                        <el-input v-model="form4.price" style="width: 150px; "></el-input>
-                                    </el-form-item>
-                                    <el-form-item label="Quantity">
-                                        <el-input-number
-                                                v-model="form4.QTY"
-                                                controls-position="right"
-                                                :min="1"
-                                                style="width: 150px">
-                                        </el-input-number>
-                                    </el-form-item>
-                                    <el-form-item label="Tax: ">
-                                        <el-select v-model="form4.tax" placeholder="" style="width: 150px">
-                                            <el-option
-                                                    v-for="option in taxOptions"
-                                                    :key="option.value"
-                                                    :label="option.label"
-                                                    :value="option.value">
-                                            </el-option>
-                                        </el-select>
-                                    </el-form-item>
-                                    <el-form-item label="Total :">
-                                        <p>${{ total }}</p>
-                                    </el-form-item>
-                                </el-form>
-                                <el-row>
-                                    <el-button type="primary" style="float: right" @click="handleAddClick()">Add</el-button>
-                                </el-row>
-                            </el-col>
-                        </el-row>
-                    </el-collapse-item>
-                </el-collapse>
-            </el-form>
-        </div>
-    </el-dialog>
+  <el-dialog
+    :title="'Accessories'"
+    :center="true"
+    top="15vh"
+    :visible.sync="visible"
+    :append-to-body="append"
+    @close="resetFields"
+  >
+    <div class="accessoryCode">
+      <el-form ref="form" :model="form4" size="mini" style="text-align: center">
+        <el-collapse v-model="form4.activeName" accordion>
+          <el-collapse-item name="1">
+            <template slot="title">{{ form4.accessoryName }}</template>
+            <el-row>
+              <el-col v-if="shown === 0 || shown === 1" :span="6">
+                <el-form-item>
+                  <button
+                    class="containerButton"
+                    style="width: 150px; height: 120px"
+                    type="button"
+                    @click="handleNameClick('LA17011')"
+                  >
+                    <img src="./pic/Accessories/LA17011.png" alt="LA17011" class="image">
+                    <div class="overlay">TrackLight 3PL Adapter Cable</div>
+                  </button>
+                </el-form-item>
+              </el-col>
+              <el-col v-if="shown === 0 || shown === 1" :span="6">
+                <el-form-item>
+                  <button
+                    class="containerButton"
+                    style="width: 150px; height: 120px"
+                    type="button"
+                    @click="handleNameClick('LA17021')"
+                  >
+                    <img src="./pic/Accessories/la17021.png" alt="la17021" class="image">
+                    <div class="overlay">TrackLight Grote Adapter Cable</div>
+                  </button>
+                </el-form-item>
+              </el-col>
+              <el-col v-if="shown === 0 || shown === 1" :span="6">
+                <el-form-item>
+                  <button
+                    class="containerButton"
+                    style="width: 150px; height: 120px"
+                    type="button"
+                    @click="handleNameClick('LA16111')"
+                  >
+                    <img src="./pic/Accessories/LA16111.png" alt="LA1611" class="image">
+                    <div class="overlay">TrackLight Hardshell Pigtail</div>
+                  </button>
+                </el-form-item>
+              </el-col>
+              <el-col v-if="shown === 0 || shown === 1" :span="6">
+                <el-form-item>
+                  <button
+                    class="containerButton"
+                    style="width: 150px; height: 120px"
+                    type="button"
+                    @click="handleNameClick('LA17031')"
+                  >
+                    <img src="./pic/Accessories/la17031.png" alt="la17031" class="image">
+                    <div class="overlay">Perma-Lok Retaining Ring</div>
+                  </button>
+                </el-form-item>
+              </el-col>
+              <el-col v-if="shown === 0 || shown === 1" :span="6">
+                <el-form-item>
+                  <button
+                    class="containerButton"
+                    style="width: 150px; height: 120px"
+                    type="button"
+                    @click="handleNameClick('LA17041')"
+                  >
+                    <img src="./pic/Accessories/LA17041.png" alt="LA17041" class="image">
+                    <div class="overlay">Metal Ring for Perma-Lok</div>
+                  </button>
+                </el-form-item>
+              </el-col>
+              <el-col v-if="shown === 0 || shown === 1" :span="6">
+                <el-form-item>
+                  <button
+                    class="containerButton"
+                    style="width: 150px; height: 120px"
+                    type="button"
+                    @click="handleNameClick('LA17081')"
+                  >
+                    <img src="./pic/Accessories/LA17081.png" alt="LA17081" class="image">
+                    <div class="overlay">Plastic Retaining Flange</div>
+                  </button>
+                </el-form-item>
+              </el-col>
+              <el-col v-if="shown === 0 || shown === 1" :span="6">
+                <el-form-item>
+                  <button
+                    class="containerButton"
+                    style="width: 150px; height: 120px"
+                    type="button"
+                    @click="handleNameClick('LA17051')"
+                  >
+                    <img src="./pic/Accessories/LA17051.png" alt="LA17051" class="image">
+                    <div class="overlay">Test Cable</div>
+                  </button>
+                </el-form-item>
+              </el-col>
+              <el-col v-if="shown === 0 || shown === 1" :span="6">
+                <el-form-item>
+                  <button
+                    class="containerButton"
+                    style="width: 150px; height: 120px"
+                    type="button"
+                    @click="handleNameClick('LA16121 R00')"
+                  >
+                    <img src="./pic/Accessories/LA16121_R00.png" alt="LA16121 R00" class="image">
+                    <div class="overlay">Decoy 4" Round Red Lens</div>
+                  </button>
+                </el-form-item>
+              </el-col>
+              <el-col v-if="shown === 0 || shown === 1" :span="6">
+                <el-form-item>
+                  <button
+                    class="containerButton"
+                    style="width: 150px; height: 120px"
+                    type="button"
+                    @click="handleNameClick('LA16121 C00')"
+                  >
+                    <img src="./pic/Accessories/LA16121_C00.png" alt="LA16121 C00" class="image">
+                    <div class="overlay">Decoy 4" Round Clear Lens</div>
+                  </button>
+                </el-form-item>
+              </el-col>
+              <el-col v-if="shown === 0 || shown === 1" :span="6">
+                <el-form-item>
+                  <button
+                    class="containerButton"
+                    style="width: 150px; height: 120px"
+                    type="button"
+                    @click="handleNameClick('LA17121 R00')"
+                  >
+                    <img src="./pic/Accessories/LA17121_R00.png" alt="LA17121 R00" class="image">
+                    <div class="overlay">Decoy 6" Oval Red Lens</div>
+                  </button>
+                </el-form-item>
+              </el-col>
+              <el-col v-if="shown === 0 || shown === 1" :span="6">
+                <el-form-item>
+                  <button
+                    class="containerButton"
+                    style="width: 150px; height: 120px"
+                    type="button"
+                    @click="handleNameClick('LA17121 A00')"
+                  >
+                    <img src="./pic/Accessories/LA17121_A00.png" alt="LA17121 A00" class="image">
+                    <div class="overlay">Decoy 6" Oval Amber Lens</div>
+                  </button>
+                </el-form-item>
+              </el-col>
+              <el-col v-if="shown === 0 || shown === 1" :span="6">
+                <el-form-item>
+                  <button
+                    class="containerButton"
+                    style="width: 150px; height: 120px"
+                    type="button"
+                    @click="handleNameClick('LA17121 C00')"
+                  >
+                    <img src="./pic/Accessories/LA17121_C00.png" alt="LA17121 C00" class="image">
+                    <div class="overlay">Decoy 6" Oval Clear Lens</div>
+                  </button>
+                </el-form-item>
+              </el-col>
+              <el-col v-if="shown === 0 || shown === 2" :span="6">
+                <el-form-item>
+                  <button
+                    class="containerButton"
+                    style="width: 150px; height: 120px"
+                    type="button"
+                    @click="handleNameClick('BP17021')"
+                  >
+                    <img src="./pic/Accessories/BP17021.png" alt="BP17021" class="image">
+                    <div class="overlay">Battery Pack 7.2V 6000mAH</div>
+                  </button>
+                </el-form-item>
+              </el-col>
+              <el-col v-if="shown === 0 || shown === 2" :span="6">
+                <el-form-item>
+                  <button
+                    class="containerButton"
+                    style="width: 150px; height: 120px"
+                    type="button"
+                    @click="handleNameClick('BP18021')"
+                  >
+                    <img src="./pic/Accessories/BP18021.png" alt="BP18021" class="image">
+                    <div class="overlay">Battery Pack 3.7V 9000mAH</div>
+                  </button>
+                </el-form-item>
+              </el-col>
+            </el-row>
+          </el-collapse-item>
+          <el-collapse-item title="Price" v-if="form4.showPrice" name="2">
+            <el-row>
+              <el-col :span="10" :offset="6">
+                <el-form ref="form" :model="form4" :rules="formRules" size="mini" align="right">
+                  <el-form-item label="Unit Price $" prop="price">
+                    <el-input v-model="form4.price" style="width: 150px; "></el-input>
+                  </el-form-item>
+                  <el-form-item label="Quantity">
+                    <el-input-number
+                      v-model="form4.QTY"
+                      controls-position="right"
+                      :min="1"
+                      style="width: 150px"
+                    ></el-input-number>
+                  </el-form-item>
+                  <el-form-item label="Tax: ">
+                    <el-select v-model="form4.tax" placeholder style="width: 150px">
+                      <el-option
+                        v-for="option in taxOptions"
+                        :key="option.value"
+                        :label="option.label"
+                        :value="option.value"
+                      ></el-option>
+                    </el-select>
+                  </el-form-item>
+                  <el-row>
+                    <el-col :span="3">
+                      <el-form-item label="Total :"></el-form-item>
+                    </el-col>
+                    <el-col :span="4" :offset="17">
+                      <el-form-item :total="total">${{ total }} </el-form-item>
+                    </el-col>
+                  </el-row>
+                </el-form>
+                <el-row>
+                  <el-button type="primary" style="float: right" @click="handleAddClick()">Add</el-button>
+                </el-row>
+              </el-col>
+            </el-row>
+          </el-collapse-item>
+        </el-collapse>
+      </el-form>
+    </div>
+  </el-dialog>
 </template>
 
 <script>
@@ -189,18 +249,17 @@ export default {
 
   data: function() {
     return {
-      isOpen: false,
       loading: false,
       append: true,
 
-    /* RESET THESE */
+      /* RESET THESE */
       form4: {
         accessoryName: 'Type',
         activeName: '1',
         price: '',
         QTY: 1,
         showPrice: false,
-        tax: '',
+        tax: ''
       },
       taxOptions: [
         {
@@ -213,7 +272,7 @@ export default {
         }
       ]
 
-    /* FORM RULES */
+      /* FORM RULES */
       // formRules: {
       //   price: [
       //         { required: true, message: 'Unit price is required' },
@@ -227,17 +286,12 @@ export default {
   },
 
   props: {
-    product: {
-      type: String,
-      default: '',
-    }
+    value: Boolean,
+    form: [Object]
   },
 
   methods: {
     /* AUXILIARY FUNCTIONS */
-    showDialog() {
-      this.isOpen = true;
-    },
     resetFields() {
       this.form4.activeName = '1';
       this.form4.accessoryName = 'Type';
@@ -267,24 +321,36 @@ export default {
       }
     },
     handleAddClick(event) {
-      this.$emit('accessoryAdded', this.form4.accessoryName, this.form4.price, this.form4.QTY, this.form4.tax);
-      this.isOpen = false;
+      this.$emit(
+        'accessoryAdded',
+        this.form4.accessoryName,
+        this.form4.price,
+        this.form4.QTY,
+        this.form4.tax
+      );
+      this.visible = false;
     }
   },
 
   computed: {
     shown: function() {
-      if (this.product === '4" TrackLight (VT1611)' || this.product === '6" TrackLight (VT1711)') {
+      if (
+        this.product === '4" TrackLight (VT1611)' ||
+        this.product === '6" TrackLight (VT1711)'
+      ) {
         return 1;
-      } else if (this.product === 'In Dash GPS (VT1508)' || this.product === '5" ThermoTrack (VT1702)'
-                || this.product === '6" ThermoTrack (VT1802)') {
+      } else if (
+        this.product === 'In Dash GPS (VT1508)' ||
+        this.product === '5" ThermoTrack (VT1702)' ||
+        this.product === '6" ThermoTrack (VT1802)'
+      ) {
         return 2;
       } else {
         return 0;
       }
     },
     total: function() {
-      if (this.form4.price !== null && this.form4.QTY!== null) {
+      if (this.form4.price !== null && this.form4.QTY !== null) {
         if (!isNaN(this.form4.price) && !isNaN(this.form4.QTY)) {
           return (Number(this.form4.price) * Number(this.form4.QTY)).toFixed(2);
         } else {
@@ -293,49 +359,55 @@ export default {
       } else {
         return 0;
       }
+    },
+    visible: {
+      get() {
+        return this.value;
+      },
+      set(val) {
+        this.$emit('input', val);
+      }
     }
-  },
+  }
 };
 </script>
 
 <style scoped>
-    .containerButton {
-        position: relative;
-        width: 50%;
-        max-width: 300px;
-    }
+.containerButton {
+  position: relative;
+  width: 50%;
+  max-width: 300px;
+}
 
-    .image {
-        display: block;
-        width: 50%;
-        height: auto;
-        /*transition: .5s ease;*/
-        opacity: 1;
-        padding-left: 38px;
-    }
+.image {
+  display: block;
+  width: 50%;
+  height: auto;
+  /*transition: .5s ease;*/
+  opacity: 1;
+  padding-left: 38px;
+}
 
-    .overlay {
-        position: relative;
-        bottom: 0;
-        background: rgb(0, 0, 0);
-        background: rgba(0, 0, 0, 0.5); /* Black see-through */
-        color: #f1f1f1;
-        width: 59%;
-        height: 29%;
-        /*transition: .5s ease;*/
-        opacity:1;
-        color: white;
-        font-size: 10.93px;
-        padding: 5px 30px 5px 31px;
-        text-align: center;
-    }
+.overlay {
+  position: relative;
+  bottom: 0;
+  background: rgb(0, 0, 0);
+  background: rgba(0, 0, 0, 0.5); /* Black see-through */
+  color: #f1f1f1;
+  width: 59%;
+  height: 29%;
+  /*transition: .5s ease;*/
+  opacity: 1;
+  color: white;
+  font-size: 10.93px;
+  padding: 5px 30px 5px 31px;
+  text-align: center;
+}
 
-
-    .containerButton:hover .image {
-        opacity: 0.75;
-    }
-    .containerButton:hover .overlay {
-        opacity: 0.75;
-    }
-
+.containerButton:hover .image {
+  opacity: 0.75;
+}
+.containerButton:hover .overlay {
+  opacity: 0.75;
+}
 </style>

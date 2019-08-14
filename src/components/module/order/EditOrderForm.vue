@@ -1,314 +1,341 @@
 <template>
-    <el-dialog
-        :title="'Order Info'"
-        :center="true"
-        top="15vh"
-        :visible.sync="isOpen"
-        @closed="resetFields"
-        width="50%"
-        :append-to-body="true">
-        <div class="form-box">
-            <el-form ref="form" :model="editForm" size="mini" style="margin: 0; padding-left: 10px">
-                <el-form-item label="Order Type">
-                    <el-select v-model="editForm.type" placeholder="Select">
-                        <el-option
-                            v-for="option in orderOptions"
-                            :key="option.value"
-                            :label="option.value"
-                            :value="option.label">
-                        </el-option>
-                    </el-select>
-                </el-form-item>
+  <el-dialog
+    :title="'Order Info'"
+    :center="true"
+    top="15vh"
+    :visible.sync="visible"
+    @close="clearValidate"
+    width="790px"
+  >
+    <div class="form-box">
+      <el-form ref="form" :model="form" size="mini" style="margin: 0; padding-left: 10px">
+        <el-form-item label="Order Type">
+          <el-select v-model="form.type" placeholder="Select">
+            <el-option
+              v-for="option in orderOptions"
+              :key="option.label"
+              :label="option.label"
+              :value="option.value"
+            ></el-option>
+          </el-select>
+        </el-form-item>
 
-                <table class="test" style="text-align: left; border-spacing: 0px">
-                    <tr>
-                        <td class="alignTop">
-                            <el-form-item label="BILLING INFO"style="font-weight: bold"></el-form-item>
-                        </td>
-                        <td class="alignTop" style="padding-left: 196px">
-                            <el-form-item label="SHIPPING INFO" style="font-weight: bold"></el-form-item>
-                        </td>
-                    </tr>
-                </table>
+        <el-row style="width:590px">
+          <el-col :span="12">
+            <el-form-item label="BILLING INFO" style="font-weight: bold"></el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="SHIPPING INFO" style="font-weight: bold"></el-form-item>
+          </el-col>
+        </el-row>
 
-                <div style="padding-left: 300px; margin-bottom: 10px">
-                    <el-checkbox v-model="sameInfo"
-                                 style="display: inline"
-                                 @change="handleSameInfo()"
-                    >the same as billing info
-                    </el-checkbox>
-                </div>
-
-                <table class="test" style="width: 100%; text-align: left; border-spacing: 0px">
-                    <tr>
-                        <td class="alignTop">
-                            <el-form-item label="Company Name: ">
-                                <el-input v-model="editForm.billingCompany" style="width: 275px"></el-input>
-                            </el-form-item>
-                        </td>
-                        <td class="alignTop" style="padding-left: 14px">
-                            <el-form-item label="Company Name: ">
-                                <el-input v-model="sameInfo ? editForm.billingCompany : editForm.shippingCompany"
-                                          style="width: 275px" :disabled="sameInfo"></el-input>
-                            </el-form-item>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="alignTop">
-                            <el-form-item label="Contact: ">
-                                <el-input v-model="editForm.billingContact" style="width: 275px"></el-input>
-                            </el-form-item>
-                        </td>
-                        <td class="alignTop" style="padding-left: 14px">
-                            <el-form-item label="Contact: ">
-                                <el-input v-model="sameInfo ? editForm.billingContact : editForm.shippingContact"
-                                          style="width: 275px" :disabled="sameInfo"></el-input>
-                            </el-form-item>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="alignTop">
-                            <el-form-item label="Phone Number: ">
-                                <el-input v-model="editForm.billingNumber" style="width: 275px"></el-input>
-                            </el-form-item>
-                        </td>
-                        <td class="alignTop" style="padding-left: 14px">
-                            <el-form-item label="Phone Number: ">
-                                <el-input v-model="sameInfo ? editForm.billingNumber : editForm.shippingNumber"
-                                          style="width: 275px" :disabled="sameInfo"></el-input>
-                            </el-form-item>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="alignTop">
-                            <el-form-item label="Email: ">
-                                <el-input v-model="editForm.billingEmail" style="width: 275px"></el-input>
-                            </el-form-item>
-                        </td>
-                        <td class="alignTop" style="padding-left: 14px">
-                            <el-form-item label="Email: ">
-                                <el-input v-model="sameInfo ? editForm.billingEmail : editForm.shippingEmail"
-                                          style="width: 275px" :disabled="sameInfo"></el-input>
-                            </el-form-item>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="alignTop">
-                            <el-form-item label="Address: ">
-                                <el-input v-model="editForm.billingAddress" style="width: 275px"></el-input>
-                            </el-form-item>
-                        </td>
-                        <td class="alignTop" style="padding-left: 14px">
-                            <el-form-item label="Address: ">
-                                <el-input v-model="sameInfo ? editForm.billingAddress : editForm.shippingAddress"
-                                          style="width: 275px" :disabled="sameInfo"></el-input>
-                            </el-form-item>
-                        </td>
-                    </tr>
-                </table>
-
-                <table class="test" style="text-align: left; border-spacing: 0px">
-                    <tr>
-                        <td class="alignTop">
-                            <el-form-item label="City: ">
-                                <el-input v-model="editForm.billingCity" style="width: 145px"></el-input>
-                            </el-form-item>
-                        </td>
-                        <td class="alignTop" style="padding-left: 10px">
-                            <el-form-item label="Zip/Postal Code: ">
-                                <el-input v-model="editForm.billingZip" style="width: 120px"></el-input>
-                            </el-form-item>
-                        </td>
-                        <td class="alignTop" style="padding-left: 22px">
-                            <el-form-item label="City: ">
-                                <el-input v-model="sameInfo ? editForm.billingCity : editForm.shippingCity"
-                                          style="width: 145px" :disabled="sameInfo"></el-input>
-                            </el-form-item>
-                        </td>
-                        <td class="alignTop" style="padding-left: 10px">
-                            <el-form-item label="Zip/Postal Code: ">
-                                <el-input v-model="sameInfo ? editForm.billingZip : editForm.shippingZip"
-                                          style="width: 120px" :disabled="sameInfo"></el-input>
-                            </el-form-item>
-                        </td>
-                    </tr>
-                </table>
-
-                <table class="test" style="text-align: left; border-spacing: 0px">
-                    <tr>
-                        <td class="alignTop">
-                            <el-form-item label="Country: ">
-                                <el-input v-model="editForm.billingCountry" style="width: 133px"></el-input>
-                            </el-form-item>
-                        </td>
-                        <td class="alignTop" style="padding-left: 10px">
-                            <el-form-item label="State/Province: ">
-                                <el-input v-model="editForm.billingState" style="width: 132px"></el-input>
-                            </el-form-item>
-                        </td>
-                        <td class="alignTop" style="padding-left: 25px">
-                            <el-form-item label="Country: ">
-                                <el-input v-model="sameInfo ? editForm.billingCountry : editForm.shippingCountry"
-                                          style="width: 133px" :disabled="sameInfo"></el-input>
-                            </el-form-item>
-                        </td>
-                        <td class="alignTop" style="padding-left: 10px">
-                            <el-form-item label="State/Province: ">
-                                <el-input v-model="sameInfo ? editForm.billingState : editForm.shippingState"
-                                          style="width: 132px" :disabled="sameInfo"></el-input>
-                            </el-form-item>
-                        </td>
-                    </tr>
-                </table>
-
-                <el-form-item label="Payment Term">
-                    <el-select v-model="editForm.paymentTerm" placeholder="Select">
-                        <el-option
-                            v-for="option in paymentOptions"
-                            :key="option.value"
-                            :label="option.value"
-                            :value="option.label">
-                        </el-option>
-                    </el-select>
-                </el-form-item>
-
-                <el-form-item label="Order Details" style="font-weight: 900"></el-form-item>
-                <el-table
-                    ref="orderDetailTable"
-                    :data="tableData"
-                    v-loading="loading"
-                    border
-                    stripe
-                    highlight-current-row
-                    :height="167"
-                    :row-key="row => row.index"
-                    style="width: 100%; margin-left: 50px; margin-bottom: 5px"
-                >
-                    <el-table-column label="Product" prop="product" width="162"></el-table-column>
-                    <el-table-column label="QTY" prop="quantity" width="90"></el-table-column>
-                    <el-table-column label="Rate" prop="rate" width="96"></el-table-column>
-                    <el-table-column label="Amount" prop="amount" width="96">
-                        <template slot-scope="scope">
-                            <span v-model="scope.row.amount">${{ scope.row.amount.toFixed(2) }}</span>
-                        </template>
-                    </el-table-column>
-                    <el-table-column label="Tax" prop="tax" width="50"></el-table-column>
-                    <el-table-column label="Action" width="95">
-                        <template slot-scope="scope">
-                            <el-button type="text" @click="handleDeleteOrderItem(scope.row, scope.$index)">Delete</el-button>
-                        </template>
-                    </el-table-column>
-                </el-table>
-
-                <table style="width: 100%; text-align: right; padding-left: 150px; margin-left: 52px; margin-bottom: 10px">
-                    <tr>
-                        <td class="alignTop">
-                            <el-button type="primary" @click="handleAddDevice()">+ Add Device</el-button>
-                        </td>
-                        <td class="alignTop" style="padding-left: 5px">
-                            <el-button type="primary" @click="handleAddAccessories()">+ Add Accessories</el-button>
-                        </td>
-                        <td class="alignTop" style="padding-left: 2px">
-                            <el-button type="primary" @click="handleAddService()">+ Add Service Plan</el-button>
-                        </td>
-                    </tr>
-                </table>
-
-                <table style="width: 115%; border-spacing: 0px">
-                    <tr>
-                        <td class="alignTop">
-                            <el-form-item label="Note:" style="display: block; margin-left: 30px; margin-right: 30px">
-                                <el-input
-                                    type="textarea"
-                                    :rows="2"
-                                    placeholder="notes"
-                                    v-model="editForm.note"
-                                    style="width: 405px"
-                                >
-                                </el-input>
-                            </el-form-item>
-                        </td>
-                        <td class="alignTop" style="text-align: right; padding-right: 39px">
-                            <el-form-item label="Tax: ">
-                                <p v-model="tax">${{ tax }}</p>
-                            </el-form-item>
-                            <el-form-item label="Total: ">
-                                <p v-model="total">${{ total }}</p>
-                                <p>plus shipping fee</p>
-                            </el-form-item>
-                        </td>
-                    </tr>
-                </table>
-
-                <el-form ref="form" :model="editForm" size="mini">
-                    <table style="width: 110%; text-align: right; border-spacing: 0px 1px">
-                        <tr>
-                            <td class="alignTop" style="padding-left: 39px">
-                                <el-form-item label="Status: " style="float: left"></el-form-item>
-                                <el-select v-model="editForm.status" placeholder="select" style="width: 188px">
-                                    <el-option
-                                        v-for="option in statusOptions"
-                                        :key="option.status"
-                                        :value="option.status"
-                                        :label="option.label"
-                                    ></el-option>
-                                </el-select>
-                            </td>
-                            <td class="alignTop" style="padding-right: 9px; padding-left: 66px">
-                                <el-form-item label="Shipping Fee: " style="float: left"></el-form-item>
-                                <el-input v-model="editForm.shippingFee" style="width: 188px"></el-input>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="alignTop" style="padding-left: 23px">
-                                <el-form-item label="Invoice #: " style="float: left"></el-form-item>
-                                <el-input v-model="editForm.invoiceNo" style="width: 188px"></el-input>
-                            </td>
-                            <td class="alignTop" style="padding-right: 9px; padding-left: 71px">
-                                <el-form-item label="Invoice Date: " style="float: left"></el-form-item>
-                                <el-date-picker
-                                    v-model="editForm.invoiceDate"
-                                    type="datetime"
-                                    placeholder="Select date and time"
-                                    style="width: 188px">
-                                </el-date-picker>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="alignTop">
-                                <el-form-item label="Shipping Via: " style="float: left"></el-form-item>
-                                <el-input v-model="editForm.shippingVia" style="width: 188px"></el-input>
-                            </td>
-                            <td class="alignTop" style="padding-right: 9px; padding-left: 39px">
-                                <el-form-item label="Tracking Number: " style="float: left"></el-form-item>
-                                <el-input v-model="editForm.trackingNo" style="width: 188px"></el-input>
-                            </td>
-                        </tr>
-                    </table>
-
-                    <table style="width: 100%; text-align: right; padding-left: 150px; margin-left: 52px">
-                        <tr>
-                            <td class="alignTop" style="padding-left: 160px">
-                                <el-form-item>
-                                    <el-button type="primary" @click="handleCancel">Cancel Order</el-button>
-                                </el-form-item>
-                            </td>
-                            <td class="alignTop">
-                                <el-form-item>
-                                    <el-button type="primary" @click="handleSaveEdit()">Save Changes</el-button>
-                                </el-form-item>
-                            </td>
-                        </tr>
-                    </table>
-                </el-form>
-            </el-form>
+        <div style="padding-left: 300px; margin-bottom: 10px">
+          <el-checkbox
+            v-model="sameAsBilling"
+            style="display: inline"
+            @change="handleSameInfo()"
+          >the same as billing info</el-checkbox>
         </div>
-        <product-detail-form ref="productDetailForm"></product-detail-form>
-        <accessory-detail-form ref="accessoryDetailForm" @accessoryAdded="getAccessoryInfo"></accessory-detail-form>
-        <product-detail-form ref="productDetailForm" @productAdded="getProductInfo" @prodAndAccAdded="getProdAndAccInfo"
-                             @prodAndPlanAdded="getProdAndPlanInfo" @allAdded="getAllInfo"></product-detail-form>
-        <service-plan-form ref="servicePlanForm" @planAdded="getServicePlanFee"></service-plan-form>
-    </el-dialog>
+
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="Company Name: ">
+              <el-input v-model="form.billingCompany" style="width: 275px"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="Company Name: ">
+              <el-input
+                v-model="form.shippingCompany"
+                style="width: 275px"
+                :disabled="sameAsBilling"
+              ></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="Contact: ">
+              <el-input v-model="form.billingContact" style="width: 275px"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="Contact: ">
+              <el-input
+                v-model="form.shippingContact"
+                style="width: 275px"
+                :disabled="sameAsBilling"
+              ></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="Phone Number: ">
+              <el-input v-model="form.billingPhone" style="width: 275px"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="Phone Number: ">
+              <el-input v-model="form.shippingPhone" style="width: 275px" :disabled="sameAsBilling"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="Email: ">
+              <el-input v-model="form.billingEmail" style="width: 275px"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="Email: ">
+              <el-input v-model="form.shippingEmail" style="width: 275px" :disabled="sameAsBilling"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="Address: ">
+              <el-input v-model="form.billingAddress" style="width: 275px"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="Address: ">
+              <el-input
+                v-model="form.shippingAddress"
+                style="width: 275px"
+                :disabled="sameAsBilling"
+              ></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+
+        <el-row>
+          <el-col :span="6">
+            <el-form-item label="City: ">
+              <el-input v-model="form.billingCity" style="width: 145px"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item label="Zip/Postal Code: ">
+              <el-input v-model="form.billingZip" style="width: 120px"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item label="City: ">
+              <el-input v-model="form.shippingCity" style="width: 145px" :disabled="sameAsBilling"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item label="Zip/Postal Code: ">
+              <el-input v-model="form.shippingZip" style="width: 120px" :disabled="sameAsBilling"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+
+        <el-row>
+          <el-col :span="6">
+            <el-form-item label="Country: ">
+              <el-input v-model="form.billingCountry" style="width: 133px"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item label="State/Province: ">
+              <el-input v-model="form.billingState" style="width: 132px"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item label="Country: ">
+              <el-input
+                v-model="form.shippingCountry"
+                style="width: 133px"
+                :disabled="sameAsBilling"
+              ></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item label="State/Province: ">
+              <el-input v-model="form.shippingState" style="width: 132px" :disabled="sameAsBilling"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+
+        <el-form-item label="Payment Term">
+          <el-select v-model="form.paymentTerm" placeholder="Select">
+            <el-option
+              v-for="option in paymentOptions"
+              :key="option.value"
+              :label="option.value"
+              :value="option.label"
+            ></el-option>
+          </el-select>
+        </el-form-item>
+
+        <el-form-item label="Order Details" style="font-weight: 900"></el-form-item>
+        <el-table
+          ref="orderDetailTable"
+          :data="tableData"
+          v-loading="loading"
+          border
+          stripe
+          highlight-current-row
+          :height="167"
+          :row-key="row => row.index"
+          style="width: 100%; margin-left: 50px; margin-bottom: 5px"
+        >
+          <el-table-column fixed label="Product" prop="product" width="162"></el-table-column>
+          <el-table-column fixed label="QTY" prop="quantity" width="90"></el-table-column>
+          <el-table-column fixed label="Rate" prop="rate" width="96">
+            <template slot-scope="scope">
+              <span>${{ Number(scope.row.rate).toFixed(2) }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column fixed label="Amount" prop="amount" width="96">
+            <template slot-scope="scope">
+              <span>${{ Number(scope.row.amount).toFixed(2) }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column fixed label="Tax" prop="tax" width="50"></el-table-column>
+          <el-table-column fixed label="Action" width="95">
+            <template slot-scope="scope">
+              <el-button type="text" @click="handleDeleteOrderItem(scope.row, scope.$index)">Delete</el-button>
+            </template>
+          </el-table-column>
+        </el-table>
+
+        <el-row style="margin-top:10px;width:110%">
+          <el-col :span="5" :offset="7">
+            <el-button
+              type="primary"
+              style="display:inline-block;margin-left:38px"
+              @click="handleAddDevice()"
+            >+ Add Device</el-button>
+          </el-col>
+          <el-col :span="6">
+            <el-button
+              type="primary"
+              style="display:inline-block;margin-left:20px"
+              @click="handleAddAccessories()"
+            >+ Add Accessories</el-button>
+          </el-col>
+          <el-col :span="6">
+            <el-button
+              type="primary"
+              style="display:inline-block"
+              @click="handleAddService()"
+            >+ Add Service Plan</el-button>
+          </el-col>
+        </el-row>
+        <el-row style="margin-top:10px">
+          <el-col :span="18">
+            <el-form-item
+              label="Note:"
+              style="display: block; margin-left: 30px; margin-right: 30px"
+              prop="note"
+            >
+              <el-input
+                type="textarea"
+                :rows="2"
+                placeholder="notes"
+                v-model="form.note"
+                style="width: 405px"
+              ></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="5" style="margin-left:24px;margin-top:12px">
+            <el-form-item style="dispaly:inline" label="Tax: " :tax="tax" prop="tax">${{ tax }}</el-form-item>
+            <el-form-item label="Total: " :total="total" prop="total">${{ total }}</el-form-item>
+            <el-form-item class="plus" label="plus shipping fee"></el-form-item>
+          </el-col>
+        </el-row>
+
+        <el-row style="margin-top:10px">
+          <el-col :span="11">
+            <el-form-item label="Status: " style="float: left"></el-form-item>
+            <el-select v-model="form.status" placeholder="select" style="width: 188px">
+              <el-option
+                v-for="option in statusOptions"
+                :key="option.status"
+                :value="option.status"
+                :label="option.label"
+              ></el-option>
+            </el-select>
+          </el-col>
+          <el-col :span="13">
+            <el-form-item label="Shipping Fee: " style="float: left"></el-form-item>
+            <el-input v-model="form.shippingFee" style="width: 188px"></el-input>
+          </el-col>
+        </el-row>
+        <el-row style="margin-top:10px">
+          <el-col :span="11">
+            <el-form-item label="Invoice #: " style="float: left"></el-form-item>
+            <el-input
+              v-model="form.invoiceNo"
+              :placeholder="invoicePlaceholder"
+              style="width: 188px"
+            ></el-input>
+            <el-form-item class="warning" v-if="!validInvoice">invalid invoice number</el-form-item>
+          </el-col>
+          <el-col :span="13">
+            <el-form-item label="Invoice Date: " style="float: left"></el-form-item>
+            <el-date-picker
+              v-model="form.invoiceDate"
+              type="datetime"
+              placeholder="Select date and time"
+              style="width: 188px"
+            ></el-date-picker>
+          </el-col>
+        </el-row>
+        <el-row style="margin-top:10px">
+          <el-col :span="12">
+            <el-form-item label="Shipping Via: " style="float: left"></el-form-item>
+            <el-input v-model="form.shippingVia" style="width: 188px"></el-input>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="Tracking Number: " style="float: left"></el-form-item>
+            <el-input v-model="form.trackingNo" style="width: 188px"></el-input>
+          </el-col>
+        </el-row>
+
+        <el-row style="margin-top:10px;width:110%">
+          <el-col :span="5" :offset="7" :push="2">
+            <el-form-item>
+              <el-button 
+                style="margin-left:18px"
+                type="primary"
+                @click="clearValidate
+                ">Cancel Order</el-button>
+            </el-form-item>
+          </el-col>
+          <el-col :span="4" :push="2">
+            <el-form-item>
+              <el-button
+                type="primary"
+                @click="handleSaveEdit()"
+                v-show="form.orderId != null"
+              >Save Change</el-button>
+            </el-form-item>
+          </el-col>
+          <el-col :span="7" :push="2">
+            <el-form-item>
+              <el-button
+                style="margin-left:10px"
+                type="primary"
+                @click="handleSave"
+                :disabled="validInvoice"
+              >Submit and Create Invoice</el-button>
+            </el-form-item>
+          </el-col>
+        </el-row>
+      </el-form>
+    </div>
+    <create-invoice-form :form="form" v-model="createInvoiceFormVisible"></create-invoice-form>
+    <accessory-detail-form :form="form" v-model="accessoryDetailFormVisible"></accessory-detail-form>
+    <product-detail-form :form="form" v-model="productDetailFormVisible"></product-detail-form>
+    <service-plan-form :form="form" v-model="servicePlanFormVisible"></service-plan-form>
+  </el-dialog>
 </template>
 
 <script>
@@ -316,175 +343,193 @@ import ProductDetailForm from './ProductDetailForm.vue';
 import CreateInvoiceForm from './CreateInvoiceForm.vue';
 import AccessoryDetailForm from './AccessoryDetailForm.vue';
 import ServicePlanForm from './ServicePlanForm.vue';
-import { cancelOrder, deleteOrderItem, editOrder } from '@/api/getData';
+import {
+  addOrder,
+  editOrder,
+  getLastInvoiceNo,
+  validInvoiceNo,
+  getOrgById
+} from '@/api/getData';
+import { mapState } from 'vuex';
 
 export default {
-  name: 'EditOrderForm',
+  // name: 'EditOrderForm',
 
   components: {
-    ServicePlanForm,
     ProductDetailForm,
     CreateInvoiceForm,
-    AccessoryDetailForm
+    AccessoryDetailForm,
+    ServicePlanForm
+  },
+
+  created() {
+    // this.getLastOrder();
+  },
+  mounted: function() {},
+  props: {
+    value: Boolean,
+    form: [Object]
   },
 
   data: function() {
     return {
-      loading: false,
-      isOpen: false,
-
-    /* RESET THESE */
-      sameInfo: false,
-      sameAsBillingBool: 0,
-      itemOffset: this.offset,
-      newData: [],
-      toDelete: [],
-      form: {
-        accName: '',
-        accPrice: '',
-        accQty: '',
-        accTax: '',
-        prodName: '',
-        prodPrice: '',
-        prodQty: '',
-        prodTax: '',
-        planQty: '',
-        planAmt: '',
-        planName: '',
-        prodPicked: '',
-        accPicked: '',
-        planPicked: '',
-      },
-
-    /* DROPDOWN OPTIONS */
-      orderOptions: [{
-        value: 'evaluation',
-        label: 'evaluation',
-      }, {
-        value: 'purchase',
-        label: 'purchase',
-      }, {
-        value: 'RMA',
-        label: 'RMA',
-      }],
-      paymentOptions: [{
-        value: 'Net15',
-        label: 'Net15',
-      }, {
-        value: 'Net30',
-        label: 'Net30',
-      }],
-      statusOptions: [{
-        status: 'delivered',
-        label: 'delivered'
-      }, {
-        status: 'cancelled',
-        label: 'cancelled'
-      }, {
-        status: 'shipped',
-        label: 'shipped'
-      }, {
-        status: 'pending',
-        label: 'pending'
-      }, {
-        status: 'new',
-        label: 'new'
-      }],
-
-    /* FORM RULES */
-      // formRules: {
-      //   type: [
-      //               { required: true, message: 'Order type is required', trigger: 'change' },
+      // orderRules: {
+      //   paymentTerm: [
+      //      { required: true, message: 'Payment term is required', trigger: 'change' },
       //   ],
-      //   billingCompany: [
-      //               { required: true, message: 'Company name is required' },
-      //               { min: 1, message: 'Company name is required'},
+      //   invoiceDate: [
+      //      { required: true, message: 'Invoice date is required' },
+      //   ],
+      // },
+      loading: false,
+      createInvoiceFormVisible: false,
+      accessoryDetailFormVisible: false,
+      servicePlanFormVisible: false,
+      productDetailFormVisible: false,
+      /* RESET THESE */
+      validInvoice: false,
+      sameAsBilling: false,
+      tableData: [],
+      invoicePlaceholder: '',
+
+      /* DROPDOWN OPTIONS */
+      orderOptions: [
+        {
+          label: 'Evaluation',
+          value: 1
+        },
+        {
+          label: 'Purchase',
+          value: 2
+        },
+        {
+          label: 'RMA',
+          value: 3
+        }
+      ],
+      paymentOptions: [
+        {
+          value: 'Net15',
+          label: 'Net15'
+        },
+        {
+          value: 'Net30',
+          label: 'Net30'
+        }
+      ],
+      statusOptions: [
+        {
+          label: 'Delivered',
+          status: 2
+        },
+        {
+          label: 'Cancelled',
+          status: -1
+        },
+        {
+          label: 'Shipped',
+          status: 1
+        },
+        {
+          label: 'Pending',
+          status: 3
+        }
+      ]
+
+      /* FORM RULES */
+      // formRules: {
+      //   orderType: [
+      //           { required: true, message: 'Order type is required', trigger: 'change' },
+      //   ],
+      //   billing: [
+      //           { required: true, message: 'Company name is required' },
+      //           { min: 1, message: 'Company name is required'},
       //     {
       //       pattern: /^[A-Za-z0-9]+$/,
       //       message: 'Invalid characters'
       //     }
       //   ],
-      //   shippingCompany: [
-      //               { required: true, message: 'Company name is required' },
-      //               { min: 1, message: 'Company name is required'},
+      //   companyName: [
+      //           { required: true, message: 'Company name is required' },
+      //           { min: 1, message: 'Company name is required'},
       //     {
       //       pattern: /^[A-Za-z0-9]+$/,
       //       message: 'Invalid characters'
       //     }
       //   ],
       //   billingContact: [
-      //               { required: true, message: 'Contact is required' },
-      //               { min: 1, message: 'Contact is required'},
+      //           { required: true, message: 'Contact is required' },
+      //           { min: 1, message: 'Contact is required'},
       //     {
       //       pattern: /^[A-Za-z0-9]+$/,
       //       message: 'Invalid characters'
       //     }
       //   ],
-      //   shippingContact: [
-      //               { required: true, message: 'Contact is required' },
-      //               { min: 1, message: 'Contact is required'},
+      //   contact: [
+      //           { required: true, message: 'Contact is required' },
+      //           { min: 1, message: 'Contact is required'},
       //     {
       //       pattern: /^[A-Za-z0-9]+$/,
       //       message: 'Invalid characters'
       //     }
       //   ],
-      //   billingNumber: [
-      //               {required: true, message: 'Phone number is required' },
+      //   billingPhone: [
+      //           {required: true, message: 'Phone number is required' },
       //     {
       //       pattern: /^(1?(-?\d{3})-?)?(\d{3})(-?\d{4})$/,
       //       message: 'Invalid phone number'
       //     }
       //   ],
-      //   shippingNumber: [
-      //               {required: true, message: 'Phone number is required' },
+      //   phone: [
+      //           {required: true, message: 'Phone number is required' },
       //     {
       //       pattern: /^(1?(-?\d{3})-?)?(\d{3})(-?\d{4})$/,
       //       message: 'Invalid phone number'
       //     }
       //   ],
       //   billingEmail: [
-      //               { required: true, message: 'Email is required' },
+      //           { required: true, message: 'Email is required' },
       //     {
       //       pattern: /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,
       //       message: 'Invalid email'
       //     }
       //   ],
-      //   shippingEmail: [
-      //               { required: true, message: 'Email is required' },
+      //   email: [
+      //           { required: true, message: 'Email is required' },
       //     {
       //       pattern: /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,
       //       message: 'Invalid email'
       //     }
       //   ],
       //   billingAddress: [
-      //               { required: true, message: 'Billing address is required' },
+      //           { required: true, message: 'Billing address is required' },
       //   ],
       //   shippingAddress: [
-      //               { required: true, message: 'Shipping address is required' },
+      //           { required: true, message: 'Shipping address is required' },
       //   ],
       //   paymentTerm: [
-      //               { required: true, message: 'Payment term is required', trigger: 'change' },
+      //           { required: true, message: 'Payment term is required', trigger: 'change' },
       //   ],
-      //           // note: [
-      //           //     { max: 200, message: 'Maximum character limit: 200' }
-      //           // ],
+      //       // note: [
+      //       //     { max: 200, message: 'Maximum character limit: 200' }
+      //       // ],
       //   status: [
-      //               { required: true, message: 'Status is required', trigger: 'change' },
+      //           { required: true, message: 'Status is required', trigger: 'change' },
       //   ],
-      //   invoiceNo: [
-      //               { required: true, message: 'Invoice number is required' },
+      //   invoiceNumber: [
+      //       { required: true, message: 'Invoice number is required' },
       //   ],
       //   invoiceDate: [
-      //               { required: true, message: 'Invoice date is required' },
+      //       { required: true, message: 'Invoice date is required' },
       //   ],
       //   shippingVia: [
-      //               { required: true, message: 'Shipping type is required' },
+      //       { required: true, message: 'Shipping type is required' },
       //   ],
       //   trackingNumber: [
-      //               { required: true, message: 'Tracking number is required' },
+      //       { required: true, message: 'Tracking number is required' },
       //   ],
       //   shippingFee: [
-      //               { required: true, message: 'Shipping fee is required' },
+      //       { required: true, message: 'Shipping fee is required' },
       //     {
       //       pattern: /^\d+(,\d{3})*(\.\d{1,2})?$/,
       //       message: 'Invalid price'
@@ -494,206 +539,115 @@ export default {
     };
   },
 
-  props: {
-    editForm: {
-      type: Object,
-      default: () =>({
-        orderId: '',
-        type: '',
-        status: '',
-        invoiceNo: '',
-        invoiceDate: '',
-        dueDate: '',
-        trackingNo: '',
-        sales: '',
-        billingCompany: '',
-        billingContact: '',
-        billingAddress: '',
-        billingCity: '',
-        billingState: '',
-        billingCountry: '',
-        billingZip: '',
-        billingEmail: '',
-        billingNumber: '',
-        shippingCompany: '',
-        shippingContact: '',
-        shippingAddress: '',
-        shippingCity: '',
-        shippingState: '',
-        shippingCountry: '',
-        shippingZip: '',
-        shippingNumber: '',
-        shippingEmail: '',
-        paymentTerm: '',
-        shippingVia: '',
-        shippingFee: '',
-        note: '',
-      })
-    },
-    tableData: {
-      type: Array,
-      default: () => [],
-    },
-    sameAsBilling: Boolean,
-    offset: Number,
-    initData: Function,
-  },
-  watch: {
-    sameAsBilling(newValue, oldValue) {
-      this.sameInfo = newValue;
-    },
-  },
-
   methods: {
-    /* AUXILIARY FUNCTIONS */
-    showDialog() {
-      this.isOpen = true;
-    },
-    resetFields() {
-      this.sameInfo = this.sameAsBilling;
-      this.editForm = {};
-      this.sameAsBillingBool = 0;
-      this.itemOffset = this.offset;
-      this.newData = [];
-      this.toDelete = [];
-      this.form = {};
-      this.$refs.form.resetFields();
+    clearValidate() {
+      this.sameAsBilling = false;
+      // this.tableData = [];
+      // this.form = {};
+      this.$refs.form.clearValidate();
     },
 
     /* HANDLER FUNCTIONS */
     handleSameInfo() {
-      if (this.sameInfo) {
-        this.sameAsBillingBool = 1;
-        this.editForm.shippingCompany = this.editForm.billingCompany;
-        this.editForm.shippingContact = this.editForm.billingContact;
-        this.editForm.shippingNumber = this.editForm.billingNumber;
-        this.editForm.shippingEmail = this.editForm.billingEmail;
-        this.editForm.shippingAddress = this.editForm.billingAddress;
-        this.editForm.shippingCity = this.editForm.billingCity;
-        this.editForm.shippingState = this.editForm.billingState;
-        this.editForm.shippingCountry = this.editForm.billingCountry;
-        this.editForm.shippingZip = this.editForm.billingZip;
-      } else {
-        this.sameAsBillingBool = 0;
+      if (this.sameAsBilling) {
+        this.form.shippingCompany = this.form.billingCompany;
+        this.form.shippingContact = this.form.billingContact;
+        this.form.shippingPhone = this.form.billingPhone;
+        this.form.shippingEmail = this.form.billingEmail;
+        this.form.shippingAddress = this.form.billingAddress;
+        this.form.shippingCity = this.form.billingCity;
+        this.form.shippingState = this.form.billingState;
+        this.form.shippingCountry = this.form.billingCountry;
+        this.form.shippingZip = this.form.billingZip;
       }
     },
     handleDeleteOrderItem(row, index) {
-      if (row.itemId) {
-        this.toDelete.push(row.itemId);
-        this.tableData.splice(index, 1);
-      } else {
-        this.tableData.splice(index, 1);
-        const indexToDelete = this.findIndex(row);
-        this.newData.splice(indexToDelete, 1);
-      }
+      this.tableData.splice(index, 1);
     },
-    findIndex(toFind) {
-      const a = this.newData.find(function(value) {
-        return value.product === toFind.product
-            && value.quantity === toFind.quantity
-            && value.rate === toFind.rate
-            && value.amount === toFind.amount
-            && value.tax === toFind.tax
-            && value.description === toFind.description
-            && value.orderId === toFind.orderId
-            && value.invoiceNo === toFind.invoiceNo;
-      });
-      if (a === null) {
-        alert('not found');
-      } else {
-        const b = this.newData.indexOf(a);
-        return b;
-      }
-    },
-    async handleCancel() {
-      await cancelOrder({orderId: this.editForm.orderId}, {});
-      this.initData();
-      this.isOpen = false;
-    },
-    handleSaveEdit() {
+    handleSave() {
+      this.loading = true;
+      this.$refs.form.validate(valid => {
+        if(!valid) {
+          this.loading = false;
+          return;
+        }
       this.getDates();
-      this.toDelete.forEach(function(element) {
-        deleteOrderItem({itemId: element});
+      this.fetchSaveOrder();
+      this.createInvoiceFormVisible = true;
       });
-      editOrder({}, {
-        orderId: this.editForm.orderId,
-        type: this.editForm.type,
-        customer: this.editForm.billingCompany,
-        status: this.editForm.status,
-        invoiceNo: this.editForm.invoiceNo,
-        invoiceDate: this.editForm.invoiceDate,
-        dueDate: this.editForm.dueDate,
-        trackingNo: this.editForm.trackingNo,
-        sales: this.editForm.sales,
-        createTime: 'NULL',
-        modifyTime: 'NULL',
-        orderItems: this.newData,
-        billingCompany: this.editForm.billingCompany,
-        billingContact: this.editForm.billingContact,
-        billingNumber: this.editForm.billingNumber,
-        billingEmail: this.editForm.billingEmail,
-        billingAddress: this.editForm.billingAddress,
-        billingCity: this.editForm.billingCity,
-        billingState: this.editForm.billingState,
-        billingCountry: this.editForm.billingCountry,
-        billingZip: this.editForm.billingZip,
-        shippingCompany: this.editForm.shippingCompany,
-        shippingContact: this.editForm.shippingContact,
-        shippingNumber: this.editForm.shippingNumber,
-        shippingEmail: this.editForm.shippingEmail,
-        shippingAddress: this.editForm.shippingAddress,
-        shippingCity: this.editForm.shippingCity,
-        shippingState: this.editForm.shippingState,
-        shippingCountry: this.editForm.shippingCountry,
-        shippingZip: this.editForm.shippingZip,
-        note: this.editForm.note,
-        shippingVia: this.editForm.shippingVia,
-        shippingFee: this.editForm.shippingFee,
-        sameAsBilling: this.sameAsBillingBool,
-        paymentTerm: this.editForm.paymentTerm,
+    },
+    async fetchSaveOrder() {
+      const param = Object.assign({}, this.form, {
+        orderItems: this.tableData
       });
-      this.initData();
-      this.tableData = [];
-      this.newData = [];
-      this.itemOffset = this.offset;
-      this.isOpen = false;
+      const result = this.form.orderId ? await editOrder({},param) : await addOrder({},param);
+    },
+
+    async checkForOrder() {
+      this.validInvoice = await validInvoiceNo({
+        invoiceNo: this.form.invoiceNumber
+      });
     },
 
     /* HANDLERS FOR SHOWING PRODUCT FORMS */
     handleAddDevice() {
-      this.$refs.productDetailForm.showDialog();
+      // this.$refs.productDetailForm.showDialog();
+      // this.createInvoiceFormVisible = true;
+      this.form = {};
+      this.form.activeName = '1';
+      this.productDetailFormVisible = true;
     },
     handleAddAccessories() {
-      this.$refs.accessoryDetailForm.showDialog();
+      // this.$refs.accessoryDetailForm.showDialog();
+      this.accessoryDetailFormVisible = true;
     },
     handleAddService() {
-      this.$refs.servicePlanForm.showDialog();
+      // this.$refs.servicePlanForm.showDialog();
+      this.servicePlanFormVisible = true;
     },
 
     /* FORMAT INVOICE AND DUE DATES */
     getDates() {
-      if (this.editForm.paymentTerm === null || this.editForm.invoiceDate === null) {
-        this.editForm.dueDate = null;
+      if (
+        this.form.invoiceDate === null ||
+        this.form.paymentTerm === null ||
+        this.form.invoiceDate === '' ||
+        this.form.paymentTerm === '' ||
+        typeof this.form.invoiceDate === 'undefined' ||
+        typeof this.form.paymentTerm === 'undefined'
+      ) {
+        this.form.dueDate = null;
         return;
       }
-      let invoice = new Date(this.editForm.invoiceDate);
-      let due = new Date(this.editForm.invoiceDate);
-      if (this.editForm.paymentTerm === 'Net15') {
-        due.setDate(invoice.getDate()+15);
+      let invoice = new Date(this.form.invoiceDate);
+      let due = new Date(this.form.invoiceDate);
+
+      if (this.form.paymentTerm === 'Net15') {
+        due.setDate(this.form.invoiceDate.getDate() + 15);
       } else {
-        due.setDate(invoice.getDate()+30);
+        due.setDate(this.form.invoiceDate.getDate() + 30);
       }
 
-      this.editForm.invoiceDate = invoice.getFullYear()
-          + '-' + (invoice.getMonth()+1)
-          + '-' + invoice.getDate()
-          + ' ' + invoice.getHours()
-          + ':' + invoice.getMinutes();
-      this.editForm.dueDate = due.getFullYear()
-          + '-' + (due.getMonth()+1)
-          + '-' + due.getDate()
-          + ' ' + due.getHours()
-          + ':' + due.getMinutes();
+      this.form.invoiceDate =
+        invoice.getFullYear() +
+        '-' +
+        (invoice.getMonth() + 1) +
+        '-' +
+        invoice.getDate() +
+        ' ' +
+        invoice.getHours() +
+        ':' +
+        invoice.getMinutes();
+      this.form.dueDate =
+        due.getFullYear() +
+        '-' +
+        (due.getMonth() + 1) +
+        '-' +
+        due.getDate() +
+        ' ' +
+        due.getHours() +
+        ':' +
+        due.getMinutes();
     },
 
     /* GET ACCESSORIES, PRODUCTS, AND SERVICE PLANS FOR TABLE */
@@ -702,50 +656,50 @@ export default {
       this.form.accPrice = p;
       this.form.accQty = q;
       this.form.accTax = r;
-      const data = {orderId: '',
+      const data = {
+        orderId: '',
         product: this.form.accName,
         quantity: this.form.accQty,
         rate: this.form.accPrice,
         amount: Number(this.form.accPrice) * Number(this.form.accQty),
         tax: this.form.accTax,
         description: this.form.accQty + ' * ' + this.form.accName,
-        invoiceNo: this.editForm.invoiceNo
+        invoiceNo: this.form.invoiceNumber
       };
       this.tableData.push(data);
-      this.newData.push(data);
     },
     getProductInfo(n, p, q, r) {
       this.form.prodName = n;
       this.form.prodPrice = p;
       this.form.prodQty = q;
       this.form.prodTax = r;
-      const data = {orderId: '',
+      const data = {
+        orderId: '',
         product: this.form.prodName,
         quantity: this.form.prodQty,
         rate: this.form.prodPrice,
         amount: Number(this.form.prodPrice) * Number(this.form.prodQty),
         tax: this.form.prodTax,
         description: this.form.prodQty + ' * ' + this.form.prodName,
-        invoiceNo: this.editForm.invoiceNo
+        invoiceNo: this.form.invoiceNumber
       };
       this.tableData.push(data);
-      this.newData.push(data);
     },
     getServicePlanFee(q, a, n) {
       this.form.planQty = q;
       this.form.planAmt = a;
       this.form.planName = n;
-      const data = {orderId: '',
+      const data = {
+        orderId: '',
         product: this.form.planName,
         quantity: this.form.planQty,
         rate: this.form.planAmt,
         amount: Number(this.form.planAmt) * Number(this.form.planQty),
         tax: 'N',
         description: this.form.planQty + ' * ' + this.form.planName,
-        invoiceNo: this.editForm.invoiceNo
+        invoiceNo: this.form.invoiceNumber
       };
       this.tableData.push(data);
-      this.newData.push(data);
     },
     getProdAndAccInfo(pn, pp, pq, pt, an, ap, aq, at) {
       this.form.prodName = pn;
@@ -756,28 +710,28 @@ export default {
       this.form.accPrice = ap;
       this.form.accQty = aq;
       this.form.accTax = at;
-      const data = {orderId: '',
+      const data = {
+        orderId: '',
         product: this.form.prodName,
         quantity: this.form.prodQty,
         rate: this.form.prodPrice,
         amount: Number(this.form.prodPrice) * Number(this.form.prodQty),
         tax: this.form.prodTax,
         description: this.form.prodQty + ' * ' + this.form.prodName,
-        invoiceNo: this.editForm.invoiceNo
+        invoiceNo: this.form.invoiceNumber
       };
       this.tableData.push(data);
-      this.newData.push(data);
-      const data2 = {orderId: '',
+      const data2 = {
+        orderId: '',
         product: this.form.accName,
         quantity: this.form.accQty,
         rate: this.form.accPrice,
         amount: Number(this.form.accPrice) * Number(this.form.accQty),
         tax: this.form.accTax,
         description: this.form.accQty + ' * ' + this.form.accName,
-        invoiceNo: this.editForm.invoiceNo
+        invoiceNo: this.form.invoiceNumber
       };
       this.tableData.push(data2);
-      this.newData.push(data2);
     },
     getProdAndPlanInfo(pn, pp, pq, pt, sq, sa, sn) {
       this.form.prodName = pn;
@@ -787,28 +741,28 @@ export default {
       this.form.planQty = sq;
       this.form.planAmt = sa;
       this.form.planName = sn;
-      const data = {orderId: '',
+      const data = {
+        orderId: '',
         product: this.form.prodName,
         quantity: this.form.prodQty,
         rate: this.form.prodPrice,
         amount: Number(this.form.prodPrice) * Number(this.form.prodQty),
         tax: this.form.prodTax,
         description: this.form.prodQty + ' * ' + this.form.prodName,
-        invoiceNo: this.editForm.invoiceNo
+        invoiceNo: this.form.invoiceNumber
       };
       this.tableData.push(data);
-      this.newData.push(data);
-      const data2 = {orderId: '',
+      const data2 = {
+        orderId: '',
         product: this.form.planName,
         quantity: this.form.planQty,
         rate: this.form.planAmt,
         amount: Number(this.form.planAmt) * Number(this.form.planQty),
         tax: 'N',
         description: this.form.planQty + ' * ' + this.form.planName,
-        invoiceNo: this.editForm.invoiceNo
+        invoiceNo: this.form.invoiceNumber
       };
       this.tableData.push(data2);
-      this.newData.push(data2);
     },
     getAllInfo(pn, pp, pq, pt, an, ap, aq, at, sq, sa, sn) {
       this.form.prodName = pn;
@@ -822,40 +776,50 @@ export default {
       this.form.planQty = sq;
       this.form.planAmt = sa;
       this.form.planName = sn;
-      const data = {orderId: '',
+      const data = {
+        orderId: '',
         product: this.form.prodName,
         quantity: this.form.prodQty,
         rate: this.form.prodPrice,
         amount: Number(this.form.prodPrice) * Number(this.form.prodQty),
         tax: this.form.prodTax,
         description: this.form.prodQty + ' * ' + this.form.prodName,
-        invoiceNo: this.editForm.invoiceNo
+        invoiceNo: this.form.invoiceNumber
       };
       this.tableData.push(data);
-      this.newData.push(data);
-      const data2 = {orderId: '',
+      const data2 = {
+        orderId: '',
         product: this.form.accName,
         quantity: this.form.accQty,
         rate: this.form.accPrice,
         amount: Number(this.form.accPrice) * Number(this.form.accQty),
         tax: this.form.accTax,
         description: this.form.accQty + ' * ' + this.form.accName,
-        invoiceNo: this.editForm.invoiceNo
+        invoiceNo: this.form.invoiceNumber
       };
       this.tableData.push(data2);
-      this.newData.push(data2);
-      const data3 = {orderId: '',
+      const data3 = {
+        orderId: '',
         product: this.form.planName,
         quantity: this.form.planQty,
         rate: this.form.planAmt,
         amount: Number(this.form.planAmt) * Number(this.form.planQty),
         tax: 'N',
         description: this.form.planQty + ' * ' + this.form.planName,
-        invoiceNo: this.editForm.invoiceNo
+        invoiceNo: this.form.invoiceNumber
       };
       this.tableData.push(data3);
-      this.newData.push(data3);
-    },
+    }
+  },
+
+  clearValidate() {
+    this.visible = false;
+    this.$refs.form.clearValidate();
+  },
+  watch: {
+    'form.invoiceNumber': function() {
+      this.checkForOrder();
+    }
   },
 
   computed: {
@@ -864,14 +828,14 @@ export default {
       let et;
       const copy = this.tableData.slice();
       copy.forEach(function(item, index) {
-        if ((item.tax === 'Y')) {
-          et = Number(item.amount) * .0775;
+        if (item.tax === 'Y') {
+          et = Number(item.amount) * 0.0775;
         } else {
           et = 0;
         }
         t += et;
       });
-      return (Math.floor(t * 100) / 100);
+      return Math.floor(t * 100) / 100;
     },
     total: function() {
       let t = 0;
@@ -880,19 +844,49 @@ export default {
         t += item.amount;
       });
       const tot = t + this.tax;
-      return (Math.floor(tot * 100) / 100);
-    }
-  },
+      return Math.floor(tot * 100) / 100;
+    },
+    ...mapState([
+      'loginInfo',
+      'modelList',
+      'currentOrgId',
+      'lang',
+      'locale',
+      'currentOrg'
+    ]),
 
+    visible: {
+      get() {
+        return this.value;
+      },
+      set(val) {
+        this.$emit('input', val);
+      }
+    }
+  }
 };
 </script>
 
 <style scoped>
-    table.test {
-        line-height: 40px;
-    }
 
-    td.alignTop {
-        vertical-align: top;
-    }
+table.test {
+  line-height: 40px;
+}
+
+.el-form-item.plus{
+  margin-top:-18px;
+}
+
+td.alignTop {
+  vertical-align: top;
+}
+
+.warning {
+  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
+    "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  font-size: 9pt;
+  color: #f56c6c;
+  position: absolute;
+  padding-left: 5px;
+}
 </style>
