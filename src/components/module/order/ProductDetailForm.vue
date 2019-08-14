@@ -196,25 +196,24 @@
                   </el-form-item>
                 </el-form>
                 <el-row>
-                  <el-col :span="8">
+                  <el-col :span="9">
                     <el-button
                       type="primary"
                       @click="handleAccessories"
                     >+ Add Accessories</el-button>
                     </el-col>
-                  <el-col :span="8" :offset="5">
+                  <el-col :span="9" :offset="3" :push="3">
                     <el-button
+                      style="margin-left:-14px;"
                       type="primary"
-                      style="margin-left:50px"
                       @click="handlePlan"
                     >+ Add Service Plan</el-button>
                   </el-col>
                 </el-row>
                 <el-row>
-                  <el-col :offset="1">
+                  <el-col style="margin-top:10px">
                     <el-button
                       type="primary"
-                      style="margin-top: 10px"
                       @click="handleAddClick"
                     >Add</el-button>
                   </el-col>

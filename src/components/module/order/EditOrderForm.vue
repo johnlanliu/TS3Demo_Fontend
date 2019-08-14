@@ -5,7 +5,7 @@
     top="15vh"
     :visible.sync="visible"
     @close="clearValidate"
-    width="50%"
+    width="790px"
   >
     <div class="form-box">
       <el-form ref="form" :model="form" size="mini" style="margin: 0; padding-left: 10px">
@@ -20,7 +20,7 @@
           </el-select>
         </el-form-item>
 
-        <el-row>
+        <el-row style="width:590px">
           <el-col :span="12">
             <el-form-item label="BILLING INFO" style="font-weight: bold"></el-form-item>
           </el-col>
@@ -185,20 +185,20 @@
           :row-key="row => row.index"
           style="width: 100%; margin-left: 50px; margin-bottom: 5px"
         >
-          <el-table-column label="Product" prop="product" width="162"></el-table-column>
-          <el-table-column label="QTY" prop="quantity" width="90"></el-table-column>
-          <el-table-column label="Rate" prop="rate" width="96">
+          <el-table-column fixed label="Product" prop="product" width="162"></el-table-column>
+          <el-table-column fixed label="QTY" prop="quantity" width="90"></el-table-column>
+          <el-table-column fixed label="Rate" prop="rate" width="96">
             <template slot-scope="scope">
               <span>${{ Number(scope.row.rate).toFixed(2) }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="Amount" prop="amount" width="96">
+          <el-table-column fixed label="Amount" prop="amount" width="96">
             <template slot-scope="scope">
               <span>${{ Number(scope.row.amount).toFixed(2) }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="Tax" prop="tax" width="50"></el-table-column>
-          <el-table-column label="Action" width="95">
+          <el-table-column fixed label="Tax" prop="tax" width="50"></el-table-column>
+          <el-table-column fixed label="Action" width="95">
             <template slot-scope="scope">
               <el-button type="text" @click="handleDeleteOrderItem(scope.row, scope.$index)">Delete</el-button>
             </template>
@@ -245,11 +245,9 @@
             </el-form-item>
           </el-col>
           <el-col :span="5" style="margin-left:24px;margin-top:12px">
-            <el-form-item label="Tax: " prop="tax">${{ tax }}</el-form-item>
-            <el-form-item label="Total: " prop="total">
-              ${{ total }}
-              <p>plus shipping fee</p>
-            </el-form-item>
+            <el-form-item style="dispaly:inline" label="Tax: " :tax="tax" prop="tax">${{ tax }}</el-form-item>
+            <el-form-item label="Total: " :total="total" prop="total">${{ total }}</el-form-item>
+            <el-form-item class="plus" label="plus shipping fee"></el-form-item>
           </el-col>
         </el-row>
 
@@ -302,12 +300,16 @@
         </el-row>
 
         <el-row style="margin-top:10px;width:110%">
-          <el-col :span="4" :offset="9">
+          <el-col :span="5" :offset="7" :push="2">
             <el-form-item>
-              <el-button type="primary" @click="clearValidate">Cancel Order</el-button>
+              <el-button 
+                style="margin-left:18px"
+                type="primary"
+                @click="clearValidate
+                ">Cancel Order</el-button>
             </el-form-item>
           </el-col>
-          <el-col :span="4">
+          <el-col :span="4" :push="2">
             <el-form-item>
               <el-button
                 type="primary"
@@ -316,12 +318,13 @@
               >Save Change</el-button>
             </el-form-item>
           </el-col>
-          <el-col :span="7">
+          <el-col :span="7" :push="2">
             <el-form-item>
               <el-button
+                style="margin-left:10px"
                 type="primary"
                 @click="handleCreateInvoice"
-                :disabled="!validInvoice"
+                :disabled="validInvoice"
               >Submit and Create Invoice</el-button>
             </el-form-item>
           </el-col>
@@ -929,6 +932,11 @@ export default {
 table.test {
   line-height: 40px;
 }
+
+.el-form-item.plus{
+  margin-top:-18px;
+}
+
 
 td.alignTop {
   vertical-align: top;

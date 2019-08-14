@@ -222,9 +222,14 @@
                       ></el-option>
                     </el-select>
                   </el-form-item>
-                  <el-form-item label="Total :">
-                    <p>${{ total }}</p>
-                  </el-form-item>
+                  <el-row>
+                    <el-col :span="3">
+                      <el-form-item label="Total :"></el-form-item>
+                    </el-col>
+                    <el-col :span="4" :offset="17">
+                      <el-form-item :total="total">${{ total }} </el-form-item>
+                    </el-col>
+                  </el-row>
                 </el-form>
                 <el-row>
                   <el-button type="primary" style="float: right" @click="handleAddClick()">Add</el-button>

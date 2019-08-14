@@ -1,5 +1,6 @@
 <template>
   <el-dialog
+    width="701px"
     :title="'Order Review'"
     :center="true"
     top="15vh"
