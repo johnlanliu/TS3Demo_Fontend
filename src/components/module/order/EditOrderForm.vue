@@ -181,7 +181,7 @@
           border
           stripe
           highlight-current-row
-          :height="167"
+          height="167"
           :row-key="row => row.index"
           style="width: 100%; margin-left: 50px; margin-bottom: 5px"
         >
@@ -245,7 +245,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="5" style="margin-left:24px;margin-top:12px">
-            <el-form-item style="dispaly:inline" label="Tax: " :tax="tax" prop="tax">${{ tax }}</el-form-item>
+            <el-form-item style="dispaly:inline" label="Tax: " :tax="tax">${{ tax }}</el-form-item>
             <el-form-item label="Total: " :total="total" prop="total">${{ total }}</el-form-item>
             <el-form-item class="plus" label="plus shipping fee"></el-form-item>
           </el-col>
@@ -305,8 +305,8 @@
               <el-button 
                 style="margin-left:18px"
                 type="primary"
-                @click="clearValidate
-                ">Cancel Order</el-button>
+                @click="clearValidate"
+                >Cancel Order</el-button>
             </el-form-item>
           </el-col>
           <el-col :span="4" :push="2">
@@ -314,7 +314,7 @@
               <el-button
                 type="primary"
                 @click="handleSaveEdit()"
-                v-show="form.orderId != null"
+                v-if="isEdit"
               >Save Change</el-button>
             </el-form-item>
           </el-col>
@@ -332,9 +332,9 @@
       </el-form>
     </div>
     <create-invoice-form :form="form" v-model="createInvoiceFormVisible"></create-invoice-form>
-    <accessory-detail-form :form="form" v-model="accessoryDetailFormVisible"></accessory-detail-form>
-    <product-detail-form :form="form" v-model="productDetailFormVisible"></product-detail-form>
-    <service-plan-form :form="form" v-model="servicePlanFormVisible"></service-plan-form>
+    <accessory-detail-form :form="form" v-model="accessoryDetailFormVisible" @accessoryAdded="HandleAccessoryAdded"></accessory-detail-form>
+    <product-detail-form :form="form" v-model="productDetailFormVisible" @productAdded="handleProductAdded"></product-detail-form>
+    <service-plan-form :form="form" v-model="servicePlanFormVisible" @planAdded="handlePlanAdded"></service-plan-form>
   </el-dialog>
 </template>
 
@@ -363,12 +363,13 @@ export default {
   },
 
   created() {
-    // this.getLastOrder();
   },
   mounted: function() {},
   props: {
     value: Boolean,
-    form: [Object]
+    form: [Object],
+    isEdit: Boolean,
+    orderItemTable: Array,
   },
 
   data: function() {
@@ -391,7 +392,6 @@ export default {
       sameAsBilling: false,
       tableData: [],
       invoicePlaceholder: '',
-
       /* DROPDOWN OPTIONS */
       orderOptions: [
         {
@@ -547,7 +547,11 @@ export default {
     //   this.validInvoice = true;
     //   this.visible = true;
     // },
+    handleSaveEdit() {
+    },
+
     clearValidate() {
+      this.visible = false;
       this.sameAsBilling = false;
       // this.tableData = [];
       // this.form = {};
@@ -574,7 +578,7 @@ export default {
       this.tableData.splice(index, 1);
     },
     async handleCreateInvoice() {
-      this.getDates();
+      // this.getDates();
       this.handleAddOrder();
       // this.formCopy = JSON.parse(JSON.stringify(this.org));
       // this.formCopy.shippingCompany = this.formCopy.orgName;
@@ -590,48 +594,18 @@ export default {
       this.createInvoiceFormVisible = true;
     },
     handleAddOrder() {
+      this.loading = true;
       this.handleSameInfo();
       const param = Object.assign({}, this.form, this.customerServiceForm, {
         orderItems: this.tableData
       });
-      addOrder(
-        {},
-        {
-          type: this.org.orderType,
-          customer: this.org.orgName,
-          status: this.customerServiceForm.status,
-          invoiceNo: this.customerServiceForm.invoiceNumber,
-          invoiceDate: this.customerServiceForm.invoiceDate,
-          dueDate: this.customerServiceForm.dueDate,
-          trackingNo: this.customerServiceForm.trackingNumber,
-
-          createTime: 'NULL',
-          modifyTime: 'NULL',
-          orderItems: this.tableData,
-          billingCompany: this.org.orgName,
-          billingContact: this.org.contacts,
-          billingNumber: this.org.phone,
-          billingEmail: this.org.email,
-          billingAddress: this.org.streetAddress,
-          billingCity: this.org.city,
-          billingState: this.org.state,
-          billingCountry: this.org.country,
-          billingZip: this.org.zip,
-          shippingCompany: this.org.shippingCompany,
-          shippingContact: this.org.shippingContact,
-          shippingNumber: this.org.shippingPhone,
-          shippingEmail: this.org.shippingEmail,
-          shippingAddress: this.org.shippingAddress,
-          shippingCity: this.org.shippingCity,
-          shippingState: this.org.shippingState,
-          shippingCountry: this.org.shippingCountry,
-          shippingZip: this.org.shippingZip,
-          note: this.org.note,
-          shippingVia: this.customerServiceForm.shippingVia,
-          shippingFee: this.customerServiceForm.shippingFee,
-          paymentTerm: this.org.paymentTerm
+      this.loading = false;
+      const res = addOrder({},param).then(res => {
+        if(res && !res.errorCode) {
+          this.visible = false;
+          this.$message.success('Submit Success!');
         }
-      );
+      });
     },
     // async getLastOrder() {
     //   this.invoicePlaceholder = (await getLastInvoiceNo()) + 1;
@@ -668,218 +642,242 @@ export default {
     },
 
     /* FORMAT INVOICE AND DUE DATES */
-    getDates() {
-      if (
-        this.customerServiceForm.invoiceDate === null ||
-        this.org.paymentTerm === null ||
-        this.customerServiceForm.invoiceDate === '' ||
-        this.org.paymentTerm === '' ||
-        typeof this.customerServiceForm.invoiceDate === 'undefined' ||
-        typeof this.org.paymentTerm === 'undefined'
-      ) {
-        this.customerServiceForm.dueDate = null;
-        return;
-      }
-      let invoice = new Date(this.customerServiceForm.invoiceDate);
-      let due = new Date(this.customerServiceForm.invoiceDate);
+    // getDates() {
+    //   if (
+    //     this.customerServiceForm.invoiceDate === null ||
+    //     this.org.paymentTerm === null ||
+    //     this.customerServiceForm.invoiceDate === '' ||
+    //     this.org.paymentTerm === '' ||
+    //     typeof this.customerServiceForm.invoiceDate === 'undefined' ||
+    //     typeof this.org.paymentTerm === 'undefined'
+    //   ) {
+    //     this.customerServiceForm.dueDate = null;
+    //     return;
+    //   }
+    //   let invoice = new Date(this.customerServiceForm.invoiceDate);
+    //   let due = new Date(this.customerServiceForm.invoiceDate);
 
-      if (this.org.paymentTerm === 'Net15') {
-        due.setDate(this.customerServiceForm.invoiceDate.getDate() + 15);
-      } else {
-        due.setDate(this.customerServiceForm.invoiceDate.getDate() + 30);
-      }
+    //   if (this.org.paymentTerm === 'Net15') {
+    //     due.setDate(this.customerServiceForm.invoiceDate.getDate() + 15);
+    //   } else {
+    //     due.setDate(this.customerServiceForm.invoiceDate.getDate() + 30);
+    //   }
 
-      this.customerServiceForm.invoiceDate =
-        invoice.getFullYear() +
-        '-' +
-        (invoice.getMonth() + 1) +
-        '-' +
-        invoice.getDate() +
-        ' ' +
-        invoice.getHours() +
-        ':' +
-        invoice.getMinutes();
-      this.customerServiceForm.dueDate =
-        due.getFullYear() +
-        '-' +
-        (due.getMonth() + 1) +
-        '-' +
-        due.getDate() +
-        ' ' +
-        due.getHours() +
-        ':' +
-        due.getMinutes();
-    },
+    //   this.customerServiceForm.invoiceDate =
+    //     invoice.getFullYear() +
+    //     '-' +
+    //     (invoice.getMonth() + 1) +
+    //     '-' +
+    //     invoice.getDate() +
+    //     ' ' +
+    //     invoice.getHours() +
+    //     ':' +
+    //     invoice.getMinutes();
+    //   this.customerServiceForm.dueDate =
+    //     due.getFullYear() +
+    //     '-' +
+    //     (due.getMonth() + 1) +
+    //     '-' +
+    //     due.getDate() +
+    //     ' ' +
+    //     due.getHours() +
+    //     ':' +
+    //     due.getMinutes();
+    // },
 
     /* GET ACCESSORIES, PRODUCTS, AND SERVICE PLANS FOR TABLE */
-    getAccessoryInfo(n, p, q, r) {
-      this.org.accName = n;
-      this.org.accPrice = p;
-      this.org.accQty = q;
-      this.org.accTax = r;
-      const data = {
-        orderId: '',
-        product: this.org.accName,
-        quantity: this.org.accQty,
-        rate: this.org.accPrice,
-        amount: Number(this.org.accPrice) * Number(this.org.accQty),
-        tax: this.org.accTax,
-        description: this.org.accQty + ' * ' + this.org.accName,
-        invoiceNo: this.customerServiceForm.invoiceNumber
-      };
-      this.tableData.push(data);
+    // getAccessoryInfo(n, p, q, r) {
+    //   this.org.accName = n;
+    //   this.org.accPrice = p;
+    //   this.org.accQty = q;
+    //   this.org.accTax = r;
+    //   const data = {
+    //     orderId: '',
+    //     product: this.org.accName,
+    //     quantity: this.org.accQty,
+    //     rate: this.org.accPrice,
+    //     amount: Number(this.org.accPrice) * Number(this.org.accQty),
+    //     tax: this.org.accTax,
+    //     description: this.org.accQty + ' * ' + this.org.accName,
+    //     invoiceNo: this.customerServiceForm.invoiceNumber
+    //   };
+    //   this.tableData.push(data);
+    // },
+    // getProductInfo(n, p, q, r) {
+    //   this.org.prodName = n;
+    //   this.org.prodPrice = p;
+    //   this.org.prodQty = q;
+    //   this.org.prodTax = r;
+    //   const data = {
+    //     orderId: '',
+    //     product: this.org.prodName,
+    //     quantity: this.org.prodQty,
+    //     rate: this.org.prodPrice,
+    //     amount: Number(this.org.prodPrice) * Number(this.org.prodQty),
+    //     tax: this.org.prodTax,
+    //     description: this.org.prodQty + ' * ' + this.org.prodName,
+    //     invoiceNo: this.customerServiceForm.invoiceNumber
+    //   };
+    //   this.tableData.push(data);
+    // },
+    // getServicePlanFee(q, a, n) {
+    //   this.org.planQty = q;
+    //   this.org.planAmt = a;
+    //   this.org.planName = n;
+    //   const data = {
+    //     orderId: '',
+    //     product: this.org.planName,
+    //     quantity: this.org.planQty,
+    //     rate: this.org.planAmt,
+    //     amount: Number(this.org.planAmt) * Number(this.org.planQty),
+    //     tax: 'N',
+    //     description: this.org.planQty + ' * ' + this.org.planName,
+    //     invoiceNo: this.customerServiceForm.invoiceNumber
+    //   };
+    //   this.tableData.push(data);
+    // },
+    // getProdAndAccInfo(pn, pp, pq, pt, an, ap, aq, at) {
+    //   this.org.prodName = pn;
+    //   this.org.prodPrice = pp;
+    //   this.org.prodQty = pq;
+    //   this.org.prodTax = pt;
+    //   this.org.accName = an;
+    //   this.org.accPrice = ap;
+    //   this.org.accQty = aq;
+    //   this.org.accTax = at;
+    //   const data = {
+    //     orderId: '',
+    //     product: this.org.prodName,
+    //     quantity: this.org.prodQty,
+    //     rate: this.org.prodPrice,
+    //     amount: Number(this.org.prodPrice) * Number(this.org.prodQty),
+    //     tax: this.org.prodTax,
+    //     description: this.org.prodQty + ' * ' + this.org.prodName,
+    //     invoiceNo: this.customerServiceForm.invoiceNumber
+    //   };
+    //   this.tableData.push(data);
+    //   const data2 = {
+    //     orderId: '',
+    //     product: this.org.accName,
+    //     quantity: this.org.accQty,
+    //     rate: this.org.accPrice,
+    //     amount: Number(this.org.accPrice) * Number(this.org.accQty),
+    //     tax: this.org.accTax,
+    //     description: this.org.accQty + ' * ' + this.org.accName,
+    //     invoiceNo: this.customerServiceForm.invoiceNumber
+    //   };
+    //   this.tableData.push(data2);
+    // },
+    // getProdAndPlanInfo(pn, pp, pq, pt, sq, sa, sn) {
+    //   this.org.prodName = pn;
+    //   this.org.prodPrice = pp;
+    //   this.org.prodQty = pq;
+    //   this.org.prodTax = pt;
+    //   this.org.planQty = sq;
+    //   this.org.planAmt = sa;
+    //   this.org.planName = sn;
+    //   const data = {
+    //     orderId: '',
+    //     product: this.org.prodName,
+    //     quantity: this.org.prodQty,
+    //     rate: this.org.prodPrice,
+    //     amount: Number(this.org.prodPrice) * Number(this.org.prodQty),
+    //     tax: this.org.prodTax,
+    //     description: this.org.prodQty + ' * ' + this.org.prodName,
+    //     invoiceNo: this.customerServiceForm.invoiceNumber
+    //   };
+    //   this.tableData.push(data);
+    //   const data2 = {
+    //     orderId: '',
+    //     product: this.org.planName,
+    //     quantity: this.org.planQty,
+    //     rate: this.org.planAmt,
+    //     amount: Number(this.org.planAmt) * Number(this.org.planQty),
+    //     tax: 'N',
+    //     description: this.org.planQty + ' * ' + this.org.planName,
+    //     invoiceNo: this.customerServiceForm.invoiceNumber
+    //   };
+    //   this.tableData.push(data2);
+    // },
+    // getAllInfo(pn, pp, pq, pt, an, ap, aq, at, sq, sa, sn) {
+    //   this.org.prodName = pn;
+    //   this.org.prodPrice = pp;
+    //   this.org.prodQty = pq;
+    //   this.org.prodTax = pt;
+    //   this.org.accName = an;
+    //   this.org.accPrice = ap;
+    //   this.org.accQty = aq;
+    //   this.org.accTax = at;
+    //   this.org.planQty = sq;
+    //   this.org.planAmt = sa;
+    //   this.org.planName = sn;
+    //   const data = {
+    //     orderId: '',
+    //     product: this.org.prodName,
+    //     quantity: this.org.prodQty,
+    //     rate: this.org.prodPrice,
+    //     amount: Number(this.org.prodPrice) * Number(this.org.prodQty),
+    //     tax: this.org.prodTax,
+    //     description: this.org.prodQty + ' * ' + this.org.prodName,
+    //     invoiceNo: this.customerServiceForm.invoiceNumber
+    //   };
+    //   this.tableData.push(data);
+    //   const data2 = {
+    //     orderId: '',
+    //     product: this.org.accName,
+    //     quantity: this.org.accQty,
+    //     rate: this.org.accPrice,
+    //     amount: Number(this.org.accPrice) * Number(this.org.accQty),
+    //     tax: this.org.accTax,
+    //     description: this.org.accQty + ' * ' + this.org.accName,
+    //     invoiceNo: this.customerServiceForm.invoiceNumber
+    //   };
+    //   this.tableData.push(data2);
+    //   const data3 = {
+    //     orderId: '',
+    //     product: this.org.planName,
+    //     quantity: this.org.planQty,
+    //     rate: this.org.planAmt,
+    //     amount: Number(this.org.planAmt) * Number(this.org.planQty),
+    //     tax: 'N',
+    //     description: this.org.planQty + ' * ' + this.org.planName,
+    //     invoiceNo: this.customerServiceForm.invoiceNumber
+    //   };
+    //   this.tableData.push(data3);
+    // },
+
+    // Accessory
+    HandleAccessoryAdded(value) {
+      this.tableData.push(value);
     },
-    getProductInfo(n, p, q, r) {
-      this.org.prodName = n;
-      this.org.prodPrice = p;
-      this.org.prodQty = q;
-      this.org.prodTax = r;
-      const data = {
-        orderId: '',
-        product: this.org.prodName,
-        quantity: this.org.prodQty,
-        rate: this.org.prodPrice,
-        amount: Number(this.org.prodPrice) * Number(this.org.prodQty),
-        tax: this.org.prodTax,
-        description: this.org.prodQty + ' * ' + this.org.prodName,
-        invoiceNo: this.customerServiceForm.invoiceNumber
-      };
-      this.tableData.push(data);
+
+    handlePlanAdded(value) {
+      this.tableData.push(value);
     },
-    getServicePlanFee(q, a, n) {
-      this.org.planQty = q;
-      this.org.planAmt = a;
-      this.org.planName = n;
-      const data = {
-        orderId: '',
-        product: this.org.planName,
-        quantity: this.org.planQty,
-        rate: this.org.planAmt,
-        amount: Number(this.org.planAmt) * Number(this.org.planQty),
-        tax: 'N',
-        description: this.org.planQty + ' * ' + this.org.planName,
-        invoiceNo: this.customerServiceForm.invoiceNumber
-      };
-      this.tableData.push(data);
-    },
-    getProdAndAccInfo(pn, pp, pq, pt, an, ap, aq, at) {
-      this.org.prodName = pn;
-      this.org.prodPrice = pp;
-      this.org.prodQty = pq;
-      this.org.prodTax = pt;
-      this.org.accName = an;
-      this.org.accPrice = ap;
-      this.org.accQty = aq;
-      this.org.accTax = at;
-      const data = {
-        orderId: '',
-        product: this.org.prodName,
-        quantity: this.org.prodQty,
-        rate: this.org.prodPrice,
-        amount: Number(this.org.prodPrice) * Number(this.org.prodQty),
-        tax: this.org.prodTax,
-        description: this.org.prodQty + ' * ' + this.org.prodName,
-        invoiceNo: this.customerServiceForm.invoiceNumber
-      };
-      this.tableData.push(data);
-      const data2 = {
-        orderId: '',
-        product: this.org.accName,
-        quantity: this.org.accQty,
-        rate: this.org.accPrice,
-        amount: Number(this.org.accPrice) * Number(this.org.accQty),
-        tax: this.org.accTax,
-        description: this.org.accQty + ' * ' + this.org.accName,
-        invoiceNo: this.customerServiceForm.invoiceNumber
-      };
-      this.tableData.push(data2);
-    },
-    getProdAndPlanInfo(pn, pp, pq, pt, sq, sa, sn) {
-      this.org.prodName = pn;
-      this.org.prodPrice = pp;
-      this.org.prodQty = pq;
-      this.org.prodTax = pt;
-      this.org.planQty = sq;
-      this.org.planAmt = sa;
-      this.org.planName = sn;
-      const data = {
-        orderId: '',
-        product: this.org.prodName,
-        quantity: this.org.prodQty,
-        rate: this.org.prodPrice,
-        amount: Number(this.org.prodPrice) * Number(this.org.prodQty),
-        tax: this.org.prodTax,
-        description: this.org.prodQty + ' * ' + this.org.prodName,
-        invoiceNo: this.customerServiceForm.invoiceNumber
-      };
-      this.tableData.push(data);
-      const data2 = {
-        orderId: '',
-        product: this.org.planName,
-        quantity: this.org.planQty,
-        rate: this.org.planAmt,
-        amount: Number(this.org.planAmt) * Number(this.org.planQty),
-        tax: 'N',
-        description: this.org.planQty + ' * ' + this.org.planName,
-        invoiceNo: this.customerServiceForm.invoiceNumber
-      };
-      this.tableData.push(data2);
-    },
-    getAllInfo(pn, pp, pq, pt, an, ap, aq, at, sq, sa, sn) {
-      this.org.prodName = pn;
-      this.org.prodPrice = pp;
-      this.org.prodQty = pq;
-      this.org.prodTax = pt;
-      this.org.accName = an;
-      this.org.accPrice = ap;
-      this.org.accQty = aq;
-      this.org.accTax = at;
-      this.org.planQty = sq;
-      this.org.planAmt = sa;
-      this.org.planName = sn;
-      const data = {
-        orderId: '',
-        product: this.org.prodName,
-        quantity: this.org.prodQty,
-        rate: this.org.prodPrice,
-        amount: Number(this.org.prodPrice) * Number(this.org.prodQty),
-        tax: this.org.prodTax,
-        description: this.org.prodQty + ' * ' + this.org.prodName,
-        invoiceNo: this.customerServiceForm.invoiceNumber
-      };
-      this.tableData.push(data);
-      const data2 = {
-        orderId: '',
-        product: this.org.accName,
-        quantity: this.org.accQty,
-        rate: this.org.accPrice,
-        amount: Number(this.org.accPrice) * Number(this.org.accQty),
-        tax: this.org.accTax,
-        description: this.org.accQty + ' * ' + this.org.accName,
-        invoiceNo: this.customerServiceForm.invoiceNumber
-      };
-      this.tableData.push(data2);
-      const data3 = {
-        orderId: '',
-        product: this.org.planName,
-        quantity: this.org.planQty,
-        rate: this.org.planAmt,
-        amount: Number(this.org.planAmt) * Number(this.org.planQty),
-        tax: 'N',
-        description: this.org.planQty + ' * ' + this.org.planName,
-        invoiceNo: this.customerServiceForm.invoiceNumber
-      };
-      this.tableData.push(data3);
+
+    handleProductAdded(value) {
+      this.tableData.push(value);
     }
   },
 
-  clearValidate() {
-    this.visible = false;
-    this.$refs.form.clearValidate();
-  },
   watch: {
     'customerServiceForm.invoiceNumber': function() {
       this.checkForOrder();
+    },
+
+    visible(val) {
+      if(val) {
+        this.$nextTick(() => this.$refs.form.clearValidate());
+      } else {
+        this.form = {};
+        this.tableData = [];
+      }
+    },
+
+    isEdit(val) {
+      if(val) {
+        this.tableData = this.orderItemTable;
+      }
     }
   },
 
@@ -887,7 +885,7 @@ export default {
     tax: function() {
       let t = 0;
       let et;
-      const copy = this.tableData.slice();
+      const copy = this.tableData || [];
       copy.forEach(function(item, index) {
         if (item.tax === 'Y') {
           et = Number(item.amount) * 0.0775;
@@ -900,7 +898,7 @@ export default {
     },
     total: function() {
       let t = 0;
-      const copy = this.tableData.slice();
+      const copy = this.tableData || [];
       copy.forEach(function(item, index) {
         t += item.amount;
       });

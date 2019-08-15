@@ -115,6 +115,7 @@
     <edit-order-form
       v-model="editFormVisible"
       :form="form"
+      :isEdit="isEdit"
       @reload-table="handleReloadTable"
     ></edit-order-form>
   </div>
@@ -126,6 +127,7 @@ import EditOrderForm from './EditOrderForm.vue';
 import {
   getOrderList,
   getOrderByOrderId,
+  getOrderItemsByOrderId,
   getOrderItem,
   getOrgById,
   connectToQuickBooks
@@ -157,6 +159,7 @@ export default {
       pageSize: 20,
       total: 0,
       sort: null,
+      isEdit: false,
       editFormVisible: false,
       orderReviewFormVisible: false,
       /* RESET THESE */
@@ -202,9 +205,9 @@ export default {
       'locale',
       'currentOrg'
     ]),
-    org: function() {
-      return this.currentOrg;
-    },
+    // org: function() {
+    //   return this.currentOrg;
+    // },
 
     labelWidth() {
       return this.locale === 'es' ? '122px' : '100px';
@@ -257,6 +260,7 @@ export default {
 
     /* HANDLERS FOR SHOWING FORMS */
     async handleAdd() {
+      this.isEdit = false;
       this.form = {};
       this.form.billingCompany = this.currentOrg.orgName;
       this.form.billingContact = this.currentOrg.contacts;
@@ -271,13 +275,16 @@ export default {
     },
 
     /* HANDLER FUNCTIONS */
-    handleCommand(command, row, index) {
+    async handleCommand(command, row, index) {
       // this.getOrderInfo(row, index);
-      this.getOrderItems(row, index);
+      // this.getOrderItems(row, index);
       this.form = {...row};
+      this.orderItemTable = await getOrderItem({ orderId: row.orderId });
       if (command === 'view') {
+        this.isEdit = false;
         this.orderReviewFormVisible = true;
       } else {
+        this.isEdit = true;
         this.editFormVisible = true;
       }
       // this.orderInfoToView = {};
@@ -286,19 +293,20 @@ export default {
     async getOrderInfo(row, index) {
       // this.orderInfoToView = await getOrderByOrderId({ orderId: row.orderId });
     },
-    async getOrderItems(row, index) {
-      this.loading = true;
-      const res = await getOrderItem({ orderId: row.orderId });
-      this.loading = false;
-      if (res && !res.errorCode) {
-        this.orderItemTable = [];
-        res.forEach((item, index) => {
-          let orderItem = item;
-          orderItem.index = index + 1;
-          this.orderItemTable.push(orderItem);
-        });
-      }
-    },
+
+    // async getOrderItems(row, index) {
+    //   this.loading = true;
+    //   const res = await getOrderItem({ orderId: row.orderId });
+    //   this.loading = false;
+    //   if (res && !res.errorCode) {
+    //     this.orderItemTable = [];
+    //     res.forEach((item, index) => {
+    //       let orderItem = item;
+    //       orderItem.index = index + 1;
+    //       this.orderItemTable.push(orderItem);
+    //     });
+    //   }
+    // },
 
 // 分页改变
     handleSizeChange(val) {
@@ -332,6 +340,7 @@ export default {
       this.visible = false;
       this.$refs.form.clearValidate();
     },
+
     handleReloadTable() {
       this.fetchOrdersList();
     },

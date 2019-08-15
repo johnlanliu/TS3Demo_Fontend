@@ -5,7 +5,6 @@
     top="15vh"
     :visible.sync="visible"
     :append-to-body="append"
-    @close="resetFields"
   >
     <div class="product code">
       <el-form ref="form" :model="form" size="mini" style="text-align: center">
@@ -303,33 +302,43 @@ export default {
     };
   },
 
+  watch: {
+    visible(val) {
+      if(val) {
+        this.$nextTick(() => this.$refs.form.clearValiDate());
+      } else {
+        this.form = {};
+      }
+    }
+  },
+
   methods: {
     /* AUXILIARY FUNCTIONS */
-    resetFields() {
-      this.form.productName = 'Type';
-      this.form.productCode = '';
-      this.form.activeName = '1';
-      this.form.isTrackLight = true;
-      this.form.namePicked = false;
-      this.form.networkPicked = false;
-      this.form.showPrice = false;
-      this.form.network = 'Network';
-      this.form.color = 'Color';
-      this.form.QTY = 1;
-      this.form.price = '';
-      this.form.prodTax = '';
-      this.form.accName = '';
-      this.form.accPrice = '';
-      this.form.accQty = 1;
-      this.form.accTax = '';
-      this.form.accPicked = false;
-      this.form.planPicked = false;
-      this.form.planQty = 1;
-      this.form.planAmt = '';
-      this.form.planName = '';
-      this.form.servicePlan = '';
-      this.$refs.form.resetFields();
-    },
+    // resetFields() {
+    //   this.form.productName = 'Type';
+    //   this.form.productCode = '';
+    //   this.form.activeName = '1';
+    //   this.form.isTrackLight = true;
+    //   this.form.namePicked = false;
+    //   this.form.networkPicked = false;
+    //   this.form.showPrice = false;
+    //   this.form.network = 'Network';
+    //   this.form.color = 'Color';
+    //   this.form.QTY = 1;
+    //   this.form.price = '';
+    //   this.form.prodTax = '';
+    //   this.form.accName = '';
+    //   this.form.accPrice = '';
+    //   this.form.accQty = 1;
+    //   this.form.accTax = '';
+    //   this.form.accPicked = false;
+    //   this.form.planPicked = false;
+    //   this.form.planQty = 1;
+    //   this.form.planAmt = '';
+    //   this.form.planName = '';
+    //   this.form.servicePlan = '';
+    //   this.$refs.form.resetFields();
+    // },
 
     /* HANDLER FUNCTIONS */
     handleNext(number) {

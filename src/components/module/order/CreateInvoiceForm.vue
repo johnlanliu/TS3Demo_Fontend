@@ -5,7 +5,7 @@
     top="15vh"
     :visible.sync="visible"
     :append-to-body="append"
-    width="50%"
+    width="798px"
   >
     <el-form ref="form" :model="form" size="mini" style="margin: 0; padding-left: 10px">
       <el-form-item label="Invoice Type">
@@ -20,33 +20,33 @@
       </el-form-item>
 
       <el-row>
-        <el-col :span="10">
+        <el-col :span="9">
           <el-form-item label="BILLING INFO" style="font-weight: bold"></el-form-item>
         </el-col>
-        <el-col :span="10">
+        <el-col :span="9" :push="1">
           <el-form-item label="SHIPPING INFO" style="font-weight: bold"></el-form-item>
         </el-col>
       </el-row>
 
       <el-row>
-        <el-col :span="10">
+        <el-col :span="9">
           <el-form-item label="Company Name: ">
             <el-input v-model="form.orgName" style="width: 275px"></el-input>
           </el-form-item>
         </el-col>
-        <el-col :span="10">
+        <el-col :span="9" :push="1">
           <el-form-item label="Company Name: ">
             <el-input v-model="form.shippingCompany" style="width: 275px"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
-        <el-col :span="10">
+        <el-col :span="9">
           <el-form-item label="Contact: ">
             <el-input v-model="form.contacts" style="width: 275px"></el-input>
           </el-form-item>
         </el-col>
-        <el-col :span="10">
+        <el-col :span="9" :push="1">
           <el-form-item label="Contact: ">
             <el-input v-model="form.shippingContact" style="width: 275px"></el-input>
           </el-form-item>
@@ -54,36 +54,36 @@
       </el-row>
 
       <el-row>
-        <el-col :span="10">
+        <el-col :span="9">
           <el-form-item label="Phone Number: ">
             <el-input v-model="form.phone" style="width: 275px"></el-input>
           </el-form-item>
         </el-col>
-        <el-col :span="10">
+        <el-col :span="9" :push="1">
           <el-form-item label="Phone Number: ">
             <el-input v-model="form.shippingPhone" style="width: 275px"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
-        <el-col :span="10">
+        <el-col :span="9">
           <el-form-item label="Email: ">
             <el-input v-model="form.email" style="width: 275px"></el-input>
           </el-form-item>
         </el-col>
-        <el-col :span="10">
+        <el-col :span="9" :push="1">
           <el-form-item label="Email: ">
             <el-input v-model="form.shippingEmail" style="width: 275px"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
-        <el-col :span="10">
+        <el-col :span="9">
           <el-form-item label="Address: ">
             <el-input v-model="form.streetAddress" style="width: 275px"></el-input>
           </el-form-item>
         </el-col>
-        <el-col :span="10">
+        <el-col :span="9" :push="1">
           <el-form-item label="Address: ">
             <el-input v-model="form.shippingAddress" style="width: 275px"></el-input>
           </el-form-item>
@@ -225,7 +225,7 @@
           </template>
         </el-table-column>
       </el-table>
-
+<!-- 
       <div style="margin-top:10px">
         <el-button
           type="primary"
@@ -242,7 +242,31 @@
           style="display:inline-block"
           @click="handleAddService()"
         >+ Add Service Plan</el-button>
-      </div>
+      </div> -->
+
+      <el-row style="margin-top:10px;width:110%">
+        <el-col :span="4" :offset="7">
+          <el-button
+            type="primary"
+            style="display:inline-block;margin-left: 28px"
+            @click="handleAddDevice()"
+          >+ Add Device</el-button>
+        </el-col>
+        <el-col :span="4">
+          <el-button
+            type="primary"
+            style="display:inline-block"
+            @click="handleAddAccessories()"
+          >+ Add Accessories</el-button>
+        </el-col>
+        <el-col :span="4">
+          <el-button
+            type="primary"
+            style="display:inline-block"
+            @click="handleAddService()"
+          >+ Add Service Plan</el-button>
+        </el-col>
+      </el-row>
 
       <el-row style="margin-top:10px">
         <el-col :span="5" :offset="18">
@@ -260,9 +284,6 @@
           ></el-input>
         </el-col>
       </el-row>
-      <el-form-item label="Shipping fee: " style="padding-left: 40px">
-        <el-input v-model="form.shippingFee" style="width: 75px; padding-left: 5px"></el-input>
-      </el-form-item>
       <el-row>
         <el-col :span="5" :offset="18">
           <el-form-item label="Total: " :total="total">${{ total }}</el-form-item>

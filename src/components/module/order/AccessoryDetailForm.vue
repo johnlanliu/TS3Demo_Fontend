@@ -5,13 +5,12 @@
     top="15vh"
     :visible.sync="visible"
     :append-to-body="append"
-    @close="resetFields"
   >
     <div class="accessoryCode">
       <el-form ref="form" :model="form4" size="mini" style="text-align: center">
         <el-collapse v-model="form4.activeName" accordion>
           <el-collapse-item name="1">
-            <template slot="title">{{ form4.accessoryName }}</template>
+            <template slot="title">{{ form4.product }}</template>
             <el-row>
               <el-col v-if="shown === 0 || shown === 1" :span="6">
                 <el-form-item>
@@ -201,12 +200,12 @@
             <el-row>
               <el-col :span="10" :offset="6">
                 <el-form ref="form" :model="form4" :rules="formRules" size="mini" align="right">
-                  <el-form-item label="Unit Price $" prop="price">
-                    <el-input v-model="form4.price" style="width: 150px; "></el-input>
+                  <el-form-item label="Unit Price $" prop="rate">
+                    <el-input v-model="form4.rate" style="width: 150px; "></el-input>
                   </el-form-item>
                   <el-form-item label="Quantity">
                     <el-input-number
-                      v-model="form4.QTY"
+                      v-model="form4.quantity"
                       controls-position="right"
                       :min="1"
                       style="width: 150px"
@@ -224,7 +223,7 @@
                   </el-form-item>
                   <el-row>
                     <el-col :span="3">
-                      <el-form-item label="Total :"></el-form-item>
+                      <el-form-item v-model="form4.amount" label="Total :"></el-form-item>
                     </el-col>
                     <el-col :span="4" :offset="17">
                       <el-form-item :total="total">${{ total }} </el-form-item>
@@ -253,14 +252,7 @@ export default {
       append: true,
 
       /* RESET THESE */
-      form4: {
-        accessoryName: 'Type',
-        activeName: '1',
-        price: '',
-        QTY: 1,
-        showPrice: false,
-        tax: ''
-      },
+      form4: {},
       taxOptions: [
         {
           value: 'Y',
@@ -270,11 +262,12 @@ export default {
           value: 'N',
           label: 'N'
         }
-      ]
-
+      ],
+      tax1: 0.3,
+      formRules: {},
       /* FORM RULES */
       // formRules: {
-      //   price: [
+      //   rate: [
       //         { required: true, message: 'Unit price is required' },
       //     {
       //       pattern: /^\d+(,\d{3})*(\.\d{1,2})?$/,
@@ -287,20 +280,30 @@ export default {
 
   props: {
     value: Boolean,
-    form: [Object]
+    form: [Object],
+  },
+
+  watch: {
+    visible(val) {
+      if(val) {
+        this.$nextTick(() => this.$refs.form.clearValidate());
+      } else {
+        this.form4 = {};
+      }
+    }
   },
 
   methods: {
     /* AUXILIARY FUNCTIONS */
-    resetFields() {
-      this.form4.activeName = '1';
-      this.form4.accessoryName = 'Type';
-      this.form4.price = '';
-      this.form4.QTY = 1;
-      this.form4.showPrice = false;
-      this.form4.tax = '';
-      this.$refs.form.resetFields();
-    },
+    // resetFields() {
+    //   this.form4.activeName = '1';
+    //   this.form4.product = 'Type';
+    //   this.form4.rate = '';
+    //   this.form4.quantity = 1;
+    //   this.form4.showPrice = false;
+    //   this.form4.tax = '';
+    //   this.$refs.form.resetFields();
+    // },
 
     /* HANDLER FUNCTIONS */
     handleNext(number) {
@@ -309,24 +312,25 @@ export default {
       this.form4.activeName = nextNum.toString();
     },
     handleNameClick(num) {
-      if (this.form4.accessoryName === 'Type') {
-        this.form4.accessoryName = num;
-        this.form4.showPrice = true;
-        this.handleNext(1);
-      } else {
-        this.resetFields();
-        this.form4.accessoryName = num;
-        this.form4.showPrice = true;
-        this.handleNext(1);
-      }
+      // if (this.form4.product === 'Type') {
+      //   this.form4.product = num;
+      //   this.form4.showPrice = true;
+      //   this.handleNext(1);
+      // } else {
+      //   this.resetFields();
+      //   this.form4.product = num;
+      //   this.form4.showPrice = true;
+      //   this.handleNext(1);
+      // }
+      this.form4.product = num;
+      this.form4.showPrice = true;
+      this.handleNext(1);
     },
     handleAddClick(event) {
+      this.form4.amount = this.total;
       this.$emit(
         'accessoryAdded',
-        this.form4.accessoryName,
-        this.form4.price,
-        this.form4.QTY,
-        this.form4.tax
+        this.form4
       );
       this.visible = false;
     }
@@ -350,9 +354,22 @@ export default {
       }
     },
     total: function() {
-      if (this.form4.price !== null && this.form4.QTY !== null) {
-        if (!isNaN(this.form4.price) && !isNaN(this.form4.QTY)) {
-          return (Number(this.form4.price) * Number(this.form4.QTY)).toFixed(2);
+      // if (this.form4.rate !== null && this.form4.quantity !== null) {
+      //   if (!isNaN(this.form4.rate) && !isNaN(this.form4.quantity)) {
+      //     return (Number(this.form4.rate) * Number(this.form4.quantity)).toFixed(2);
+      //   } else {
+      //     return 0;
+      //   }
+      // } else {
+      //   return 0;
+      // }
+      if(this.form4.rate !== null && this.form4.quantity !== null) {
+        if (!isNaN(this.form4.rate) && !isNaN(this.form4.quantity)) {
+          if(this.form4.tax === 'Y'){
+            return (this.form4.rate * Number(this.form4.quantity) * (1 + this.tax1)).toFixed(2);
+          } else {
+            return (this.form4.rate * Number(this.form4.quantity)).toFixed(2);
+          }
         } else {
           return 0;
         }
@@ -360,6 +377,7 @@ export default {
         return 0;
       }
     },
+
     visible: {
       get() {
         return this.value;
