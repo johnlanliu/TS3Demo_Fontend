@@ -10,7 +10,7 @@
       <el-form ref="form" :model="form" size="mini" style="text-align: center">
         <el-collapse v-model="form.activeName" accordion>
           <el-collapse-item name="1">
-            <template slot="title">{{ form.prodName }}</template>
+            <template slot="title">{{ form.product }}</template>
             <el-row>
               <el-col :span="8">
                 <el-form-item>
@@ -131,18 +131,18 @@
               <el-col :span="10" :offset="6">
                 <el-form ref="form" :model="form" size="mini" align="right">
                   <el-form-item label="Unit Price $">
-                    <el-input v-model="form.prodRate" style="width: 150px; "></el-input>
+                    <el-input v-model="form.product" style="width: 150px; "></el-input>
                   </el-form-item>
                   <el-form-item label="Quantity">
                     <el-input-number
-                      v-model="form.prodQuantity"
+                      v-model="form.quantity"
                       controls-position="right"
                       :min="1"
                       style="width: 150px"
                     ></el-input-number>
                   </el-form-item>
                   <el-form-item label="Tax: ">
-                    <el-select v-model="form.prodTax" placeholder style="width: 150px">
+                    <el-select v-model="form.tax" placeholder style="width: 150px">
                       <el-option
                         v-for="option in taxOptions"
                         :key="option.value"
@@ -158,18 +158,18 @@
                       label="Accessory: "
                     >{{ form.accName }}</el-form-item>
                     <el-form-item label="Accessory Price: ">
-                      <el-input v-model="form.acRate" style="width: 150px;"></el-input>
+                      <el-input v-model="form.rate" style="width: 150px;"></el-input>
                     </el-form-item>
                     <el-form-item label="Accessory QTY: ">
                       <el-input-number
-                        v-model="form.accQuantity"
+                        v-model="form.quantity"
                         controls-position="right"
                         :min="1"
                         style="width: 150px"
                       ></el-input-number>
                     </el-form-item>
                     <el-form-item label="Accessory Tax: ">
-                      <el-select v-model="form.accTax" placeholder style="width: 150px">
+                      <el-select v-model="form.tax" placeholder style="width: 150px">
                         <el-option
                           v-for="option in taxOptions"
                           :key="option.value"
@@ -226,19 +226,19 @@
     <accessory-detail-form
       ref="accessoryDetailForm"
       v-model="accessoryDetailFormVisible"
-      :product="this.form.prodName"
+      :product="this.form.product"
       @accessoryAdded="getAccessoryInfo"
     ></accessory-detail-form>
     <service-plan-form
       ref="servicePlanForm"
       v-model="servicePlanFormVisible"
-      :prod-quantity="form.QTY"
+      :prod-quantity="form.quantity"
       @planAdded="getServicePlanFee"
     ></service-plan-form>
-    <comfirmation-form
+    <confirmation-form
      :form="form"
      v-model="comfirmationFormVisible">
-    </comfirmation-form>
+    </confirmation-form>
   </el-dialog>
 </template>
 
@@ -263,9 +263,9 @@ export default {
 
   data: function() {
     return {
+      orderItems: [],
       loading: false,
       append: true,
-      form: {},
       accessoryDetailFormVisible: false,
       servicePlanFormVisible: false,
       comfirmationFormVisible: false,
@@ -418,85 +418,14 @@ export default {
       }
     },
     handleAddClick(event) {
-      const product = [];
-      const rate = [];
-      const quantity = [];
-      const tax = [];
-      product.push(this.form.prodName,this.form.accName,this.form.planName);
-      rate.push(this.form.prodRate,this.form.accRate);
-      quantity.push(this.form.prodQuantity,this.form.accQuantity,this.form.planQuantity);
-      tax.push(this.form.prodTax,this.form.accTax);
+      const plus = {
+        product: this.form.product,
+        quantity: this.form.quantity,
+        rate: this.form.rate,
+      };
+      this.orderItems.push(plus);
 
-      this.$emit('productAdded',
-      {
-        fullProductCode: this.fullProductCode,
-        product: product,
-        rete: rate,
-        quantity: quantity,
-        tax: tax,
-        planAmt: this.form.planAmt,
-        product: this.form.prodName,
-        rate: this.form.prodRate,
-        quantity: this.form.prodQuantity,
-        tax: this.form.prodTax
-      }
-      )
-      
-      // let state = 0;
-      // if (this.form.accPicked === true) {
-      //   state += 1;
-      // }
-      // if (this.form.planPicked === true) {
-      //   state += 2;
-      // }
-
-      // if (state === 0) {
-      //   this.$emit(
-      //     'productAdded',
-      //     this.fullProductCode,
-      //     this.form.price,
-      //     this.form.QTY,
-      //     this.form.prodTax
-      //   );
-      // } else if (state === 1) {
-      //   this.$emit(
-      //     'prodAndAccAdded',
-      //     this.fullProductCode,
-      //     this.form.price,
-      //     this.form.QTY,
-      //     this.form.prodTax,
-      //     this.form.accName,
-      //     this.form.acRate,
-      //     this.form.accQuantity,
-      //     this.form.accTax
-      //   );
-      // } else if (state === 2) {
-      //   this.$emit(
-      //     'prodAndPlanAdded',
-      //     this.fullProductCode,
-      //     this.form.price,
-      //     this.form.QTY,
-      //     this.form.prodTax,
-      //     this.form.planQuantity,
-      //     this.form.planAmt,
-      //     this.form.planName
-      //   );
-      // } else {
-      //   this.$emit(
-      //     'allAdded',
-      //     this.fullProductCode,
-      //     this.form.price,
-      //     this.form.QTY,
-      //     this.form.prodTax,
-      //     this.form.accName,
-      //     this.form.acRate,
-      //     this.form.accQuantity,
-      //     this.form.accTax,
-      //     this.form.planQuantity,
-      //     this.form.planAmt,
-      //     this.form.planName
-      //   );
-      // }
+      this.$emit('productAdded', this.orderItems);
       this.visible = false;
     },
 
@@ -513,10 +442,10 @@ export default {
 
     /* GET ACCESSORIES, PRODUCTS, AND SERVICE PLANS FOR TABLE */
     getAccessoryInfo(value) {
-      this.form = Object.assign({}, this.form, value);
+      this.orderItems.push(value);
     },
     getServicePlanFee(value) {
-      this.form = Object.assign({}, this.form, value);
+      this.orderItems.push(value);
     }
   },
 

@@ -9,7 +9,7 @@
     <el-form ref="form" :model="form" size="mini" style="text-align: center">
       <el-collapse v-model="form.activeName" accordion>
         <el-collapse-item name="1">
-          <template slot="title">{{ form.planName }}</template>
+          <template slot="title">{{ form.product }}</template>
           <el-row>
             <el-col :span="8">
               <el-form-item>
@@ -62,12 +62,12 @@
           <el-row>
             <el-col :span="10" :offset="6">
               <el-form ref="form" :model="form" size="mini" align="right">
-                <el-form-item label="Amount $" prop="planRate">
-                  <el-input v-model="form.planRate" style="width: 150px; "></el-input>
+                <el-form-item label="Amount $" prop="rate">
+                  <el-input v-model="form.rate" style="width: 150px; "></el-input>
                 </el-form-item>
                 <el-form-item label="Quantity">
                   <el-input-number
-                    v-model="form.planQuantity"
+                    v-model="form.quantity"
                     controls-position="right"
                     :min="1"
                     style="width: 150px"
@@ -106,16 +106,8 @@ export default {
       loading: false,
       append: true,
       /* RESET THESE */
-      form: {
-        // activeName: '1',
-        // planName: 'Service Plan',
-        // showPrice: false,
-        // planQuantity: 0,
-        // planRate: ''
-      }
-
       // formRules: {
-      //   planRate: [
+      //   rate: [
       //             { required: true, message: 'Amount is required' },
       //     {
       //       pattern: /^\d+(,\d{3})*(\.\d{1,2})?$/,
@@ -132,8 +124,8 @@ export default {
   },
 
   watch: {
-    prodQuantity(newValue, oldValue) {
-      this.form.planQuantity = newValue;
+    quantity(newValue, oldValue) {
+      this.form.quantity = newValue;
     },
   },
 
@@ -141,30 +133,30 @@ export default {
     /* AUXILIARY FUNCTIONS */
     // resetFields() {
     //   this.form.showPrice = false;
-    //   this.form.planRate = '';
-    //   this.form.planQuantity = this.prodQuantity;
+    //   this.form.rate = '';
+    //   this.form.quantity = this.prodQuantity;
     //   this.form.activeName = '1';
-    //   this.form.planName = 'Service Plan';
+    //   this.form.product = 'Service Plan';
     //   this.$refs.form.resetFields();
     // },
 
     /* HANDLER FUNCTIONS */
     handlePlanPick(duration) {
-      // if (this.form.planName === 'Service Plan') {
-      //   this.form.planName = duration + ' ' + 'Service Plan';
+      // if (this.form.product === 'Service Plan') {
+      //   this.form.product = duration + ' ' + 'Service Plan';
       //   this.form.showPrice = true;
       //   this.handleNext(1);
       // } else {
-      //   if (this.form.planName === duration + ' ' + 'Service Plan') {
+      //   if (this.form.product === duration + ' ' + 'Service Plan') {
       //     this.handleNext(1);
       //   } else {
       //     this.resetFields();
-      //     this.form.planName = duration + ' ' + 'Service Plan';
+      //     this.form.product = duration + ' ' + 'Service Plan';
       //     this.form.showPrice = true;
       //     this.handleNext(1);
       //   }
       // }
-      this.form.planName = duration + ' ' + 'Service Plan';
+      this.form.product = duration + ' ' + 'Service Plan';
       this.form.showPrice = true;
       this.handleNext(1);
     },
@@ -178,10 +170,10 @@ export default {
       this.$emit(
         'planAdded',
         {
-          product: this.form.planName,
-          rate: this.form.planRate,
-          quantity: this.form.planQuantity,
-          amount: this.form.amount
+          product: this.form.product,
+          quantity: this.form.quantity,
+          rate: this.form.rate,
+          total: this.total
         }
       );
       this.visible = false;
@@ -190,9 +182,9 @@ export default {
 
   computed: {
     total: function() {
-      if(this.form.planRate !== null && this.form.planQuantity !== null) {
-        if(!isNaN(this.form.planRate) && !isNaN(this.form.planQuantity)) {
-          return (Number(this.form.planRate) * this.form.planQuantity).toFixed(2);
+      if(this.form.rate !== null && this.form.quantity !== null) {
+        if(!isNaN(this.form.rate) && !isNaN(this.form.quantity)) {
+          return (Number(this.form.rate) * this.form.quantity).toFixed(2);
         } else {
           return 0;
         }

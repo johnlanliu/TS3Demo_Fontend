@@ -167,8 +167,8 @@
             <el-option
               v-for="option in paymentOptions"
               :key="option.value"
-              :label="option.value"
-              :value="option.label"
+              :label="option.label"
+              :value="option.value"
             ></el-option>
           </el-select>
         </el-form-item>
@@ -408,11 +408,11 @@ export default {
       ],
       paymentOptions: [
         {
-          value: 'Net15',
+          value: 1,
           label: 'Net15'
         },
         {
-          value: 'Net30',
+          value: 2,
           label: 'Net30'
         }
       ],
@@ -851,12 +851,14 @@ export default {
     },
 
     handlePlanAdded(value) {
+
       this.tableData.push(value);
     },
 
     handleProductAdded(value) {
-      this.tableData.push(value);
-      console.log(this.tableData);
+      value.forEach(item=> {
+        this.tableData.push(item);
+      });
     }
   },
 

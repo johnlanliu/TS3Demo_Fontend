@@ -45,16 +45,6 @@ export default {
     form: [Object]
   },
 
-  watch: {
-    visible(val) {
-      if (val) {
-        this.$nextTick(() => this.$refs.form.clearValidate());
-      } else {
-        this.form = {};
-      }
-    }
-  },
-
   methods: {
     resetFields() {
       this.$refs.form.resetFields();
