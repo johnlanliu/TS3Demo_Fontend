@@ -7,10 +7,10 @@
     :append-to-body="append"
   >
     <div class="accessoryCode">
-      <el-form ref="form" :model="form4" size="mini" style="text-align: center">
-        <el-collapse v-model="form4.activeName" accordion>
+      <el-form ref="form" :model="form" size="mini" style="text-align: center">
+        <el-collapse v-model="form.activeName" accordion>
           <el-collapse-item name="1">
-            <template slot="title">{{ form4.product }}</template>
+            <template slot="title">{{ form.activeName }}</template>
             <el-row>
               <el-col v-if="shown === 0 || shown === 1" :span="6">
                 <el-form-item>
@@ -196,23 +196,23 @@
               </el-col>
             </el-row>
           </el-collapse-item>
-          <el-collapse-item title="Price" v-if="form4.showPrice" name="2">
+          <el-collapse-item title="Price" v-if="form.showPrice" name="2">
             <el-row>
               <el-col :span="10" :offset="6">
-                <el-form ref="form" :model="form4" :rules="formRules" size="mini" align="right">
-                  <el-form-item label="Unit Price $" prop="rate">
-                    <el-input v-model="form4.rate" style="width: 150px; "></el-input>
+                <el-form ref="form" :model="form" :rules="formRules" size="mini" align="right">
+                  <el-form-item label="Unit Price $" prop="accRate">
+                    <el-input v-model="form.accRate" style="width: 150px; "></el-input>
                   </el-form-item>
                   <el-form-item label="Quantity">
                     <el-input-number
-                      v-model="form4.quantity"
+                      v-model="form.accQuantity"
                       controls-position="right"
                       :min="1"
                       style="width: 150px"
                     ></el-input-number>
                   </el-form-item>
                   <el-form-item label="Tax: ">
-                    <el-select v-model="form4.tax" placeholder style="width: 150px">
+                    <el-select v-model="form.accTax" placeholder style="width: 150px">
                       <el-option
                         v-for="option in taxOptions"
                         :key="option.value"
@@ -223,7 +223,7 @@
                   </el-form-item>
                   <el-row>
                     <el-col :span="3">
-                      <el-form-item v-model="form4.amount" label="Total :"></el-form-item>
+                      <el-form-item v-model="form.amount" label="Total :"></el-form-item>
                     </el-col>
                     <el-col :span="4" :offset="17">
                       <el-form-item :total="total">${{ total }} </el-form-item>
@@ -252,7 +252,7 @@ export default {
       append: true,
 
       /* RESET THESE */
-      form4: {},
+      form: {},
       taxOptions: [
         {
           value: 'Y',
@@ -267,7 +267,7 @@ export default {
       formRules: {},
       /* FORM RULES */
       // formRules: {
-      //   rate: [
+      //   accRate: [
       //         { required: true, message: 'Unit price is required' },
       //     {
       //       pattern: /^\d+(,\d{3})*(\.\d{1,2})?$/,
@@ -283,54 +283,30 @@ export default {
     form: [Object],
   },
 
-  watch: {
-    visible(val) {
-      if(val) {
-        this.$nextTick(() => this.$refs.form.clearValidate());
-      } else {
-        this.form4 = {};
-      }
-    }
-  },
-
   methods: {
     /* AUXILIARY FUNCTIONS */
-    // resetFields() {
-    //   this.form4.activeName = '1';
-    //   this.form4.product = 'Type';
-    //   this.form4.rate = '';
-    //   this.form4.quantity = 1;
-    //   this.form4.showPrice = false;
-    //   this.form4.tax = '';
-    //   this.$refs.form.resetFields();
-    // },
 
     /* HANDLER FUNCTIONS */
     handleNext(number) {
-      let tempNum = Number(this.form4.activeName);
+      let tempNum = Number(this.form.activeName);
       let nextNum = tempNum + number;
-      this.form4.activeName = nextNum.toString();
+      this.form.activeName = nextNum.toString();
     },
     handleNameClick(num) {
-      // if (this.form4.product === 'Type') {
-      //   this.form4.product = num;
-      //   this.form4.showPrice = true;
-      //   this.handleNext(1);
-      // } else {
-      //   this.resetFields();
-      //   this.form4.product = num;
-      //   this.form4.showPrice = true;
-      //   this.handleNext(1);
-      // }
-      this.form4.product = num;
-      this.form4.showPrice = true;
+      this.form.accName = num;
+      this.form.showPrice = true;
       this.handleNext(1);
     },
     handleAddClick(event) {
-      this.form4.amount = this.total;
+      this.form.amount = this.total;
       this.$emit(
         'accessoryAdded',
-        this.form4
+        {
+          product: this.form.accName,
+          rate: this.form.accRate,
+          quantity: this.form.accQuantity,
+          tax: this.form.accTax,
+        }
       );
       this.visible = false;
     }
@@ -339,14 +315,14 @@ export default {
   computed: {
     shown: function() {
       if (
-        this.product === '4" TrackLight (VT1611)' ||
-        this.product === '6" TrackLight (VT1711)'
+        this.accName === '4" TrackLight (VT1611)' ||
+        this.accName === '6" TrackLight (VT1711)'
       ) {
         return 1;
       } else if (
-        this.product === 'In Dash GPS (VT1508)' ||
-        this.product === '5" ThermoTrack (VT1702)' ||
-        this.product === '6" ThermoTrack (VT1802)'
+        this.accName === 'In Dash GPS (VT1508)' ||
+        this.accName === '5" ThermoTrack (VT1702)' ||
+        this.accName === '6" ThermoTrack (VT1802)'
       ) {
         return 2;
       } else {
@@ -354,21 +330,12 @@ export default {
       }
     },
     total: function() {
-      // if (this.form4.rate !== null && this.form4.quantity !== null) {
-      //   if (!isNaN(this.form4.rate) && !isNaN(this.form4.quantity)) {
-      //     return (Number(this.form4.rate) * Number(this.form4.quantity)).toFixed(2);
-      //   } else {
-      //     return 0;
-      //   }
-      // } else {
-      //   return 0;
-      // }
-      if(this.form4.rate !== null && this.form4.quantity !== null) {
-        if (!isNaN(this.form4.rate) && !isNaN(this.form4.quantity)) {
-          if(this.form4.tax === 'Y'){
-            return (this.form4.rate * Number(this.form4.quantity) * (1 + this.tax1)).toFixed(2);
+      if(this.form.accRate !== null && this.form.accQuantity !== null) {
+        if (!isNaN(this.form.accRate) && !isNaN(this.form.accQuantity)) {
+          if(this.form.accTax === 'Y'){
+            return (this.form.accRate * Number(this.form.accQuantity) * (1 + this.tax1)).toFixed(2);
           } else {
-            return (this.form4.rate * Number(this.form4.quantity)).toFixed(2);
+            return (this.form.accRate * Number(this.form.accQuantity)).toFixed(2);
           }
         } else {
           return 0;

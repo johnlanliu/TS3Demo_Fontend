@@ -313,8 +313,8 @@
             <el-form-item>
               <el-button
                 type="primary"
-                @click="handleSaveEdit()"
-                v-if="isEdit"
+                @click="handleSaveEdit"
+                v-if="this.form.oderId"
               >Save Change</el-button>
             </el-form-item>
           </el-col>
@@ -368,7 +368,6 @@ export default {
   props: {
     value: Boolean,
     form: [Object],
-    isEdit: Boolean,
     orderItemTable: Array,
   },
 
@@ -857,6 +856,7 @@ export default {
 
     handleProductAdded(value) {
       this.tableData.push(value);
+      console.log(this.tableData);
     }
   },
 
@@ -865,20 +865,16 @@ export default {
       this.checkForOrder();
     },
 
-    visible(val) {
-      if(val) {
-        this.$nextTick(() => this.$refs.form.clearValidate());
-      } else {
-        this.form = {};
-        this.tableData = [];
-      }
+    orderItemTable: {
+      handler: function(val) {
+        if(this.form.orderId){
+          this.tableData = this.orderItemTable.concat([]);
+        } else {
+          this.tableData = [];
+        }
+      },
+      immediate: true
     },
-
-    isEdit(val) {
-      if(val) {
-        this.tableData = this.orderItemTable;
-      }
-    }
   },
 
   computed: {

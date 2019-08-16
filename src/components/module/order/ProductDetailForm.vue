@@ -10,7 +10,7 @@
       <el-form ref="form" :model="form" size="mini" style="text-align: center">
         <el-collapse v-model="form.activeName" accordion>
           <el-collapse-item name="1">
-            <template slot="title">{{ form.productName }}</template>
+            <template slot="title">{{ form.prodName }}</template>
             <el-row>
               <el-col :span="8">
                 <el-form-item>
@@ -131,11 +131,11 @@
               <el-col :span="10" :offset="6">
                 <el-form ref="form" :model="form" size="mini" align="right">
                   <el-form-item label="Unit Price $">
-                    <el-input v-model="form.price" style="width: 150px; "></el-input>
+                    <el-input v-model="form.prodRate" style="width: 150px; "></el-input>
                   </el-form-item>
                   <el-form-item label="Quantity">
                     <el-input-number
-                      v-model="form.QTY"
+                      v-model="form.prodQuantity"
                       controls-position="right"
                       :min="1"
                       style="width: 150px"
@@ -158,11 +158,11 @@
                       label="Accessory: "
                     >{{ form.accName }}</el-form-item>
                     <el-form-item label="Accessory Price: ">
-                      <el-input v-model="form.accPrice" style="width: 150px;"></el-input>
+                      <el-input v-model="form.acRate" style="width: 150px;"></el-input>
                     </el-form-item>
                     <el-form-item label="Accessory QTY: ">
                       <el-input-number
-                        v-model="form.accQty"
+                        v-model="form.accQuantity"
                         controls-position="right"
                         :min="1"
                         style="width: 150px"
@@ -186,7 +186,7 @@
                     </el-form-item>
                     <el-form-item label="Service Plan QTY: ">
                       <el-input-number
-                        v-model="form.planQty"
+                        v-model="form.planQuantity"
                         controls-position="right"
                         :min="1"
                         style="width: 150px"
@@ -226,7 +226,7 @@
     <accessory-detail-form
       ref="accessoryDetailForm"
       v-model="accessoryDetailFormVisible"
-      :product="this.form.productName"
+      :product="this.form.prodName"
       @accessoryAdded="getAccessoryInfo"
     ></accessory-detail-form>
     <service-plan-form
@@ -235,6 +235,10 @@
       :prod-quantity="form.QTY"
       @planAdded="getServicePlanFee"
     ></service-plan-form>
+    <comfirmation-form
+     :form="form"
+     v-model="comfirmationFormVisible">
+    </comfirmation-form>
   </el-dialog>
 </template>
 
@@ -254,15 +258,17 @@ export default {
 
   props: {
     value: Boolean,
-    form: [Object]
+    form: [Object],
   },
 
   data: function() {
     return {
       loading: false,
       append: true,
+      form: {},
       accessoryDetailFormVisible: false,
       servicePlanFormVisible: false,
+      comfirmationFormVisible: false,
       /* RESET THESE */
       taxOptions: [
         {
@@ -291,7 +297,7 @@ export default {
       //       message: 'Invalid price'
       //     },
       //   ],
-      //   accPrice: [
+      //   acRate: [
       //           { required: true, message: 'Accessory price is required' },
       //     {
       //       pattern: /^\d+(,\d{3})*(\.\d{1,2})?$/,
@@ -302,20 +308,10 @@ export default {
     };
   },
 
-  watch: {
-    visible(val) {
-      if(val) {
-        this.$nextTick(() => this.$refs.form.clearValiDate());
-      } else {
-        this.form = {};
-      }
-    }
-  },
-
   methods: {
     /* AUXILIARY FUNCTIONS */
     // resetFields() {
-    //   this.form.productName = 'Type';
+    //   this.form.prodName = 'Type';
     //   this.form.productCode = '';
     //   this.form.activeName = '1';
     //   this.form.isTrackLight = true;
@@ -328,12 +324,12 @@ export default {
     //   this.form.price = '';
     //   this.form.prodTax = '';
     //   this.form.accName = '';
-    //   this.form.accPrice = '';
-    //   this.form.accQty = 1;
+    //   this.form.acRate = '';
+    //   this.form.accQuantity = 1;
     //   this.form.accTax = '';
     //   this.form.accPicked = false;
     //   this.form.planPicked = false;
-    //   this.form.planQty = 1;
+    //   this.form.planQuantity = 1;
     //   this.form.planAmt = '';
     //   this.form.planName = '';
     //   this.form.servicePlan = '';
@@ -357,8 +353,8 @@ export default {
       this.handleNext(1);
     },
     handleNameClick(num, code) {
-      if (this.form.productName === 'Type') {
-        this.form.productName = num;
+      if (this.form.prodName === 'Type') {
+        this.form.prodName = num;
         this.form.productCode = code;
         if (
           num !== '4" TrackLight (VT1611)' &&
@@ -378,11 +374,11 @@ export default {
         }
       } else {
         if (
-          this.form.productName !== '4" TrackLight (VT1611)' &&
-          this.form.productName !== '6" TrackLight (VT1711)'
+          this.form.prodName !== '4" TrackLight (VT1611)' &&
+          this.form.prodName !== '6" TrackLight (VT1711)'
         ) {
-          this.resetFields();
-          this.form.productName = num;
+          // this.resetFields();
+          this.form.prodName = num;
           this.form.productCode = code;
           if (
             num !== '4" TrackLight (VT1611)' &&
@@ -401,16 +397,16 @@ export default {
             num !== '4" TrackLight (VT1611)' &&
             num !== '6" TrackLight (VT1711)'
           ) {
-            this.form.productName = num;
+            this.form.prodName = num;
             this.form.productCode = code;
             this.form.showPrice = true;
             this.form.isTrackLight = false;
             this.handleNext(3);
           } else {
-            if (this.form.productName === num) {
+            if (this.form.prodName === num) {
               this.handleNext(1);
             } else {
-              this.form.productName = num;
+              this.form.prodName = num;
               this.form.productCode = code;
               this.form.price = '';
               this.form.QTY = '';
@@ -422,87 +418,105 @@ export default {
       }
     },
     handleAddClick(event) {
-      let state = 0;
-      if (this.form.accPicked === true) {
-        state += 1;
-      }
-      if (this.form.planPicked === true) {
-        state += 2;
-      }
+      const product = [];
+      const rate = [];
+      const quantity = [];
+      const tax = [];
+      product.push(this.form.prodName,this.form.accName,this.form.planName);
+      rate.push(this.form.prodRate,this.form.accRate);
+      quantity.push(this.form.prodQuantity,this.form.accQuantity,this.form.planQuantity);
+      tax.push(this.form.prodTax,this.form.accTax);
 
-      if (state === 0) {
-        this.$emit(
-          'productAdded',
-          this.fullProductCode,
-          this.form.price,
-          this.form.QTY,
-          this.form.prodTax
-        );
-      } else if (state === 1) {
-        this.$emit(
-          'prodAndAccAdded',
-          this.fullProductCode,
-          this.form.price,
-          this.form.QTY,
-          this.form.prodTax,
-          this.form.accName,
-          this.form.accPrice,
-          this.form.accQty,
-          this.form.accTax
-        );
-      } else if (state === 2) {
-        this.$emit(
-          'prodAndPlanAdded',
-          this.fullProductCode,
-          this.form.price,
-          this.form.QTY,
-          this.form.prodTax,
-          this.form.planQty,
-          this.form.planAmt,
-          this.form.planName
-        );
-      } else {
-        this.$emit(
-          'allAdded',
-          this.fullProductCode,
-          this.form.price,
-          this.form.QTY,
-          this.form.prodTax,
-          this.form.accName,
-          this.form.accPrice,
-          this.form.accQty,
-          this.form.accTax,
-          this.form.planQty,
-          this.form.planAmt,
-          this.form.planName
-        );
+      this.$emit('productAdded',
+      {
+        fullProductCode: this.fullProductCode,
+        product: product,
+        rete: rate,
+        quantity: quantity,
+        tax: tax,
+        planAmt: this.form.planAmt,
+        product: this.form.prodName,
+        rate: this.form.prodRate,
+        quantity: this.form.prodQuantity,
+        tax: this.form.prodTax
       }
+      )
+      
+      // let state = 0;
+      // if (this.form.accPicked === true) {
+      //   state += 1;
+      // }
+      // if (this.form.planPicked === true) {
+      //   state += 2;
+      // }
+
+      // if (state === 0) {
+      //   this.$emit(
+      //     'productAdded',
+      //     this.fullProductCode,
+      //     this.form.price,
+      //     this.form.QTY,
+      //     this.form.prodTax
+      //   );
+      // } else if (state === 1) {
+      //   this.$emit(
+      //     'prodAndAccAdded',
+      //     this.fullProductCode,
+      //     this.form.price,
+      //     this.form.QTY,
+      //     this.form.prodTax,
+      //     this.form.accName,
+      //     this.form.acRate,
+      //     this.form.accQuantity,
+      //     this.form.accTax
+      //   );
+      // } else if (state === 2) {
+      //   this.$emit(
+      //     'prodAndPlanAdded',
+      //     this.fullProductCode,
+      //     this.form.price,
+      //     this.form.QTY,
+      //     this.form.prodTax,
+      //     this.form.planQuantity,
+      //     this.form.planAmt,
+      //     this.form.planName
+      //   );
+      // } else {
+      //   this.$emit(
+      //     'allAdded',
+      //     this.fullProductCode,
+      //     this.form.price,
+      //     this.form.QTY,
+      //     this.form.prodTax,
+      //     this.form.accName,
+      //     this.form.acRate,
+      //     this.form.accQuantity,
+      //     this.form.accTax,
+      //     this.form.planQuantity,
+      //     this.form.planAmt,
+      //     this.form.planName
+      //   );
+      // }
       this.visible = false;
     },
 
     /* HANDLERS TO SHOW PRODUCT FORMS */
     handleAccessories() {
-      this.$refs.accessoryDetailForm.showDialog();
+      this.accessoryDetailFormVisible = true;
     },
     handlePlan() {
-      this.$refs.servicePlanForm.showDialog();
+      this.servicePlanFormVisible = true;
+    },
+    handleComfirmaton() {
+      this.comfirmationFormVisible = true;
     },
 
     /* GET ACCESSORIES, PRODUCTS, AND SERVICE PLANS FOR TABLE */
-    getAccessoryInfo(n, p, q, r) {
-      this.form.accPicked = true;
-      this.form.accName = n;
-      this.form.accPrice = p;
-      this.form.accQty = q;
-      this.form.accTax = r;
+    getAccessoryInfo(value) {
+      this.form = Object.assign({}, this.form, value);
     },
-    getServicePlanFee(qty, amt, name) {
-      this.form.planPicked = true;
-      this.form.planQty = qty;
-      this.form.planAmt = amt;
-      this.form.planName = name;
-      let price = qty * amt;
-      this.form.servicePlan = price.toString();
+    getServicePlanFee(value) {
+      this.form = Object.assign({}, this.form, value);
     }
   },
 

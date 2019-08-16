@@ -4,26 +4,16 @@
     :center="true"
     top="15vh"
     :visible.sync="visible"
-    append-to-body="true"
+    append-to-body="append"
     @close="resetFields"
   >
     <div class="confirmationPage">
       <el-form ref="form" :model="form" style="margin-left: 100px">
-        <el-form-item label="Item: ">
-          <p v-model="item">{{ item }}</p>
-        </el-form-item>
-        <el-form-item label="Price: ">
-          <p v-model="price">{{ price }}</p>
-        </el-form-item>
-        <el-form-item label="QTY: ">
-          <p v-model="QTY">{{ QTY }}</p>
-        </el-form-item>
-        <el-form-item label="Service Fee: ">
-          <p v-model="serviceFee">{{ serviceFee }}</p>
-        </el-form-item>
-        <el-form-item label="Tax: ">
-          <p v-model="tax">{{ tax }}</p>
-        </el-form-item>
+        <el-form-item label="Item: " :item="item">{{ item }}</el-form-item>
+        <el-form-item label="Price: " :price="price">{{ price }}</el-form-item>
+        <el-form-item label="QTY: " :QTY="QTY">{{ QTY }}</el-form-item>
+        <el-form-item label="Service Fee: " :serviceFee="serviceFee">{{ serviceFee }}</el-form-item>
+        <el-form-item label="Tax: " :tax="tax">{{ tax }}</el-form-item>
         <el-form-item>
           <el-row style="float: right; margin-right: 100px">
             <el-button type="primary">No</el-button>
@@ -50,6 +40,21 @@ export default {
       form: {}
     };
   },
+  props: {
+    value: Boolean,
+    form: [Object]
+  },
+
+  watch: {
+    visible(val) {
+      if (val) {
+        this.$nextTick(() => this.$refs.form.clearValidate());
+      } else {
+        this.form = {};
+      }
+    }
+  },
+
   methods: {
     resetFields() {
       this.$refs.form.resetFields();

@@ -115,7 +115,7 @@
     <edit-order-form
       v-model="editFormVisible"
       :form="form"
-      :isEdit="isEdit"
+      :orderItemTable="orderItemTable"
       @reload-table="handleReloadTable"
     ></edit-order-form>
   </div>
@@ -159,7 +159,6 @@ export default {
       pageSize: 20,
       total: 0,
       sort: null,
-      isEdit: false,
       editFormVisible: false,
       orderReviewFormVisible: false,
       /* RESET THESE */
@@ -240,6 +239,7 @@ export default {
         this.page = 1;
         this.pageSize = 20;
         this.sort = null;
+        this.form = {};
       }
     }
   },
@@ -260,7 +260,6 @@ export default {
 
     /* HANDLERS FOR SHOWING FORMS */
     async handleAdd() {
-      this.isEdit = false;
       this.form = {};
       this.form.billingCompany = this.currentOrg.orgName;
       this.form.billingContact = this.currentOrg.contacts;
@@ -281,10 +280,8 @@ export default {
       this.form = {...row};
       this.orderItemTable = await getOrderItem({ orderId: row.orderId });
       if (command === 'view') {
-        this.isEdit = false;
         this.orderReviewFormVisible = true;
       } else {
-        this.isEdit = true;
         this.editFormVisible = true;
       }
       // this.orderInfoToView = {};
