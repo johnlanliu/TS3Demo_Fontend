@@ -328,16 +328,14 @@
     </div>
     <create-invoice-form :form="form" v-model="createInvoiceFormVisible"></create-invoice-form>
     <accessory-detail-form
-      :form="form"
       v-model="accessoryDetailFormVisible"
       @accessoryAdded="HandleAccessoryAdded"
     ></accessory-detail-form>
     <product-detail-form
-      :form="form"
       v-model="productDetailFormVisible"
       @productAdded="handleProductAdded"
     ></product-detail-form>
-    <service-plan-form :form="form" v-model="servicePlanFormVisible" @planAdded="handlePlanAdded"></service-plan-form>
+    <service-plan-form v-model="servicePlanFormVisible" @planAdded="handlePlanAdded"></service-plan-form>
   </el-dialog>
 </template>
 
