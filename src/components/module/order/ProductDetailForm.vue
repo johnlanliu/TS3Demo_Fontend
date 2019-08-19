@@ -5,10 +5,11 @@
     top="15vh"
     :visible.sync="visible"
     :append-to-body="append"
+    @close="clearValidate"
   >
     <div class="product code">
       <el-form ref="form" :model="form" size="mini" style="text-align: center">
-        <el-collapse v-model="activeName" accordion>
+        <el-collapse v-model="form.activeName" accordion>
           <el-collapse-item name="1">
             <template slot="title">{{ form.product }}</template>
             <el-row>
@@ -80,9 +81,9 @@
             </el-row>
           </el-collapse-item>
           <el-collapse-item
-            v-if="isTrackLight && namePicked"
+            v-if="form.isTrackLight && form.namePicked"
             name="2"
-            disabled="isTrackLight"
+            disabled="form.isTrackLight"
           >
             <template slot="title">{{ form.network }}</template>
             <el-row>
@@ -99,9 +100,9 @@
             </el-row>
           </el-collapse-item>
           <el-collapse-item
-            v-if="isTrackLight && form.networkPicked"
+            v-if="form.isTrackLight && form.networkPicked"
             name="3"
-            disabled="isTrackLight"
+            disabled="form.isTrackLight"
           >
             <template slot="title">{{ form.color }}</template>
             <el-row>
@@ -126,95 +127,41 @@
               </el-col>
             </el-row>
           </el-collapse-item>
-          <el-collapse-item title="Price" v-if="showPrice" name="4">
+          <el-collapse-item title="Price" v-if="form.showPrice" name="4">
             <el-row>
               <el-col :span="10" :offset="6">
-                <el-form ref="form" :model="form" size="mini" align="right">
-                  <el-form-item label="Unit Price $">
-                    <el-input v-model="form.rate" style="width: 150px; "></el-input>
-                  </el-form-item>
-                  <el-form-item label="Quantity">
-                    <el-input-number
-                      v-model="form.quantity"
-                      controls-position="right"
-                      :min="1"
-                      style="width: 150px"
-                    ></el-input-number>
-                  </el-form-item>
-                  <el-form-item label="Tax: ">
-                    <el-select v-model="form.tax" :total="total" placeholder style="width: 150px">
-                      <el-option
-                        v-for="option in taxOptions"
-                        :key="option.value"
-                        :label="option.label"
-                        :value="option.value"
-                      ></el-option>
-                    </el-select>
-                  </el-form-item>
-                  <!-- <el-form-item v-if="form.accPicked">
-                    <el-form-item
-                      align="center"
-                      style="padding-right: 30px"
-                      label="Accessory: "
-                    >{{ form.accName }}</el-form-item>
-                    <el-form-item label="Accessory Price: ">
-                      <el-input v-model="form.rate" style="width: 150px;"></el-input>
-                    </el-form-item>
-                    <el-form-item label="Accessory QTY: ">
-                      <el-input-number
-                        v-model="form.quantity"
-                        controls-position="right"
-                        :min="1"
-                        style="width: 150px"
-                      ></el-input-number>
-                    </el-form-item>
-                    <el-form-item label="Accessory Tax: ">
-                      <el-select v-model="form.tax" placeholder style="width: 150px">
-                        <el-option
-                          v-for="option in taxOptions"
-                          :key="option.value"
-                          :label="option.label"
-                          :value="option.value"
-                        ></el-option>
-                      </el-select>
-                    </el-form-item>
-                  </el-form-item>
-                  <el-form-item v-if="form.planPicked">
-                    <el-form-item align="center" label="Service Plan: ">{{ form.planName }}</el-form-item>
-                    <el-form-item label="Service Plan Price: ">
-                      <el-input v-model="form.planAmt" style="width: 150px;"></el-input>
-                    </el-form-item>
-                    <el-form-item label="Service Plan QTY: ">
-                      <el-input-number
-                        v-model="form.planQuantity"
-                        controls-position="right"
-                        :min="1"
-                        style="width: 150px"
-                      ></el-input-number>
-                    </el-form-item>
-                  </el-form-item> -->
-                </el-form>
+                <el-form-item label="Unit Price $">
+                  <el-input v-model="form.rate" style="width: 150px; "></el-input>
+                </el-form-item>
+                <el-form-item label="Quantity">
+                  <el-input-number
+                    v-model="form.quantity"
+                    controls-position="right"
+                    :min="1"
+                    style="width: 150px"
+                  ></el-input-number>
+                </el-form-item>
+                <el-form-item label="Tax: ">
+                  <el-select v-model="form.tax" placeholder style="width: 150px">
+                    <el-option
+                      v-for="option in taxOptions"
+                      :key="option.value"
+                      :label="option.label"
+                      :value="option.value"
+                    ></el-option>
+                  </el-select>
+                </el-form-item>
                 <el-row>
-                  <el-col :span="9">
-                    <el-button
-                      type="primary"
-                      @click="handleAccessories"
-                    >+ Add Accessories</el-button>
-                    </el-col>
-                  <el-col :span="9" :offset="3" :push="3">
-                    <el-button
-                      style="margin-left:-14px;"
-                      type="primary"
-                      @click="handlePlan"
-                    >+ Add Service Plan</el-button>
+                  <el-col :span="3">
+                    <el-form-item v-model="form.amount" label="Total :"></el-form-item>
+                  </el-col>
+                  <el-col :span="4" :offset="17">
+                    <el-form-item :total="total">${{ total }}</el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col style="margin-top:10px">
-                    <el-button
-                      type="primary"
-                      @click="handleAddClick"
-                    >Add</el-button>
+                    <el-button type="primary" @click="handleAddClick">Add</el-button>
                   </el-col>
                 </el-row>
               </el-col>
@@ -223,55 +170,30 @@
         </el-collapse>
       </el-form>
     </div>
-    <accessory-detail-form
-      ref="accessoryDetailForm"
-      v-model="accessoryDetailFormVisible"
-      :form="form"
-      @accessoryAdded="getAccessoryInfo"
-    ></accessory-detail-form>
-    <service-plan-form
-      ref="servicePlanForm"
-      :form="form"
-      v-model="servicePlanFormVisible"
-      @planAdded="getServicePlanFee"
-    ></service-plan-form>
-    <confirmation-form
-     :form="form"
-     v-model="comfirmationFormVisible">
-    </confirmation-form>
   </el-dialog>
 </template>
 
 <script>
-import ConfirmationForm from './ConfirmationForm.vue';
-import AccessoryDetailForm from './AccessoryDetailForm.vue';
-import ServicePlanForm from './ServicePlanForm.vue';
-
 export default {
   name: 'ProductDetailForm',
 
-  components: {
-    ConfirmationForm,
-    AccessoryDetailForm,
-    ServicePlanForm
-  },
+  components: {},
 
   props: {
-    value: Boolean,
-    form: [Object],
+    value: Boolean
   },
 
   data: function() {
     return {
-      namePicked: false,
-      isTrackLight: true,
-      showPrice: false,
-      total: 0,
-      activeName: '1',
+      // namePicked: false,
+      // isTrackLight: true,
+      // showPrice: false,
+      // activeName: '1',
+      form: {},
       orderItems: [],
       loading: false,
       append: true,
-      tax1: 0.06,
+      tax: 0.06,
       accessoryDetailFormVisible: false,
       servicePlanFormVisible: false,
       comfirmationFormVisible: false,
@@ -316,55 +238,47 @@ export default {
 
   computed: {
     total: function() {
-      if(this.form.rate !== null && this.form.quantity !== null) {
-        if (!isNaN(this.form.rate) && !isNaN(this.form.quantity)) {
-          if(this.form.tax === 'Y'){
-            return (this.form.rate * Number(this.form.quantity) * (1 + this.tax1)).toFixed(2);
-          } else {
-            return (this.form.rate * Number(this.form.quantity)).toFixed(2);
-          }
-        } else {
-          return 0;
-        }
-      } else {
+      if (
+        this.form.rate === null ||
+        this.form.quantity === null ||
+        isNaN(this.form.rate) ||
+        isNaN(this.form.quantity)
+      ) {
         return 0;
+      } else {
+        if (this.form.tax === 'Y') {
+          return (
+            this.form.rate *
+            Number(this.form.quantity) *
+            (1 + this.tax)
+          ).toFixed(2);
+        } else {
+          return (this.form.rate * Number(this.form.quantity)).toFixed(2);
+        }
       }
     },
+    visible: {
+      get() {
+        return this.value;
+      },
+      set(val) {
+        this.$emit('input', val);
+      }
+    }
   },
 
   methods: {
     /* AUXILIARY FUNCTIONS */
-    // resetFields() {
-    //   this.form.product = 'Type';
-    //   this.form.productCode = '';
-    //   this.form.activeName = '1';
-    //   this.form.isTrackLight = true;
-    //   this.form.namePicked = false;
-    //   this.form.networkPicked = false;
-    //   this.form.showPrice = false;
-    //   this.form.network = 'Network';
-    //   this.form.color = 'Color';
-    //   this.form.QTY = 1;
-    //   this.form.price = '';
-    //   this.form.prodTax = '';
-    //   this.form.accName = '';
-    //   this.form.acRate = '';
-    //   this.form.accQuantity = 1;
-    //   this.form.accTax = '';
-    //   this.form.accPicked = false;
-    //   this.form.planPicked = false;
-    //   this.form.planQuantity = 1;
-    //   this.form.planAmt = '';
-    //   this.form.planName = '';
-    //   this.form.servicePlan = '';
-    //   this.$refs.form.resetFields();
-    // },
-
+    clearValidate() {
+      this.visible = false;
+      this.form = {};
+      this.$refs.form.clearValidate();
+    },
     /* HANDLER FUNCTIONS */
     handleNext(number) {
-      let tempNum = Number(this.activeName);
+      let tempNum = Number(this.form.activeName);
       let nextNum = tempNum + number;
-      this.activeName = nextNum.toString();
+      this.form.activeName = nextNum.toString();
     },
     handleNetworkClick(speed) {
       this.form.network = speed;
@@ -373,155 +287,40 @@ export default {
     },
     handleColorClick(color) {
       this.form.color = color;
-      this.showPrice = true;
+      this.form.showPrice = true;
       this.handleNext(1);
     },
     handleNameClick(num, code) {
-      // if (this.form.product === 'Type') {
-      //   this.form.product = num;
-      //   this.form.productCode = code;
-      //   if (
-      //     num !== '4" TrackLight (VT1611)' &&
-      //     num !== '6" TrackLight (VT1711)'
-      //   ) {
-      //     this.form.showPrice = true;
-      //     this.form.isTrackLight = false;
-      //     this.form.network = '';
-      //     this.form.color = '';
-      //     this.handleNext(3);
-      //   } else {
-      //     this.form.namePicked = true;
-      //     this.form.isTrackLight = true;
-      //     this.form.network = 'Network';
-      //     this.form.color = 'Color';
-      //     this.handleNext(1);
-      //   }
-      // } else {
-      //   if (
-      //     this.form.product !== '4" TrackLight (VT1611)' &&
-      //     this.form.product !== '6" TrackLight (VT1711)'
-      //   ) {
-      //     // this.resetFields();
-      //     this.form.product = num;
-      //     this.form.productCode = code;
-      //     if (
-      //       num !== '4" TrackLight (VT1611)' &&
-      //       num !== '6" TrackLight (VT1711)'
-      //     ) {
-      //       this.form.showPrice = true;
-      //       this.form.isTrackLight = false;
-      //       this.handleNext(3);
-      //     } else {
-      //       this.form.namePicked = true;
-      //       this.form.isTrackLight = true;
-      //       this.handleNext(1);
-      //     }
-      //   } else {
-      //     if (
-      //       num !== '4" TrackLight (VT1611)' &&
-      //       num !== '6" TrackLight (VT1711)'
-      //     ) {
-      //       this.form.product = num;
-      //       this.form.productCode = code;
-      //       this.form.showPrice = true;
-      //       this.form.isTrackLight = false;
-      //       this.handleNext(3);
-      //     } else {
-      //       if (this.form.product === num) {
-      //         this.handleNext(1);
-      //       } else {
-      //         this.form.product = num;
-      //         this.form.productCode = code;
-      //         this.form.price = '';
-      //         this.form.QTY = '';
-      //         this.form.servicePlan = '';
-      //         this.handleNext(1);
-      //       }
-      //     }
-      //   }
-      // }
-
-        this.form.product = num;
-        // this.form.productCode = code;
-        if (
-          num !== '4" TrackLight (VT1611)' &&
-          num !== '6" TrackLight (VT1711)'
-        ) {
-          this.showPrice = true;
-          this.isTrackLight = false;
-          this.form.network = '';
-          this.form.color = '';
-          this.handleNext(3);
-        } else {
-          this.namePicked = true;
-          this.isTrackLight = true;
-          this.form.network = 'Network';
-          this.form.color = 'Color';
-          this.handleNext(1);
-        }
+      this.form.product = num;
+      if (
+        num !== '4" TrackLight (VT1611)' &&
+        num !== '6" TrackLight (VT1711)'
+      ) {
+        this.form.showPrice = true;
+        this.form.isTrackLight = false;
+        this.form.network = '';
+        this.form.color = '';
+        this.handleNext(3);
+      } else {
+        this.form.namePicked = true;
+        this.form.isTrackLight = true;
+        this.form.network = 'Network';
+        this.form.color = 'Color';
+        this.handleNext(1);
+      }
     },
 
     handleAddClick(event) {
-      const plus = {
+      this.$emit('productAdded', {
         product: this.form.product,
         quantity: this.form.quantity,
         rate: this.form.rate,
         tax: this.form.tax,
         amount: this.total
-      };
-      this.orderItems.push(plus);
-
-      this.$emit('productAdded', this.orderItems);
+      });
       this.visible = false;
-    },
-
-    /* HANDLERS TO SHOW PRODUCT FORMS */
-    handleAccessories() {
-      this.accessoryDetailFormVisible = true;
-    },
-    handlePlan() {
-      this.servicePlanFormVisible = true;
-    },
-    handleComfirmaton() {
-      this.comfirmationFormVisible = true;
-    },
-
-    /* GET ACCESSORIES, PRODUCTS, AND SERVICE PLANS FOR TABLE */
-    getAccessoryInfo(value) {
-      this.orderItems.push(value);
-    },
-    getServicePlanFee(value) {
-      this.orderItems.push(value);
     }
-  },
-
-  // computed: {
-  //   fullProductCode: function() {
-  //     if (this.form.isTrackLight === true) {
-  //       if (this.showPrice) {
-  //         return (
-  //           this.form.productCode +
-  //           ' ' +
-  //           this.form.color.substring(0, 1) +
-  //           this.form.network.substring(0, 1) +
-  //           '0-00'
-  //         );
-  //       } else {
-  //         return this.form.productCode;
-  //       }
-  //     } else {
-  //       return this.form.productCode;
-  //     }
-  //   },
-  //   visible: {
-  //     get() {
-  //       return this.value;
-  //     },
-  //     set(val) {
-  //       this.$emit('input', val);
-  //     }
-  //   },
-  // }
+  }
 };
 </script>
 

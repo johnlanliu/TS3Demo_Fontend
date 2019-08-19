@@ -5,149 +5,150 @@
     top="15vh"
     :visible.sync="visible"
     :append-to-body="append"
-    width="798px"
+    width="720px"
   >
-    <el-form ref="form" :model="form" size="mini" style="margin: 0; padding-left: 10px">
-      <el-form-item label="Invoice Type">
-        <el-select v-model="form.invoiceType" placeholder="select">
-          <el-option
-            v-for="type in invoiceOptions"
-            :key="type.value"
-            :value="type.value"
-            :label="type.label"
-          ></el-option>
-        </el-select>
-      </el-form-item>
+    <el-form ref="form" :model="form" size="mini" style="margin: 0">
+      <div style="margin-left:50px;width:612px">
+        <el-form-item label="Invoice Type">
+          <el-select v-model="form.invoiceType" placeholder="select">
+            <el-option
+              v-for="type in invoiceOptions"
+              :key="type.value"
+              :value="type.value"
+              :label="type.label"
+            ></el-option>
+          </el-select>
+        </el-form-item>
 
-      <el-row>
-        <el-col :span="9">
-          <el-form-item label="BILLING INFO" style="font-weight: bold"></el-form-item>
-        </el-col>
-        <el-col :span="9" :push="1">
-          <el-form-item label="SHIPPING INFO" style="font-weight: bold"></el-form-item>
-        </el-col>
-      </el-row>
+        <el-row :gutter="20">
+          <el-col :span="12">
+            <el-form-item label="BILLING INFO" style="font-weight: bold"></el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="SHIPPING INFO" style="font-weight: bold"></el-form-item>
+          </el-col>
+        </el-row>
 
-      <el-row>
-        <el-col :span="9">
-          <el-form-item label="Company Name: ">
-            <el-input v-model="form.orgName" style="width: 275px"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="9" :push="1">
-          <el-form-item label="Company Name: ">
-            <el-input v-model="form.shippingCompany" style="width: 275px"></el-input>
-          </el-form-item>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="9">
-          <el-form-item label="Contact: ">
-            <el-input v-model="form.contacts" style="width: 275px"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="9" :push="1">
-          <el-form-item label="Contact: ">
-            <el-input v-model="form.shippingContact" style="width: 275px"></el-input>
-          </el-form-item>
-        </el-col>
-      </el-row>
+        <el-row :gutter="20">
+          <el-col :span="12">
+            <el-form-item label="Company Name: ">
+              <el-input v-model="form.orgName" style="width: 275px"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="Company Name: ">
+              <el-input v-model="form.shippingCompany" style="width: 275px"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row :gutter="20">
+          <el-col :span="12">
+            <el-form-item label="Contact: ">
+              <el-input v-model="form.contacts" style="width: 275px"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="Contact: ">
+              <el-input v-model="form.shippingContact" style="width: 275px"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
 
-      <el-row>
-        <el-col :span="9">
-          <el-form-item label="Phone Number: ">
-            <el-input v-model="form.phone" style="width: 275px"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="9" :push="1">
-          <el-form-item label="Phone Number: ">
-            <el-input v-model="form.shippingPhone" style="width: 275px"></el-input>
-          </el-form-item>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="9">
-          <el-form-item label="Email: ">
-            <el-input v-model="form.email" style="width: 275px"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="9" :push="1">
-          <el-form-item label="Email: ">
-            <el-input v-model="form.shippingEmail" style="width: 275px"></el-input>
-          </el-form-item>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="9">
-          <el-form-item label="Address: ">
-            <el-input v-model="form.streetAddress" style="width: 275px"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="9" :push="1">
-          <el-form-item label="Address: ">
-            <el-input v-model="form.shippingAddress" style="width: 275px"></el-input>
-          </el-form-item>
-        </el-col>
-      </el-row>
+        <el-row :gutter="20">
+          <el-col :span="12">
+            <el-form-item label="Phone Number: ">
+              <el-input v-model="form.phone" style="width: 275px"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="Phone Number: ">
+              <el-input v-model="form.shippingPhone" style="width: 275px"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row :gutter="20">
+          <el-col :span="12">
+            <el-form-item label="Email: ">
+              <el-input v-model="form.email" style="width: 275px"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="Email: ">
+              <el-input v-model="form.shippingEmail" style="width: 275px"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row :gutter="20">
+          <el-col :span="12">
+            <el-form-item label="Address: ">
+              <el-input v-model="form.streetAddress" style="width: 275px"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="Address: ">
+              <el-input v-model="form.shippingAddress" style="width: 275px"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
 
-      <el-row>
-        <el-col :span="5">
-          <el-form-item label="City: ">
-            <el-input v-model="form.city" style="width: 145px"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="5">
-          <el-form-item label="Zip/Postal Code: ">
-            <el-input v-model="form.zip" style="width: 120px"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="5">
-          <el-form-item label="City: ">
-            <el-input v-model="form.shippingCity" style="width: 145px"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="5">
-          <el-form-item label="Zip/Postal Code: ">
-            <el-input v-model="form.shippingZip" style="width: 120px"></el-input>
-          </el-form-item>
-        </el-col>
-      </el-row>
+        <el-row :gutter="20">
+          <el-col :span="6">
+            <el-form-item label="City: ">
+              <el-input v-model="form.city" style="width: 145px"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item label="Zip/Postal Code: ">
+              <el-input v-model="form.zip" style="width: 120px"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item label="City: ">
+              <el-input v-model="form.shippingCity" style="width: 145px"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item label="Zip/Postal Code: ">
+              <el-input v-model="form.shippingZip" style="width: 120px"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
 
-      <el-row>
-        <el-col :span="5">
-          <el-form-item label="Country: ">
-            <el-input v-model="form.country" style="width: 133px"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="5">
-          <el-form-item label="State/Province: ">
-            <el-input v-model="form.state" style="width: 132px"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="5">
-          <el-form-item label="Country: ">
-            <el-input v-model="form.shippingCountry" style="width: 133px"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="5">
-          <el-form-item label="State/Province: ">
-            <el-input v-model="form.shippingState" style="width: 132px"></el-input>
-          </el-form-item>
-        </el-col>
-      </el-row>
+        <el-row :gutter="20">
+          <el-col :span="6">
+            <el-form-item label="Country: ">
+              <el-input v-model="form.country" style="width: 133px"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item label="State/Province: ">
+              <el-input v-model="form.state" style="width: 132px"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item label="Country: ">
+              <el-input v-model="form.shippingCountry" style="width: 133px"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item label="State/Province: ">
+              <el-input v-model="form.shippingState" style="width: 132px"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
 
-      <el-form-item label="Payment Term">
-        <el-select v-model="form.paymentTerm" placeholder="Select">
-          <el-option
-            v-for="option in paymentOptions"
-            :key="option.value"
-            :label="option.value"
-            :value="option.label"
-          ></el-option>
-        </el-select>
-      </el-form-item>
-
-      <el-row>
+        <el-form-item label="Payment Term">
+          <el-select v-model="form.paymentTerm" placeholder="Select">
+            <el-option
+              v-for="option in paymentOptions"
+              :key="option.value"
+              :label="option.value"
+              :value="option.label"
+            ></el-option>
+          </el-select>
+        </el-form-item>
+      </div>
+      <el-row  :gutter="20">
         <el-col :span="10">
           <el-form-item label="Invoice #: " style="float: left"></el-form-item>
           <el-input v-model="form.invoiceNumber" style="width: 188px"></el-input>

@@ -4,7 +4,7 @@
     :center="true"
     top="15vh"
     :visible.sync="visible"
-    append-to-body="append"
+    :append-to-body="append"
     @close="resetFields"
   >
     <div class="confirmationPage">
@@ -32,12 +32,12 @@ export default {
   data: function() {
     return {
       loading: false,
+      append: true,
       item: 'VT1611R30',
       price: '$250',
       QTY: '10',
       serviceFee: '$7',
-      tax: 'Yes',
-      form: {}
+      tax: 'Yes'
     };
   },
   props: {

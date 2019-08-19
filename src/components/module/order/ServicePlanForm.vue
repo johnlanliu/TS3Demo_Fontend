@@ -5,9 +5,10 @@
     top="15vh"
     :visible.sync="visible"
     :append-to-body="append"
+    @close="clearValidate"
   >
     <el-form ref="form" :model="form" size="mini" style="text-align: center">
-      <el-collapse v-model="activeName" accordion>
+      <el-collapse v-model="form.activeName" accordion>
         <el-collapse-item name="1">
           <template slot="title">{{ form.product }}</template>
           <el-row>
@@ -61,7 +62,6 @@
         <el-collapse-item title="Price" v-if="form.showPrice" name="2">
           <el-row>
             <el-col :span="10" :offset="6">
-              <el-form ref="form" :model="form" size="mini" align="right">
                 <el-form-item label="Amount $" prop="rate">
                   <el-input v-model="form.rate" style="width: 150px; "></el-input>
                 </el-form-item>
@@ -81,7 +81,6 @@
                     <el-form-item :total="total">${{ total }}</el-form-item>
                   </el-col>
                 </el-row>
-              </el-form>
               <el-row>
                 <el-button
                   type="primary"
@@ -103,10 +102,9 @@ export default {
 
   data: function() {
     return {
-      showPrice: false,
-      activeName: '1',
       loading: false,
-      append: true
+      append: true,
+      form: {}
       /* RESET THESE */
       // formRules: {
       //   rate: [
@@ -121,8 +119,7 @@ export default {
   },
 
   props: {
-    value: Boolean,
-    form: [Object]
+    value: Boolean
   },
 
   watch: {
@@ -132,6 +129,12 @@ export default {
   },
 
   methods: {
+    /* AUXILIARY FUNCTIONS */
+    clearValidate() {
+      this.visible = false;
+      this.form = {};
+      this.$refs.form.clearValidate();
+    },
     /* HANDLER FUNCTIONS */
     handlePlanPick(duration) {
       this.form.product = duration + ' ' + 'Service Plan';

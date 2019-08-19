@@ -5,10 +5,11 @@
     top="15vh"
     :visible.sync="visible"
     :append-to-body="append"
+    @close="clearValidate"
   >
     <div class="accessoryCode">
-      <el-form ref="form" :model="form" size="mini" style="text-align: center">
-        <el-collapse v-model="activeName" accordion>
+      <el-form ref="form" :model="form" size="mini" :rules="formRules" style="text-align: center">
+        <el-collapse v-model="form.activeName" accordion>
           <el-collapse-item name="1">
             <template slot="title">{{ form.product }}</template>
             <el-row>
@@ -196,40 +197,38 @@
               </el-col>
             </el-row>
           </el-collapse-item>
-          <el-collapse-item title="Price" v-if="showPrice" name="2">
+          <el-collapse-item title="Price" v-if="form.showPrice" name="2">
             <el-row>
               <el-col :span="10" :offset="6">
-                <el-form ref="form" :model="form" :rules="formRules" size="mini" align="right">
-                  <el-form-item label="Unit Price $" prop="rate">
-                    <el-input v-model="form.rate" style="width: 150px; "></el-input>
-                  </el-form-item>
-                  <el-form-item label="Quantity">
-                    <el-input-number
-                      v-model="form.quantity"
-                      controls-position="right"
-                      :min="1"
-                      style="width: 150px"
-                    ></el-input-number>
-                  </el-form-item>
-                  <el-form-item label="Tax: ">
-                    <el-select v-model="form.tax" placeholder style="width: 150px">
-                      <el-option
-                        v-for="option in taxOptions"
-                        :key="option.value"
-                        :label="option.label"
-                        :value="option.value"
-                      ></el-option>
-                    </el-select>
-                  </el-form-item>
-                  <el-row>
-                    <el-col :span="3">
-                      <el-form-item v-model="form.amount" label="Total :"></el-form-item>
-                    </el-col>
-                    <el-col :span="4" :offset="17">
-                      <el-form-item :total="total">${{ total }} </el-form-item>
-                    </el-col>
-                  </el-row>
-                </el-form>
+                <el-form-item label="Unit Price $" prop="rate">
+                  <el-input v-model="form.rate" style="width: 150px; "></el-input>
+                </el-form-item>
+                <el-form-item label="Quantity">
+                  <el-input-number
+                    v-model="form.quantity"
+                    controls-position="right"
+                    :min="1"
+                    style="width: 150px"
+                  ></el-input-number>
+                </el-form-item>
+                <el-form-item label="Tax: ">
+                  <el-select v-model="form.tax" placeholder style="width: 150px">
+                    <el-option
+                      v-for="option in taxOptions"
+                      :key="option.value"
+                      :label="option.label"
+                      :value="option.value"
+                    ></el-option>
+                  </el-select>
+                </el-form-item>
+                <el-row>
+                  <el-col :span="3">
+                    <el-form-item v-model="form.amount" label="Total :"></el-form-item>
+                  </el-col>
+                  <el-col :span="4" :offset="17">
+                    <el-form-item :total="total">${{ total }}</el-form-item>
+                  </el-col>
+                </el-row>
                 <el-row>
                   <el-button type="primary" style="float: right" @click="handleAddClick()">Add</el-button>
                 </el-row>
@@ -248,11 +247,9 @@ export default {
 
   data: function() {
     return {
-      showPrice: false,
-      activeName: '1',
       loading: false,
       append: true,
-
+      form: {},
       /* RESET THESE */
       taxOptions: [
         {
@@ -264,8 +261,8 @@ export default {
           label: 'N'
         }
       ],
-      tax1: 0.3,
-      formRules: {},
+      tax: 0.3,
+      formRules: {}
       /* FORM RULES */
       // formRules: {
       //   rate: [
@@ -280,35 +277,35 @@ export default {
   },
 
   props: {
-    value: Boolean,
-    form: [Object],
+    value: Boolean
   },
 
   methods: {
     /* AUXILIARY FUNCTIONS */
-
+    clearValidate() {
+      this.visible = false;
+      this.form = {};
+      this.$refs.form.clearValidate();
+    },
     /* HANDLER FUNCTIONS */
     async handleNext(number) {
-        let tempNum = Number(this.activeName);
-        let nextNum = tempNum + number;
-        this.activeName = nextNum.toString();
+      let tempNum = Number(this.form.activeName);
+      let nextNum = tempNum + number;
+      this.form.activeName = nextNum.toString();
     },
     async handleNameClick(num) {
       this.form.product = num;
-      this.showPrice = true;
+      this.form.showPrice = true;
       this.handleNext(1);
     },
     handleAddClick(event) {
-      this.$emit(
-        'accessoryAdded',
-        {
-          product: this.form.product,
-          quantity: this.form.quantity,
-          rate: this.form.rate,
-          tax: this.form.tax,
-          amount: this.total
-        }
-      );
+      this.$emit('accessoryAdded', {
+        product: this.form.product,
+        quantity: this.form.quantity,
+        rate: this.form.rate,
+        tax: this.form.tax,
+        amount: this.total
+      });
       this.visible = false;
     }
   },
@@ -331,21 +328,25 @@ export default {
       }
     },
     total: function() {
-      if(this.form.rate !== null && this.form.quantity !== null) {
-        if (!isNaN(this.form.rate) && !isNaN(this.form.quantity)) {
-          if(this.form.tax === 'Y'){
-            return (this.form.rate * Number(this.form.quantity) * (1 + this.tax1)).toFixed(2);
-          } else {
-            return (this.form.rate * Number(this.form.quantity)).toFixed(2);
-          }
-        } else {
-          return 0;
-        }
-      } else {
+      if (
+        this.form.rate === null ||
+        this.form.quantity === null ||
+        isNaN(this.form.rate) ||
+        isNaN(this.form.quantity)
+      ) {
         return 0;
+      } else {
+        if (this.form.tax === 'Y') {
+          return (
+            this.form.rate *
+            Number(this.form.quantity) *
+            (1 + this.tax)
+          ).toFixed(2);
+        } else {
+          return (this.form.rate * Number(this.form.quantity)).toFixed(2);
+        }
       }
     },
-
     visible: {
       get() {
         return this.value;
