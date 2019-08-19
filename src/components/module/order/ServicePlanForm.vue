@@ -5,10 +5,9 @@
     top="15vh"
     :visible.sync="visible"
     :append-to-body="append"
-    @close="clearValidate"
   >
     <el-form ref="form" :model="form" size="mini" style="text-align: center">
-      <el-collapse v-model="form.activeName" accordion>
+      <el-collapse v-model="activeName" accordion>
         <el-collapse-item name="1">
           <template slot="title">{{ form.product }}</template>
           <el-row>
@@ -104,6 +103,8 @@ export default {
 
   data: function() {
     return {
+      showPrice: false,
+      activeName: '1',
       loading: false,
       append: true
       /* RESET THESE */
@@ -138,12 +139,11 @@ export default {
       this.handleNext(1);
     },
     handleNext(number) {
-      let tempNum = Number(this.form.activeName);
+      let tempNum = Number(this.activeName);
       let nextNum = tempNum + number;
-      this.form.activeName = nextNum.toString();
+      this.activeName = nextNum.toString();
     },
     handleAddPlan(event) {
-      this.form.amount = this.total;
       this.$emit('planAdded', {
         product: this.form.product,
         quantity: this.form.quantity,
@@ -152,10 +152,6 @@ export default {
       });
       this.visible = false;
     },
-
-    clearValidate() {
-      this.$refs.form.clearValidate();
-    }
   },
 
   computed: {

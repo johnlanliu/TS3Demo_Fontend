@@ -8,7 +8,7 @@
   >
     <div class="accessoryCode">
       <el-form ref="form" :model="form" size="mini" style="text-align: center">
-        <el-collapse v-model="form.activeName" accordion>
+        <el-collapse v-model="activeName" accordion>
           <el-collapse-item name="1">
             <template slot="title">{{ form.product }}</template>
             <el-row>
@@ -196,7 +196,7 @@
               </el-col>
             </el-row>
           </el-collapse-item>
-          <el-collapse-item title="Price" v-if="form.showPrice" name="2">
+          <el-collapse-item title="Price" v-if="showPrice" name="2">
             <el-row>
               <el-col :span="10" :offset="6">
                 <el-form ref="form" :model="form" :rules="formRules" size="mini" align="right">
@@ -226,7 +226,7 @@
                       <el-form-item v-model="form.amount" label="Total :"></el-form-item>
                     </el-col>
                     <el-col :span="4" :offset="17">
-                      <el-form-item :total="total">${{ total }} </el-form-item>
+                      <el-form-item :total="total">${{ total }}</el-form-item>
                     </el-col>
                   </el-row>
                 </el-form>
@@ -248,6 +248,8 @@ export default {
 
   data: function() {
     return {
+      showPrice: false,
+      activeName: '1',
       loading: false,
       append: true,
 
@@ -263,7 +265,7 @@ export default {
         }
       ],
       tax1: 0.3,
-      formRules: {},
+      formRules: {}
       /* FORM RULES */
       // formRules: {
       //   rate: [
@@ -279,10 +281,7 @@ export default {
 
   props: {
     value: Boolean,
-    form: [Object],
-  },
-
-  created() {
+    form: [Object]
   },
 
   methods: {
@@ -290,28 +289,23 @@ export default {
 
     /* HANDLER FUNCTIONS */
     async handleNext(number) {
-      let tempNum = Number(this.form.activeName);
+      let tempNum = Number(this.activeName);
       let nextNum = tempNum + number;
-      this.form.activeName = nextNum.toString();
+      this.activeName = nextNum.toString();
     },
     async handleNameClick(num) {
-      // console.log(this.form.activeName);
       this.form.product = num;
-      this.form.showPrice = true;
+      this.showPrice = true;
       this.handleNext(1);
     },
     handleAddClick(event) {
-      this.form.amount = this.total;
-      this.$emit(
-        'accessoryAdded',
-        {
-          product: this.form.product,
-          quantity: this.form.quantity,
-          rate: this.form.rate,
-          tax: this.form.tax,
-          total: this.total
-        }
-      );
+      this.$emit('accessoryAdded', {
+        product: this.form.product,
+        quantity: this.form.quantity,
+        rate: this.form.rate,
+        tax: this.form.tax,
+        amount: this.total
+      });
       this.visible = false;
     }
   },
@@ -334,10 +328,14 @@ export default {
       }
     },
     total: function() {
-      if(this.form.rate !== null && this.form.quantity !== null) {
+      if (this.form.rate !== null && this.form.quantity !== null) {
         if (!isNaN(this.form.rate) && !isNaN(this.form.quantity)) {
-          if(this.form.tax === 'Y'){
-            return (this.form.rate * Number(this.form.quantity) * (1 + this.tax1)).toFixed(2);
+          if (this.form.tax === 'Y') {
+            return (
+              this.form.rate *
+              Number(this.form.quantity) *
+              (1 + this.tax1)
+            ).toFixed(2);
           } else {
             return (this.form.rate * Number(this.form.quantity)).toFixed(2);
           }

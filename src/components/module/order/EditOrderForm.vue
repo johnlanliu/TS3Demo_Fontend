@@ -302,20 +302,12 @@
         <el-row style="margin-top:10px;width:110%">
           <el-col :span="5" :offset="7" :push="2">
             <el-form-item>
-              <el-button 
-                style="margin-left:18px"
-                type="primary"
-                @click="clearValidate"
-                >Cancel Order</el-button>
+              <el-button style="margin-left:18px" type="primary" @click="clearValidate">Cancel Order</el-button>
             </el-form-item>
           </el-col>
           <el-col :span="4" :push="2">
             <el-form-item>
-              <el-button
-                type="primary"
-                @click="handleSaveEdit"
-                v-if="this.form.oderId"
-              >Save Change</el-button>
+              <el-button type="primary" @click="handleSaveEdit" v-if="this.form.oderId">Save Change</el-button>
             </el-form-item>
           </el-col>
           <el-col :span="7" :push="2">
@@ -332,8 +324,16 @@
       </el-form>
     </div>
     <create-invoice-form :form="form" v-model="createInvoiceFormVisible"></create-invoice-form>
-    <accessory-detail-form :form="form" v-model="accessoryDetailFormVisible" @accessoryAdded="HandleAccessoryAdded"></accessory-detail-form>
-    <product-detail-form :form="form" v-model="productDetailFormVisible" @productAdded="handleProductAdded"></product-detail-form>
+    <accessory-detail-form
+      :form="form"
+      v-model="accessoryDetailFormVisible"
+      @accessoryAdded="HandleAccessoryAdded"
+    ></accessory-detail-form>
+    <product-detail-form
+      :form="form"
+      v-model="productDetailFormVisible"
+      @productAdded="handleProductAdded"
+    ></product-detail-form>
     <service-plan-form :form="form" v-model="servicePlanFormVisible" @planAdded="handlePlanAdded"></service-plan-form>
   </el-dialog>
 </template>
@@ -362,13 +362,12 @@ export default {
     ServicePlanForm
   },
 
-  created() {
-  },
+  created() {},
   mounted: function() {},
   props: {
     value: Boolean,
     form: [Object],
-    orderItemTable: Array,
+    orderItemTable: Array
   },
 
   data: function() {
@@ -546,13 +545,12 @@ export default {
     //   this.validInvoice = true;
     //   this.visible = true;
     // },
-    handleSaveEdit() {
-    },
+    handleSaveEdit() {},
 
     clearValidate() {
       this.visible = false;
       this.sameAsBilling = false;
-      this.tableData = [];
+      // this.tableData = [];
       // this.form = {};
       // this.validInvoice = false;
       // this.getLastOrder();
@@ -576,15 +574,31 @@ export default {
     handleDeleteOrderItem(row, index) {
       this.tableData.splice(index, 1);
     },
+    async handleCreateInvoice() {
+      this.getDates();
+      this.handleAddOrder();
+      // this.formCopy = JSON.parse(JSON.stringify(this.org));
+      // this.formCopy.shippingCompany = this.formCopy.orgName;
+      // this.formCopy.shippingContact = this.formCopy.contacts;
+      // this.formCopy.shippingPhone = this.formCopy.phone;
+      // this.formCopy.shippingEmail = this.formCopy.email;
+      // this.formCopy.shippingAddress = this.formCopy.streetAddress;
+      // this.formCopy.shippingCity = this.formCopy.city;
+      // this.formCopy.shippingState = this.formCopy.state;
+      // this.formCopy.shippingCountry = this.formCopy.country;
+      // this.formCopy.shippingZip = this.formCopy.zip;
+      // this.$refs.createInvoiceForm.showDialog();
+      this.createInvoiceFormVisible = true;
+    },
     handleAddOrder() {
       this.loading = true;
       this.handleSameInfo();
-      const param = Object.assign({}, this.form, this.customerServiceForm, {
+      const param = Object.assign({}, this.form, {
         orderItems: this.tableData
       });
       this.loading = false;
-      const res = addOrder({},param).then(res => {
-        if(res && !res.errorCode) {
+      const res = addOrder({}, param).then(res => {
+        if (res && !res.errorCode) {
           this.visible = false;
           this.$message.success('Submit Success!');
         }
@@ -605,74 +619,70 @@ export default {
     // },
     async checkForOrder() {
       this.validInvoice = await validInvoiceNo({
-        invoiceNo: this.customerServiceForm.invoiceNumber
+        invoiceNo: this.form.invoiceNumber
       });
     },
 
     /* HANDLERS FOR SHOWING PRODUCT FORMS */
-    async handleCreateInvoice() {
-      this.handleAddOrder();
-      this.createInvoiceFormVisible = true;
-    },
     handleAddDevice() {
-      this.form = {};
-      this.form.product = 'Products list:';
+      // this.$refs.productDetailForm.showDialog();
+      // this.createInvoiceFormVisible = true;
       this.productDetailFormVisible = true;
     },
     handleAddAccessories() {
-      this.form = {};
-      this.form.product = 'Accessories list.';
+      // this.$refs.accessoryDetailForm.showDialog();
       this.accessoryDetailFormVisible = true;
     },
     handleAddService() {
-      this.form = {};
-      this.form.product = 'Services list:';
+      // this.$refs.servicePlanForm.showDialog();
       this.servicePlanFormVisible = true;
     },
 
     /* FORMAT INVOICE AND DUE DATES */
-    // getDates() {
-    //   if (
-    //     this.customerServiceForm.invoiceDate === null ||
-    //     this.org.paymentTerm === null ||
-    //     this.customerServiceForm.invoiceDate === '' ||
-    //     this.org.paymentTerm === '' ||
-    //     typeof this.customerServiceForm.invoiceDate === 'undefined' ||
-    //     typeof this.org.paymentTerm === 'undefined'
-    //   ) {
-    //     this.customerServiceForm.dueDate = null;
-    //     return;
-    //   }
-    //   let invoice = new Date(this.customerServiceForm.invoiceDate);
-    //   let due = new Date(this.customerServiceForm.invoiceDate);
+    getDates() {
+      if (
+        this.form.invoiceDate === null ||
+        this.form.paymentTerm === null ||
+        this.form.invoiceDate === '' ||
+        this.form.paymentTerm === '' ||
+        typeof this.form.invoiceDate === 'undefined' ||
+        typeof this.form.paymentTerm === 'undefined'
+      ) {
+        this.form.dueDate = null;
+        return;
+      }
+      let invoice = new Date(this.form.invoiceDate);
+      let due = new Date(this.form.invoiceDate);
 
-    //   if (this.org.paymentTerm === 'Net15') {
-    //     due.setDate(this.customerServiceForm.invoiceDate.getDate() + 15);
-    //   } else {
-    //     due.setDate(this.customerServiceForm.invoiceDate.getDate() + 30);
-    //   }
+      if (this.form.paymentTerm === 'Net15') {
+        due.setDate(this.form.invoiceDate.getDate() + 15);
+        // due.setDate( Number(this.form.invoiceDate) + 15);
+      } else {
+        due.setDate(this.form.invoiceDate.getDate() + 30);
+        // due.setDate( Number(this.form.invoiceDate) + 30);
+      }
 
-    //   this.customerServiceForm.invoiceDate =
-    //     invoice.getFullYear() +
-    //     '-' +
-    //     (invoice.getMonth() + 1) +
-    //     '-' +
-    //     invoice.getDate() +
-    //     ' ' +
-    //     invoice.getHours() +
-    //     ':' +
-    //     invoice.getMinutes();
-    //   this.customerServiceForm.dueDate =
-    //     due.getFullYear() +
-    //     '-' +
-    //     (due.getMonth() + 1) +
-    //     '-' +
-    //     due.getDate() +
-    //     ' ' +
-    //     due.getHours() +
-    //     ':' +
-    //     due.getMinutes();
-    // },
+      this.form.invoiceDate =
+        invoice.getFullYear() +
+        '-' +
+        (invoice.getMonth() + 1) +
+        '-' +
+        invoice.getDate() +
+        ' ' +
+        invoice.getHours() +
+        ':' +
+        invoice.getMinutes();
+      this.form.dueDate =
+        due.getFullYear() +
+        '-' +
+        (due.getMonth() + 1) +
+        '-' +
+        due.getDate() +
+        ' ' +
+        due.getHours() +
+        ':' +
+        due.getMinutes();
+    },
 
     /* GET ACCESSORIES, PRODUCTS, AND SERVICE PLANS FOR TABLE */
     // getAccessoryInfo(n, p, q, r) {
@@ -688,7 +698,7 @@ export default {
     //     amount: Number(this.org.accPrice) * Number(this.org.accQty),
     //     tax: this.org.accTax,
     //     description: this.org.accQty + ' * ' + this.org.accName,
-    //     invoiceNo: this.customerServiceForm.invoiceNumber
+    //     invoiceNo: this.form.invoiceNumber
     //   };
     //   this.tableData.push(data);
     // },
@@ -705,7 +715,7 @@ export default {
     //     amount: Number(this.org.prodPrice) * Number(this.org.prodQty),
     //     tax: this.org.prodTax,
     //     description: this.org.prodQty + ' * ' + this.org.prodName,
-    //     invoiceNo: this.customerServiceForm.invoiceNumber
+    //     invoiceNo: this.form.invoiceNumber
     //   };
     //   this.tableData.push(data);
     // },
@@ -721,7 +731,7 @@ export default {
     //     amount: Number(this.org.planAmt) * Number(this.org.planQty),
     //     tax: 'N',
     //     description: this.org.planQty + ' * ' + this.org.planName,
-    //     invoiceNo: this.customerServiceForm.invoiceNumber
+    //     invoiceNo: this.form.invoiceNumber
     //   };
     //   this.tableData.push(data);
     // },
@@ -742,7 +752,7 @@ export default {
     //     amount: Number(this.org.prodPrice) * Number(this.org.prodQty),
     //     tax: this.org.prodTax,
     //     description: this.org.prodQty + ' * ' + this.org.prodName,
-    //     invoiceNo: this.customerServiceForm.invoiceNumber
+    //     invoiceNo: this.form.invoiceNumber
     //   };
     //   this.tableData.push(data);
     //   const data2 = {
@@ -753,7 +763,7 @@ export default {
     //     amount: Number(this.org.accPrice) * Number(this.org.accQty),
     //     tax: this.org.accTax,
     //     description: this.org.accQty + ' * ' + this.org.accName,
-    //     invoiceNo: this.customerServiceForm.invoiceNumber
+    //     invoiceNo: this.form.invoiceNumber
     //   };
     //   this.tableData.push(data2);
     // },
@@ -773,7 +783,7 @@ export default {
     //     amount: Number(this.org.prodPrice) * Number(this.org.prodQty),
     //     tax: this.org.prodTax,
     //     description: this.org.prodQty + ' * ' + this.org.prodName,
-    //     invoiceNo: this.customerServiceForm.invoiceNumber
+    //     invoiceNo: this.form.invoiceNumber
     //   };
     //   this.tableData.push(data);
     //   const data2 = {
@@ -784,7 +794,7 @@ export default {
     //     amount: Number(this.org.planAmt) * Number(this.org.planQty),
     //     tax: 'N',
     //     description: this.org.planQty + ' * ' + this.org.planName,
-    //     invoiceNo: this.customerServiceForm.invoiceNumber
+    //     invoiceNo: this.form.invoiceNumber
     //   };
     //   this.tableData.push(data2);
     // },
@@ -808,7 +818,7 @@ export default {
     //     amount: Number(this.org.prodPrice) * Number(this.org.prodQty),
     //     tax: this.org.prodTax,
     //     description: this.org.prodQty + ' * ' + this.org.prodName,
-    //     invoiceNo: this.customerServiceForm.invoiceNumber
+    //     invoiceNo: this.form.invoiceNumber
     //   };
     //   this.tableData.push(data);
     //   const data2 = {
@@ -819,7 +829,7 @@ export default {
     //     amount: Number(this.org.accPrice) * Number(this.org.accQty),
     //     tax: this.org.accTax,
     //     description: this.org.accQty + ' * ' + this.org.accName,
-    //     invoiceNo: this.customerServiceForm.invoiceNumber
+    //     invoiceNo: this.form.invoiceNumber
     //   };
     //   this.tableData.push(data2);
     //   const data3 = {
@@ -830,7 +840,7 @@ export default {
     //     amount: Number(this.org.planAmt) * Number(this.org.planQty),
     //     tax: 'N',
     //     description: this.org.planQty + ' * ' + this.org.planName,
-    //     invoiceNo: this.customerServiceForm.invoiceNumber
+    //     invoiceNo: this.form.invoiceNumber
     //   };
     //   this.tableData.push(data3);
     // },
@@ -845,27 +855,25 @@ export default {
     },
 
     handleProductAdded(value) {
-      value.forEach(item=> {
-        this.tableData.push(item);
-      });
+      this.tableData.push(value);
     }
   },
 
   watch: {
-    'customerServiceForm.invoiceNumber': function() {
+    'form.invoiceNumber': function() {
       this.checkForOrder();
     },
 
     orderItemTable: {
       handler: function(val) {
-        if(this.form.orderId){
+        if (this.form.orderId) {
           this.tableData = this.orderItemTable.concat([]);
         } else {
           this.tableData = [];
         }
       },
       immediate: true
-    },
+    }
   },
 
   computed: {
@@ -918,10 +926,9 @@ table.test {
   line-height: 40px;
 }
 
-.el-form-item.plus{
-  margin-top:-18px;
+.el-form-item.plus {
+  margin-top: -18px;
 }
-
 
 td.alignTop {
   vertical-align: top;
