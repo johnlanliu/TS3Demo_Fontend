@@ -596,6 +596,8 @@ export default {
       const param = Object.assign({}, this.form, {
         orderItems: this.tableData
       });
+      console.log(param);
+      debugger;
       this.loading = false;
       const res = addOrder({}, param).then(res => {
         if (res && !res.errorCode) {
