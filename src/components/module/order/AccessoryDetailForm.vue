@@ -283,7 +283,6 @@ export default {
   },
 
   created() {
-    
   },
 
   methods: {

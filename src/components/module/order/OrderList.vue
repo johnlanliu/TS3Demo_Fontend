@@ -261,6 +261,7 @@ export default {
     /* HANDLERS FOR SHOWING FORMS */
     async handleAdd() {
       this.form = {};
+      this.orderItemTable = [];
       this.form.billingCompany = this.currentOrg.orgName;
       this.form.billingContact = this.currentOrg.contacts;
       this.form.billingPhone = this.currentOrg.phone;

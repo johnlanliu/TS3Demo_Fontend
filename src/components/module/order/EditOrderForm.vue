@@ -552,7 +552,7 @@ export default {
     clearValidate() {
       this.visible = false;
       this.sameAsBilling = false;
-      // this.tableData = [];
+      this.tableData = [];
       // this.form = {};
       // this.validInvoice = false;
       // this.getLastOrder();
@@ -575,22 +575,6 @@ export default {
     },
     handleDeleteOrderItem(row, index) {
       this.tableData.splice(index, 1);
-    },
-    async handleCreateInvoice() {
-      // this.getDates();
-      this.handleAddOrder();
-      // this.formCopy = JSON.parse(JSON.stringify(this.org));
-      // this.formCopy.shippingCompany = this.formCopy.orgName;
-      // this.formCopy.shippingContact = this.formCopy.contacts;
-      // this.formCopy.shippingPhone = this.formCopy.phone;
-      // this.formCopy.shippingEmail = this.formCopy.email;
-      // this.formCopy.shippingAddress = this.formCopy.streetAddress;
-      // this.formCopy.shippingCity = this.formCopy.city;
-      // this.formCopy.shippingState = this.formCopy.state;
-      // this.formCopy.shippingCountry = this.formCopy.country;
-      // this.formCopy.shippingZip = this.formCopy.zip;
-      // this.$refs.createInvoiceForm.showDialog();
-      this.createInvoiceFormVisible = true;
     },
     handleAddOrder() {
       this.loading = true;
@@ -626,17 +610,23 @@ export default {
     },
 
     /* HANDLERS FOR SHOWING PRODUCT FORMS */
+    async handleCreateInvoice() {
+      this.handleAddOrder();
+      this.createInvoiceFormVisible = true;
+    },
     handleAddDevice() {
-      // this.$refs.productDetailForm.showDialog();
-      // this.createInvoiceFormVisible = true;
+      this.form = {};
+      this.form.product = 'Products list:';
       this.productDetailFormVisible = true;
     },
     handleAddAccessories() {
-      // this.$refs.accessoryDetailForm.showDialog();
+      this.form = {};
+      this.form.product = 'Accessories list.';
       this.accessoryDetailFormVisible = true;
     },
     handleAddService() {
-      // this.$refs.servicePlanForm.showDialog();
+      this.form = {};
+      this.form.product = 'Services list:';
       this.servicePlanFormVisible = true;
     },
 
@@ -851,7 +841,6 @@ export default {
     },
 
     handlePlanAdded(value) {
-
       this.tableData.push(value);
     },
 
