@@ -155,6 +155,10 @@ export default {
       });
       this.visible = false;
     },
+    clearValidate() {
+      this.visible = false;
+      this.$refs.form.clearValidate();
+    },
   },
 
   computed: {
