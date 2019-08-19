@@ -325,16 +325,14 @@
     </div>
     <create-invoice-form :form="form" v-model="createInvoiceFormVisible"></create-invoice-form>
     <accessory-detail-form
-      :form="form"
       v-model="accessoryDetailFormVisible"
       @accessoryAdded="HandleAccessoryAdded"
     ></accessory-detail-form>
     <product-detail-form
-      :form="form"
       v-model="productDetailFormVisible"
       @productAdded="handleProductAdded"
     ></product-detail-form>
-    <service-plan-form :form="form" v-model="servicePlanFormVisible" @planAdded="handlePlanAdded"></service-plan-form>
+    <service-plan-form v-model="servicePlanFormVisible" @planAdded="handlePlanAdded"></service-plan-form>
   </el-dialog>
 </template>
 
@@ -577,17 +575,6 @@ export default {
     async handleCreateInvoice() {
       this.getDates();
       this.handleAddOrder();
-      // this.formCopy = JSON.parse(JSON.stringify(this.org));
-      // this.formCopy.shippingCompany = this.formCopy.orgName;
-      // this.formCopy.shippingContact = this.formCopy.contacts;
-      // this.formCopy.shippingPhone = this.formCopy.phone;
-      // this.formCopy.shippingEmail = this.formCopy.email;
-      // this.formCopy.shippingAddress = this.formCopy.streetAddress;
-      // this.formCopy.shippingCity = this.formCopy.city;
-      // this.formCopy.shippingState = this.formCopy.state;
-      // this.formCopy.shippingCountry = this.formCopy.country;
-      // this.formCopy.shippingZip = this.formCopy.zip;
-      // this.$refs.createInvoiceForm.showDialog();
       this.createInvoiceFormVisible = true;
     },
     handleAddOrder() {
@@ -596,8 +583,6 @@ export default {
       const param = Object.assign({}, this.form, {
         orderItems: this.tableData
       });
-      console.log(param);
-      debugger;
       this.loading = false;
       const res = addOrder({}, param).then(res => {
         if (res && !res.errorCode) {
@@ -627,16 +612,12 @@ export default {
 
     /* HANDLERS FOR SHOWING PRODUCT FORMS */
     handleAddDevice() {
-      // this.$refs.productDetailForm.showDialog();
-      // this.createInvoiceFormVisible = true;
       this.productDetailFormVisible = true;
     },
     handleAddAccessories() {
-      // this.$refs.accessoryDetailForm.showDialog();
       this.accessoryDetailFormVisible = true;
     },
     handleAddService() {
-      // this.$refs.servicePlanForm.showDialog();
       this.servicePlanFormVisible = true;
     },
 
