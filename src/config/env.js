@@ -11,7 +11,8 @@ let routerMode = 'hash';
 let baseImgPath;
 
 if (process.env.NODE_ENV === 'development') {
-  baseUrl = 'http://localhost:82';
+  baseUrl = 'http://192.168.0.127:82';
+  // baseUrl = 'http://localhost:82';
   // baseUrl = 'http://anytrek.f3322.net:82';
   // baseUrl = 'http://192.168.156.213:82';
   // baseUrl = 'http://192.168.0.113:82';

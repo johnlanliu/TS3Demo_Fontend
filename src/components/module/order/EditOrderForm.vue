@@ -577,7 +577,7 @@ export default {
       this.tableData.splice(index, 1);
     },
     async handleCreateInvoice() {
-      // this.getDates();
+      this.getDates();
       this.handleAddOrder();
       // this.formCopy = JSON.parse(JSON.stringify(this.org));
       // this.formCopy.shippingCompany = this.formCopy.orgName;
@@ -595,9 +595,11 @@ export default {
     handleAddOrder() {
       this.loading = true;
       this.handleSameInfo();
-      const param = Object.assign({}, this.form, this.customerServiceForm, {
+      const param = Object.assign({}, this.form, {
         orderItems: this.tableData
       });
+      console.log(param);
+      debugger;
       this.loading = false;
       const res = addOrder({},param).then(res => {
         if(res && !res.errorCode) {
@@ -621,7 +623,7 @@ export default {
     // },
     async checkForOrder() {
       this.validInvoice = await validInvoiceNo({
-        invoiceNo: this.customerServiceForm.invoiceNumber
+        invoiceNo: this.form.invoiceNumber
       });
     },
 
@@ -641,48 +643,50 @@ export default {
     },
 
     /* FORMAT INVOICE AND DUE DATES */
-    // getDates() {
-    //   if (
-    //     this.customerServiceForm.invoiceDate === null ||
-    //     this.org.paymentTerm === null ||
-    //     this.customerServiceForm.invoiceDate === '' ||
-    //     this.org.paymentTerm === '' ||
-    //     typeof this.customerServiceForm.invoiceDate === 'undefined' ||
-    //     typeof this.org.paymentTerm === 'undefined'
-    //   ) {
-    //     this.customerServiceForm.dueDate = null;
-    //     return;
-    //   }
-    //   let invoice = new Date(this.customerServiceForm.invoiceDate);
-    //   let due = new Date(this.customerServiceForm.invoiceDate);
+    getDates() {
+      if (
+        this.form.invoiceDate === null ||
+        this.form.paymentTerm === null ||
+        this.form.invoiceDate === '' ||
+        this.form.paymentTerm === '' ||
+        typeof this.form.invoiceDate === 'undefined' ||
+        typeof this.form.paymentTerm === 'undefined'
+      ) {
+        this.form.dueDate = null;
+        return;
+      }
+      let invoice = new Date(this.form.invoiceDate);
+      let due = new Date(this.form.invoiceDate);
 
-    //   if (this.org.paymentTerm === 'Net15') {
-    //     due.setDate(this.customerServiceForm.invoiceDate.getDate() + 15);
-    //   } else {
-    //     due.setDate(this.customerServiceForm.invoiceDate.getDate() + 30);
-    //   }
+      if (this.form.paymentTerm === 'Net15') {
+        due.setDate(this.form.invoiceDate.getDate() + 15);
+        // due.setDate( Number(this.form.invoiceDate) + 15);
+      } else {
+        due.setDate(this.form.invoiceDate.getDate() + 30);
+        // due.setDate( Number(this.form.invoiceDate) + 30);
+      }
 
-    //   this.customerServiceForm.invoiceDate =
-    //     invoice.getFullYear() +
-    //     '-' +
-    //     (invoice.getMonth() + 1) +
-    //     '-' +
-    //     invoice.getDate() +
-    //     ' ' +
-    //     invoice.getHours() +
-    //     ':' +
-    //     invoice.getMinutes();
-    //   this.customerServiceForm.dueDate =
-    //     due.getFullYear() +
-    //     '-' +
-    //     (due.getMonth() + 1) +
-    //     '-' +
-    //     due.getDate() +
-    //     ' ' +
-    //     due.getHours() +
-    //     ':' +
-    //     due.getMinutes();
-    // },
+      this.form.invoiceDate =
+        invoice.getFullYear() +
+        '-' +
+        (invoice.getMonth() + 1) +
+        '-' +
+        invoice.getDate() +
+        ' ' +
+        invoice.getHours() +
+        ':' +
+        invoice.getMinutes();
+      this.form.dueDate =
+        due.getFullYear() +
+        '-' +
+        (due.getMonth() + 1) +
+        '-' +
+        due.getDate() +
+        ' ' +
+        due.getHours() +
+        ':' +
+        due.getMinutes();
+    },
 
     /* GET ACCESSORIES, PRODUCTS, AND SERVICE PLANS FOR TABLE */
     // getAccessoryInfo(n, p, q, r) {
@@ -698,7 +702,7 @@ export default {
     //     amount: Number(this.org.accPrice) * Number(this.org.accQty),
     //     tax: this.org.accTax,
     //     description: this.org.accQty + ' * ' + this.org.accName,
-    //     invoiceNo: this.customerServiceForm.invoiceNumber
+    //     invoiceNo: this.form.invoiceNumber
     //   };
     //   this.tableData.push(data);
     // },
@@ -715,7 +719,7 @@ export default {
     //     amount: Number(this.org.prodPrice) * Number(this.org.prodQty),
     //     tax: this.org.prodTax,
     //     description: this.org.prodQty + ' * ' + this.org.prodName,
-    //     invoiceNo: this.customerServiceForm.invoiceNumber
+    //     invoiceNo: this.form.invoiceNumber
     //   };
     //   this.tableData.push(data);
     // },
@@ -731,7 +735,7 @@ export default {
     //     amount: Number(this.org.planAmt) * Number(this.org.planQty),
     //     tax: 'N',
     //     description: this.org.planQty + ' * ' + this.org.planName,
-    //     invoiceNo: this.customerServiceForm.invoiceNumber
+    //     invoiceNo: this.form.invoiceNumber
     //   };
     //   this.tableData.push(data);
     // },
@@ -752,7 +756,7 @@ export default {
     //     amount: Number(this.org.prodPrice) * Number(this.org.prodQty),
     //     tax: this.org.prodTax,
     //     description: this.org.prodQty + ' * ' + this.org.prodName,
-    //     invoiceNo: this.customerServiceForm.invoiceNumber
+    //     invoiceNo: this.form.invoiceNumber
     //   };
     //   this.tableData.push(data);
     //   const data2 = {
@@ -763,7 +767,7 @@ export default {
     //     amount: Number(this.org.accPrice) * Number(this.org.accQty),
     //     tax: this.org.accTax,
     //     description: this.org.accQty + ' * ' + this.org.accName,
-    //     invoiceNo: this.customerServiceForm.invoiceNumber
+    //     invoiceNo: this.form.invoiceNumber
     //   };
     //   this.tableData.push(data2);
     // },
@@ -783,7 +787,7 @@ export default {
     //     amount: Number(this.org.prodPrice) * Number(this.org.prodQty),
     //     tax: this.org.prodTax,
     //     description: this.org.prodQty + ' * ' + this.org.prodName,
-    //     invoiceNo: this.customerServiceForm.invoiceNumber
+    //     invoiceNo: this.form.invoiceNumber
     //   };
     //   this.tableData.push(data);
     //   const data2 = {
@@ -794,7 +798,7 @@ export default {
     //     amount: Number(this.org.planAmt) * Number(this.org.planQty),
     //     tax: 'N',
     //     description: this.org.planQty + ' * ' + this.org.planName,
-    //     invoiceNo: this.customerServiceForm.invoiceNumber
+    //     invoiceNo: this.form.invoiceNumber
     //   };
     //   this.tableData.push(data2);
     // },
@@ -818,7 +822,7 @@ export default {
     //     amount: Number(this.org.prodPrice) * Number(this.org.prodQty),
     //     tax: this.org.prodTax,
     //     description: this.org.prodQty + ' * ' + this.org.prodName,
-    //     invoiceNo: this.customerServiceForm.invoiceNumber
+    //     invoiceNo: this.form.invoiceNumber
     //   };
     //   this.tableData.push(data);
     //   const data2 = {
@@ -829,7 +833,7 @@ export default {
     //     amount: Number(this.org.accPrice) * Number(this.org.accQty),
     //     tax: this.org.accTax,
     //     description: this.org.accQty + ' * ' + this.org.accName,
-    //     invoiceNo: this.customerServiceForm.invoiceNumber
+    //     invoiceNo: this.form.invoiceNumber
     //   };
     //   this.tableData.push(data2);
     //   const data3 = {
@@ -840,7 +844,7 @@ export default {
     //     amount: Number(this.org.planAmt) * Number(this.org.planQty),
     //     tax: 'N',
     //     description: this.org.planQty + ' * ' + this.org.planName,
-    //     invoiceNo: this.customerServiceForm.invoiceNumber
+    //     invoiceNo: this.form.invoiceNumber
     //   };
     //   this.tableData.push(data3);
     // },
@@ -851,7 +855,6 @@ export default {
     },
 
     handlePlanAdded(value) {
-
       this.tableData.push(value);
     },
 
@@ -863,7 +866,7 @@ export default {
   },
 
   watch: {
-    'customerServiceForm.invoiceNumber': function() {
+    'form.invoiceNumber': function() {
       this.checkForOrder();
     },
 

@@ -137,6 +137,7 @@ export const cancelOrder = (data, body) => axios.post('orgMOrder/cancelOrder', d
 export const getLastInvoiceNo = data => axios.get('/orgMOrder/getLastInvoiceNo', data);
 export const editOrder = (data, body) => axios.post('/orgMOrder/editOrder', data, body);
 
+
 /**
  * Order Item
  */

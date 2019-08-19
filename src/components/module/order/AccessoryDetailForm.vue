@@ -8,7 +8,7 @@
   >
     <div class="accessoryCode">
       <el-form ref="form" :model="form" size="mini" style="text-align: center">
-        <el-collapse v-model="form.activeName" accordion>
+        <el-collapse v-model="activeName" accordion>
           <el-collapse-item name="1">
             <template slot="title">{{ form.product }}</template>
             <el-row>
@@ -196,7 +196,7 @@
               </el-col>
             </el-row>
           </el-collapse-item>
-          <el-collapse-item title="Price" v-if="form.showPrice" name="2">
+          <el-collapse-item title="Price" v-if="showPrice" name="2">
             <el-row>
               <el-col :span="10" :offset="6">
                 <el-form ref="form" :model="form" :rules="formRules" size="mini" align="right">
@@ -248,6 +248,8 @@ export default {
 
   data: function() {
     return {
+      showPrice: false,
+      activeName: '1',
       loading: false,
       append: true,
 
@@ -282,27 +284,21 @@ export default {
     form: [Object],
   },
 
-  created() {
-    
-  },
-
   methods: {
     /* AUXILIARY FUNCTIONS */
 
     /* HANDLER FUNCTIONS */
     async handleNext(number) {
-      let tempNum = Number(this.form.activeName);
-      let nextNum = tempNum + number;
-      this.form.activeName = nextNum.toString();
+        let tempNum = Number(this.activeName);
+        let nextNum = tempNum + number;
+        this.activeName = nextNum.toString();
     },
     async handleNameClick(num) {
-      // console.log(this.form.activeName);
       this.form.product = num;
-      this.form.showPrice = true;
+      this.showPrice = true;
       this.handleNext(1);
     },
     handleAddClick(event) {
-      this.form.amount = this.total;
       this.$emit(
         'accessoryAdded',
         {
@@ -310,7 +306,7 @@ export default {
           quantity: this.form.quantity,
           rate: this.form.rate,
           tax: this.form.tax,
-          total: this.total
+          amount: this.total
         }
       );
       this.visible = false;

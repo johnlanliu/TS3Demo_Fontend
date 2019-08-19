@@ -526,11 +526,11 @@ export default {
 
   methods: {
     /* AUXILIARY FUNCTIONS */
-    resetFields() {
-      this.invoiceForm = {};
-      this.form = {};
-      this.$refs.form.resetFields();
-    },
+    // resetFields() {
+    //   this.invoiceForm = {};
+    //   this.form = {};
+    //   this.$refs.form.resetFields();
+    // },
 
     /* HANDLER FUNCTIONS */
     addPaymentHandle() {

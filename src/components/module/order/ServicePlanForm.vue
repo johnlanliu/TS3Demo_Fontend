@@ -7,7 +7,7 @@
     :append-to-body="append"
   >
     <el-form ref="form" :model="form" size="mini" style="text-align: center">
-      <el-collapse v-model="form.activeName" accordion>
+      <el-collapse v-model="activeName" accordion>
         <el-collapse-item name="1">
           <template slot="title">{{ form.product }}</template>
           <el-row>
@@ -58,11 +58,11 @@
             </el-col>
           </el-row>
         </el-collapse-item>
-        <el-collapse-item title="Price" v-if="form.showPrice" name="2">
+        <el-collapse-item title="Price" v-if="showPrice" name="2">
           <el-row>
             <el-col :span="10" :offset="6">
               <el-form ref="form" :model="form" size="mini" align="right">
-                <el-form-item label="Amount $" prop="rate">
+                <el-form-item label="Price $" prop="rate">
                   <el-input v-model="form.rate" style="width: 150px; "></el-input>
                 </el-form-item>
                 <el-form-item label="Quantity">
@@ -103,6 +103,8 @@ export default {
 
   data: function() {
     return {
+      showPrice: false,
+      activeName: '1',
       loading: false,
       append: true,
       /* RESET THESE */
@@ -157,23 +159,22 @@ export default {
       //   }
       // }
       this.form.product = duration + ' ' + 'Service Plan';
-      this.form.showPrice = true;
+      this.showPrice = true;
       this.handleNext(1);
     },
     handleNext(number) {
-      let tempNum = Number(this.form.activeName);
+      let tempNum = Number(this.activeName);
       let nextNum = tempNum + number;
-      this.form.activeName = nextNum.toString();
+      this.activeName = nextNum.toString();
     },
     handleAddPlan(event) {
-      this.form.amount = this.total;
       this.$emit(
         'planAdded',
         {
           product: this.form.product,
           quantity: this.form.quantity,
           rate: this.form.rate,
-          total: this.total
+          amount: this.total
         }
       );
       this.visible = false;
