@@ -5,315 +5,342 @@
     top="15vh"
     :visible.sync="visible"
     @close="clearValidate"
-    width="790px"
+    width="720px"
   >
     <div class="form-box">
-      <el-form ref="form" :model="form" size="mini" style="margin: 0; padding-left: 10px">
-        <el-form-item label="Order Type">
-          <el-select v-model="form.type" placeholder="Select">
-            <el-option
-              v-for="option in orderOptions"
-              :key="option.label"
-              :label="option.label"
-              :value="option.value"
-            ></el-option>
-          </el-select>
-        </el-form-item>
-
-        <el-row style="width:590px">
-          <el-col :span="12">
-            <el-form-item label="BILLING INFO" style="font-weight: bold"></el-form-item>
-          </el-col>
-          <el-col :span="12" :push="1">
-            <el-form-item label="SHIPPING INFO" style="font-weight: bold"></el-form-item>
-          </el-col>
-        </el-row>
-
-        <div style="padding-left: 300px; margin-bottom: 10px">
-          <el-checkbox
-            v-model="sameAsBilling"
-            style="display: inline"
-            @change="handleSameInfo()"
-          >the same as billing info</el-checkbox>
-        </div>
-
-        <el-row>
-          <el-col :span="12">
-            <el-form-item label="Company Name: ">
-              <el-input v-model="form.billingCompany" style="width: 275px"></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12" :push="1">
-            <el-form-item label="Company Name: ">
-              <el-input
-                v-model="form.shippingCompany"
-                style="width: 275px"
-                :disabled="sameAsBilling"
-              ></el-input>
-            </el-form-item>
-          </el-col>
-        </el-row>
-
-        <el-row>
-          <el-col :span="12">
-            <el-form-item label="Contact: ">
-              <el-input v-model="form.billingContact" style="width: 275px"></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12" :push="1">
-            <el-form-item label="Contact: ">
-              <el-input
-                v-model="form.shippingContact"
-                style="width: 275px"
-                :disabled="sameAsBilling"
-              ></el-input>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="12">
-            <el-form-item label="Phone Number: ">
-              <el-input v-model="form.billingPhone" style="width: 275px"></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12" :push="1">
-            <el-form-item label="Phone Number: ">
-              <el-input v-model="form.shippingPhone" style="width: 275px" :disabled="sameAsBilling"></el-input>
-            </el-form-item>
-          </el-col>
-        </el-row>
-
-        <el-row>
-          <el-col :span="12">
-            <el-form-item label="Email: ">
-              <el-input v-model="form.billingEmail" style="width: 275px"></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12" :push="1">
-            <el-form-item label="Email: ">
-              <el-input v-model="form.shippingEmail" style="width: 275px" :disabled="sameAsBilling"></el-input>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="12">
-            <el-form-item label="Address: ">
-              <el-input v-model="form.billingAddress" style="width: 275px"></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12" :push="1">
-            <el-form-item label="Address: ">
-              <el-input
-                v-model="form.shippingAddress"
-                style="width: 275px"
-                :disabled="sameAsBilling"
-              ></el-input>
-            </el-form-item>
-          </el-col>
-        </el-row>
-
-        <el-row>
-          <el-col :span="6">
-            <el-form-item label="City: ">
-              <el-input v-model="form.billingCity" style="width: 130px"></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="6">
-            <el-form-item label="Zip/Postal Code: ">
-              <el-input v-model="form.billingZip" style="width: 130px"></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="6" :push="1">
-            <el-form-item label="City: ">
-              <el-input v-model="form.shippingCity" style="width: 130px" :disabled="sameAsBilling"></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="6" :push="1">
-            <el-form-item label="Zip/Postal Code: ">
-              <el-input v-model="form.shippingZip" style="width: 130px" :disabled="sameAsBilling"></el-input>
-            </el-form-item>
-          </el-col>
-        </el-row>
-
-        <el-row>
-          <el-col :span="6">
-            <el-form-item label="Country: ">
-              <el-input v-model="form.billingCountry" style="width: 130px"></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="6">
-            <el-form-item label="State/Province: ">
-              <el-input v-model="form.billingState" style="width: 130px"></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="6" :push="1">
-            <el-form-item label="Country: ">
-              <el-input
-                v-model="form.shippingCountry"
-                style="width: 133px"
-                :disabled="sameAsBilling"
-              ></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="6" :push="1">
-            <el-form-item label="State/Province: ">
-              <el-input v-model="form.shippingState" style="width: 130px" :disabled="sameAsBilling"></el-input>
-            </el-form-item>
-          </el-col>
-        </el-row>
-
-        <el-form-item label="Payment Term">
-          <el-select v-model="form.paymentTerm" placeholder="Select">
-            <el-option
-              v-for="option in paymentOptions"
-              :key="option.value"
-              :label="option.label"
-              :value="option.value"
-            ></el-option>
-          </el-select>
-        </el-form-item>
-
-        <el-form-item label="Order Details" style="font-weight: 900"></el-form-item>
-        <el-table
-          ref="orderDetailTable"
-          :data="tableData"
-          v-loading="loading"
-          border
-          stripe
-          highlight-current-row
-          height="167"
-          :row-key="row => row.index"
-          style="width: 100%; margin-left: 50px; margin-bottom: 5px"
-        >
-          <el-table-column fixed label="Product" prop="product" width="162"></el-table-column>
-          <el-table-column fixed label="QTY" prop="quantity" width="90"></el-table-column>
-          <el-table-column fixed label="Rate" prop="rate" width="96">
-            <template slot-scope="scope">
-              <span>${{ Number(scope.row.rate).toFixed(2) }}</span>
-            </template>
-          </el-table-column>
-          <el-table-column fixed label="Amount" prop="amount" width="96">
-            <template slot-scope="scope">
-              <span>${{ Number(scope.row.amount).toFixed(2) }}</span>
-            </template>
-          </el-table-column>
-          <el-table-column fixed label="Tax" prop="tax" width="50"></el-table-column>
-          <el-table-column fixed label="Action" width="95">
-            <template slot-scope="scope">
-              <el-button type="text" @click="handleDeleteOrderItem(scope.row, scope.$index)">Delete</el-button>
-            </template>
-          </el-table-column>
-        </el-table>
-
-        <el-row style="margin-top:10px;width:110%">
-          <el-col :span="5" :offset="7">
-            <el-button
-              type="primary"
-              style="display:inline-block;margin-left:38px"
-              @click="handleAddDevice()"
-            >+ Add Device</el-button>
-          </el-col>
-          <el-col :span="6">
-            <el-button
-              type="primary"
-              style="display:inline-block;margin-left:20px"
-              @click="handleAddAccessories()"
-            >+ Add Accessories</el-button>
-          </el-col>
-          <el-col :span="6">
-            <el-button
-              type="primary"
-              style="display:inline-block"
-              @click="handleAddService()"
-            >+ Add Service Plan</el-button>
-          </el-col>
-        </el-row>
-        <el-row style="margin-top:10px">
-          <el-col :span="18">
-            <el-form-item
-              label="Note:"
-              style="display: block; margin-left: 30px; margin-right: 30px"
-              prop="note"
-            >
-              <el-input
-                type="textarea"
-                :rows="2"
-                placeholder="notes"
-                v-model="form.note"
-                style="width: 405px"
-              ></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="5" style="margin-left:24px;margin-top:12px">
-            <el-form-item style="dispaly:inline" label="Tax: " :tax="tax">${{ tax }}</el-form-item>
-            <el-form-item label="Total: " :total="total" prop="total">${{ total }}</el-form-item>
-            <el-form-item class="plus" label="plus shipping fee"></el-form-item>
-          </el-col>
-        </el-row>
-
-        <el-row style="margin-top:10px">
-          <el-col :span="11">
-            <el-form-item label="Status: " style="float: left"></el-form-item>
-            <el-select v-model="form.status" placeholder="select" style="width: 188px">
+      <el-form ref="form" :model="form" size="mini" style="margin:0;">
+        <div style="margin-left:50px;width:612px">
+          <el-form-item label="Order Type">
+            <el-select v-model="form.type" placeholder="Select">
               <el-option
-                v-for="option in statusOptions"
-                :key="option.status"
-                :value="option.status"
+                v-for="option in orderOptions"
+                :key="option.label"
                 :label="option.label"
+                :value="option.value"
               ></el-option>
             </el-select>
-          </el-col>
-          <el-col :span="13" :push="1">
-            <el-form-item label="Shipping Fee: " style="float: left"></el-form-item>
-            <el-input v-model="form.shippingFee" style="width: 188px"></el-input>
-          </el-col>
-        </el-row>
-        <el-row style="margin-top:10px">
-          <el-col :span="11">
-            <el-form-item label="Invoice #: " style="float: left"></el-form-item>
-            <el-input
-              v-model="form.invoiceNo"
-              :placeholder="invoicePlaceholder"
-              style="width: 188px"
-            ></el-input>
-            <el-form-item class="warning" v-if="!validInvoice">invalid invoice number</el-form-item>
-          </el-col>
-          <el-col :span="13" :push="1">
-            <el-form-item label="Invoice Date: " style="float: left"></el-form-item>
-            <el-date-picker
-              v-model="form.invoiceDate"
-              type="datetime"
-              placeholder="Select date and time"
-              style="width: 188px"
-            ></el-date-picker>
-          </el-col>
-        </el-row>
-        <el-row style="margin-top:10px">
-          <el-col :span="11">
-            <el-form-item label="Shipping Via: " style="float: left"></el-form-item>
-            <el-input v-model="form.shippingVia" style="width: 175px"></el-input>
-          </el-col>
-          <el-col :span="13" :push="1">
-            <el-form-item label="Tracking Number: " style="float: left"></el-form-item>
-            <el-input v-model="form.trackingNo" style="width: 188px"></el-input>
-          </el-col>
-        </el-row>
+          </el-form-item>
 
-        <el-row style="margin-top:10px;width:110%">
-          <el-col :span="5" :offset="7" :push="2">
+          <el-row :gutter="20">
+            <el-col :span="12">
+              <el-form-item label="BILLING INFO" style="font-weight: bold"></el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="SHIPPING INFO" style="font-weight: bold"></el-form-item>
+            </el-col>
+          </el-row>
+
+          <div style="padding-left: 315px; margin-bottom: 10px">
+            <el-checkbox
+              v-model="sameAsBilling"
+              style="display: inline"
+              @change="handleSameInfo()"
+            >the same as billing info</el-checkbox>
+          </div>
+
+          <el-row :gutter="20" class="rowHeight">
+            <el-col :span="12" class="rowHeight">
+              <el-form-item label="Company Name: " class="rowHeight">
+                <el-input v-model="form.billingCompany" style="width: 275px" class="rowHeight"></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="12" class="rowHeight">
+              <el-form-item label="Company Name: " class="rowHeight">
+                <el-input
+                  v-model="form.shippingCompany"
+                  style="width: 275px"
+                  :disabled="sameAsBilling"
+                  class="rowHeight"
+                ></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+
+          <el-row :gutter="20" class="rowHeight">
+            <el-col :span="12" class="rowHeight">
+              <el-form-item label="Contact: " class="rowHeight">
+                <el-input v-model="form.billingContact" style="width: 275px" class="rowHeight"></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="12" class="rowHeight">
+              <el-form-item label="Contact: " class="rowHeight">
+                <el-input
+                  v-model="form.shippingContact"
+                  style="width: 275px"
+                  :disabled="sameAsBilling"
+                  class="rowHeight"
+                ></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row  :gutter="20" class="rowHeight">
+            <el-col :span="12" class="rowHeight">
+              <el-form-item label="Phone Number: " class="rowHeight">
+                <el-input v-model="form.billingPhone" style="width: 275px" class="rowHeight"></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="12" class="rowHeight">
+              <el-form-item label="Phone Number: " class="rowHeight">
+                <el-input 
+                  v-model="form.shippingPhone"
+                  style="width: 275px"
+                  :disabled="sameAsBilling"
+                  class="rowHeight"
+                  ></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+
+          <el-row  :gutter="20" class="rowHeight">
+            <el-col :span="12" class="rowHeight">
+              <el-form-item label="Email: " class="rowHeight">
+                <el-input v-model="form.billingEmail" style="width: 275px" class="rowHeight"></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="12" class="rowHeight">
+              <el-form-item label="Email: " class="rowHeight">
+                <el-input
+                  v-model="form.shippingEmail"
+                  style="width: 275px"
+                  :disabled="sameAsBilling"
+                  class="rowHeight"
+                  ></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row  :gutter="20" class="rowHeight">
+            <el-col :span="12" class="rowHeight">
+              <el-form-item label="Address: " class="rowHeight">
+                <el-input v-model="form.billingAddress" style="width: 275px" class="rowHeight"></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="12" class="rowHeight">
+              <el-form-item label="Address: " class="rowHeight">
+                <el-input
+                  v-model="form.shippingAddress"
+                  style="width: 275px"
+                  :disabled="sameAsBilling"
+                  class="rowHeight"
+                ></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+
+          <el-row :gutter="20" class="rowHeight">
+            <el-col :span="6" class="rowHeight">
+              <el-form-item label="City: " class="rowHeight">
+                <el-input v-model="form.billingCity" style="width: 130px" class="rowHeight"></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="6" class="rowHeight">
+              <el-form-item label="Zip/Postal Code: " class="rowHeight">
+                <el-input v-model="form.billingZip" style="width: 130px" class="rowHeight"></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="6" class="rowHeight">
+              <el-form-item label="City: " class="rowHeight">
+                <el-input
+                  v-model="form.shippingCity"
+                  style="width: 130px"
+                  :disabled="sameAsBilling"
+                  class="rowHeight"
+                ></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="6" class="rowHeight">
+              <el-form-item label="Zip/Postal Code: " class="rowHeight">
+                <el-input
+                  v-model="form.shippingZip"
+                  style="width: 130px"
+                  :disabled="sameAsBilling"
+                  class="rowHeight">
+                </el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+
+          <el-row :gutter="20" class="rowHeight">
+            <el-col :span="6" class="rowHeight">
+              <el-form-item label="Country: " class="rowHeight">
+                <el-input v-model="form.billingCountry" style="width: 130px" class="rowHeight"></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="6" class="rowHeight">
+              <el-form-item label="State/Province: " class="rowHeight">
+                <el-input v-model="form.billingState" style="width: 130px" class="rowHeight"></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="6" class="rowHeight">
+              <el-form-item label="Country: " class="rowHeight">
+                <el-input
+                  v-model="form.shippingCountry"
+                  style="width: 133px"
+                  :disabled="sameAsBilling"
+                  class="rowHeight"
+                ></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="6" class="rowHeight">
+              <el-form-item label="State/Province: ">
+                <el-input v-model="form.shippingState" style="width: 130px" :disabled="sameAsBilling" class="rowHeight"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+
+          <el-form-item label="Payment Term" class="paymentTerm">
+            <el-select v-model="form.paymentTerm" placeholder="Select">
+              <el-option
+                v-for="option in paymentOptions"
+                :key="option.value"
+                :label="option.label"
+                :value="option.value"
+              ></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="Order Details" style="font-weight: 900"></el-form-item>
+        </div>
+        <div style="width:652px;margin-left:30px">
+          <el-table
+            ref="orderDetailTable"
+            :data="tableData"
+            v-loading="loading"
+            border
+            stripe
+            highlight-current-row
+            height="167"
+            :row-key="row => row.index"
+            style="width: 100%;margin-bottom: 5px"
+          >
+            <el-table-column fixed label="Product" prop="product" width="162"></el-table-column>
+            <el-table-column fixed label="QTY" prop="quantity" width="90"></el-table-column>
+            <el-table-column fixed label="Rate" prop="rate" width="96">
+              <template slot-scope="scope">
+                <span>${{ Number(scope.row.rate).toFixed(2) }}</span>
+              </template>
+            </el-table-column>
+            <el-table-column fixed label="Amount" prop="amount" width="96">
+              <template slot-scope="scope">
+                <span>${{ Number(scope.row.amount).toFixed(2) }}</span>
+              </template>
+            </el-table-column>
+            <el-table-column fixed label="Tax" prop="tax" width="50"></el-table-column>
+            <el-table-column fixed label="Action" width="95">
+              <template slot-scope="scope">
+                <el-button type="text" @click="handleDeleteOrderItem(scope.row, scope.$index)">Delete</el-button>
+              </template>
+            </el-table-column>
+          </el-table>
+          
+          <el-row style="margin-top:10px">
+            <el-col :span="5" :offset="7">
+              <el-button
+                type="primary"
+                style="display:inline-block;margin-left:38px"
+                @click="handleAddDevice()"
+              >+ Add Device</el-button>
+            </el-col>
+            <el-col :span="6">
+              <el-button
+                type="primary"
+                style="display:inline-block;margin-left:20px"
+                @click="handleAddAccessories()"
+              >+ Add Accessories</el-button>
+            </el-col>
+            <el-col :span="6">
+              <el-button
+                type="primary"
+                style="display:inline-block"
+                @click="handleAddService()"
+              >+ Add Service Plan</el-button>
+            </el-col>
+          </el-row>
+          
+          <el-row style="margin-top:10px">
+            <el-col :span="18">
+              <el-form-item
+                label="Note:"
+                style="display: block; margin-left: 30px; margin-right: 30px"
+                prop="note"
+              >
+                <el-input
+                  type="textarea"
+                  :rows="2"
+                  placeholder="notes"
+                  v-model="form.note"
+                  style="width: 405px"
+                ></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="5" style="margin-left:24px;margin-top:12px">
+              <el-form-item style="dispaly:inline" label="Tax: " :tax="tax">${{ tax }}</el-form-item>
+              <el-form-item label="Total: " :total="total" prop="total">${{ total }}</el-form-item>
+              <el-form-item class="plus" label="plus shipping fee"></el-form-item>
+            </el-col>
+          </el-row>
+        </div>
+        <div style="margin-left:50px;width:612px">
+          <el-row :gutter="20">
+            <el-col :span="11">
+              <el-form-item label="Status: " style="float: left"></el-form-item>
+              <el-select v-model="form.status" placeholder="select" style="width: 188px">
+                <el-option
+                  v-for="option in statusOptions"
+                  :key="option.status"
+                  :value="option.status"
+                  :label="option.label"
+                ></el-option>
+              </el-select>
+            </el-col>
+            <el-col :span="13">
+              <el-form-item label="Shipping Fee: " style="float: left"></el-form-item>
+              <el-input v-model="form.shippingFee" style="width: 188px"></el-input>
+            </el-col>
+          </el-row>
+          <el-row :gutter="20">
+            <el-col :span="11">
+              <el-form-item label="Invoice #: " style="float: left"></el-form-item>
+              <el-input
+                v-model="form.invoiceNo"
+                :placeholder="invoicePlaceholder"
+                style="width: 188px"
+              ></el-input>
+              <el-form-item class="warning" v-if="!validInvoice">invalid invoice number</el-form-item>
+            </el-col>
+            <el-col :span="13">
+              <el-form-item label="Invoice Date: " style="float: left"></el-form-item>
+              <el-date-picker
+                v-model="form.invoiceDate"
+                type="datetime"
+                placeholder="Select date and time"
+                style="width: 188px"
+              ></el-date-picker>
+            </el-col>
+          </el-row>
+          <el-row :gutter="20" class="last">
+            <el-col :span="11">
+              <el-form-item label="Shipping Via: " style="float: left"></el-form-item>
+              <el-input v-model="form.shippingVia" style="width: 175px"></el-input>
+            </el-col>
+            <el-col :span="13">
+              <el-form-item label="Tracking Number: " style="float: left"></el-form-item>
+              <el-input v-model="form.trackingNo" style="width: 188px"></el-input>
+            </el-col>
+          </el-row>
+        </div>
+        <el-row :gutter="5">
+          <el-col :span="4" :offset="6">
             <el-form-item>
-              <el-button style="margin-left:18px" type="primary" @click="clearValidate">Cancel Order</el-button>
+              <el-button type="primary" @click="clearValidate">Cancel Order</el-button>
             </el-form-item>
           </el-col>
-          <el-col :span="4" :push="2">
+          <el-col :span="4">
             <el-form-item>
               <el-button type="primary" @click="handleSaveEdit" v-if="this.form.oderId">Save Change</el-button>
             </el-form-item>
           </el-col>
-          <el-col :span="7" :push="2">
+          <el-col :span="7">
             <el-form-item>
               <el-button
-                style="margin-left:10px"
                 type="primary"
                 @click="handleCreateInvoice"
                 :disabled="validInvoice"
@@ -325,14 +352,16 @@
     </div>
     <create-invoice-form :form="form" v-model="createInvoiceFormVisible"></create-invoice-form>
     <accessory-detail-form
+      :form="form"
       v-model="accessoryDetailFormVisible"
       @accessoryAdded="HandleAccessoryAdded"
     ></accessory-detail-form>
     <product-detail-form
+      :form="form"
       v-model="productDetailFormVisible"
       @productAdded="handleProductAdded"
     ></product-detail-form>
-    <service-plan-form v-model="servicePlanFormVisible" @planAdded="handlePlanAdded"></service-plan-form>
+    <service-plan-form :form="form" v-model="servicePlanFormVisible" @planAdded="handlePlanAdded"></service-plan-form>
   </el-dialog>
 </template>
 
@@ -907,6 +936,38 @@ export default {
 <style scoped>
 table.test {
   line-height: 40px;
+}
+
+.el-row.rowHeight {
+  height: 50px;
+  margin-bottom: 5px;
+}
+
+.el-row.last {
+  margin-top: 12px;
+}
+
+.el-col.rowHeight {
+  height: 100%;
+}
+
+.el-form-item.rowHeight {
+  height: 100%;
+  margin-bottom: 0 !important; 
+}
+
+.el-form-item__label.rowHeight {
+  position: absolute;
+  top: 0;
+}
+
+.el-form-item__content.rowHeight {
+  position: absolute;
+  top: 25px;
+}
+
+.el-form-item.paymentTerm {
+  margin-top: 23px;
 }
 
 .el-form-item.plus {

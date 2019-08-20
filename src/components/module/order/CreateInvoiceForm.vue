@@ -147,168 +147,146 @@
             ></el-option>
           </el-select>
         </el-form-item>
+      
+        <el-row  :gutter="20">
+          <el-col :span="10">
+            <el-form-item label="Invoice #: " style="float: left"></el-form-item>
+            <el-input v-model="form.invoiceNumber" style="width: 188px"></el-input>
+          </el-col>
+          <el-col :span="10">
+            <el-form-item label="Invoice Status: " style="float: left"></el-form-item>
+            <el-select v-model="form.status" placeholder="Select" clearable style="width: 188px">
+              <el-option
+                v-for="item in statusOptions"
+                :key="item.status"
+                :value="item.status"
+                :label="item.label"
+              ></el-option>
+            </el-select>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="10">
+            <el-form-item label="Invoice Date: " style="float: left"></el-form-item>
+            <el-date-picker
+              v-model="form.invoiceDate"
+              type="datetime"
+              placeholder="Select date and time"
+              style="width: 188px"
+            ></el-date-picker>
+          </el-col>
+          <el-col :span="10">
+            <el-form-item label="Due Date: " style="float: left"></el-form-item>
+            <el-date-picker
+              v-model="form.dueDate"
+              type="datetime"
+              placeholder="Select date and time"
+              style="width: 188px"
+            ></el-date-picker>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="10">
+            <el-form-item label="Shipping via: " style="float: left"></el-form-item>
+            <el-input v-model="form.shippingVia" style="width: 188px"></el-input>
+          </el-col>
+          <el-col :span="10">
+            <el-form-item label="Tracking Number: " style="float: left"></el-form-item>
+            <el-input v-model="form.trackingNumber" style="width: 188px"></el-input>
+          </el-col>
+        </el-row>
       </div>
-      <el-row  :gutter="20">
-        <el-col :span="10">
-          <el-form-item label="Invoice #: " style="float: left"></el-form-item>
-          <el-input v-model="form.invoiceNumber" style="width: 188px"></el-input>
-        </el-col>
-        <el-col :span="10">
-          <el-form-item label="Invoice Status: " style="float: left"></el-form-item>
-          <el-select v-model="form.status" placeholder="Select" clearable style="width: 188px">
-            <el-option
-              v-for="item in statusOptions"
-              :key="item.status"
-              :value="item.status"
-              :label="item.label"
-            ></el-option>
-          </el-select>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="10">
-          <el-form-item label="Invoice Date: " style="float: left"></el-form-item>
-          <el-date-picker
-            v-model="form.invoiceDate"
-            type="datetime"
-            placeholder="Select date and time"
-            style="width: 188px"
-          ></el-date-picker>
-        </el-col>
-        <el-col :span="10">
-          <el-form-item label="Due Date: " style="float: left"></el-form-item>
-          <el-date-picker
-            v-model="form.dueDate"
-            type="datetime"
-            placeholder="Select date and time"
-            style="width: 188px"
-          ></el-date-picker>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="10">
-          <el-form-item label="Shipping via: " style="float: left"></el-form-item>
-          <el-input v-model="form.shippingVia" style="width: 188px"></el-input>
-        </el-col>
-        <el-col :span="10">
-          <el-form-item label="Tracking Number: " style="float: left"></el-form-item>
-          <el-input v-model="form.trackingNumber" style="width: 188px"></el-input>
-        </el-col>
-      </el-row>
+      <div style="margin-left:12px;width:680px">
+        <el-table
+          ref="orderDetailTable"
+          :data="tableData"
+          v-loading="loading"
+          border
+          stripe
+          highlight-current-row
+          :max-height="200"
+          :row-key="row => row.index"
+          style="width: 93%; margin-left: 25px; margin-top: 5px; margin-bottom: 5px"
+        >
+          <el-table-column label="Product" prop="product" width="170"></el-table-column>
+          <el-table-column label="QTY" prop="quantity" width="105"></el-table-column>
+          <el-table-column label="Rate" prop="rate" width="100">
+            <template slot-scope="scope">
+              <span>${{ Number(scope.row.rate).toFixed(2) }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column label="Amount" prop="amount" width="100">
+            <template slot-scope="scope">
+              <span>${{ Number(scope.row.amount).toFixed(2) }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column label="Tax" prop="tax" width="54"></el-table-column>
+          <el-table-column label="Action" width="95">
+            <template slot-scope="scope">
+              <el-button type="text" @click="handleDeleteItem(scope.row, scope.$index)">Delete</el-button>
+            </template>
+          </el-table-column>
+        </el-table>
 
-      <el-table
-        ref="orderDetailTable"
-        :data="tableData"
-        v-loading="loading"
-        border
-        stripe
-        highlight-current-row
-        :max-height="200"
-        :row-key="row => row.index"
-        style="width: 90%; margin-left: 25px; margin-top: 5px; margin-bottom: 5px"
-      >
-        <el-table-column label="Product" prop="product" width="170"></el-table-column>
-        <el-table-column label="QTY" prop="quantity" width="105"></el-table-column>
-        <el-table-column label="Rate" prop="rate" width="100">
-          <template slot-scope="scope">
-            <span>${{ Number(scope.row.rate).toFixed(2) }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="Amount" prop="amount" width="100">
-          <template slot-scope="scope">
-            <span>${{ Number(scope.row.amount).toFixed(2) }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="Tax" prop="tax" width="54"></el-table-column>
-        <el-table-column label="Action" width="95">
-          <template slot-scope="scope">
-            <el-button type="text" @click="handleDeleteItem(scope.row, scope.$index)">Delete</el-button>
-          </template>
-        </el-table-column>
-      </el-table>
-<!-- 
-      <div style="margin-top:10px">
-        <el-button
-          type="primary"
-          style="display:inline-block;margin-left:182px"
-          @click="handleAddDevice()"
-        >+ Add Device</el-button>
-        <el-button
-          type="primary"
-          style="display:inline-block"
-          @click="handleAddAccessories()"
-        >+ Add Accessories</el-button>
-        <el-button
-          type="primary"
-          style="display:inline-block"
-          @click="handleAddService()"
-        >+ Add Service Plan</el-button>
-      </div> -->
-
-      <el-row style="margin-top:10px;width:110%">
-        <el-col :span="4" :offset="7">
+        <div>
           <el-button
-            type="primary"
-            style="display:inline-block;margin-left: 28px"
-            @click="handleAddDevice()"
-          >+ Add Device</el-button>
-        </el-col>
-        <el-col :span="4">
+              type="primary"
+              style="display:inline-block;margin-left: 251px"
+              @click="handleAddDevice()"
+            >+ Add Device</el-button>
           <el-button
             type="primary"
             style="display:inline-block"
             @click="handleAddAccessories()"
           >+ Add Accessories</el-button>
-        </el-col>
-        <el-col :span="4">
           <el-button
             type="primary"
             style="display:inline-block"
             @click="handleAddService()"
           >+ Add Service Plan</el-button>
-        </el-col>
-      </el-row>
+        </div>
 
-      <el-row style="margin-top:10px">
-        <el-col :span="5" :offset="18">
-          <el-form-item label="Tax: " :tax="tax">${{ tax }}</el-form-item>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="3" :offset="17">
-          <el-form-item label="Shipping fee: "></el-form-item>
-        </el-col>
-        <el-col :span="4">
+        <el-row style="margin-top:10px">
+          <el-col :span="5" :offset="18">
+            <el-form-item label="Tax: " :tax="tax">${{ tax }}</el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="3" :offset="17">
+            <el-form-item label="Shipping fee: "></el-form-item>
+          </el-col>
+          <el-col :span="4">
+            <el-input
+              v-model="form.shippingFee"
+              style="width: 75px; padding-left: 5px"
+            ></el-input>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="5" :offset="18">
+            <el-form-item label="Total: " :total="total">${{ total }}</el-form-item>
+          </el-col>
+        </el-row>
+        <el-form-item
+          label="Note:"
+          style="display: block; margin-left: 30px; margin-right: 30px; border-spacing: 0px"
+        >
           <el-input
-            v-model="form.shippingFee"
-            style="width: 75px; padding-left: 5px"
+            type="textarea"
+            :rows="2"
+            placeholder="notes"
+            v-model="form.note"
+            style="width: 622px"
           ></el-input>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="5" :offset="18">
-          <el-form-item label="Total: " :total="total">${{ total }}</el-form-item>
-        </el-col>
-      </el-row>
-      <el-form-item
-        label="Note:"
-        style="display: block; margin-left: 30px; margin-right: 30px; border-spacing: 0px"
-      >
-        <el-input
-          type="textarea"
-          :rows="2"
-          placeholder="notes"
-          v-model="form.note"
-          style="width: 622px"
-        ></el-input>
-      </el-form-item>
-      <el-button type="primary" style="display: inline; margin-left: 382px;">Pay</el-button>
-      <el-button
-        type="primary"
-        style="display: inline; margin-left: 16px;"
-        @click="addPaymentHandle"
-      >Save</el-button>
-      <el-button type="primary" style="display: inline; margin-left: 16px;">Save and Send</el-button>
+        </el-form-item>
+        <el-button type="primary" style="display: inline; margin-left: 382px;">Pay</el-button>
+        <el-button
+          type="primary"
+          style="display: inline; margin-left: 16px;"
+          @click="addPaymentHandle"
+        >Save</el-button>
+        <el-button type="primary" style="display: inline; margin-left: 16px;">Save and Send</el-button>
+      </div>
     </el-form>
     <product-detail-form
       ref="productDetailForm"
