@@ -1,27 +1,80 @@
 <template>
   <div>
-    <v-sidebar
-      v-model="visible"
-      title= "Add Order"
-      width="720">
-      <el-steps :active="active" align-center>
-        <el-step title="Step1" description="Company Information"></el-step>
-        <el-step title="Step2" description="Order Details"></el-step>
-        <el-step title="Step3" description="Logistics Information"></el-step>
-      </el-steps>
-      <div class="form-box">
-        <company-info-form :form="form" v-model="companyInfoFormVisible"></company-info-form>
-        <order-details-form :form="form" v-model="orderDetailsFormVisible"></order-details-form>
-        <logistics-info-form :form="form" v-model="logisticsInfoFormVisible"></logistics-info-form>
-      </div>
+    <el-form ref="form" :model="form" size="mini">
+      <div class="labelBox">
+        <el-form-item label="Order Details" style="font-weight: 900" class="odLabel"></el-form-item>
+        <div style="position:absolute;left:240px">
+            <el-button
+            type="primary"
+            style="display:inline-block"
+            @click="handleAddDevice()"
+            >+ Add Device</el-button>
+            <el-button
+            type="primary"
+            style="display:inline-block;margin-left:10px"
+            @click="handleAddAccessories()"
+            >+ Add Accessories</el-button>
+            <el-button
+            type="primary"
+            style="display:inline-block;margin-left:10px"
+            @click="handleAddService()"
+            >+ Add Service Plan</el-button>
+        </div>
+      </div>       
+      <el-table
+        ref="orderDetailTable"
+        :data="tableData"
+        v-loading="loading"
+        border
+        stripe
+        highlight-current-row
+        height="167"
+        :row-key="row => row.index"
+        style="width: 100%;margin-bottom: 5px"
+      >
+        <el-table-column fixed label="Product" prop="product" width="168"></el-table-column>
+        <el-table-column fixed label="QTY" prop="quantity" width="96"></el-table-column>
+        <el-table-column fixed label="Rate" prop="rate" width="96">
+              <template slot-scope="scope">
+                <span>${{ Number(scope.row.rate).toFixed(2) }}</span>
+              </template>
+        </el-table-column>
+        <el-table-column fixed label="Amount" prop="amount" width="96">
+              <template slot-scope="scope">
+                <span>${{ Number(scope.row.amount).toFixed(2) }}</span>
+              </template>
+        </el-table-column>
+        <el-table-column fixed label="Tax" prop="tax" width="96"></el-table-column>
+        <el-table-column fixed label="Action" width="96">
+              <template slot-scope="scope">
+                <el-button type="text" @click="handleDeleteOrderItem(scope.row, scope.$index)">Delete</el-button>
+              </template>
+        </el-table-column>
+      </el-table>
 
-      <span slot="footer">
-        <el-button @click="visible = false">Cancel</el-button>
-        <el-button type="primary" v-if="prevVisible" @click="handlePrev">Prev</el-button>
-        <el-button type="primary" v-if="nextVisible" @click="handleNext">Next</el-button>
-        <el-button type="primary" v-if="submitVisible" @click="handleSubmit">Submit</el-button>
-      </span>
-    </v-sidebar>
+      <el-row>
+        <el-col :span="18">
+              <el-form-item
+                label="Note:"
+                style="display: block; margin-left: 30px; margin-right: 30px"
+                prop="note"
+              >
+                <el-input
+                  type="textarea"
+                  :rows="2"
+                  placeholder="notes"
+                  v-model="form.note"
+                  style="width: 405px"
+                ></el-input>
+              </el-form-item>
+        </el-col>
+        <el-col :span="5">
+          <el-form-item style="dispaly:inline" label="Tax: " :tax="tax">${{ tax }}</el-form-item>
+          <el-form-item label="Total: " :total="total" prop="total">${{ total }}</el-form-item>
+          <el-form-item class="plus" label="plus shipping fee"></el-form-item>
+        </el-col>
+      </el-row>
+    </el-form>
   </div>
 </template>
 
@@ -31,8 +84,7 @@ import ProductDetailForm from './ProductDetailForm.vue';
 import CreateInvoiceForm from './CreateInvoiceForm.vue';
 import AccessoryDetailForm from './AccessoryDetailForm.vue';
 import ServicePlanForm from './ServicePlanForm.vue';
-import CompanyInfoForm from './CompanyInfoForm.vue';
-import OrderDetailsForm from './OrderDetailsForm.vue';
+import EditOrderForm from './EditOrderForm.vue';
 import LogisticsInfoForm from './LogisticsInfoForm.vue';
 import {
   addOrder,
@@ -52,9 +104,8 @@ export default {
     AccessoryDetailForm,
     ServicePlanForm,
     VSidebar,
-    CompanyInfoForm,
-    OrderDetailsForm,
-    LogisticsInfoForm
+    EditOrderForm,
+    LogisticsInfoForm,
   },
 
   created() {},
@@ -75,13 +126,8 @@ export default {
       //      { required: true, message: 'Invoice date is required' },
       //   ],
       // },
-      active: 1,
-      prevVisible: false,
-      nextVisible: true,
-      submitVisible: false,
-      companyInfoFormVisible: true,
-      orderDetailsFormVisible: false,
       logisticsInfoFormVisible: false,
+      editOrderFormVisible: false,
       loading: false,
       createInvoiceFormVisible: false,
       accessoryDetailFormVisible: false,
@@ -248,18 +294,12 @@ export default {
     //   this.visible = true;
     // },
     handlePrev() {
-      this.active -= 1;
-      this.activeAdd();
+      this.visible = false;
+      this.editOrderFormVisible = true;
     },
     handleNext() {
-      this.active += 1;
-      this.activeAdd();
-    },
-
-    async activeAdd(){
-      if(this.active > 3){
-        this.active = 1;
-      }
+      this.visible = false;
+      this.logisticsInfoFormVisible = true;
     },
 
     handleSaveEdit() {},
@@ -575,39 +615,6 @@ export default {
         }
       },
       immediate: true
-    },
-
-    companyInfoFormVisible(val) {
-      if(val) {
-      }
-    },
-
-    orderDetailsFormVisible(val) {
-      if(val) {
-        this.nextVisible = true;
-        this.prevVisble = true;
-        this.submitVisble = false;
-      }
-    },
-
-    logisticsInfoFormVisible(val) {
-      if(val) {
-        this.prevVisble = true;
-        this.nextVisible = false;
-        this.submitVisible = true;
-      }
-    },
-
-    active(val) {
-      if(val) {
-        if(val === 2 ){
-          this.orderDetailsFormVisible = true;
-        } else if(val === 3 ){
-          this.logisticsInfoFormVisible = true;
-        } else {
-          this.companyInfoFormVisible = true;
-        }
-      }
     }
   },
 
@@ -677,7 +684,15 @@ export default {
   margin-bottom: 0 !important;
 }
 
-.el-form-item.paymentTerm {
-  margin-top: 5px;
+.el-form-item.odLabel {
+  position: absolute;
+  left: 0;
+}
+
+.labelBox {
+  width: 100%;
+  height: 40px;
+  position: relative;
+  margin-top: 10px;
 }
 </style>

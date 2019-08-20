@@ -1,27 +1,192 @@
 <template>
   <div>
-    <v-sidebar
-      v-model="visible"
-      title= "Add Order"
-      width="720">
-      <el-steps :active="active" align-center>
-        <el-step title="Step1" description="Company Information"></el-step>
-        <el-step title="Step2" description="Order Details"></el-step>
-        <el-step title="Step3" description="Logistics Information"></el-step>
-      </el-steps>
-      <div class="form-box">
-        <company-info-form :form="form" v-model="companyInfoFormVisible"></company-info-form>
-        <order-details-form :form="form" v-model="orderDetailsFormVisible"></order-details-form>
-        <logistics-info-form :form="form" v-model="logisticsInfoFormVisible"></logistics-info-form>
+    <el-form ref="form" :model="form" size="mini">
+      <el-form-item label="Order Type">
+        <el-select v-model="form.type" placeholder="Select" style="width:194px">
+          <el-option
+            v-for="option in orderOptions"
+            :key="option.label"
+            :label="option.label"
+            :value="option.value"
+          ></el-option>
+        </el-select>
+      </el-form-item>
+
+      <el-row>
+        <el-col :span="12">
+          <el-form-item label="BILLING INFO" style="font-weight: bold"></el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="SHIPPING INFO" style="font-weight: bold"></el-form-item>
+        </el-col>
+      </el-row>
+
+      <div style="padding-left: 344px">
+        <el-checkbox
+          v-model="sameAsBilling"
+          style="display: inline"
+          @change="handleSameInfo()"
+        >the same as billing info</el-checkbox>
       </div>
 
-      <span slot="footer">
-        <el-button @click="visible = false">Cancel</el-button>
-        <el-button type="primary" v-if="prevVisible" @click="handlePrev">Prev</el-button>
-        <el-button type="primary" v-if="nextVisible" @click="handleNext">Next</el-button>
-        <el-button type="primary" v-if="submitVisible" @click="handleSubmit">Submit</el-button>
-      </span>
-    </v-sidebar>
+      <el-row>
+        <el-col :span="12">
+          <el-form-item label="Company Name: ">
+            <el-input v-model="form.billingCompany" style="width: 275px"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="Company Name: ">
+            <el-input
+              v-model="form.shippingCompany"
+              style="width: 275px"
+              :disabled="sameAsBilling"
+            ></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+
+      <el-row>
+        <el-col :span="12" >
+          <el-form-item label="Contact: ">
+            <el-input v-model="form.billingContact" style="width: 275px"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="Contact: ">
+            <el-input
+              v-model="form.shippingContact"
+              style="width: 275px"
+              :disabled="sameAsBilling"
+            ></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+
+      <el-row>
+        <el-col :span="12">
+          <el-form-item label="Phone Number: ">
+            <el-input v-model="form.billingPhone" style="width: 275px"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12"  >
+          <el-form-item label="Phone Number: ">
+            <el-input 
+              v-model="form.shippingPhone"
+              style="width: 275px"
+              :disabled="sameAsBilling"
+              ></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+
+      <el-row>
+        <el-col :span="11">
+          <el-form-item label="Email: ">
+            <el-input v-model="form.billingEmail" style="width: 275px"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="11" :push="1">
+          <el-form-item label="Email: ">
+            <el-input
+              v-model="form.shippingEmail"
+              style="width: 275px"
+              :disabled="sameAsBilling"
+              ></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+
+      <el-row>
+        <el-col :span="12">
+          <el-form-item label="Address: ">
+            <el-input v-model="form.billingAddress" style="width: 275px"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="Address: ">
+            <el-input
+              v-model="form.shippingAddress"
+              style="width: 275px"
+              :disabled="sameAsBilling"
+            ></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+
+      <el-row>
+        <el-col :span="5">
+          <el-form-item label="City: ">
+            <el-input v-model="form.billingCity" style="width: 130px"  ></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="5">
+          <el-form-item label="Zip/Postal Code: ">
+            <el-input v-model="form.billingZip" style="width: 130px;margin-left:10px"  ></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="5" :push="2">
+          <el-form-item label="City: ">
+            <el-input
+              v-model="form.shippingCity"
+              style="width: 130px"
+              :disabled="sameAsBilling"
+            ></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="5" :push="2">
+          <el-form-item label="Zip/Postal Code: ">
+            <el-input
+              v-model="form.shippingZip"
+              style="width: 130px;margin-left:10px"
+              :disabled="sameAsBilling">
+            </el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+
+      <el-row>
+        <el-col :span="5">
+          <el-form-item label="Country: ">
+            <el-input v-model="form.billingCountry" style="width: 130px"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="5">
+          <el-form-item label="State/Province: ">
+            <el-input v-model="form.billingState" style="width: 130px;margin-left:10px"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="5" :push="2">
+          <el-form-item label="Country: ">
+            <el-input
+              v-model="form.shippingCountry"
+              style="width: 133px"
+              :disabled="sameAsBilling"
+            ></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="5" :push="2">
+          <el-form-item label="State/Province: ">
+            <el-input
+              v-model="form.shippingState"
+              style="width: 130px;margin-left:10px"
+              :disabled="sameAsBilling">
+            </el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+
+      <el-form-item label="Payment Term" class="paymentTerm">
+        <el-select v-model="form.paymentTerm" placeholder="Select" style="width:173px">
+          <el-option
+            v-for="option in paymentOptions"
+            :key="option.value"
+            :label="option.label"
+            :value="option.value"
+          ></el-option>
+        </el-select>
+      </el-form-item>
+    </el-form>
   </div>
 </template>
 
@@ -31,9 +196,7 @@ import ProductDetailForm from './ProductDetailForm.vue';
 import CreateInvoiceForm from './CreateInvoiceForm.vue';
 import AccessoryDetailForm from './AccessoryDetailForm.vue';
 import ServicePlanForm from './ServicePlanForm.vue';
-import CompanyInfoForm from './CompanyInfoForm.vue';
 import OrderDetailsForm from './OrderDetailsForm.vue';
-import LogisticsInfoForm from './LogisticsInfoForm.vue';
 import {
   addOrder,
   editOrder,
@@ -52,9 +215,7 @@ export default {
     AccessoryDetailForm,
     ServicePlanForm,
     VSidebar,
-    CompanyInfoForm,
-    OrderDetailsForm,
-    LogisticsInfoForm
+    OrderDetailsForm
   },
 
   created() {},
@@ -75,13 +236,7 @@ export default {
       //      { required: true, message: 'Invoice date is required' },
       //   ],
       // },
-      active: 1,
-      prevVisible: false,
-      nextVisible: true,
-      submitVisible: false,
-      companyInfoFormVisible: true,
       orderDetailsFormVisible: false,
-      logisticsInfoFormVisible: false,
       loading: false,
       createInvoiceFormVisible: false,
       accessoryDetailFormVisible: false,
@@ -247,19 +402,9 @@ export default {
     //   this.validInvoice = true;
     //   this.visible = true;
     // },
-    handlePrev() {
-      this.active -= 1;
-      this.activeAdd();
-    },
     handleNext() {
-      this.active += 1;
-      this.activeAdd();
-    },
-
-    async activeAdd(){
-      if(this.active > 3){
-        this.active = 1;
-      }
+      this.visible = false;
+      this.orderDetailsFormVisible = true;
     },
 
     handleSaveEdit() {},
@@ -575,39 +720,6 @@ export default {
         }
       },
       immediate: true
-    },
-
-    companyInfoFormVisible(val) {
-      if(val) {
-      }
-    },
-
-    orderDetailsFormVisible(val) {
-      if(val) {
-        this.nextVisible = true;
-        this.prevVisble = true;
-        this.submitVisble = false;
-      }
-    },
-
-    logisticsInfoFormVisible(val) {
-      if(val) {
-        this.prevVisble = true;
-        this.nextVisible = false;
-        this.submitVisible = true;
-      }
-    },
-
-    active(val) {
-      if(val) {
-        if(val === 2 ){
-          this.orderDetailsFormVisible = true;
-        } else if(val === 3 ){
-          this.logisticsInfoFormVisible = true;
-        } else {
-          this.companyInfoFormVisible = true;
-        }
-      }
     }
   },
 

@@ -1,27 +1,62 @@
 <template>
   <div>
-    <v-sidebar
-      v-model="visible"
-      title= "Add Order"
-      width="720">
-      <el-steps :active="active" align-center>
-        <el-step title="Step1" description="Company Information"></el-step>
-        <el-step title="Step2" description="Order Details"></el-step>
-        <el-step title="Step3" description="Logistics Information"></el-step>
-      </el-steps>
-      <div class="form-box">
-        <company-info-form :form="form" v-model="companyInfoFormVisible"></company-info-form>
-        <order-details-form :form="form" v-model="orderDetailsFormVisible"></order-details-form>
-        <logistics-info-form :form="form" v-model="logisticsInfoFormVisible"></logistics-info-form>
-      </div>
+    <el-form ref="form" :model="form" size="mini" label-width="130px">
+      <el-row>
+            <el-col :span="12">
+              <el-form-item label="Status: ">
+                <el-select v-model="form.status" placeholder="select" style="width: 188px">
+                    <el-option
+                    v-for="option in statusOptions"
+                    :key="option.status"
+                    :value="option.status"
+                    :label="option.label"
+                    ></el-option>
+                </el-select>
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="Shipping Fee: ">
+                <el-input v-model="form.shippingFee" style="width: 188px"></el-input>
+              </el-form-item>  
+            </el-col>
+      </el-row>
 
-      <span slot="footer">
-        <el-button @click="visible = false">Cancel</el-button>
-        <el-button type="primary" v-if="prevVisible" @click="handlePrev">Prev</el-button>
-        <el-button type="primary" v-if="nextVisible" @click="handleNext">Next</el-button>
-        <el-button type="primary" v-if="submitVisible" @click="handleSubmit">Submit</el-button>
-      </span>
-    </v-sidebar>
+      <el-row>
+        <el-col :span="12">
+          <el-form-item label="Invoice #: ">
+            <el-input
+                v-model="form.invoiceNo"
+                :placeholder="invoicePlaceholder"
+                style="width: 188px"
+            ></el-input>
+          </el-form-item>  
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="Invoice Date: ">
+            <el-date-picker
+                v-model="form.invoiceDate"
+                type="datetime"
+                placeholder="Select date and time"
+                style="width: 188px"
+            ></el-date-picker>
+          </el-form-item>  
+        </el-col>
+      </el-row>
+      <span class="warning" v-if="!validInvoice">invalid invoice number</span>
+
+      <el-row>
+        <el-col :span="12">
+          <el-form-item label="Shipping Via: ">
+            <el-input v-model="form.shippingVia" style="width: 188px"></el-input>
+          </el-form-item>  
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="Tracking Number: ">
+            <el-input v-model="form.trackingNo" style="width: 188px"></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+    </el-form>
   </div>
 </template>
 
@@ -31,9 +66,7 @@ import ProductDetailForm from './ProductDetailForm.vue';
 import CreateInvoiceForm from './CreateInvoiceForm.vue';
 import AccessoryDetailForm from './AccessoryDetailForm.vue';
 import ServicePlanForm from './ServicePlanForm.vue';
-import CompanyInfoForm from './CompanyInfoForm.vue';
 import OrderDetailsForm from './OrderDetailsForm.vue';
-import LogisticsInfoForm from './LogisticsInfoForm.vue';
 import {
   addOrder,
   editOrder,
@@ -52,9 +85,7 @@ export default {
     AccessoryDetailForm,
     ServicePlanForm,
     VSidebar,
-    CompanyInfoForm,
-    OrderDetailsForm,
-    LogisticsInfoForm
+    OrderDetailsForm
   },
 
   created() {},
@@ -75,13 +106,7 @@ export default {
       //      { required: true, message: 'Invoice date is required' },
       //   ],
       // },
-      active: 1,
-      prevVisible: false,
-      nextVisible: true,
-      submitVisible: false,
-      companyInfoFormVisible: true,
       orderDetailsFormVisible: false,
-      logisticsInfoFormVisible: false,
       loading: false,
       createInvoiceFormVisible: false,
       accessoryDetailFormVisible: false,
@@ -248,18 +273,8 @@ export default {
     //   this.visible = true;
     // },
     handlePrev() {
-      this.active -= 1;
-      this.activeAdd();
-    },
-    handleNext() {
-      this.active += 1;
-      this.activeAdd();
-    },
-
-    async activeAdd(){
-      if(this.active > 3){
-        this.active = 1;
-      }
+      this.visible = false;
+      this.orderDetailsFormVisible = true;
     },
 
     handleSaveEdit() {},
@@ -575,39 +590,6 @@ export default {
         }
       },
       immediate: true
-    },
-
-    companyInfoFormVisible(val) {
-      if(val) {
-      }
-    },
-
-    orderDetailsFormVisible(val) {
-      if(val) {
-        this.nextVisible = true;
-        this.prevVisble = true;
-        this.submitVisble = false;
-      }
-    },
-
-    logisticsInfoFormVisible(val) {
-      if(val) {
-        this.prevVisble = true;
-        this.nextVisible = false;
-        this.submitVisible = true;
-      }
-    },
-
-    active(val) {
-      if(val) {
-        if(val === 2 ){
-          this.orderDetailsFormVisible = true;
-        } else if(val === 3 ){
-          this.logisticsInfoFormVisible = true;
-        } else {
-          this.companyInfoFormVisible = true;
-        }
-      }
     }
   },
 
@@ -677,7 +659,17 @@ export default {
   margin-bottom: 0 !important;
 }
 
-.el-form-item.paymentTerm {
-  margin-top: 5px;
+.el-form-item.warning el-form-item__content{
+    margin-top: -15px;
+}
+
+.warning {
+  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
+    "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  font-size: 9pt;
+  color: #f56c6c;
+  padding-left: 5px;
+  display: inline;
+  margin-left: 125px;
 }
 </style>

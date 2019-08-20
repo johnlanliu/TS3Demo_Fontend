@@ -148,13 +148,13 @@
           </el-select>
         </el-form-item>
       
-        <el-row  :gutter="20">
+        <el-row>
           <el-col :span="10">
-            <el-form-item label="Invoice #: " style="float: left"></el-form-item>
+            <el-form-item label="Invoice #: "></el-form-item>
             <el-input v-model="form.invoiceNumber" style="width: 188px"></el-input>
           </el-col>
           <el-col :span="10">
-            <el-form-item label="Invoice Status: " style="float: left"></el-form-item>
+            <el-form-item label="Invoice Status: "></el-form-item>
             <el-select v-model="form.status" placeholder="Select" clearable style="width: 188px">
               <el-option
                 v-for="item in statusOptions"
@@ -167,7 +167,7 @@
         </el-row>
         <el-row>
           <el-col :span="10">
-            <el-form-item label="Invoice Date: " style="float: left"></el-form-item>
+            <el-form-item label="Invoice Date: "></el-form-item>
             <el-date-picker
               v-model="form.invoiceDate"
               type="datetime"
@@ -176,7 +176,7 @@
             ></el-date-picker>
           </el-col>
           <el-col :span="10">
-            <el-form-item label="Due Date: " style="float: left"></el-form-item>
+            <el-form-item label="Due Date: "></el-form-item>
             <el-date-picker
               v-model="form.dueDate"
               type="datetime"
@@ -187,11 +187,11 @@
         </el-row>
         <el-row>
           <el-col :span="10">
-            <el-form-item label="Shipping via: " style="float: left"></el-form-item>
+            <el-form-item label="Shipping via: "></el-form-item>
             <el-input v-model="form.shippingVia" style="width: 188px"></el-input>
           </el-col>
           <el-col :span="10">
-            <el-form-item label="Tracking Number: " style="float: left"></el-form-item>
+            <el-form-item label="Tracking Number: "></el-form-item>
             <el-input v-model="form.trackingNumber" style="width: 188px"></el-input>
           </el-col>
         </el-row>
