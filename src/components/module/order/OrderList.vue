@@ -111,6 +111,7 @@
     <order-review-form
       v-model="orderReviewFormVisible"
       :form="form"
+      :orderItemTable="orderItemTable"
     ></order-review-form>
     <edit-order-form
       v-model="editFormVisible"
