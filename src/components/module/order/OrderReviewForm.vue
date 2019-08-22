@@ -150,33 +150,7 @@ export default {
     };
   },
 
-  //   props: {
-  //     form: {
-  //       type: Object,
-  //       default: () => ({
-  //         billingCompany: '',
-  //         billingAddress: '',
-  //         billingEmail: '',
-  //         billingNumber: '',
-  //         shippingCompany: '',
-  //         shippingAddress: '',
-  //         shippingNumber: '',
-  //         shippingEmail: '',
-  //         type: ''
-  //       })
-  //     },
-  //     tableData: {
-  //       type: Array,
-  //       default: () => []
-  //     },
-  //     initData: Function
-  //   },
-
   methods: {
-    /* AUXILIARY FUNCTIONS */
-    // showDialog() {
-    //   this.isOpen = true;
-    // },
     resetFields() {
       this.$refs.form.resetFields();
     },
@@ -184,7 +158,7 @@ export default {
     /* HANDLER FUNCTIONS */
     async handleCancelOrder() {
       await cancelOrder({ orderId: this.form.orderId }, {});
-      this.initData();
+      // this.initData();
       this.visible = false;
     },
 

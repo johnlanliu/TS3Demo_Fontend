@@ -44,7 +44,8 @@
                 <span>${{ Number(scope.row.amount).toFixed(2) }}</span>
               </template>
         </el-table-column>
-        <el-table-column fixed label="Tax" prop="tax" width="96"></el-table-column>
+        <el-table-column fixed label="Tax" prop="tax" width="96">
+        </el-table-column>
         <el-table-column fixed label="Action" width="96">
               <template slot-scope="scope">
                 <el-button type="text" @click="handleDeleteOrderItem(scope.row, scope.$index)">Delete</el-button>
@@ -69,7 +70,7 @@
               </el-form-item>
         </el-col>
         <el-col :span="5">
-          <el-form-item style="dispaly:inline" label="Tax: " :tax="tax">${{ tax }}</el-form-item>
+          <el-form-item style="dispaly:inline" label="Tax: " :totalTax="totalTax">${{ totalTax }}</el-form-item>
           <el-form-item label="Total: " :total="total" prop="total">${{ total }}</el-form-item>
           <el-form-item class="plus" label="plus shipping fee"></el-form-item>
         </el-col>
@@ -98,14 +99,6 @@
 import ProductDetailForm from './ProductDetailForm.vue';
 import AccessoryDetailForm from './AccessoryDetailForm.vue';
 import ServicePlanForm from './ServicePlanForm.vue';
-import {
-  addOrder,
-  editOrder,
-  getLastInvoiceNo,
-  validInvoiceNo,
-  getOrgById,
-  getOrderItem
-} from '@/api/getData';
 import { mapState } from 'vuex';
 
 export default {
@@ -118,8 +111,8 @@ export default {
   props: {
     value: Boolean,
     form: [Object],
-    // orderItemTable: Array,
-    orderItemsTable: Array,
+    tableData: Array,
+    orderItemTable: Array
   },
 
   data: function() {
@@ -136,7 +129,6 @@ export default {
       accessoryDetailFormVisible: false,
       servicePlanFormVisible: false,
       productDetailFormVisible: false,
-      tableData: [],
       /* FORM RULES */
       // formRules: {
       //   orderType: [
@@ -248,13 +240,12 @@ export default {
 
   methods: {
     clearValidate() {
-      this.tableData = [];
       this.$refs.form.clearValidate();
     },
 
     handleDeleteOrderItem(row, index) {
       this.tableData.splice(index, 1);
-      this.sendTableData();
+      this.fetchItemTax();
     },
 
     /* HANDLERS FOR SHOWING PRODUCT FORMS */
@@ -270,62 +261,43 @@ export default {
 
     HandleAccessoryAdded(value) {
       this.tableData.push(value);
-      this.sendTableData();
+      this.fetchItemTax();
     },
 
     handlePlanAdded(value) {
       this.tableData.push(value);
-      this.sendTableData();
+      this.fetchItemTax();
     },
 
     handleProductAdded(value) {
       this.tableData.push(value);
-      this.sendTableData();
+      // console.log(this.tableData);
+      this.fetchItemTax();
     },
 
-    async sendTableData() {
-      this.tableData.forEach(item => {
-        item.tax = this.tax;
-      });
-      this.$emit('orderaItems', this.tableData);
+    async fetchItemTax() {
+     this.$emit('itemTax',this.tax);
     },
-
-    fetchOrderItems() {
-      this.tableData = getOrderItem({ orderId: this.form.orderId });
-    }
   },
 
   watch: {
-    'form.invoiceNumber': function() {
-      this.checkForOrder();
-    },
-
-    tableData: {
+    orderItemTable: {
       handler: function(val) {
         if(this.form.orderId) {
-          this.fetchOrderItems();
-        } else {
-          this.tableData = [];
+          this.orderItemTable.forEach(item => {
+            this.tableData.push(item);
+          })
         }
-      }
-    }
-
-    // orderItemTable: {
-    //   handler: function(val) {
-    //     if (this.form.orderId) {
-    //       this.tableData = this.orderItemTable.concat([]);
-    //     } else {
-    //       this.tableData = [];
-    //     }
-    //   },
-    //   immediate: true
-    // }
+        this.fetchItemTax();
+      },
+      immediate: true
+    },
   },
 
   computed: {
-    tax: function() {
+    totalTax: function() {
       let t = 0;
-      let et;
+      let et = 0;
       const copy = this.tableData || [];
       copy.forEach(function(item, index) {
         if (item.tax === 'Y') {

@@ -11,7 +11,14 @@
       </el-steps>
       <div class="form-box">
         <company-info-form :form="form" v-if="companyInfoFormVisible"></company-info-form>
-        <order-details-form :form="form" v-if="orderDetailsFormVisible" @orderaItems="fetchOrderItems"></order-details-form>
+        <order-details-form
+          :form="form"
+          v-if="orderDetailsFormVisible"
+          :tableData="tableData"
+          :orderItemTable="orderItemTable"
+          @itemTax="fetchItemTax"
+         >
+        </order-details-form>
         <logistics-info-form :form="form" v-if="logisticsInfoFormVisible"></logistics-info-form>
       </div>
 
@@ -20,7 +27,7 @@
         <el-button type="primary" v-if="prevVisible" @click="handlePrev">Prev</el-button>
         <el-button type="primary" v-if="nextVisible" @click="handleNext">Next</el-button>
         <el-button type="primary" v-if="submitVisible && !this.form.orderId" @click="handleSubmit" :loading="loading">Submit</el-button>
-        <el-button type="primary" v-if="editVisible && this.form.orderId" @click="handleSubmit" :loading="loading">Save</el-button>
+        <el-button type="primary" v-if="editVisible && this.form.orderId" @click="handleSave" :loading="loading">Save</el-button>
       </span>
     </v-sidebar>
   </div>
@@ -54,8 +61,6 @@ export default {
   },
 
   created() {
-    this.fetchEditOrderItems();
-    console.log(this.orderItemsTable);
   },
   mounted: function() {
   },
@@ -86,7 +91,7 @@ export default {
       loading: false,
       createInvoiceFormVisible: false,
       validInvoice: false,
-      orderItemsTable: [],
+      tableData: [],
       /* DROPDOWN OPTIONS */
       // orderOptions: [
       //   {
@@ -248,30 +253,43 @@ export default {
       this.handleAddOrder();
     },
 
-    handleSaveEdit() {},
+    async handleSave() {
+      // this.getDates();
+      this.handleEditOrder();
+    },
 
     clearValidate() {
       this.visible = false;
       this.active = 1;
+      this.tableData = [];
       // this.validInvoice = false;
       // this.getLastOrder();
-      // this.$refs.form.clearValidate();
+    },
+
+    handleEditOrder() {
+      this.loading = true;
+      const param = Object.assign({}, this.form, {
+        orderItems: this.tableData
+      });
+      this.loading = false;
+      const res = editOrder({}, param);
+      if (!res || res.errorCode) return;
+      this.visible = false;
+      this.$message.success('Change Success!');
+      this.clearValidate();
     },
 
     async handleAddOrder() {
       this.loading = true;
       const param = Object.assign({}, this.form, {
-        orderItems: this.orderItemsTable
+        orderItems: this.tableData
       });
       this.loading = false;
-      const res = await addOrder({}, param).then(res => {
-        if (res && !res.errorCode) {
-          console.log(res);
-          this.visible = false;
-          this.$message.success('Submit Success!');
-          this.clearValidate();
-        }
-      });
+      const res = await addOrder({}, param);
+      if (!res || res.errorCode) return;
+      this.visible = false;
+      this.$message.success('Submit Success!');
+      this.clearValidate();
     },
 
     async checkForOrder() {
@@ -325,12 +343,11 @@ export default {
         ':' +
         due.getMinutes();
     },
-    fetchOrderItems(value) {
-      this.orderItemsTable = value;
-    },
 
-    fetchEditOrderItems() {
-      this.orderItemsTable = getOrderItem({ orderId: this.form.orderId });
+    fetchItemTax(value) {
+      this.tableData.forEach(item => {
+        item.tax = value
+      });
     }
   },
 
