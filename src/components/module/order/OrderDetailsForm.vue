@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-form ref="form" :model="form" size="mini">
+    <el-form :visible.sync="visible" ref="form" :model="form" size="mini">
       <div class="labelBox">
         <el-form-item label="Order Details" style="font-weight: 900" class="odLabel"></el-form-item>
         <div style="position:absolute;left:240px">
@@ -75,45 +75,51 @@
         </el-col>
       </el-row>
     </el-form>
+
+    <accessory-detail-form
+      :form="form"
+      v-model="accessoryDetailFormVisible"
+      @accessoryAdded="HandleAccessoryAdded"
+    ></accessory-detail-form>
+    <product-detail-form
+      :form="form"
+      v-model="productDetailFormVisible"
+      @productAdded="handleProductAdded"
+    ></product-detail-form>
+    <service-plan-form
+      :form="form"
+      v-model="servicePlanFormVisible"
+      @planAdded="handlePlanAdded"
+    ></service-plan-form>
   </div>
 </template>
 
 <script>
-import VSidebar from '../../common/VSidebar.vue';
 import ProductDetailForm from './ProductDetailForm.vue';
-import CreateInvoiceForm from './CreateInvoiceForm.vue';
 import AccessoryDetailForm from './AccessoryDetailForm.vue';
 import ServicePlanForm from './ServicePlanForm.vue';
-import EditOrderForm from './EditOrderForm.vue';
-import LogisticsInfoForm from './LogisticsInfoForm.vue';
 import {
   addOrder,
   editOrder,
   getLastInvoiceNo,
   validInvoiceNo,
-  getOrgById
+  getOrgById,
+  getOrderItem
 } from '@/api/getData';
 import { mapState } from 'vuex';
 
 export default {
-  // name: 'EditOrderForm',
-
   components: {
     ProductDetailForm,
-    CreateInvoiceForm,
     AccessoryDetailForm,
     ServicePlanForm,
-    VSidebar,
-    EditOrderForm,
-    LogisticsInfoForm,
   },
 
-  created() {},
-  mounted: function() {},
   props: {
     value: Boolean,
     form: [Object],
-    orderItemTable: Array
+    // orderItemTable: Array,
+    orderItemsTable: Array,
   },
 
   data: function() {
@@ -126,62 +132,11 @@ export default {
       //      { required: true, message: 'Invoice date is required' },
       //   ],
       // },
-      logisticsInfoFormVisible: false,
-      editOrderFormVisible: false,
       loading: false,
-      createInvoiceFormVisible: false,
       accessoryDetailFormVisible: false,
       servicePlanFormVisible: false,
       productDetailFormVisible: false,
-      /* RESET THESE */
-      validInvoice: false,
-      sameAsBilling: false,
       tableData: [],
-      invoicePlaceholder: '',
-      /* DROPDOWN OPTIONS */
-      orderOptions: [
-        {
-          label: 'Evaluation',
-          value: 1
-        },
-        {
-          label: 'Purchase',
-          value: 2
-        },
-        {
-          label: 'RMA',
-          value: 3
-        }
-      ],
-      paymentOptions: [
-        {
-          value: 1,
-          label: 'Net15'
-        },
-        {
-          value: 2,
-          label: 'Net30'
-        }
-      ],
-      statusOptions: [
-        {
-          label: 'Delivered',
-          status: 2
-        },
-        {
-          label: 'Cancelled',
-          status: -1
-        },
-        {
-          label: 'Shipped',
-          status: 1
-        },
-        {
-          label: 'Pending',
-          status: 3
-        }
-      ]
-
       /* FORM RULES */
       // formRules: {
       //   orderType: [
@@ -285,88 +240,21 @@ export default {
     };
   },
 
+  created() {
+  },
+
+  mounted() {
+  },
+
   methods: {
-    /* AUXILIARY FUNCTIONS */
-    // showDialog() {
-    //   Object.assign(this.form);
-    //   // this.getLastOrder();
-    //   this.validInvoice = true;
-    //   this.visible = true;
-    // },
-    handlePrev() {
-      this.visible = false;
-      this.editOrderFormVisible = true;
-    },
-    handleNext() {
-      this.visible = false;
-      this.logisticsInfoFormVisible = true;
-    },
-
-    handleSaveEdit() {},
-
     clearValidate() {
-      this.visible = false;
-      this.sameAsBilling = false;
-      // this.tableData = [];
-      // this.form = {};
-      // this.validInvoice = false;
-      // this.getLastOrder();
+      this.tableData = [];
       this.$refs.form.clearValidate();
     },
 
-    /* HANDLER FUNCTIONS */
-    handleSameInfo() {
-      if (this.sameAsBilling) {
-        this.form.shippingCompany = this.form.billingCompany;
-        this.form.shippingContact = this.form.billingContact;
-        this.form.shippingPhone = this.form.billingPhone;
-        this.form.shippingEmail = this.form.billingEmail;
-        this.form.shippingAddress = this.form.billingAddress;
-        this.form.shippingCity = this.form.billingCity;
-        this.form.shippingState = this.form.billingState;
-        this.form.shippingCountry = this.form.billingCountry;
-        this.form.shippingZip = this.form.billingZip;
-      }
-    },
     handleDeleteOrderItem(row, index) {
       this.tableData.splice(index, 1);
-    },
-    async handleCreateInvoice() {
-      this.getDates();
-      this.handleAddOrder();
-      this.createInvoiceFormVisible = true;
-    },
-    handleAddOrder() {
-      this.loading = true;
-      this.handleSameInfo();
-      const param = Object.assign({}, this.form, {
-        orderItems: this.tableData
-      });
-      this.loading = false;
-      const res = addOrder({}, param).then(res => {
-        if (res && !res.errorCode) {
-          this.visible = false;
-          this.$message.success('Submit Success!');
-        }
-      });
-    },
-    // async getLastOrder() {
-    //   this.invoicePlaceholder = (await getLastInvoiceNo()) + 1;
-    //   if (typeof this.invoicePlaceholder !== 'number') {
-    //     this.invoicePlaceholder = '';
-    //     return;
-    //   }
-
-    //   let valid = await validInvoiceNo({ invoiceNo: this.invoicePlaceholder });
-    //   while (!valid) {
-    //     this.invoicePlaceholder += 1;
-    //     valid = await validInvoiceNo({ invoiceNo: this.invoicePlaceholder });
-    //   }
-    // },
-    async checkForOrder() {
-      this.validInvoice = await validInvoiceNo({
-        invoiceNo: this.form.invoiceNumber
-      });
+      this.sendTableData();
     },
 
     /* HANDLERS FOR SHOWING PRODUCT FORMS */
@@ -380,224 +268,30 @@ export default {
       this.servicePlanFormVisible = true;
     },
 
-    /* FORMAT INVOICE AND DUE DATES */
-    getDates() {
-      if (
-        this.form.invoiceDate === null ||
-        this.form.paymentTerm === null ||
-        this.form.invoiceDate === '' ||
-        this.form.paymentTerm === '' ||
-        typeof this.form.invoiceDate === 'undefined' ||
-        typeof this.form.paymentTerm === 'undefined'
-      ) {
-        this.form.dueDate = null;
-        return;
-      }
-      let invoice = new Date(this.form.invoiceDate);
-      let due = new Date(this.form.invoiceDate);
-
-      if (this.form.paymentTerm === 'Net15') {
-        due.setDate(this.form.invoiceDate.getDate() + 15);
-        // due.setDate( Number(this.form.invoiceDate) + 15);
-      } else {
-        due.setDate(this.form.invoiceDate.getDate() + 30);
-        // due.setDate( Number(this.form.invoiceDate) + 30);
-      }
-
-      this.form.invoiceDate =
-        invoice.getFullYear() +
-        '-' +
-        (invoice.getMonth() + 1) +
-        '-' +
-        invoice.getDate() +
-        ' ' +
-        invoice.getHours() +
-        ':' +
-        invoice.getMinutes();
-      this.form.dueDate =
-        due.getFullYear() +
-        '-' +
-        (due.getMonth() + 1) +
-        '-' +
-        due.getDate() +
-        ' ' +
-        due.getHours() +
-        ':' +
-        due.getMinutes();
-    },
-
-    /* GET ACCESSORIES, PRODUCTS, AND SERVICE PLANS FOR TABLE */
-    // getAccessoryInfo(n, p, q, r) {
-    //   this.org.accName = n;
-    //   this.org.accPrice = p;
-    //   this.org.accQty = q;
-    //   this.org.accTax = r;
-    //   const data = {
-    //     orderId: '',
-    //     product: this.org.accName,
-    //     quantity: this.org.accQty,
-    //     rate: this.org.accPrice,
-    //     amount: Number(this.org.accPrice) * Number(this.org.accQty),
-    //     tax: this.org.accTax,
-    //     description: this.org.accQty + ' * ' + this.org.accName,
-    //     invoiceNo: this.form.invoiceNumber
-    //   };
-    //   this.tableData.push(data);
-    // },
-    // getProductInfo(n, p, q, r) {
-    //   this.org.prodName = n;
-    //   this.org.prodPrice = p;
-    //   this.org.prodQty = q;
-    //   this.org.prodTax = r;
-    //   const data = {
-    //     orderId: '',
-    //     product: this.org.prodName,
-    //     quantity: this.org.prodQty,
-    //     rate: this.org.prodPrice,
-    //     amount: Number(this.org.prodPrice) * Number(this.org.prodQty),
-    //     tax: this.org.prodTax,
-    //     description: this.org.prodQty + ' * ' + this.org.prodName,
-    //     invoiceNo: this.form.invoiceNumber
-    //   };
-    //   this.tableData.push(data);
-    // },
-    // getServicePlanFee(q, a, n) {
-    //   this.org.planQty = q;
-    //   this.org.planAmt = a;
-    //   this.org.planName = n;
-    //   const data = {
-    //     orderId: '',
-    //     product: this.org.planName,
-    //     quantity: this.org.planQty,
-    //     rate: this.org.planAmt,
-    //     amount: Number(this.org.planAmt) * Number(this.org.planQty),
-    //     tax: 'N',
-    //     description: this.org.planQty + ' * ' + this.org.planName,
-    //     invoiceNo: this.form.invoiceNumber
-    //   };
-    //   this.tableData.push(data);
-    // },
-    // getProdAndAccInfo(pn, pp, pq, pt, an, ap, aq, at) {
-    //   this.org.prodName = pn;
-    //   this.org.prodPrice = pp;
-    //   this.org.prodQty = pq;
-    //   this.org.prodTax = pt;
-    //   this.org.accName = an;
-    //   this.org.accPrice = ap;
-    //   this.org.accQty = aq;
-    //   this.org.accTax = at;
-    //   const data = {
-    //     orderId: '',
-    //     product: this.org.prodName,
-    //     quantity: this.org.prodQty,
-    //     rate: this.org.prodPrice,
-    //     amount: Number(this.org.prodPrice) * Number(this.org.prodQty),
-    //     tax: this.org.prodTax,
-    //     description: this.org.prodQty + ' * ' + this.org.prodName,
-    //     invoiceNo: this.form.invoiceNumber
-    //   };
-    //   this.tableData.push(data);
-    //   const data2 = {
-    //     orderId: '',
-    //     product: this.org.accName,
-    //     quantity: this.org.accQty,
-    //     rate: this.org.accPrice,
-    //     amount: Number(this.org.accPrice) * Number(this.org.accQty),
-    //     tax: this.org.accTax,
-    //     description: this.org.accQty + ' * ' + this.org.accName,
-    //     invoiceNo: this.form.invoiceNumber
-    //   };
-    //   this.tableData.push(data2);
-    // },
-    // getProdAndPlanInfo(pn, pp, pq, pt, sq, sa, sn) {
-    //   this.org.prodName = pn;
-    //   this.org.prodPrice = pp;
-    //   this.org.prodQty = pq;
-    //   this.org.prodTax = pt;
-    //   this.org.planQty = sq;
-    //   this.org.planAmt = sa;
-    //   this.org.planName = sn;
-    //   const data = {
-    //     orderId: '',
-    //     product: this.org.prodName,
-    //     quantity: this.org.prodQty,
-    //     rate: this.org.prodPrice,
-    //     amount: Number(this.org.prodPrice) * Number(this.org.prodQty),
-    //     tax: this.org.prodTax,
-    //     description: this.org.prodQty + ' * ' + this.org.prodName,
-    //     invoiceNo: this.form.invoiceNumber
-    //   };
-    //   this.tableData.push(data);
-    //   const data2 = {
-    //     orderId: '',
-    //     product: this.org.planName,
-    //     quantity: this.org.planQty,
-    //     rate: this.org.planAmt,
-    //     amount: Number(this.org.planAmt) * Number(this.org.planQty),
-    //     tax: 'N',
-    //     description: this.org.planQty + ' * ' + this.org.planName,
-    //     invoiceNo: this.form.invoiceNumber
-    //   };
-    //   this.tableData.push(data2);
-    // },
-    // getAllInfo(pn, pp, pq, pt, an, ap, aq, at, sq, sa, sn) {
-    //   this.org.prodName = pn;
-    //   this.org.prodPrice = pp;
-    //   this.org.prodQty = pq;
-    //   this.org.prodTax = pt;
-    //   this.org.accName = an;
-    //   this.org.accPrice = ap;
-    //   this.org.accQty = aq;
-    //   this.org.accTax = at;
-    //   this.org.planQty = sq;
-    //   this.org.planAmt = sa;
-    //   this.org.planName = sn;
-    //   const data = {
-    //     orderId: '',
-    //     product: this.org.prodName,
-    //     quantity: this.org.prodQty,
-    //     rate: this.org.prodPrice,
-    //     amount: Number(this.org.prodPrice) * Number(this.org.prodQty),
-    //     tax: this.org.prodTax,
-    //     description: this.org.prodQty + ' * ' + this.org.prodName,
-    //     invoiceNo: this.form.invoiceNumber
-    //   };
-    //   this.tableData.push(data);
-    //   const data2 = {
-    //     orderId: '',
-    //     product: this.org.accName,
-    //     quantity: this.org.accQty,
-    //     rate: this.org.accPrice,
-    //     amount: Number(this.org.accPrice) * Number(this.org.accQty),
-    //     tax: this.org.accTax,
-    //     description: this.org.accQty + ' * ' + this.org.accName,
-    //     invoiceNo: this.form.invoiceNumber
-    //   };
-    //   this.tableData.push(data2);
-    //   const data3 = {
-    //     orderId: '',
-    //     product: this.org.planName,
-    //     quantity: this.org.planQty,
-    //     rate: this.org.planAmt,
-    //     amount: Number(this.org.planAmt) * Number(this.org.planQty),
-    //     tax: 'N',
-    //     description: this.org.planQty + ' * ' + this.org.planName,
-    //     invoiceNo: this.form.invoiceNumber
-    //   };
-    //   this.tableData.push(data3);
-    // },
-
-    // Accessory
     HandleAccessoryAdded(value) {
       this.tableData.push(value);
+      this.sendTableData();
     },
 
     handlePlanAdded(value) {
       this.tableData.push(value);
+      this.sendTableData();
     },
 
     handleProductAdded(value) {
       this.tableData.push(value);
+      this.sendTableData();
+    },
+
+    async sendTableData() {
+      this.tableData.forEach(item => {
+        item.tax = this.tax;
+      });
+      this.$emit('orderaItems', this.tableData);
+    },
+
+    fetchOrderItems() {
+      this.tableData = getOrderItem({ orderId: this.form.orderId });
     }
   },
 
@@ -606,16 +300,26 @@ export default {
       this.checkForOrder();
     },
 
-    orderItemTable: {
+    tableData: {
       handler: function(val) {
-        if (this.form.orderId) {
-          this.tableData = this.orderItemTable.concat([]);
+        if(this.form.orderId) {
+          this.fetchOrderItems();
         } else {
           this.tableData = [];
         }
-      },
-      immediate: true
+      }
     }
+
+    // orderItemTable: {
+    //   handler: function(val) {
+    //     if (this.form.orderId) {
+    //       this.tableData = this.orderItemTable.concat([]);
+    //     } else {
+    //       this.tableData = [];
+    //     }
+    //   },
+    //   immediate: true
+    // }
   },
 
   computed: {

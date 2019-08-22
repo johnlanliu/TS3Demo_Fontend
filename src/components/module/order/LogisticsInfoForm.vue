@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-form ref="form" :model="form" size="mini" label-width="130px">
+    <el-form :visible.sync="visible" ref="form" :model="form" size="mini" label-width="130px">
       <el-row>
             <el-col :span="12">
               <el-form-item label="Status: ">
@@ -77,23 +77,9 @@ import {
 import { mapState } from 'vuex';
 
 export default {
-  // name: 'EditOrderForm',
-
-  components: {
-    ProductDetailForm,
-    CreateInvoiceForm,
-    AccessoryDetailForm,
-    ServicePlanForm,
-    VSidebar,
-    OrderDetailsForm
-  },
-
-  created() {},
-  mounted: function() {},
   props: {
     value: Boolean,
     form: [Object],
-    orderItemTable: Array
   },
 
   data: function() {
@@ -106,42 +92,10 @@ export default {
       //      { required: true, message: 'Invoice date is required' },
       //   ],
       // },
-      orderDetailsFormVisible: false,
       loading: false,
-      createInvoiceFormVisible: false,
-      accessoryDetailFormVisible: false,
-      servicePlanFormVisible: false,
-      productDetailFormVisible: false,
       /* RESET THESE */
       validInvoice: false,
-      sameAsBilling: false,
-      tableData: [],
       invoicePlaceholder: '',
-      /* DROPDOWN OPTIONS */
-      orderOptions: [
-        {
-          label: 'Evaluation',
-          value: 1
-        },
-        {
-          label: 'Purchase',
-          value: 2
-        },
-        {
-          label: 'RMA',
-          value: 3
-        }
-      ],
-      paymentOptions: [
-        {
-          value: 1,
-          label: 'Net15'
-        },
-        {
-          value: 2,
-          label: 'Net30'
-        }
-      ],
       statusOptions: [
         {
           label: 'Delivered',
@@ -160,7 +114,6 @@ export default {
           status: 3
         }
       ]
-
       /* FORM RULES */
       // formRules: {
       //   orderType: [
@@ -265,23 +218,9 @@ export default {
   },
 
   methods: {
-    /* AUXILIARY FUNCTIONS */
-    // showDialog() {
-    //   Object.assign(this.form);
-    //   // this.getLastOrder();
-    //   this.validInvoice = true;
-    //   this.visible = true;
-    // },
-    handlePrev() {
-      this.visible = false;
-      this.orderDetailsFormVisible = true;
-    },
-
-    handleSaveEdit() {},
-
     clearValidate() {
-      this.visible = false;
-      this.sameAsBilling = false;
+      // this.visible = false;
+      // this.sameAsBilling = false;
       // this.tableData = [];
       // this.form = {};
       // this.validInvoice = false;
@@ -289,334 +228,66 @@ export default {
       this.$refs.form.clearValidate();
     },
 
-    /* HANDLER FUNCTIONS */
-    handleSameInfo() {
-      if (this.sameAsBilling) {
-        this.form.shippingCompany = this.form.billingCompany;
-        this.form.shippingContact = this.form.billingContact;
-        this.form.shippingPhone = this.form.billingPhone;
-        this.form.shippingEmail = this.form.billingEmail;
-        this.form.shippingAddress = this.form.billingAddress;
-        this.form.shippingCity = this.form.billingCity;
-        this.form.shippingState = this.form.billingState;
-        this.form.shippingCountry = this.form.billingCountry;
-        this.form.shippingZip = this.form.billingZip;
-      }
-    },
-    handleDeleteOrderItem(row, index) {
-      this.tableData.splice(index, 1);
-    },
-    async handleCreateInvoice() {
-      this.getDates();
-      this.handleAddOrder();
-      this.createInvoiceFormVisible = true;
-    },
-    handleAddOrder() {
-      this.loading = true;
-      this.handleSameInfo();
-      const param = Object.assign({}, this.form, {
-        orderItems: this.tableData
-      });
-      this.loading = false;
-      const res = addOrder({}, param).then(res => {
-        if (res && !res.errorCode) {
-          this.visible = false;
-          this.$message.success('Submit Success!');
-        }
-      });
-    },
-    // async getLastOrder() {
-    //   this.invoicePlaceholder = (await getLastInvoiceNo()) + 1;
-    //   if (typeof this.invoicePlaceholder !== 'number') {
-    //     this.invoicePlaceholder = '';
-    //     return;
-    //   }
-
-    //   let valid = await validInvoiceNo({ invoiceNo: this.invoicePlaceholder });
-    //   while (!valid) {
-    //     this.invoicePlaceholder += 1;
-    //     valid = await validInvoiceNo({ invoiceNo: this.invoicePlaceholder });
-    //   }
-    // },
     async checkForOrder() {
       this.validInvoice = await validInvoiceNo({
         invoiceNo: this.form.invoiceNumber
       });
     },
 
-    /* HANDLERS FOR SHOWING PRODUCT FORMS */
-    handleAddDevice() {
-      this.productDetailFormVisible = true;
-    },
-    handleAddAccessories() {
-      this.accessoryDetailFormVisible = true;
-    },
-    handleAddService() {
-      this.servicePlanFormVisible = true;
-    },
-
     /* FORMAT INVOICE AND DUE DATES */
-    getDates() {
-      if (
-        this.form.invoiceDate === null ||
-        this.form.paymentTerm === null ||
-        this.form.invoiceDate === '' ||
-        this.form.paymentTerm === '' ||
-        typeof this.form.invoiceDate === 'undefined' ||
-        typeof this.form.paymentTerm === 'undefined'
-      ) {
-        this.form.dueDate = null;
-        return;
-      }
-      let invoice = new Date(this.form.invoiceDate);
-      let due = new Date(this.form.invoiceDate);
+    // getDates() {
+    //   if (
+    //     this.form.invoiceDate === null ||
+    //     this.form.paymentTerm === null ||
+    //     this.form.invoiceDate === '' ||
+    //     this.form.paymentTerm === '' ||
+    //     typeof this.form.invoiceDate === 'undefined' ||
+    //     typeof this.form.paymentTerm === 'undefined'
+    //   ) {
+    //     this.form.dueDate = null;
+    //     return;
+    //   }
+    //   let invoice = new Date(this.form.invoiceDate);
+    //   let due = new Date(this.form.invoiceDate);
 
-      if (this.form.paymentTerm === 'Net15') {
-        due.setDate(this.form.invoiceDate.getDate() + 15);
-        // due.setDate( Number(this.form.invoiceDate) + 15);
-      } else {
-        due.setDate(this.form.invoiceDate.getDate() + 30);
-        // due.setDate( Number(this.form.invoiceDate) + 30);
-      }
+    //   if (this.form.paymentTerm === 'Net15') {
+    //     due.setDate(this.form.invoiceDate.getDate() + 15);
+    //     // due.setDate( Number(this.form.invoiceDate) + 15);
+    //   } else {
+    //     due.setDate(this.form.invoiceDate.getDate() + 30);
+    //     // due.setDate( Number(this.form.invoiceDate) + 30);
+    //   }
 
-      this.form.invoiceDate =
-        invoice.getFullYear() +
-        '-' +
-        (invoice.getMonth() + 1) +
-        '-' +
-        invoice.getDate() +
-        ' ' +
-        invoice.getHours() +
-        ':' +
-        invoice.getMinutes();
-      this.form.dueDate =
-        due.getFullYear() +
-        '-' +
-        (due.getMonth() + 1) +
-        '-' +
-        due.getDate() +
-        ' ' +
-        due.getHours() +
-        ':' +
-        due.getMinutes();
-    },
-
-    /* GET ACCESSORIES, PRODUCTS, AND SERVICE PLANS FOR TABLE */
-    // getAccessoryInfo(n, p, q, r) {
-    //   this.org.accName = n;
-    //   this.org.accPrice = p;
-    //   this.org.accQty = q;
-    //   this.org.accTax = r;
-    //   const data = {
-    //     orderId: '',
-    //     product: this.org.accName,
-    //     quantity: this.org.accQty,
-    //     rate: this.org.accPrice,
-    //     amount: Number(this.org.accPrice) * Number(this.org.accQty),
-    //     tax: this.org.accTax,
-    //     description: this.org.accQty + ' * ' + this.org.accName,
-    //     invoiceNo: this.form.invoiceNumber
-    //   };
-    //   this.tableData.push(data);
+    //   this.form.invoiceDate =
+    //     invoice.getFullYear() +
+    //     '-' +
+    //     (invoice.getMonth() + 1) +
+    //     '-' +
+    //     invoice.getDate() +
+    //     ' ' +
+    //     invoice.getHours() +
+    //     ':' +
+    //     invoice.getMinutes();
+    //   this.form.dueDate =
+    //     due.getFullYear() +
+    //     '-' +
+    //     (due.getMonth() + 1) +
+    //     '-' +
+    //     due.getDate() +
+    //     ' ' +
+    //     due.getHours() +
+    //     ':' +
+    //     due.getMinutes();
     // },
-    // getProductInfo(n, p, q, r) {
-    //   this.org.prodName = n;
-    //   this.org.prodPrice = p;
-    //   this.org.prodQty = q;
-    //   this.org.prodTax = r;
-    //   const data = {
-    //     orderId: '',
-    //     product: this.org.prodName,
-    //     quantity: this.org.prodQty,
-    //     rate: this.org.prodPrice,
-    //     amount: Number(this.org.prodPrice) * Number(this.org.prodQty),
-    //     tax: this.org.prodTax,
-    //     description: this.org.prodQty + ' * ' + this.org.prodName,
-    //     invoiceNo: this.form.invoiceNumber
-    //   };
-    //   this.tableData.push(data);
-    // },
-    // getServicePlanFee(q, a, n) {
-    //   this.org.planQty = q;
-    //   this.org.planAmt = a;
-    //   this.org.planName = n;
-    //   const data = {
-    //     orderId: '',
-    //     product: this.org.planName,
-    //     quantity: this.org.planQty,
-    //     rate: this.org.planAmt,
-    //     amount: Number(this.org.planAmt) * Number(this.org.planQty),
-    //     tax: 'N',
-    //     description: this.org.planQty + ' * ' + this.org.planName,
-    //     invoiceNo: this.form.invoiceNumber
-    //   };
-    //   this.tableData.push(data);
-    // },
-    // getProdAndAccInfo(pn, pp, pq, pt, an, ap, aq, at) {
-    //   this.org.prodName = pn;
-    //   this.org.prodPrice = pp;
-    //   this.org.prodQty = pq;
-    //   this.org.prodTax = pt;
-    //   this.org.accName = an;
-    //   this.org.accPrice = ap;
-    //   this.org.accQty = aq;
-    //   this.org.accTax = at;
-    //   const data = {
-    //     orderId: '',
-    //     product: this.org.prodName,
-    //     quantity: this.org.prodQty,
-    //     rate: this.org.prodPrice,
-    //     amount: Number(this.org.prodPrice) * Number(this.org.prodQty),
-    //     tax: this.org.prodTax,
-    //     description: this.org.prodQty + ' * ' + this.org.prodName,
-    //     invoiceNo: this.form.invoiceNumber
-    //   };
-    //   this.tableData.push(data);
-    //   const data2 = {
-    //     orderId: '',
-    //     product: this.org.accName,
-    //     quantity: this.org.accQty,
-    //     rate: this.org.accPrice,
-    //     amount: Number(this.org.accPrice) * Number(this.org.accQty),
-    //     tax: this.org.accTax,
-    //     description: this.org.accQty + ' * ' + this.org.accName,
-    //     invoiceNo: this.form.invoiceNumber
-    //   };
-    //   this.tableData.push(data2);
-    // },
-    // getProdAndPlanInfo(pn, pp, pq, pt, sq, sa, sn) {
-    //   this.org.prodName = pn;
-    //   this.org.prodPrice = pp;
-    //   this.org.prodQty = pq;
-    //   this.org.prodTax = pt;
-    //   this.org.planQty = sq;
-    //   this.org.planAmt = sa;
-    //   this.org.planName = sn;
-    //   const data = {
-    //     orderId: '',
-    //     product: this.org.prodName,
-    //     quantity: this.org.prodQty,
-    //     rate: this.org.prodPrice,
-    //     amount: Number(this.org.prodPrice) * Number(this.org.prodQty),
-    //     tax: this.org.prodTax,
-    //     description: this.org.prodQty + ' * ' + this.org.prodName,
-    //     invoiceNo: this.form.invoiceNumber
-    //   };
-    //   this.tableData.push(data);
-    //   const data2 = {
-    //     orderId: '',
-    //     product: this.org.planName,
-    //     quantity: this.org.planQty,
-    //     rate: this.org.planAmt,
-    //     amount: Number(this.org.planAmt) * Number(this.org.planQty),
-    //     tax: 'N',
-    //     description: this.org.planQty + ' * ' + this.org.planName,
-    //     invoiceNo: this.form.invoiceNumber
-    //   };
-    //   this.tableData.push(data2);
-    // },
-    // getAllInfo(pn, pp, pq, pt, an, ap, aq, at, sq, sa, sn) {
-    //   this.org.prodName = pn;
-    //   this.org.prodPrice = pp;
-    //   this.org.prodQty = pq;
-    //   this.org.prodTax = pt;
-    //   this.org.accName = an;
-    //   this.org.accPrice = ap;
-    //   this.org.accQty = aq;
-    //   this.org.accTax = at;
-    //   this.org.planQty = sq;
-    //   this.org.planAmt = sa;
-    //   this.org.planName = sn;
-    //   const data = {
-    //     orderId: '',
-    //     product: this.org.prodName,
-    //     quantity: this.org.prodQty,
-    //     rate: this.org.prodPrice,
-    //     amount: Number(this.org.prodPrice) * Number(this.org.prodQty),
-    //     tax: this.org.prodTax,
-    //     description: this.org.prodQty + ' * ' + this.org.prodName,
-    //     invoiceNo: this.form.invoiceNumber
-    //   };
-    //   this.tableData.push(data);
-    //   const data2 = {
-    //     orderId: '',
-    //     product: this.org.accName,
-    //     quantity: this.org.accQty,
-    //     rate: this.org.accPrice,
-    //     amount: Number(this.org.accPrice) * Number(this.org.accQty),
-    //     tax: this.org.accTax,
-    //     description: this.org.accQty + ' * ' + this.org.accName,
-    //     invoiceNo: this.form.invoiceNumber
-    //   };
-    //   this.tableData.push(data2);
-    //   const data3 = {
-    //     orderId: '',
-    //     product: this.org.planName,
-    //     quantity: this.org.planQty,
-    //     rate: this.org.planAmt,
-    //     amount: Number(this.org.planAmt) * Number(this.org.planQty),
-    //     tax: 'N',
-    //     description: this.org.planQty + ' * ' + this.org.planName,
-    //     invoiceNo: this.form.invoiceNumber
-    //   };
-    //   this.tableData.push(data3);
-    // },
-
-    // Accessory
-    HandleAccessoryAdded(value) {
-      this.tableData.push(value);
-    },
-
-    handlePlanAdded(value) {
-      this.tableData.push(value);
-    },
-
-    handleProductAdded(value) {
-      this.tableData.push(value);
-    }
   },
 
   watch: {
     'form.invoiceNumber': function() {
       this.checkForOrder();
     },
-
-    orderItemTable: {
-      handler: function(val) {
-        if (this.form.orderId) {
-          this.tableData = this.orderItemTable.concat([]);
-        } else {
-          this.tableData = [];
-        }
-      },
-      immediate: true
-    }
   },
 
   computed: {
-    tax: function() {
-      let t = 0;
-      let et;
-      const copy = this.tableData || [];
-      copy.forEach(function(item, index) {
-        if (item.tax === 'Y') {
-          et = Number(item.amount) * 0.0775;
-        } else {
-          et = 0;
-        }
-        t += et;
-      });
-      return Math.floor(t * 100) / 100;
-    },
-    total: function() {
-      let t = 0;
-      const copy = this.tableData || [];
-      copy.forEach(function(item, index) {
-        t += item.amount;
-      });
-      const tot = t + this.tax;
-      return Math.floor(tot * 100) / 100;
-    },
     ...mapState([
       'loginInfo',
       'modelList',
@@ -635,6 +306,7 @@ export default {
       }
     }
   }
+
 };
 </script>
 
