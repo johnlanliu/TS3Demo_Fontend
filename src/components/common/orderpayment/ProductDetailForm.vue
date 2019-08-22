@@ -237,6 +237,7 @@ export default {
   },
 
   computed: {
+    
     total: function() {
       if (
         this.form.rate === null ||
@@ -249,6 +250,7 @@ export default {
         return (this.form.rate * Number(this.form.quantity)).toFixed(2);
       }
     },
+
     visible: {
       get() {
         return this.value;
@@ -257,6 +259,9 @@ export default {
         this.$emit('input', val);
       }
     }
+  },
+
+  created() {
   },
 
   methods: {
