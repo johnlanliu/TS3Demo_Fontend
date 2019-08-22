@@ -189,11 +189,11 @@ export default {
       // isTrackLight: true,
       // showPrice: false,
       // activeName: '1',
+      send: {},
       form: {},
       orderItems: [],
       loading: false,
       append: true,
-      tax: 0.06,
       accessoryDetailFormVisible: false,
       servicePlanFormVisible: false,
       comfirmationFormVisible: false,
@@ -246,15 +246,7 @@ export default {
       ) {
         return 0;
       } else {
-        if (this.form.tax === 'Y') {
-          return (
-            this.form.rate *
-            Number(this.form.quantity) *
-            (1 + this.tax)
-          ).toFixed(2);
-        } else {
-          return (this.form.rate * Number(this.form.quantity)).toFixed(2);
-        }
+        return (this.form.rate * Number(this.form.quantity)).toFixed(2);
       }
     },
     visible: {
@@ -311,15 +303,20 @@ export default {
     },
 
     handleAddClick(event) {
-      this.$emit('productAdded', {
+      // this.getTax();
+      if(this.form.tax === 'Y') {
+        let num = Number(this.total) * 0.0075;
+        this.form.tax = Math.floor(num * 100) / 100;
+      }
+      this.$emit('productAdded',{
         product: this.form.product,
         quantity: this.form.quantity,
         rate: this.form.rate,
-        tax: this.form.tax,
-        amount: this.total
+        amount: this.total,
+        tax: this.form.tax
       });
       this.visible = false;
-    }
+    },
   }
 };
 </script>

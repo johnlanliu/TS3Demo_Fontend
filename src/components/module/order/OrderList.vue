@@ -47,8 +47,7 @@
       :height="tableHeight"
       tooltip-effect="light	"
       @sort-change="handleSort"
-      style="margin-top: 5px"
-    >
+      style="margin-top: 5px">
       <el-table-column label="NO" type="index" width="80" fixed></el-table-column>
       <el-table-column fixed label="Type" prop="type" width="110">
         <template slot-scope="scope">
@@ -117,13 +116,14 @@
       v-model="editFormVisible"
       :form="form"
       :orderItemTable="orderItemTable"
+      @same-as-billing="handleSameAsBilling"
       @reload-table="handleReloadTable"
     ></edit-order-form>
   </div>
 </template>
 
 <script>
-import OrderReviewForm from './OrderReviewForm.vue';
+import OrderReviewForm from '@/components/common/orderpayment/OrderReviewForm.vue';
 import EditOrderForm from './EditOrderForm.vue';
 import {
   getOrderList,
@@ -260,25 +260,40 @@ export default {
     },
 
     /* HANDLERS FOR SHOWING FORMS */
-    async handleAdd() {
-      this.form = {};
+    handleAdd() {
+      this.form = {
+        billingCompany: this.currentOrg.orgName,
+        billingContact: this.currentOrg.contacts,
+        billingPhone: this.currentOrg.phone,
+        billingEmail: this.currentOrg.email,
+        billingAddress: this.currentOrg.streetAddress,
+        billingCity: this.currentOrg.city,
+        billingState: this.currentOrg.state,
+        billingCountry: this.currentOrg.country,
+        billingZip: this.currentOrg.zip
+      };
+      // order type 默认为purchase
+      this.form.type = 2;
       this.orderItemTable = [];
-      this.form.billingCompany = this.currentOrg.orgName;
-      this.form.billingContact = this.currentOrg.contacts;
-      this.form.billingPhone = this.currentOrg.phone;
-      this.form.billingEmail = this.currentOrg.email;
-      this.form.billingAddress = this.currentOrg.streetAddress;
-      this.form.billingCity = this.currentOrg.city;
-      this.form.billingState = this.currentOrg.state;
-      this.form.billingCountry = this.currentOrg.country;
-      this.form.billingZip = this.currentOrg.zip;
       this.editFormVisible = true;
+    },
+
+    handleSameAsBilling() {
+      this.form = Object.assign({}, this.form, {
+        shippingCompany: this.form.billingCompany,
+        shippingContact: this.form.billingContact,
+        shippingPhone: this.form.billingPhone,
+        shippingEmail: this.form.billingEmail,
+        shippingAddress: this.form.billingAddress,
+        shippingCity: this.form.billingCity,
+        shippingState: this.form.billingState,
+        shippingCountry: this.form.billingCountry,
+        shippingZip: this.form.billingZip
+      });
     },
 
     /* HANDLER FUNCTIONS */
     async handleCommand(command, row, index) {
-      // this.getOrderInfo(row, index);
-      // this.getOrderItems(row, index);
       this.form = {...row};
       this.orderItemTable = await getOrderItem({ orderId: row.orderId });
       if (command === 'view') {
@@ -286,8 +301,6 @@ export default {
       } else {
         this.editFormVisible = true;
       }
-      // this.orderInfoToView = {};
-      // this.orderItemTable = [];
     },
     async getOrderInfo(row, index) {
       // this.orderInfoToView = await getOrderByOrderId({ orderId: row.orderId });

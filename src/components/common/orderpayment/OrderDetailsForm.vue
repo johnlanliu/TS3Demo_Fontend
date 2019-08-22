@@ -4,23 +4,23 @@
       <div class="labelBox">
         <el-form-item label="Order Details" style="font-weight: 900" class="odLabel"></el-form-item>
         <div style="position:absolute;left:240px">
-            <el-button
+          <el-button
             type="primary"
             style="display:inline-block"
             @click="handleAddDevice()"
-            >+ Add Device</el-button>
-            <el-button
+          >+ Add Device</el-button>
+          <el-button
             type="primary"
             style="display:inline-block;margin-left:10px"
             @click="handleAddAccessories()"
-            >+ Add Accessories</el-button>
-            <el-button
+          >+ Add Accessories</el-button>
+          <el-button
             type="primary"
             style="display:inline-block;margin-left:10px"
             @click="handleAddService()"
-            >+ Add Service Plan</el-button>
+          >+ Add Service Plan</el-button>
         </div>
-      </div>       
+      </div>
       <el-table
         ref="orderDetailTable"
         :data="tableData"
@@ -35,38 +35,38 @@
         <el-table-column fixed label="Product" prop="product" width="168"></el-table-column>
         <el-table-column fixed label="QTY" prop="quantity" width="96"></el-table-column>
         <el-table-column fixed label="Rate" prop="rate" width="96">
-              <template slot-scope="scope">
-                <span>${{ Number(scope.row.rate).toFixed(2) }}</span>
-              </template>
+          <template slot-scope="scope">
+            <span>${{ Number(scope.row.rate).toFixed(2) }}</span>
+          </template>
         </el-table-column>
         <el-table-column fixed label="Amount" prop="amount" width="96">
-              <template slot-scope="scope">
-                <span>${{ Number(scope.row.amount).toFixed(2) }}</span>
-              </template>
+          <template slot-scope="scope">
+            <span>${{ Number(scope.row.amount).toFixed(2) }}</span>
+          </template>
         </el-table-column>
         <el-table-column fixed label="Tax" prop="tax" width="96"></el-table-column>
         <el-table-column fixed label="Action" width="96">
-              <template slot-scope="scope">
-                <el-button type="text" @click="handleDeleteOrderItem(scope.row, scope.$index)">Delete</el-button>
-              </template>
+          <template slot-scope="scope">
+            <el-button type="text" @click="handleDeleteOrderItem(scope.row, scope.$index)">Delete</el-button>
+          </template>
         </el-table-column>
       </el-table>
 
       <el-row>
         <el-col :span="18">
-              <el-form-item
-                label="Note:"
-                style="display: block; margin-left: 30px; margin-right: 30px"
-                prop="note"
-              >
-                <el-input
-                  type="textarea"
-                  :rows="2"
-                  placeholder="notes"
-                  v-model="form.note"
-                  style="width: 405px"
-                ></el-input>
-              </el-form-item>
+          <el-form-item
+            label="Note:"
+            style="display: block; margin-left: 30px; margin-right: 30px"
+            prop="note"
+          >
+            <el-input
+              type="textarea"
+              :rows="2"
+              placeholder="notes"
+              v-model="form.note"
+              style="width: 405px"
+            ></el-input>
+          </el-form-item>
         </el-col>
         <el-col :span="5">
           <el-form-item style="dispaly:inline" label="Tax: " :tax="tax">${{ tax }}</el-form-item>
@@ -86,40 +86,44 @@
       v-model="productDetailFormVisible"
       @productAdded="handleProductAdded"
     ></product-detail-form>
-    <service-plan-form
-      :form="form"
-      v-model="servicePlanFormVisible"
-      @planAdded="handlePlanAdded"
-    ></service-plan-form>
+    <service-plan-form :form="form" v-model="servicePlanFormVisible" @planAdded="handlePlanAdded"></service-plan-form>
   </div>
 </template>
 
 <script>
+import VSidebar from '../../common/VSidebar.vue';
 import ProductDetailForm from './ProductDetailForm.vue';
+import CreateInvoiceForm from './CreateInvoiceForm.vue';
 import AccessoryDetailForm from './AccessoryDetailForm.vue';
 import ServicePlanForm from './ServicePlanForm.vue';
+import LogisticsInfoForm from './LogisticsInfoForm.vue';
 import {
   addOrder,
   editOrder,
   getLastInvoiceNo,
   validInvoiceNo,
-  getOrgById,
-  getOrderItem
+  getOrgById
 } from '@/api/getData';
 import { mapState } from 'vuex';
 
 export default {
+
   components: {
     ProductDetailForm,
+    CreateInvoiceForm,
     AccessoryDetailForm,
     ServicePlanForm,
+    VSidebar,
+    LogisticsInfoForm
   },
 
+  created() {},
+  mounted: function() {},
   props: {
     value: Boolean,
-    form: [Object],
-    // orderItemTable: Array,
-    orderItemsTable: Array,
+    form: [Object]
+    // tableData: Array,
+    // orderItemTable: Array
   },
 
   data: function() {
@@ -136,7 +140,7 @@ export default {
       accessoryDetailFormVisible: false,
       servicePlanFormVisible: false,
       productDetailFormVisible: false,
-      tableData: [],
+      tableData: []
       /* FORM RULES */
       // formRules: {
       //   orderType: [
@@ -240,15 +244,14 @@ export default {
     };
   },
 
-  created() {
-  },
-
-  mounted() {
-  },
-
   methods: {
     clearValidate() {
+      this.visible = false;
+      this.sameAsBilling = false;
       this.tableData = [];
+      // this.form = {};
+      // this.validInvoice = false;
+      // this.getLastOrder();
       this.$refs.form.clearValidate();
     },
 
@@ -284,30 +287,13 @@ export default {
     },
 
     async sendTableData() {
-      this.tableData.forEach(item => {
-        item.tax = this.tax;
-      });
       this.$emit('orderaItems', this.tableData);
-    },
-
-    fetchOrderItems() {
-      this.tableData = getOrderItem({ orderId: this.form.orderId });
     }
   },
 
   watch: {
     'form.invoiceNumber': function() {
       this.checkForOrder();
-    },
-
-    tableData: {
-      handler: function(val) {
-        if(this.form.orderId) {
-          this.fetchOrderItems();
-        } else {
-          this.tableData = [];
-        }
-      }
     }
 
     // orderItemTable: {
@@ -380,7 +366,9 @@ export default {
   margin-top: -5px;
 }
 
-.el-col,.el-form-item__label,el-form-item__content {
+.el-col,
+.el-form-item__label,
+el-form-item__content {
   margin: 0;
 }
 
