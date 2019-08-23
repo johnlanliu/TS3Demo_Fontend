@@ -26,8 +26,8 @@
           </div>
           <div>
             <el-form-item label="Invoice #" style="font-weight: 900;">{{form.invoiceNo}}</el-form-item>
-            <el-form-item label="Date" style="font-weight: 900;" >{{form.invoiceDate | formatDate}}</el-form-item>
-            <el-form-item label="Due Date" style="font-weight: 900">{{form.dueDate | formatDate}}</el-form-item>
+            <el-form-item label="Date" style="font-weight: 900;" >{{timestampFormatDate(form.invoiceDate)}}</el-form-item>
+            <el-form-item label="Due Date" style="font-weight: 900">{{timestampFormatDate(form.dueDate)}}</el-form-item>
           </div>
         </div>
         <div class="basic-info">
@@ -99,6 +99,7 @@
 <script>
 import { cancelOrder } from '@/api/getData';
 import { timeFormatUtil } from '@/utils/timeFormatUtil.js';
+import { timestampFormatDate } from '@/utils/time';
 
 export default {
   name: 'PaymentReviewForm',
@@ -119,6 +120,10 @@ export default {
   methods: {
     resetFields() {
       this.$refs.form.resetFields();
+    },
+
+    timestampFormatDate(time) {
+      return timestampFormatDate(time, 'dd/MM/yyyy');
     },
 
     /* HANDLER FUNCTIONS */

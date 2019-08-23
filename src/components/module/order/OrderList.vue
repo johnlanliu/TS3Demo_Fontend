@@ -123,7 +123,7 @@
 </template>
 
 <script>
-import OrderReviewForm from '@/components/common/orderpayment/OrderReviewForm.vue';
+import OrderReviewForm from './OrderReviewForm.vue';
 import EditOrderForm from './EditOrderForm.vue';
 import {
   getOrderList,

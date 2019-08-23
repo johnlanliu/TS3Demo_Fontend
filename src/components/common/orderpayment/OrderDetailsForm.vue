@@ -236,6 +236,64 @@ export default {
   mounted() {
   },
 
+  computed: {
+    totalTax: function() {
+      let t = 0;
+      let et = 0;
+      const copy = this.tableData || [];
+      copy.forEach(function(item, index) {
+        t += Number(item.tax);
+      });
+      return t.toFixed(2);
+    },
+
+    total: function() {
+      let t = 0;
+      const copy = this.tableData || [];
+      copy.forEach(function(item, index) {
+        t += Number(item.amount);
+      });
+      const tot = t + Number(this.totalTax);
+      return tot.toFixed(2);
+    },
+
+    ...mapState([
+      'loginInfo',
+      'modelList',
+      'currentOrgId',
+      'lang',
+      'locale',
+      'currentOrg'
+    ]),
+
+    visible: {
+      get() {
+        return this.value;
+      },
+      set(val) {
+        this.$emit('input', val);
+      }
+    }
+  },
+
+  watch: {
+    itemTable: {
+      handler: function(val) {
+        if(this.form.paymentId || this.form.orderId) {
+          this.tableData = [...val];
+        }
+      },
+      immediate: true
+    },
+
+    tableData: {
+      handler: function(val) {
+        this.$emit('setItemTable', val);
+      },
+      immediate: true
+    }
+  },
+
   methods: {
     clearValidate() {
       this.$refs.form.clearValidate();
@@ -260,27 +318,6 @@ export default {
     },
     handleAddService() {
       this.servicePlanFormVisible = true;
-    },
-
-    HandleAccessoryAdded(value) {
-      if(this.form.orderId) {
-        this.fetchAddOrderItem(value);
-      } else if(this.form.paymentId){
-        this.fetchAddPaymentItem(value);
-      } else {
-        this.tableData.push(value);
-      }
-      // this.fetchItemTax();
-    },
-
-    handlePlanAdded(value) {
-      this.tableData.push(value);
-      // this.fetchItemTax();
-    },
-
-    async handleProductAdded(value) {
-      this.tableData.push(value);
-      // this.fetchItemTax();
     },
 
     handleAddItem(item) {
@@ -327,62 +364,6 @@ export default {
     //   const res = await getOrderItem({orderItemId});
     //   if(!res || res.errorCode) return;
     // },
-  },
-
-  watch: {
-    itemTable: {
-      handler: function(val) {
-        if(this.form.paymentId || this.form.orderId) {
-          this.tableData = [...val];
-        }
-      },
-      immediate: true
-    },
-
-    tableData: {
-      handler: function(val) {
-        this.$emit('setItemTable', val);
-      },
-      immediate: true
-    }
-  },
-
-  computed: {
-    totalTax: function() {
-      let t = 0;
-      let et = 0;
-      const copy = this.tableData || [];
-      copy.forEach(function(item, index) {
-        t += Number(item.tax);
-      });
-      return t.toFixed(2);
-    },
-    total: function() {
-      let t = 0;
-      const copy = this.tableData || [];
-      copy.forEach(function(item, index) {
-        t += Number(item.amount);
-      });
-      const tot = t + Number(this.totalTax);
-      return tot.toFixed(2);
-    },
-    ...mapState([
-      'loginInfo',
-      'modelList',
-      'currentOrgId',
-      'lang',
-      'locale',
-      'currentOrg'
-    ]),
-
-    visible: {
-      get() {
-        return this.value;
-      },
-      set(val) {
-        this.$emit('input', val);
-      }
-    }
   }
 };
 </script>

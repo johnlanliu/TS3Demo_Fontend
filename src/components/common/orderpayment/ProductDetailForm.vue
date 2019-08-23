@@ -331,7 +331,7 @@ export default {
         quantity: this.form.quantity,
         rate: this.form.rate,
         amount: this.total,
-        tax: this.tax
+        tax: this.form.tax
       });
       this.visible = false;
     },

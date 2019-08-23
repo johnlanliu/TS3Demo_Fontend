@@ -79,7 +79,11 @@ import { mapState } from 'vuex';
 export default {
   props: {
     value: Boolean,
-    form: [Object]
+    form: [Object],
+    isOrder: {
+      type: Boolean,
+      default: true
+    }
   },
 
   data: function() {
@@ -94,9 +98,10 @@ export default {
       // },
       loading: false,
       /* RESET THESE */
-      validInvoice: false,
+      validInvoice: true,
       invoicePlaceholder: '',
-      statusOptions: []
+      statusOptions: [],
+      invoiceTimer: null
       /* FORM RULES */
       // formRules: {
       //   orderType: [
@@ -200,32 +205,35 @@ export default {
     };
   },
 
-  methods: {
-    clearValidate() {
-      // this.visible = false;
-      // this.sameAsBilling = false;
-      // this.tableData = [];
-      // this.form = {};
-      // this.validInvoice = false;
-      // this.getLastOrder();
-      this.$refs.form.clearValidate();
-    },
+  computed: {
+    ...mapState([
+      'loginInfo',
+      'modelList',
+      'currentOrgId',
+      'lang',
+      'locale',
+      'currentOrg'
+    ]),
 
-    async checkForOrder() {
-      this.validInvoice = await validInvoiceNo({
-        invoiceNo: this.form.invoiceNumber
-      });
-    },
+    visible: {
+      get() {
+        return this.value;
+      },
+      set(val) {
+        this.$emit('input', val);
+      }
+    }
   },
 
   watch: {
-    'form.invoiceNumber': function() {
-      this.checkForOrder();
+    'form.invoiceNo': function() {
+      this.invoiceTimer && clearTimeout(this.invoiceTimer);
+      this.invoiceTimer = setTimeout(() => this.checkForOrder(), 500);
     },
 
-    'form.type': {
+    isOrder: {
       handler: function(val) {
-        if (this.form.type) {
+        if(val) {
           this.statusOptions = [
             {
               label: 'Delivered',
@@ -272,23 +280,22 @@ export default {
       immediate: true
     }
   },
-  computed: {
-    ...mapState([
-      'loginInfo',
-      'modelList',
-      'currentOrgId',
-      'lang',
-      'locale',
-      'currentOrg'
-    ]),
 
-    visible: {
-      get() {
-        return this.value;
-      },
-      set(val) {
-        this.$emit('input', val);
-      }
+  methods: {
+    clearValidate() {
+      // this.visible = false;
+      // this.sameAsBilling = false;
+      // this.tableData = [];
+      // this.form = {};
+      // this.validInvoice = false;
+      // this.getLastOrder();
+      this.$refs.form.clearValidate();
+    },
+
+    async checkForOrder() {
+      this.validInvoice = await validInvoiceNo({
+        invoiceNo: this.form.invoiceNo
+      });
     }
   }
 };

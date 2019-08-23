@@ -368,32 +368,23 @@ export default {
     };
   },
 
-  methods: {
-    clearValidate() {
-      // this.visible = false;
-      this.sameAsBilling = false;
-      this.$refs.form.clearValidate();
-    },
+  computed: {
+    ...mapState([
+      'loginInfo',
+      'modelList',
+      'currentOrgId',
+      'lang',
+      'locale',
+      'currentOrg'
+    ]),
 
-    /* HANDLER FUNCTIONS */
-    // handleSameInfo() {
-    //   if (this.sameAsBilling) {
-    //     this.form.shippingCompany = this.form.billingCompany;
-    //     this.form.shippingContact = this.form.billingContact;
-    //     this.form.shippingPhone = this.form.billingPhone;
-    //     this.form.shippingEmail = this.form.billingEmail;
-    //     this.form.shippingAddress = this.form.billingAddress;
-    //     this.form.shippingCity = this.form.billingCity;
-    //     this.form.shippingState = this.form.billingState;
-    //     this.form.shippingCountry = this.form.billingCountry;
-    //     this.form.shippingZip = this.form.billingZip;
-    //   }
-    // },
-
-    async checkForOrder() {
-      this.validInvoice = await validInvoiceNo({
-        invoiceNo: this.form.invoiceNumber
-      });
+    visible: {
+      get() {
+        return this.value;
+      },
+      set(val) {
+        this.$emit('input', val);
+      }
     },
   },
 
@@ -420,23 +411,16 @@ export default {
     // }
   },
 
-  computed: {
-    ...mapState([
-      'loginInfo',
-      'modelList',
-      'currentOrgId',
-      'lang',
-      'locale',
-      'currentOrg'
-    ]),
+  methods: {
+    clearValidate() {
+      this.sameAsBilling = false;
+      this.$refs.form.clearValidate();
+    },
 
-    visible: {
-      get() {
-        return this.value;
-      },
-      set(val) {
-        this.$emit('input', val);
-      }
+    async checkForOrder() {
+      this.validInvoice = await validInvoiceNo({
+        invoiceNo: this.form.invoiceNumber
+      });
     },
   }
 };
@@ -447,7 +431,7 @@ export default {
   margin-left: 20px;
   width: 650px;
   margin-top: 10px;
-  border-top: 1px dashed #000;
+  /* border-top: 1px dashed #000; */
   padding-top: 8px;
 }
 

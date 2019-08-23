@@ -328,7 +328,7 @@ export default {
       this.$emit('same-as-billing');
     },
 
-    handleSubmit() {  
+    handleSubmit() {
       this.getDates();
       this.handleAddOrder();
     },

@@ -2,7 +2,7 @@
   <div>
     <v-sidebar
       v-model="visible"
-      title= "Add Payment"
+      :title="form.paymentId ? 'Edit Payment' : 'Add Payment'"
       width="720">
       <el-steps :active="active" align-center>
         <el-step title="Step1" description="Company Information"></el-step>
@@ -10,9 +10,9 @@
         <el-step title="Step3" description="Logistics Information"></el-step>
       </el-steps>
       <div class="form-box">
-        <company-info-form :form="form" v-if="companyInfoFormVisible" :isOrder="false" @same-as-billing="handleSameAsBilling"></company-info-form>
-        <order-details-form :form="form" v-if="orderDetailsFormVisible" :itemTable="paymentItemTable" @setItemTable="setPaymentItemTable"></order-details-form>
-        <logistics-info-form :form="form" v-if="logisticsInfoFormVisible"></logistics-info-form>
+        <company-info-form v-if="companyInfoFormVisible" :form="form" :isOrder="false" @same-as-billing="handleSameAsBilling"></company-info-form>
+        <order-details-form v-if="orderDetailsFormVisible" :form="form" :itemTable="paymentItemTable" @setItemTable="setPaymentItemTable"></order-details-form>
+        <logistics-info-form v-if="logisticsInfoFormVisible" :form="form" :isOrder="false"></logistics-info-form>
       </div>
 
       <span slot="footer">
@@ -26,6 +26,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import VSidebar from '../../common/VSidebar.vue';
 import ProductDetailForm from '@/components/common/orderpayment/ProductDetailForm.vue';
 import CreateInvoiceForm from '@/components/common/orderpayment/CreateInvoiceForm.vue';
@@ -41,7 +42,7 @@ import {
   validInvoiceNo,
   getOrgById
 } from '@/api/getData';
-import { mapState } from 'vuex';
+import { dateToTimestamp } from '@/utils/time';
 
 export default {
   // name: 'EditOrderForm',
@@ -306,21 +307,6 @@ export default {
       this.$emit('same-as-billing');
     },
 
-    async handleSubmit() {
-      this.loading = true;
-      // this.handleSameInfo();
-      const param = this.form.paymentId ? this.form : Object.assign({}, this.form, {
-        paymentItems: this.paymentItemsTable
-      });
-      this.loading = false;
-      const res = this.form.paymentId ? await editPayment({}, param) : await addPayment({}, param);
-      if (res && !res.errorCode) {
-        this.visible = false;
-        this.$message.success('Submit Success!');
-        this.$emit('reload-table');
-      }
-    },
-
     handleSaveEdit() {},
 
     clearValidate() {
@@ -331,45 +317,6 @@ export default {
 
     setPaymentItemTable(val) {
       this.paymentItemsTable = val;
-    },
-
-    /* HANDLER FUNCTIONS */
-    handleCreateInvoice() {
-      this.getDates();
-      this.handleAddOrder();
-      this.createInvoiceFormVisible = true;
-    },
-    // handleAddOrder() {
-    //   this.loading = true;
-    //   this.handleSameInfo();
-    //   const param = Object.assign({}, this.form, {
-    //     orderItems: this.tableData
-    //   });
-    //   this.loading = false;
-    //   const res = addOrder({}, param).then(res => {
-    //     if (res && !res.errorCode) {
-    //       this.visible = false;
-    //       this.$message.success('Submit Success!');
-    //     }
-    //   });
-    // },
-    // async getLastOrder() {
-    //   this.invoicePlaceholder = (await getLastInvoiceNo()) + 1;
-    //   if (typeof this.invoicePlaceholder !== 'number') {
-    //     this.invoicePlaceholder = '';
-    //     return;
-    //   }
-
-    //   let valid = await validInvoiceNo({ invoiceNo: this.invoicePlaceholder });
-    //   while (!valid) {
-    //     this.invoicePlaceholder += 1;
-    //     valid = await validInvoiceNo({ invoiceNo: this.invoicePlaceholder });
-    //   }
-    // },
-    async checkForOrder() {
-      this.validInvoice = await validInvoiceNo({
-        invoiceNo: this.form.invoiceNumber
-      });
     },
 
     /* HANDLERS FOR SHOWING PRODUCT FORMS */
@@ -383,58 +330,26 @@ export default {
       this.servicePlanFormVisible = true;
     },
 
-    /* FORMAT INVOICE AND DUE DATES */
-    getDates() {
-      if (
-        this.form.invoiceDate === null ||
-        this.form.paymentTerm === null ||
-        this.form.invoiceDate === '' ||
-        this.form.paymentTerm === '' ||
-        typeof this.form.invoiceDate === 'undefined' ||
-        typeof this.form.paymentTerm === 'undefined'
-      ) {
-        this.form.dueDate = null;
-        return;
-      }
-      let invoice = new Date(this.form.invoiceDate);
-      let due = new Date(this.form.invoiceDate);
-
-      if (this.form.paymentTerm === 'Net15') {
-        due.setDate(this.form.invoiceDate.getDate() + 15);
-      } else {
-        due.setDate(this.form.invoiceDate.getDate() + 30);
-      }
-
-      this.form.invoiceDate =
-        invoice.getFullYear() +
-        '-' +
-        (invoice.getMonth() + 1) +
-        '-' +
-        invoice.getDate() +
-        ' ' +
-        invoice.getHours() +
-        ':' +
-        invoice.getMinutes();
-      this.form.dueDate =
-        due.getFullYear() +
-        '-' +
-        (due.getMonth() + 1) +
-        '-' +
-        due.getDate() +
-        ' ' +
-        due.getHours() +
-        ':' +
-        due.getMinutes();
-    },
-
-    getPaymentItems(items) {
-      this.paymentItemsTable = items.map(v => {
-        let obj = {...v};
-        obj.tax = Math.floor((obj.amount * 0.0775) * 100) / 100;
-        return obj;
+    async checkForOrder() {
+      this.validInvoice = await validInvoiceNo({
+        invoiceNo: this.form.invoiceNumber
       });
     },
 
+    async handleSubmit() {
+      this.loading = true;
+      const param = this.form.paymentId ? this.form : Object.assign({}, this.form, {
+        paymentItems: this.paymentItemsTable
+      });
+      param.dueDate = dateToTimestamp(param.dueDate);
+      this.loading = false;
+      const res = this.form.paymentId ? await editPayment({}, param) : await addPayment({}, param);
+      if (res && !res.errorCode) {
+        this.visible = false;
+        this.$message.success('Submit Success!');
+        this.$emit('reload-table');
+      }
+    },
   }
 };
 </script>

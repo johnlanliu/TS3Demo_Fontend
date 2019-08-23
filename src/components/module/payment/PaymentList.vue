@@ -2,12 +2,12 @@
   <div class="fillcontain">
     <el-form class="searchForm" ref="Form" :inline="true" :model="paymentSearchForm" size="mini">
       <el-form-item label="Invoice No:">
-        <el-input v-model="paymentSearchForm.number" @change="search"></el-input>
+        <el-input v-model="paymentSearchForm.invoiceNo" clearable @change="search"></el-input>
       </el-form-item>
       <el-form-item label="Status:">
         <el-select v-model="paymentSearchForm.status" placeholder="All" clearable @change="search">
           <el-option
-            v-for="item in statusOptions"
+            v-for="item in statusOption"
             :key="item.status"
             :value="item.status"
             :label="item.label"
@@ -15,7 +15,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="Customer:">
-        <el-input v-model="paymentSearchForm.customer" @change="search"></el-input>
+        <el-input v-model="paymentSearchForm.customer" clearable @change="search"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" style="margin-left: 10px;" @click="search">Search/Update</el-button>
@@ -51,9 +51,8 @@
       </el-table-column>
       <el-table-column label="Status" prop="status" min-width="110">
         <template slot-scope="scope">
-          <span v-if="scope.row.status==='overdue'" style="color:red;">{{scope.row.status}}</span>
-          <span v-else-if="scope.row.status==='refund'" style="color:red;">{{scope.row.status}}</span>
-          <span v-else>{{scope.row.status}}</span>
+          <span v-if="scope.row.status === 3 || scope.row.status === 4" style="color:red;">{{getStatusOption(scope.row.status)}}</span>
+          <span v-else>{{getStatusOption(scope.row.status)}}</span>
         </template>
       </el-table-column>
       <el-table-column label="Sales" prop="sales" min-width="90"></el-table-column>
@@ -115,7 +114,7 @@ import {
   getPaymentItem
 } from '@/api/getData';
 import { timeFormatUtil } from '@/utils/timeFormatUtil.js';
-import { timestampFormatDate } from '@/utils/time';
+import { timestampFormatDate, timestampToDate } from '@/utils/time';
 import { exceptionUtil } from '@/utils/exceptionUtil.js';
 import { mapState } from 'vuex';
 import { debounce } from '@/config/mUtils';
@@ -160,26 +159,26 @@ export default {
       tableHeight: window.innerHeight - 165,
 
       /* DROPDOWN OPTIONS */
-      statusOptions: [
+      statusOption: [
         {
-          label: 'refund',
+          label: 'VOID',
+          status: -1
+        },
+        {
+          label: 'PAID',
           status: 1
         },
         {
-          label: 'void',
+          label: 'UNPAID',
           status: 2
         },
         {
-          label: 'paid',
+          label: 'REFUND',
           status: 3
         },
         {
-          label: 'unpaid',
+          label: 'OVERDUE',
           status: 4
-        },
-        {
-          label: 'overdue',
-          status: 5
         }
       ]
     };
@@ -232,6 +231,14 @@ export default {
       this.getPayments();
     },
 
+    getStatusOption(status) {
+      let index = this.statusOption.findIndex(v => v.status === status);
+      if(index > -1) {
+        return this.statusOption[index].label;
+      }
+      return '';
+    },
+
     // resize
     bindResize() {
       this.tableHeight = document.body.clientHeight - 175;
@@ -274,9 +281,7 @@ export default {
     },
 
     async handleCommand(command, row, index) {
-      this.form = { ...row };
-      this.form.invoiceDate = timestampFormatDate(row.invoiceDate, 'MM/dd/yyy');
-      this.form.dueDate = timestampFormatDate(row.dueDate, 'MM/dd/yyy');
+      this.form = Object.assign({}, row, {dueDate: timestampToDate(row.dueDate)});
       if (command === 'edit' || command === 'view') {
         this.paymentItemTable = await getPaymentItem({
           paymentId: row.paymentId
