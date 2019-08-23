@@ -261,7 +261,6 @@ export default {
           label: 'N'
         }
       ],
-      tax: 0.3,
       formRules: {}
       /* FORM RULES */
       // formRules: {
@@ -303,7 +302,7 @@ export default {
         product: this.form.product,
         quantity: this.form.quantity,
         rate: this.form.rate,
-        tax: this.form.tax,
+        tax: this.tax,
         amount: this.total
       });
       this.visible = false;
@@ -327,6 +326,19 @@ export default {
         return 0;
       }
     },
+    tax: function() {
+      if (
+        this.form.rate === null ||
+        this.form.quantity === null ||
+        isNaN(this.form.rate) ||
+        isNaN(this.form.quantity) ||
+        this.form.tax !== 'Y'
+      ) {
+        return 0;
+      } else {
+        return (Number(this.form.rate) * Number(this.form.quantity) * 0.075).toFixed(2);
+      }
+    },
     total: function() {
       if (
         this.form.rate === null ||
@@ -336,15 +348,9 @@ export default {
       ) {
         return 0;
       } else {
-        if (this.form.tax === 'Y') {
-          return (
-            this.form.rate *
-            Number(this.form.quantity) *
-            (1 + this.tax)
-          ).toFixed(2);
-        } else {
-          return (this.form.rate * Number(this.form.quantity)).toFixed(2);
-        }
+        let s = Number(this.form.rate) * Number(this.form.quantity).toFixed(2);
+        let t = Number(this.tax);
+        return s + t;
       }
     },
     visible: {

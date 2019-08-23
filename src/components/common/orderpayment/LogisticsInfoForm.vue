@@ -2,44 +2,44 @@
   <div>
     <el-form :visible.sync="visible" ref="form" :model="form" size="mini" label-width="130px">
       <el-row>
-            <el-col :span="12">
-              <el-form-item label="Status: ">
-                <el-select v-model="form.status" placeholder="select" style="width: 188px">
-                    <el-option
-                    v-for="option in statusOptions"
-                    :key="option.status"
-                    :value="option.status"
-                    :label="option.label"
-                    ></el-option>
-                </el-select>
-              </el-form-item>
-            </el-col>
-            <el-col :span="12">
-              <el-form-item label="Shipping Fee: ">
-                <el-input v-model="form.shippingFee" style="width: 188px"></el-input>
-              </el-form-item>  
-            </el-col>
+        <el-col :span="12">
+          <el-form-item label="Status: ">
+            <el-select v-model="form.status" placeholder="select" style="width: 188px">
+              <el-option
+                v-for="option in statusOptions"
+                :key="option.label"
+                :value="option.status"
+                :label="option.label"
+              ></el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="Shipping Fee: ">
+            <el-input v-model="form.shippingFee" style="width: 188px"></el-input>
+          </el-form-item>
+        </el-col>
       </el-row>
 
       <el-row>
         <el-col :span="12">
           <el-form-item label="Invoice #: ">
             <el-input
-                v-model="form.invoiceNo"
-                :placeholder="invoicePlaceholder"
-                style="width: 188px"
+              v-model="form.invoiceNo"
+              :placeholder="invoicePlaceholder"
+              style="width: 188px"
             ></el-input>
-          </el-form-item>  
+          </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="Invoice Date: ">
             <el-date-picker
-                v-model="form.invoiceDate"
-                type="datetime"
-                placeholder="Select date and time"
-                style="width: 188px"
+              v-model="form.invoiceDate"
+              type="datetime"
+              placeholder="Select date and time"
+              style="width: 188px"
             ></el-date-picker>
-          </el-form-item>  
+          </el-form-item>
         </el-col>
       </el-row>
       <span class="warning" v-if="!validInvoice">invalid invoice number</span>
@@ -48,7 +48,7 @@
         <el-col :span="12">
           <el-form-item label="Shipping Via: ">
             <el-input v-model="form.shippingVia" style="width: 188px"></el-input>
-          </el-form-item>  
+          </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="Tracking Number: ">
@@ -79,7 +79,7 @@ import { mapState } from 'vuex';
 export default {
   props: {
     value: Boolean,
-    form: [Object],
+    form: [Object]
   },
 
   data: function() {
@@ -96,24 +96,7 @@ export default {
       /* RESET THESE */
       validInvoice: false,
       invoicePlaceholder: '',
-      statusOptions: [
-        {
-          label: 'Delivered',
-          status: 2
-        },
-        {
-          label: 'Cancelled',
-          status: -1
-        },
-        {
-          label: 'Shipped',
-          status: 1
-        },
-        {
-          label: 'Pending',
-          status: 3
-        }
-      ]
+      statusOptions: []
       /* FORM RULES */
       // formRules: {
       //   orderType: [
@@ -233,60 +216,59 @@ export default {
         invoiceNo: this.form.invoiceNumber
       });
     },
-
-    /* FORMAT INVOICE AND DUE DATES */
-    // getDates() {
-    //   if (
-    //     this.form.invoiceDate === null ||
-    //     this.form.paymentTerm === null ||
-    //     this.form.invoiceDate === '' ||
-    //     this.form.paymentTerm === '' ||
-    //     typeof this.form.invoiceDate === 'undefined' ||
-    //     typeof this.form.paymentTerm === 'undefined'
-    //   ) {
-    //     this.form.dueDate = null;
-    //     return;
-    //   }
-    //   let invoice = new Date(this.form.invoiceDate);
-    //   let due = new Date(this.form.invoiceDate);
-
-    //   if (this.form.paymentTerm === 'Net15') {
-    //     due.setDate(this.form.invoiceDate.getDate() + 15);
-    //     // due.setDate( Number(this.form.invoiceDate) + 15);
-    //   } else {
-    //     due.setDate(this.form.invoiceDate.getDate() + 30);
-    //     // due.setDate( Number(this.form.invoiceDate) + 30);
-    //   }
-
-    //   this.form.invoiceDate =
-    //     invoice.getFullYear() +
-    //     '-' +
-    //     (invoice.getMonth() + 1) +
-    //     '-' +
-    //     invoice.getDate() +
-    //     ' ' +
-    //     invoice.getHours() +
-    //     ':' +
-    //     invoice.getMinutes();
-    //   this.form.dueDate =
-    //     due.getFullYear() +
-    //     '-' +
-    //     (due.getMonth() + 1) +
-    //     '-' +
-    //     due.getDate() +
-    //     ' ' +
-    //     due.getHours() +
-    //     ':' +
-    //     due.getMinutes();
-    // },
   },
 
   watch: {
     'form.invoiceNumber': function() {
       this.checkForOrder();
     },
-  },
 
+    'form.type': function() {
+      if (this.form.type) {
+        this.statusOptions = [
+          {
+            label: 'Delivered',
+            status: 2
+          },
+          {
+            label: 'Cancelled',
+            status: -1
+          },
+          {
+            label: 'Shipped',
+            status: 1
+          },
+          {
+            label: 'Pending',
+            status: 3
+          }
+        ];
+      } else {
+        this.statusOptions = [
+          {
+            label: 'VOID',
+            status: -1
+          },
+          {
+            label: 'PAID',
+            status: 1
+          },
+          {
+            label: 'UNPAID',
+            status: 2
+          },
+          {
+            label: 'REFUND',
+            status: 3
+          },
+          {
+            label: 'OVERDUE',
+            status: 4
+          }
+        ];
+      }
+    }
+  },
   computed: {
     ...mapState([
       'loginInfo',
@@ -306,7 +288,6 @@ export default {
       }
     }
   }
-
 };
 </script>
 
@@ -323,7 +304,9 @@ export default {
   margin-top: -5px;
 }
 
-.el-col,.el-form-item__label,el-form-item__content {
+.el-col,
+.el-form-item__label,
+el-form-item__content {
   margin: 0;
 }
 
@@ -331,8 +314,8 @@ export default {
   margin-bottom: 0 !important;
 }
 
-.el-form-item.warning el-form-item__content{
-    margin-top: -15px;
+.el-form-item.warning el-form-item__content {
+  margin-top: -15px;
 }
 
 .warning {

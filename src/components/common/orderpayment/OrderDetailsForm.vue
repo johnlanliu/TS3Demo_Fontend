@@ -71,7 +71,7 @@
         </el-col>
         <el-col :span="5">
           <el-form-item style="dispaly:inline" label="Tax: " :totalTax="totalTax">${{ totalTax }}</el-form-item>
-          <el-form-item label="Total: " :total="total" prop="total">${{ total }}</el-form-item>
+          <el-form-item label="Total: " prop="total" :totalAmount="totalAmount">${{ totalAmount }}</el-form-item>
           <el-form-item class="plus" label="plus shipping fee"></el-form-item>
         </el-col>
       </el-row>
@@ -269,14 +269,13 @@ export default {
       this.fetchItemTax();
     },
 
-    handleProductAdded(value) {
+    async handleProductAdded(value) {
       this.tableData.push(value);
-      // console.log(this.tableData);
       this.fetchItemTax();
     },
 
     async fetchItemTax() {
-     this.$emit('itemTax',this.tax);
+    //  this.$emit('itemTax',this.tax);
     },
   },
 
@@ -295,28 +294,27 @@ export default {
   },
 
   computed: {
-    totalTax: function() {
-      let t = 0;
-      let et = 0;
-      const copy = this.tableData || [];
-      copy.forEach(function(item, index) {
-        if (item.tax === 'Y') {
-          et = Number(item.amount) * 0.0775;
+    totalTax: function(){
+      let sum = 0;
+      this.tableData.forEach(item => {
+        if(item.tax === null || isNaN(item.tax)){
+          return 0
         } else {
-          et = 0;
+          sum += Number(item.tax);
         }
-        t += et;
-      });
-      return Math.floor(t * 100) / 100;
+      })
+      return sum;
     },
-    total: function() {
-      let t = 0;
-      const copy = this.tableData || [];
-      copy.forEach(function(item, index) {
-        t += item.amount;
-      });
-      const tot = t + this.tax;
-      return Math.floor(tot * 100) / 100;
+    totalAmount: function() {
+      let sum = 0;
+      this.tableData.forEach(item => {
+        if(item.amount === null || isNaN(item.amount)){
+          return 0;
+        } else {
+          sum += Number(item.amount);
+        }
+      })
+      return sum;
     },
     ...mapState([
       'loginInfo',

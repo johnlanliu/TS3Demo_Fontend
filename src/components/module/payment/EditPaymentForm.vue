@@ -2,23 +2,16 @@
   <div>
     <v-sidebar
       v-model="visible"
-      :title="this.form.orderId? 'Edit Order' : 'Add Order'"
+      title= "Add Payment"
       width="720">
       <el-steps :active="active" align-center>
         <el-step title="Step1" description="Company Information"></el-step>
-        <el-step title="Step2" description="Order Details"></el-step>
+        <el-step title="Step2" description="Payment Details"></el-step>
         <el-step title="Step3" description="Logistics Information"></el-step>
       </el-steps>
       <div class="form-box">
-        <company-info-form :form="form" v-if="companyInfoFormVisible" :isOrder="true" @same-as-billing="handleSameAsBilling"></company-info-form>
-        <order-details-form
-          :form="form"
-          v-if="orderDetailsFormVisible"
-          :tableData="tableData"
-          :orderItemTable="orderItemTable"
-          @itemTax="fetchItemTax"
-         >
-        </order-details-form>
+        <company-info-form :form="form" v-if="companyInfoFormVisible" :isOrder="false" @same-as-billing="handleSameAsBilling"></company-info-form>
+        <order-details-form :form="form" v-if="orderDetailsFormVisible" @paymentItems="getPaymentItems"></order-details-form>
         <logistics-info-form :form="form" v-if="logisticsInfoFormVisible"></logistics-info-form>
       </div>
 
@@ -26,8 +19,7 @@
         <el-button @click="visible = false">Cancel</el-button>
         <el-button type="primary" v-if="prevVisible" @click="handlePrev">Prev</el-button>
         <el-button type="primary" v-if="nextVisible" @click="handleNext">Next</el-button>
-        <el-button type="primary" v-if="submitVisible && !this.form.orderId" @click="handleSubmit" :loading="loading">Submit</el-button>
-        <el-button type="primary" v-if="editVisible && this.form.orderId" @click="handleSave" :loading="loading">Save</el-button>
+        <el-button type="primary" v-if="submitVisible" @click="handleSubmit" :loading="loading">Submit</el-button>
       </span>
     </v-sidebar>
   </div>
@@ -35,36 +27,38 @@
 
 <script>
 import VSidebar from '../../common/VSidebar.vue';
+import ProductDetailForm from '@/components/common/orderpayment/ProductDetailForm.vue';
 import CreateInvoiceForm from '@/components/common/orderpayment/CreateInvoiceForm.vue';
+import AccessoryDetailForm from '@/components/common/orderpayment/AccessoryDetailForm.vue';
+import ServicePlanForm from '@/components/common/orderpayment/ServicePlanForm.vue';
 import CompanyInfoForm from '@/components/common/orderpayment/CompanyInfoForm.vue';
 import OrderDetailsForm from '@/components/common/orderpayment/OrderDetailsForm.vue';
 import LogisticsInfoForm from '@/components/common/orderpayment/LogisticsInfoForm.vue';
 import {
-  addOrder,
-  editOrder,
+  editPayment,
+  addPayment,
   getLastInvoiceNo,
   validInvoiceNo,
-  getOrgById,
-  getOrderItem
+  getOrgById
 } from '@/api/getData';
 import { mapState } from 'vuex';
-import { timestampFormatDate } from '@/utils/time';
 
 export default {
   // name: 'EditOrderForm',
 
   components: {
+    ProductDetailForm,
     CreateInvoiceForm,
+    AccessoryDetailForm,
+    ServicePlanForm,
     VSidebar,
     CompanyInfoForm,
     OrderDetailsForm,
     LogisticsInfoForm
   },
 
-  created() {
-  },
-  mounted: function() {
-  },
+  created() {},
+  mounted: function() {},
   props: {
     value: Boolean,
     form: [Object],
@@ -85,57 +79,21 @@ export default {
       prevVisible: false,
       nextVisible: true,
       submitVisible: false,
-      editVisible: false,
       companyInfoFormVisible: true,
       orderDetailsFormVisible: false,
       logisticsInfoFormVisible: false,
       loading: false,
       createInvoiceFormVisible: false,
+      // accessoryDetailFormVisible: false,
+      // servicePlanFormVisible: false,
+      // productDetailFormVisible: false,
+      /* RESET THESE */
+      // orderForm: {},
       validInvoice: false,
-      tableData: [],
-      /* DROPDOWN OPTIONS */
-      // orderOptions: [
-      //   {
-      //     label: 'Evaluation',
-      //     value: 1
-      //   },
-      //   {
-      //     label: 'Purchase',
-      //     value: 2
-      //   },
-      //   {
-      //     label: 'RMA',
-      //     value: 3
-      //   }
-      // ],
-      // paymentOptions: [
-      //   {
-      //     value: 1,
-      //     label: 'Net15'
-      //   },
-      //   {
-      //     value: 2,
-      //     label: 'Net30'
-      //   }
-      // ],
-      // statusOptions: [
-      //   {
-      //     label: 'Delivered',
-      //     status: 2
-      //   },
-      //   {
-      //     label: 'Cancelled',
-      //     status: -1
-      //   },
-      //   {
-      //     label: 'Shipped',
-      //     status: 1
-      //   },
-      //   {
-      //     label: 'Pending',
-      //     status: 3
-      //   }
-      // ]
+      // sameAsBilling: false,
+      // tableData: [],
+      paymentItemsTable: [],
+      invoicePlaceholder: '',
 
       /* FORM RULES */
       // formRules: {
@@ -253,55 +211,97 @@ export default {
       this.$emit('same-as-billing');
     },
 
-    handleSubmit() {  
-      this.getDates();
-      this.handleAddOrder();
+    async handleSubmit() {
+      this.loading = true;
+      // this.handleSameInfo();
+      const param = Object.assign({}, this.form, {
+        paymentItems: this.paymentItemsTable
+      });
+      this.loading = false;
+      const res = this.form.paymentId ? await editPayment({}, param) : await addPayment({}, param);
+      if (res && !res.errorCode) {
+        this.visible = false;
+        this.$message.success('Submit Success!');
+        this.$emit('reload-table');
+      }
     },
 
-    async handleSave() {
-      this.getDates();
-      this.handleEditOrder();
-    },
+    handleSaveEdit() {},
 
     clearValidate() {
       this.visible = false;
-      this.active = 1;
-      this.tableData = [];
-      this.validInvoice = false;
+      this.sameAsBilling = false;
+      // this.tableData = [];
+      // this.form = {};
+      // this.validInvoice = false;
+      // this.getLastOrder();
+      this.$refs.form.clearValidate();
     },
 
-    handleEditOrder() {
-      this.loading = true;
-      const param = Object.assign({}, this.form, {
-        orderItems: this.tableData
-      });
-      this.loading = false;
-      // console.log(param);
-      debugger;
-      const res = editOrder({}, param);
-      if (!res || res.errorCode) return;
-      this.visible = false;
-      this.$message.success('Change Success!');
-      this.clearValidate();
+    /* HANDLER FUNCTIONS */
+    // handleSameInfo() {
+    //   if (this.sameAsBilling) {
+    //     this.form.shippingCompany = this.form.billingCompany;
+    //     this.form.shippingContact = this.form.billingContact;
+    //     this.form.shippingPhone = this.form.billingPhone;
+    //     this.form.shippingEmail = this.form.billingEmail;
+    //     this.form.shippingAddress = this.form.billingAddress;
+    //     this.form.shippingCity = this.form.billingCity;
+    //     this.form.shippingState = this.form.billingState;
+    //     this.form.shippingCountry = this.form.billingCountry;
+    //     this.form.shippingZip = this.form.billingZip;
+    //   }
+    // },
+    // handleDeleteOrderItem(row, index) {
+    //   this.tableData.splice(index, 1);
+    // },
+    async handleCreateInvoice() {
+      this.getDates();
+      this.handleAddOrder();
+      this.createInvoiceFormVisible = true;
     },
+    // handleAddOrder() {
+    //   this.loading = true;
+    //   this.handleSameInfo();
+    //   const param = Object.assign({}, this.form, {
+    //     orderItems: this.tableData
+    //   });
+    //   this.loading = false;
+    //   const res = addOrder({}, param).then(res => {
+    //     if (res && !res.errorCode) {
+    //       this.visible = false;
+    //       this.$message.success('Submit Success!');
+    //     }
+    //   });
+    // },
+    // async getLastOrder() {
+    //   this.invoicePlaceholder = (await getLastInvoiceNo()) + 1;
+    //   if (typeof this.invoicePlaceholder !== 'number') {
+    //     this.invoicePlaceholder = '';
+    //     return;
+    //   }
 
-    handleAddOrder() {
-      this.loading = true;
-      const param = Object.assign({}, this.form, {
-        orderItems: this.tableData
-      });
-      this.loading = false;
-      const res = addOrder({}, param);
-      if (!res || res.errorCode) return;
-      this.visible = false;
-      this.$message.success('Submit Success!');
-      this.clearValidate();
-    },
-
+    //   let valid = await validInvoiceNo({ invoiceNo: this.invoicePlaceholder });
+    //   while (!valid) {
+    //     this.invoicePlaceholder += 1;
+    //     valid = await validInvoiceNo({ invoiceNo: this.invoicePlaceholder });
+    //   }
+    // },
     async checkForOrder() {
       this.validInvoice = await validInvoiceNo({
         invoiceNo: this.form.invoiceNumber
       });
+    },
+
+    /* HANDLERS FOR SHOWING PRODUCT FORMS */
+    handleAddDevice() {
+      this.productDetailFormVisible = true;
+    },
+    handleAddAccessories() {
+      this.accessoryDetailFormVisible = true;
+    },
+    handleAddService() {
+      this.servicePlanFormVisible = true;
     },
 
     /* FORMAT INVOICE AND DUE DATES */
@@ -312,51 +312,50 @@ export default {
         this.form.invoiceDate === '' ||
         this.form.paymentTerm === '' ||
         typeof this.form.invoiceDate === 'undefined' ||
-        typeof this.form.paymentTerm === 'undefined' ||
-        isNaN(this.form.invoiceDate)
+        typeof this.form.paymentTerm === 'undefined'
       ) {
         this.form.dueDate = null;
         return;
       }
-
+      let invoice = new Date(this.form.invoiceDate);
       let due = new Date(this.form.invoiceDate);
 
-      if (this.form.paymentTerm === 1) {
-        this.form.dueDate = due.setDate(this.form.invoiceDate.getDate() + 15);
-        // due.setDate( Number(this.form.invoiceDate) + 15);
+      if (this.form.paymentTerm === 'Net15') {
+        due.setDate(this.form.invoiceDate.getDate() + 15);
       } else {
-        // due.setDate(this.form.invoiceDate.getDate() + 30);
-        this.form.dueDate = due.setDate(this.form.invoiceDate.getDate() + 30);
+        due.setDate(this.form.invoiceDate.getDate() + 30);
       }
-      this.form.invoiceDate = timestampFormatDate(this.form.invoiceDate,'yyyy-MM-dd hh:mm:ss');
-      this.form.dueDate = timestampFormatDate(this.form.dueDate,'yyyy-MM-dd hh:mm:ss');
-      // this.form.invoiceDate =
-      //   invoice.getFullYear() +
-      //   '-' +
-      //   (invoice.getMonth() + 1) +
-      //   '-' +
-      //   invoice.getDate() +
-      //   ' ' +
-      //   invoice.getHours() +
-      //   ':' +
-      //   invoice.getMinutes();
-      // this.form.dueDate =
-      //   due.getFullYear() +
-      //   '-' +
-      //   (due.getMonth() + 1) +
-      //   '-' +
-      //   due.getDate() +
-      //   ' ' +
-      //   due.getHours() +
-      //   ':' +
-      //   due.getMinutes();
+
+      this.form.invoiceDate =
+        invoice.getFullYear() +
+        '-' +
+        (invoice.getMonth() + 1) +
+        '-' +
+        invoice.getDate() +
+        ' ' +
+        invoice.getHours() +
+        ':' +
+        invoice.getMinutes();
+      this.form.dueDate =
+        due.getFullYear() +
+        '-' +
+        (due.getMonth() + 1) +
+        '-' +
+        due.getDate() +
+        ' ' +
+        due.getHours() +
+        ':' +
+        due.getMinutes();
     },
 
-    fetchItemTax(value) {
-      this.tableData.forEach(item => {
-        item.tax = value;
+    getPaymentItems(items) {
+      this.paymentItemsTable = items.map(v => {
+        let obj = {...v};
+        obj.tax = Math.floor((obj.amount * 0.0775) * 100) / 100;
+        return obj;
       });
-    }
+    },
+
   },
 
   watch: {
@@ -364,18 +363,11 @@ export default {
       this.checkForOrder();
     },
 
-    visible(val) {
-      if(!val) {
-        this.clearValidate();
-      }
-    },
-
     companyInfoFormVisible(val) {
       if(val) {
         this.nextVisible = true;
         this.prevVisible = false;
-        this.submitVisible = false;
-        this.editVisible = false;
+        this.submitVisble = false;
       }
     },
 
@@ -383,8 +375,7 @@ export default {
       if(val) {
         this.nextVisible = true;
         this.prevVisible = true;
-        this.submitVisible = false;
-        this.editVisible = false;
+        this.submitVisble = false;
       }
     },
 
@@ -393,7 +384,6 @@ export default {
         this.prevVisible = true;
         this.nextVisible = false;
         this.submitVisible = true;
-        this.editVisible = true;
       }
     },
 
@@ -417,6 +407,29 @@ export default {
   },
 
   computed: {
+    // tax: function() {
+    //   let t = 0;
+    //   let et;
+    //   const copy = this.tableData || [];
+    //   copy.forEach(function(item, index) {
+    //     if (item.tax === 'Y') {
+    //       et = Number(item.amount) * 0.0775;
+    //     } else {
+    //       et = 0;
+    //     }
+    //     t += et;
+    //   });
+    //   return Math.floor(t * 100) / 100;
+    // },
+    // total: function() {
+    //   let t = 0;
+    //   const copy = this.tableData || [];
+    //   copy.forEach(function(item, index) {
+    //     t += item.amount;
+    //   });
+    //   const tot = t + this.tax;
+    //   return Math.floor(tot * 100) / 100;
+    // },
     ...mapState([
       'loginInfo',
       'modelList',
@@ -443,7 +456,7 @@ export default {
   margin-left: 20px;
   width: 650px;
   margin-top: 10px;
-  border-top: 1px dashed #000;
+  /* border-top: 1px dashed #000; */
   padding-top: 8px;
 }
 

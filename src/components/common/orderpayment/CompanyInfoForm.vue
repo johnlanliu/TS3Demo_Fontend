@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-form :visible.sync="visible" ref="form" :model="form" size="mini">
-      <el-form-item label="Order Type">
+      <el-form-item v-if="isOrder" label="Order Type">
         <el-select v-model="form.type" placeholder="Select" style="width:194px">
           <el-option
             v-for="option in orderOptions"
@@ -25,7 +25,6 @@
         <el-checkbox
           v-model="sameAsBilling"
           style="display: inline"
-  
         >the same as billing info</el-checkbox>
       </div>
 
@@ -191,6 +190,12 @@
 </template>
 
 <script>
+import VSidebar from '../../common/VSidebar.vue';
+import ProductDetailForm from './ProductDetailForm.vue';
+import CreateInvoiceForm from './CreateInvoiceForm.vue';
+import AccessoryDetailForm from './AccessoryDetailForm.vue';
+import ServicePlanForm from './ServicePlanForm.vue';
+import OrderDetailsForm from './OrderDetailsForm.vue';
 import {
   addOrder,
   editOrder,
@@ -199,11 +204,25 @@ import {
   getOrgById
 } from '@/api/getData';
 import { mapState } from 'vuex';
-
 export default {
+  components: {
+    ProductDetailForm,
+    CreateInvoiceForm,
+    AccessoryDetailForm,
+    ServicePlanForm,
+    VSidebar,
+    OrderDetailsForm
+  },
+
+  created() {},
+  mounted: function() {},
   props: {
     value: Boolean,
     form: [Object],
+    isOrder: {
+      type: Boolean,
+      default: true
+    }
   },
 
   data: function() {
@@ -220,7 +239,7 @@ export default {
       /* RESET THESE */
       validInvoice: false,
       sameAsBilling: false,
-      // invoicePlaceholder: '',
+      invoicePlaceholder: '',
       /* DROPDOWN OPTIONS */
       orderOptions: [
         {
@@ -245,26 +264,7 @@ export default {
           value: 2,
           label: 'Net30'
         }
-      ],
-      statusOptions: [
-        {
-          label: 'Delivered',
-          status: 2
-        },
-        {
-          label: 'Cancelled',
-          status: -1
-        },
-        {
-          label: 'Shipped',
-          status: 1
-        },
-        {
-          label: 'Pending',
-          status: 3
-        }
       ]
-
       /* FORM RULES */
       // formRules: {
       //   orderType: [
@@ -370,6 +370,7 @@ export default {
 
   methods: {
     clearValidate() {
+      // this.visible = false;
       this.sameAsBilling = false;
       this.$refs.form.clearValidate();
     },
@@ -403,17 +404,20 @@ export default {
 
     sameAsBilling(val) {
       if(val) {
-        this.form.shippingCompany = this.form.billingCompany;
-        this.form.shippingContact = this.form.billingContact;
-        this.form.shippingPhone = this.form.billingPhone;
-        this.form.shippingEmail = this.form.billingEmail;
-        this.form.shippingAddress = this.form.billingAddress;
-        this.form.shippingCity = this.form.billingCity;
-        this.form.shippingState = this.form.billingState;
-        this.form.shippingCountry = this.form.billingCountry;
-        this.form.shippingZip = this.form.billingZip;
+        this.$emit('same-as-billing');
       }
-    }
+    },
+
+    // orderItemTable: {
+    //   handler: function(val) {
+    //     if (this.form.orderId) {
+    //       this.tableData = this.orderItemTable.concat([]);
+    //     } else {
+    //       this.tableData = [];
+    //     }
+    //   },
+    //   immediate: true
+    // }
   },
 
   computed: {

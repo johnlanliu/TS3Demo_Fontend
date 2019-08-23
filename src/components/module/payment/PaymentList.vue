@@ -1,153 +1,226 @@
 <template>
   <div class="fillcontain">
-    <div ref="searchForm" class="searchForm">
-
-    </div>
-      <el-form
-          class="searchForm"
-          ref="Form"
-          :inline="true"
-          :model="paymentSearchForm"
-          label-width="80px"
-          size="mini"
-      >
-          <el-form-item label="Invoice No:" label-width="150px">
-              <el-input v-model="paymentSearchForm.number" @change="search"></el-input>
-          </el-form-item>
-          <el-form-item label="Status:">
-              <el-select v-model="paymentSearchForm.status" placeholder="All" clearable @change="search">
-                  <el-option
-                      v-for="item in statusOptions"
-                      :key="item.status"
-                      :value="item.status"
-                      :label="item.label"
-                  ></el-option>
-              </el-select>
-          </el-form-item>
-          <el-form-item label="Customer:" style="padding-left: 20px">
-              <el-input v-model="paymentSearchForm.customer" @change="search"></el-input>
-          </el-form-item>
-          <el-form-item>
-              <el-button class="inline" type="primary" @click="search" style="margin-left: 10px;">Search/Update</el-button>
-          </el-form-item>
-          <el-form-item>
-              <el-button class="inline" type="primary" @click="handleAdd()" style="margin-left: 80px">+ Add</el-button>
-          </el-form-item>
-      </el-form>
-      <el-table
-          ref="paymentListTable"
-          :data="tableData"
-          v-loading="loading"
-          border
-          stripe
-          highlight-current-row
-          height="500px"
-          :row-key="row => row.index"
-          style="width: 100%;"
-      >
-          <el-table-column fixed label="Invoice ID" prop="paymentId" width="100"></el-table-column>
-          <el-table-column fixed label="Invoice No." prop="invoiceNo" width="110"></el-table-column>
-          <el-table-column label="Customer" prop="customer" width="130"></el-table-column>
-          <el-table-column label="Invoice Date" prop="invoiceDate" :formatter="formatDate" width="140"></el-table-column>
-          <el-table-column label="Due Date" prop="dueDate" :formatter="formatDate" width="140"></el-table-column>
-          <el-table-column label="Amount" prop="amount" width="109">
-              <template slot-scope="scope">
-                  <span>${{ scope.row.amount === null ? ' ' : scope.row.amount.toFixed(2) }}</span>
-              </template>
-          </el-table-column>
-          <el-table-column label="Status" prop="status" width="110">
-              <template slot-scope="scope">
-                  <span v-if="scope.row.status==='overdue'" style="color:red;">{{scope.row.status}}</span>
-                  <span v-else-if="scope.row.status==='refund'" style="color:red;">{{scope.row.status}}</span>
-                  <span v-else >{{scope.row.status}}</span>
-              </template>
-          </el-table-column>
-          <el-table-column label="Sales" prop="sales" width="90"></el-table-column>
-          <el-table-column fixed="right" label="Action" width="140" v-if="permsEdit || permsVoid">
-              <template slot-scope="scope">
-                  <el-dropdown size="mini" type="text" @command="handleCommand($event, scope.row, scope.$index)" trigger="click">
-                      <span class="el-dropdown-link">
-                          Action <i class="el-icon-arrow-down"></i></span>
-                      <el-dropdown-menu slot="dropdown">
-                          <el-dropdown-item command="view">View</el-dropdown-item>
-                          <el-dropdown-item command="edit">Edit</el-dropdown-item>
-                          <el-dropdown-item command="void">Void</el-dropdown-item>
-                      </el-dropdown-menu>
-                  </el-dropdown>
-                 </template>
-          </el-table-column>
-      </el-table>
-      <invoice-review-form ref="invoiceReviewForm" v-bind:form="invoiceInfo" v-bind:table-data="paymentItemTable" @reload-table="initData"></invoice-review-form>
-      <edit-invoice-form ref="editInvoiceForm" v-bind:form="invoiceInfo" v-bind:table-data="paymentItemTable" v-bind:reload-table="initData"></edit-invoice-form>
-      <create-invoice-form ref="createInvoiceForm" v-bind:reload-table="initData"></create-invoice-form>
+    <el-form class="searchForm" ref="Form" :inline="true" :model="paymentSearchForm" size="mini">
+      <el-form-item label="Invoice No:">
+        <el-input v-model="paymentSearchForm.number" @change="search"></el-input>
+      </el-form-item>
+      <el-form-item label="Status:">
+        <el-select v-model="paymentSearchForm.status" placeholder="All" clearable @change="search">
+          <el-option
+            v-for="item in statusOptions"
+            :key="item.status"
+            :value="item.status"
+            :label="item.label"
+          ></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="Customer:">
+        <el-input v-model="paymentSearchForm.customer" @change="search"></el-input>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" style="margin-left: 10px;" @click="search">Search/Update</el-button>
+      </el-form-item>
+      <el-form-item style="float: right">
+        <el-button type="primary" icon="el-icon-plus" @click="handleAdd">Add</el-button>
+      </el-form-item>
+    </el-form>
+    <el-table
+      ref="paymentListTable"
+      :data="tableData"
+      v-loading="loading"
+      border
+      stripe
+      highlight-current-row
+      :height="tableHeight"
+      :row-key="row => row.index"
+      style="width: 100%;"
+    >
+      <el-table-column fixed label="Invoice No." prop="invoiceNo" min-width="110"></el-table-column>
+      <el-table-column label="Customer" prop="customer" min-width="130"></el-table-column>
+      <el-table-column
+        label="Invoice Date"
+        prop="invoiceDate"
+        :formatter="formatDate"
+        min-width="140"
+      ></el-table-column>
+      <el-table-column label="Due Date" prop="dueDate" :formatter="formatDate" min-width="140"></el-table-column>
+      <el-table-column label="Amount" prop="amount" min-width="109">
+        <template slot-scope="scope">
+          <span>${{ scope.row.amount === undefined ? ' ' : scope.row.amount.toFixed(2) }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="Status" prop="status" min-width="110">
+        <template slot-scope="scope">
+          <span v-if="scope.row.status==='overdue'" style="color:red;">{{scope.row.status}}</span>
+          <span v-else-if="scope.row.status==='refund'" style="color:red;">{{scope.row.status}}</span>
+          <span v-else>{{scope.row.status}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="Sales" prop="sales" min-width="90"></el-table-column>
+      <el-table-column fixed="right" label="Action" min-width="140" v-if="permsEdit || permsVoid">
+        <template slot-scope="scope">
+          <el-dropdown
+            size="mini"
+            type="text"
+            @command="handleCommand($event, scope.row, scope.$index)"
+            trigger="click"
+          >
+            <span class="el-dropdown-link">
+              Action
+              <i class="el-icon-arrow-down"></i>
+            </span>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item command="view">View</el-dropdown-item>
+              <el-dropdown-item command="edit">Edit</el-dropdown-item>
+              <el-dropdown-item command="void">Void</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
+        </template>
+      </el-table-column>
+    </el-table>
+    <!-- <invoice-review-form ref="invoiceReviewForm" v-bind:form="invoiceInfo" v-bind:table-data="paymentItemTable" @reload-table="initData"></invoice-review-form>
+    <edit-invoice-form ref="editInvoiceForm" v-bind:form="invoiceInfo" v-bind:table-data="paymentItemTable" v-bind:reload-table="initData"></edit-invoice-form>
+    <create-invoice-form ref="createInvoiceForm" v-bind:reload-table="initData"></create-invoice-form>-->
+    <el-pagination
+      :current-page="page"
+      :page-sizes="[15, 20, 30, 50, 100]"
+      :page-size="pageSize"
+      :total="total"
+      layout="total, sizes, prev, pager, next"
+      @size-change="handleSizeChange"
+      @current-change="handleCurrChange"
+    ></el-pagination>
+    <payment-review-form
+      v-model="reviewFormVisible"
+      :form="form"
+      :paymentItemTable="paymentItemTable"
+    ></payment-review-form>
+    <edit-payment-form
+      v-model="editFormVisible"
+      :form="form"
+      :paymentItemTable="paymentItemTable"
+      @same-as-billing="handleSameAsBilling"
+      @reload-table="handleReloadTable"
+    ></edit-payment-form>
   </div>
 </template>
 
 <script>
-import InvoiceReviewForm from './InvoiceReviewForm.vue';
-import CreateInvoiceForm from '../order/CreateInvoiceForm.vue';
-import EditInvoiceForm from './EditInvoiceForm';
-import { getPaymentList, voidPayment, getPaymentByPaymentId, getPaymentItem } from '@/api/getData';
+import PaymentReviewForm from './PaymentReviewForm.vue';
+import EditPaymentForm from './EditPaymentForm.vue';
+import {
+  getPaymentList,
+  voidPayment,
+  getPaymentByPaymentId,
+  getPaymentItem
+} from '@/api/getData';
 import { timeFormatUtil } from '@/utils/timeFormatUtil.js';
+import { timestampFormatDate } from '@/utils/time';
 import { exceptionUtil } from '@/utils/exceptionUtil.js';
 import { mapState } from 'vuex';
+import { debounce } from '@/config/mUtils';
 
 export default {
   mixins: [timeFormatUtil, exceptionUtil],
 
   components: {
-    EditInvoiceForm,
-    InvoiceReviewForm,
-    CreateInvoiceForm,
+    // EditInvoiceForm,
+    // InvoiceReviewForm,
+    // CreateInvoiceForm,
+    PaymentReviewForm,
+    EditPaymentForm
   },
 
   data() {
     return {
       loading: false,
 
-    /* RESET THESE */
+      /* RESET THESE */
       command: '',
       salesPerson: '',
       permsAdd: true,
       permsEdit: true,
       permsVoid: true,
+      page: 1,
+      pageSize: 20,
+      total: 0,
+      sort: null,
       invoiceTableData: [],
       tableData: [],
       paymentItemTable: [],
       invoiceInfo: {},
-      userSearchForm: {},
       paymentSearchForm: {
         number: '',
         status: '',
-        customer: '',
+        customer: ''
       },
+      reviewFormVisible: false,
+      editFormVisible: false,
+      form: {},
+      tableHeight: window.innerHeight - 165,
 
-    /* DROPDOWN OPTIONS */
-      statusOptions: [{
-        status: 'refund',
-        label: 'refund'
-      }, {
-        status: 'void',
-        label: 'void'
-      }, {
-        status: 'paid',
-        label: 'paid'
-      }, {
-        status: 'unpaid',
-        label: 'unpaid'
-      }, {
-        status: 'overdue',
-        label: 'overdue'
-      }]
+      /* DROPDOWN OPTIONS */
+      statusOptions: [
+        {
+          label: 'refund',
+          status: 1
+        },
+        {
+          label: 'void',
+          status: 2
+        },
+        {
+          label: 'paid',
+          status: 3
+        },
+        {
+          label: 'unpaid',
+          status: 4
+        },
+        {
+          label: 'overdue',
+          status: 5
+        }
+      ]
     };
+  },
+
+  created() {
+    this.initData();
+  },
+
+  watch: {
+    visible(val) {
+      if (val) {
+        this.getPayments();
+      } else {
+        this.total = 0;
+        this.page = 1;
+        this.pageSize = 20;
+        this.sort = null;
+        this.form = {};
+      }
+    }
+  },
+
+  mounted() {
+    // 监听窗口大小变化
+    window.addEventListener('resize', debounce(this.bindResize, 500));
   },
 
   beforeDestroy() {
     window.removeEventListener('resize', this.bindResize);
   },
 
-  created() {
-    this.initData();
+  computed: {
+    ...mapState([
+      'loginInfo',
+      'modelList',
+      'currentOrgId',
+      'lang',
+      'locale',
+      'currentOrg'
+    ])
   },
 
   methods: {
@@ -159,138 +232,168 @@ export default {
       this.getPayments();
     },
 
-    /* HANDLER FUNCTIONS */
-    async getPayments() {
-      const result = await getPaymentList(
-        {invoiceNo: this.paymentSearchForm.number,
-          status: this.paymentSearchForm.status,
-          customer: this.paymentSearchForm.customer});
-      if (result) {
-        this.tableData = [];
-        result.forEach((item, index) => {
-          let tableData = item;
-          tableData.index = index + 1;
-          this.tableData.push(tableData);
-        });
-      }
+    // resize
+    bindResize() {
+      this.tableHeight = document.body.clientHeight - 175;
     },
-    handleCommand(command, row, index) {
-      if (command === 'view') {
-        this.handleView(index, row);
-        this.invoiceInfo = {};
-        this.invoiceTableData = [];
-      } else if (command === 'edit') {
-        this.handleEdit(index, row);
-        this.initData();
-      } else {
-        this.handleVoid(index, row);
-      }
-    },
-    async handleVoid(index, row) {
-      await voidPayment({paymentId: row.paymentId},{});
+
+    async handleVoid(paymentId) {
+      await voidPayment({ paymentId });
       this.initData();
     },
 
-/* HANDLERS FOR SHOWING FORMS */
+    /* HANDLERS FOR SHOWING FORMS */
     handleAdd() {
-      this.$refs.createInvoiceForm.showDialog();
+      this.form = {
+        billingCompany: this.currentOrg.orgName,
+        billingContact: this.currentOrg.contacts,
+        billingPhone: this.currentOrg.phone,
+        billingEmail: this.currentOrg.email,
+        billingAddress: this.currentOrg.streetAddress,
+        billingCity: this.currentOrg.city,
+        billingState: this.currentOrg.state,
+        billingCountry: this.currentOrg.country,
+        billingZip: this.currentOrg.zip
+      };
+      this.paymentItemTable = [];
+      this.editFormVisible = true;
     },
-    async handleView(index, row) {
-      this.getInvoiceInfo(row, index);
-      this.getPaymentItems(row, index);
-      this.$refs.invoiceReviewForm.showDialog();
+
+    handleSameAsBilling() {
+      this.form = Object.assign({}, this.form, {
+        shippingCompany: this.form.billingCompany,
+        shippingContact: this.form.billingContact,
+        shippingPhone: this.form.billingPhone,
+        shippingEmail: this.form.billingEmail,
+        shippingAddress: this.form.billingAddress,
+        shippingCity: this.form.billingCity,
+        shippingState: this.form.billingState,
+        shippingCountry: this.form.billingCountry,
+        shippingZip: this.form.billingZip
+      });
     },
-    async handleEdit(index, row) {
-      this.getInvoiceInfo(row, index);
-      this.getPaymentItems(row, index);
-      this.$refs.editInvoiceForm.showDialog();
-    },
-    async getInvoiceInfo(row, index) {
-      this.invoiceInfo = await getPaymentByPaymentId({paymentId: row.paymentId});
-    },
-    async getPaymentItems(row, index) {
-      if(row.paymentId === null) {
-        this.paymentItemTable = [];
+
+    async handleCommand(command, row, index) {
+      this.form = { ...row };
+      this.form.invoiceDate = timestampFormatDate(row.invoiceDate, 'MM/dd/yyy');
+      this.form.dueDate = timestampFormatDate(row.dueDate, 'MM/dd/yyy');
+      if (command === 'edit' || command === 'view') {
+        this.paymentItemTable = await getPaymentItem({
+          paymentId: row.paymentId
+        });
+        this.invoiceInfo = await getPaymentByPaymentId({
+          paymentId: row.paymentId
+        });
+        command === 'edit'
+          ? (this.editFormVisible = true)
+          : (this.reviewFormVisible = true);
       } else {
-        const res = await getPaymentItem({paymentId: row.paymentId});
-        if (res) {
-          this.paymentItemTable = [];
-          res.forEach((item, index) => {
-            let paymentItem = item;
-            paymentItem.index = index + 1;
-            this.paymentItemTable.push(paymentItem);
-          });
-        }
+        this.handleVoid(row.paymentId);
       }
     },
-  },
 
-  computed: {
-    ...mapState([
-      'loginInfo',
-      'modelList',
-      'currentOrgId',
-      'lang',
-      'locale'
-    ]),
+    handleReloadTable() {
+      this.getPayments();
+    },
 
-    labelWidth() {
-      return this.locale === 'es' ? '122px' : '100px';
+    async getInvoiceInfo(row, index) {
+      this.invoiceInfo = await getPaymentByPaymentId({
+        paymentId: row.paymentId
+      });
+    },
+    // 分页改变
+    handleSizeChange(val) {
+      this.pageSize = val;
+      this.getPayments();
+    },
+
+    // 当前页改变
+    handleCurrChange(val) {
+      this.page = val;
+      this.getPayments();
+    },
+
+    // 搜索
+    handleSearch() {
+      this.page = 1;
+      this.getPayments();
+    },
+
+    // 排序
+    handleSort(param) {
+      if (param.payment || param.prop)
+        this.sort = (param.order === 'ascending' ? '+' : '-') + param.prop;
+      else this.sort = null;
+      this.page = 1;
+      this.getPayments();
+    },
+
+    async getPayments() {
+      this.loading = true;
+      const params = {
+        pageindex: this.page,
+        pagesize: this.pageSize,
+        sort: this.sort,
+        ...this.paymentSearchForm
+      };
+      const result = await getPaymentList(params);
+      this.loading = false;
+      if (!result || result.errorCode) return;
+      this.tableData = result.list || [];
+      this.total = result.totalRows;
     }
-  },
-
-  watch: {
-
-  },
+  }
 };
 </script>
 
 <style>
-  .el-menu--horizontal > .el-menu-item {
-    height: 40px;
-    line-height: 50px;
-  }
+.el-menu--horizontal > .el-menu-item {
+  height: 40px;
+  line-height: 50px;
+}
 </style>
 
 <style scoped>
-  .el-dropdown-link {
-      cursor: pointer;
-      color: #409EFF;
-      font-size: 12px;
-      font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
-  }
-  .el-form-item {
-      display: inline-block;
-  }
-  .el-icon-arrow-down {
-      font-size: 12px;
-  }
-  .fillcontain {
-    height: 100%;
-    position: relative;
-  }
+.el-dropdown-link {
+  cursor: pointer;
+  color: #409eff;
+  font-size: 12px;
+  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
+    "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+}
+.el-form-item {
+  display: inline-block;
+}
+.el-icon-arrow-down {
+  font-size: 12px;
+}
+.fillcontain {
+  height: 100%;
+  position: relative;
+}
 
-  .searchForm {
-    padding: 10px 0;
-  }
+.searchForm {
+  padding: 10px 0;
+}
 
-  .searchForm .el-input, .searchForm .el-select{
-    width: 140px !important;
-  }
+.searchForm .el-input,
+.searchForm .el-select {
+  width: 140px !important;
+}
 
-  .device-table {
-    position: absolute;
-    top: 182px;
-    left: 0;
-    right: 0;
-    bottom: 32px;
-  }
+.device-table {
+  position: absolute;
+  top: 182px;
+  left: 0;
+  right: 0;
+  bottom: 32px;
+}
 
-  .btn-right {
-    float: right;
-  }
+.btn-right {
+  float: right;
+}
 
-  .btns {
-    padding: 15px 15px 5px;
-  }
+.btns {
+  padding: 15px 15px 5px;
+}
 </style>
