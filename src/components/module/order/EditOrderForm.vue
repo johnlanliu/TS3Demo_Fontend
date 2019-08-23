@@ -46,6 +46,7 @@ import {
   getOrderItem
 } from '@/api/getData';
 import { mapState } from 'vuex';
+import { timestampFormatDate } from '@/utils/time';
 
 export default {
   // name: 'EditOrderForm',
@@ -327,21 +328,20 @@ export default {
       this.$emit('same-as-billing');
     },
 
-    handleSubmit() {
+    handleSubmit() {  
       this.getDates();
       this.handleAddOrder();
     },
 
     async handleSave() {
-      // this.getDates();
+      this.getDates();
       this.handleEditOrder();
     },
 
     clearValidate() {
       this.active = 1;
       this.tableData = [];
-      // this.validInvoice = false;
-      // this.getLastOrder();
+      this.validInvoice = false;
     },
 
     setItemTable(val) {
@@ -352,6 +352,8 @@ export default {
       this.loading = true;
       const param = this.form;
       this.loading = false;
+      // console.log(param);
+      debugger;
       const res = editOrder({}, param);
       if (!res || res.errorCode) return;
       this.visible = false;
@@ -360,13 +362,13 @@ export default {
       this.visible = false;
     },
 
-    async handleAddOrder() {
+    handleAddOrder() {
       this.loading = true;
       const param = Object.assign({}, this.form, {
         orderItems: this.tableData
       });
       this.loading = false;
-      const res = await addOrder({}, param);
+      const res = addOrder({}, param);
       if (!res || res.errorCode) return;
       this.visible = false;
       this.$emit('reload-table');
@@ -388,42 +390,44 @@ export default {
         this.form.invoiceDate === '' ||
         this.form.paymentTerm === '' ||
         typeof this.form.invoiceDate === 'undefined' ||
-        typeof this.form.paymentTerm === 'undefined'
+        typeof this.form.paymentTerm === 'undefined' ||
+        isNaN(this.form.invoiceDate)
       ) {
         this.form.dueDate = null;
         return;
       }
-      let invoice = new Date(this.form.invoiceDate);
+
       let due = new Date(this.form.invoiceDate);
 
-      if (this.form.paymentTerm === 'Net15') {
-        due.setDate(this.form.invoiceDate.getDate() + 15);
+      if (this.form.paymentTerm === 1) {
+        this.form.dueDate = due.setDate(this.form.invoiceDate.getDate() + 15);
         // due.setDate( Number(this.form.invoiceDate) + 15);
       } else {
-        due.setDate(this.form.invoiceDate.getDate() + 30);
-        // due.setDate( Number(this.form.invoiceDate) + 30);
+        // due.setDate(this.form.invoiceDate.getDate() + 30);
+        this.form.dueDate = due.setDate(this.form.invoiceDate.getDate() + 30);
       }
-
-      this.form.invoiceDate =
-        invoice.getFullYear() +
-        '-' +
-        (invoice.getMonth() + 1) +
-        '-' +
-        invoice.getDate() +
-        ' ' +
-        invoice.getHours() +
-        ':' +
-        invoice.getMinutes();
-      this.form.dueDate =
-        due.getFullYear() +
-        '-' +
-        (due.getMonth() + 1) +
-        '-' +
-        due.getDate() +
-        ' ' +
-        due.getHours() +
-        ':' +
-        due.getMinutes();
+      this.form.invoiceDate = timestampFormatDate(this.form.invoiceDate,'yyyy-MM-dd hh:mm:ss');
+      this.form.dueDate = timestampFormatDate(this.form.dueDate,'yyyy-MM-dd hh:mm:ss');
+      // this.form.invoiceDate =
+      //   invoice.getFullYear() +
+      //   '-' +
+      //   (invoice.getMonth() + 1) +
+      //   '-' +
+      //   invoice.getDate() +
+      //   ' ' +
+      //   invoice.getHours() +
+      //   ':' +
+      //   invoice.getMinutes();
+      // this.form.dueDate =
+      //   due.getFullYear() +
+      //   '-' +
+      //   (due.getMonth() + 1) +
+      //   '-' +
+      //   due.getDate() +
+      //   ' ' +
+      //   due.getHours() +
+      //   ':' +
+      //   due.getMinutes();
     },
 
     fetchItemTax(value) {

@@ -305,6 +305,19 @@ export default {
         return 0;
       }
     },
+    tax: function() {
+      if (
+        this.form.rate === null ||
+        this.form.quantity === null ||
+        isNaN(this.form.rate) ||
+        isNaN(this.form.quantity) ||
+        this.form.tax !== 'Y'
+      ) {
+        return 0;
+      } else {
+        return (Number(this.form.rate) * Number(this.form.quantity) * 0.075).toFixed(2);
+      }
+    },
     total: function() {
       if (
         this.form.rate === null ||

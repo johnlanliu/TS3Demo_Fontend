@@ -278,7 +278,7 @@ export default {
       // this.fetchItemTax();
     },
 
-    handleProductAdded(value) {
+    async handleProductAdded(value) {
       this.tableData.push(value);
       // this.fetchItemTax();
     },
