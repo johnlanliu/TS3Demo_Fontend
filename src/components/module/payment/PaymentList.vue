@@ -272,7 +272,7 @@ export default {
         shippingZip: this.form.billingZip
       });
     },
-    
+
     async handleCommand(command, row, index) {
       this.form = { ...row };
       this.form.invoiceDate = timestampFormatDate(row.invoiceDate, 'MM/dd/yyy');

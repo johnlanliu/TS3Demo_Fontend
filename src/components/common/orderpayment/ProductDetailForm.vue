@@ -9,7 +9,7 @@
   >
     <div class="product code">
       <el-form ref="form" :model="form" size="mini" style="text-align: center">
-        <el-collapse v-model="form.activeName" accordion>
+        <el-collapse v-model="activeName" accordion>
           <el-collapse-item name="1">
             <template slot="title">{{ form.product }}</template>
             <el-row>
@@ -142,7 +142,7 @@
                   ></el-input-number>
                 </el-form-item>
                 <el-form-item label="Tax: ">
-                  <el-select v-model="form.tax" placeholder style="width: 150px">
+                  <el-select v-model="form.tax" placeholder style="width: 80px">
                     <el-option
                       v-for="option in taxOptions"
                       :key="option.value"
@@ -150,6 +150,12 @@
                       :value="option.value"
                     ></el-option>
                   </el-select>
+                  <el-input
+                    v-if="form.tax === 'Y'"
+                    v-model="taxRate"
+                    :min="1"
+                    style="width: 120px"
+                  ></el-input>{{ form.tax === 'Y' ? '%' : ''}}
                 </el-form-item>
                 <el-row>
                   <el-col :span="3">
@@ -188,7 +194,7 @@ export default {
       // namePicked: false,
       // isTrackLight: true,
       // showPrice: false,
-      // activeName: '1',
+      activeName: '1',
       send: {},
       form: {},
       orderItems: [],
@@ -207,7 +213,8 @@ export default {
           value: 'N',
           label: 'N'
         }
-      ]
+      ],
+      taxRate: '7.75'
 
       /* FORM RULES */
       // formRules: {
@@ -237,7 +244,6 @@ export default {
   },
 
   computed: {
-    
     total: function() {
       if (
         this.form.rate === null ||
@@ -247,7 +253,15 @@ export default {
       ) {
         return 0;
       } else {
-        return (this.form.rate * Number(this.form.quantity)).toFixed(2);
+        if (this.form.tax === 'Y') {
+          return (
+            this.form.rate *
+            Number(this.form.quantity) *
+            (1 + Number(this.taxRate) / 100)
+          ).toFixed(2);
+        } else {
+          return (this.form.rate * Number(this.form.quantity)).toFixed(2);
+        }
       }
     },
 
@@ -273,9 +287,9 @@ export default {
     },
     /* HANDLER FUNCTIONS */
     handleNext(number) {
-      let tempNum = Number(this.form.activeName);
+      let tempNum = Number(this.activeName);
       let nextNum = tempNum + number;
-      this.form.activeName = nextNum.toString();
+      this.activeName = nextNum.toString();
     },
     handleNetworkClick(speed) {
       this.form.network = speed;
@@ -310,8 +324,7 @@ export default {
     handleAddClick(event) {
       // this.getTax();
       if(this.form.tax === 'Y') {
-        let num = Number(this.total) * 0.0075;
-        this.form.tax = Math.floor(num * 100) / 100;
+        this.form.tax = (this.form.rate * Number(this.form.quantity) * Number(this.taxRate) / 100).toFixed(2);
       }
       this.$emit('productAdded',{
         product: this.form.product,

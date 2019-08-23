@@ -267,50 +267,53 @@ export default {
       this.checkForOrder();
     },
 
-    'form.type': function() {
-      if (this.form.type) {
-        this.statusOptions = [
-          {
-            label: 'Delivered',
-            status: 2
-          },
-          {
-            label: 'Cancelled',
-            status: -1
-          },
-          {
-            label: 'Shipped',
-            status: 1
-          },
-          {
-            label: 'Pending',
-            status: 3
-          }
-        ];
-      } else {
-        this.statusOptions = [
-          {
-            label: 'VOID',
-            status: -1
-          },
-          {
-            label: 'PAID',
-            status: 1
-          },
-          {
-            label: 'UNPAID',
-            status: 2
-          },
-          {
-            label: 'REFUND',
-            status: 3
-          },
-          {
-            label: 'OVERDUE',
-            status: 4
-          }
-        ];
-      }
+    'form.type': {
+      handler: function(val) {
+        if (this.form.type) {
+          this.statusOptions = [
+            {
+              label: 'Delivered',
+              status: 2
+            },
+            {
+              label: 'Cancelled',
+              status: -1
+            },
+            {
+              label: 'Shipped',
+              status: 1
+            },
+            {
+              label: 'Pending',
+              status: 3
+            }
+          ];
+        } else {
+          this.statusOptions = [
+            {
+              label: 'VOID',
+              status: -1
+            },
+            {
+              label: 'PAID',
+              status: 1
+            },
+            {
+              label: 'UNPAID',
+              status: 2
+            },
+            {
+              label: 'REFUND',
+              status: 3
+            },
+            {
+              label: 'OVERDUE',
+              status: 4
+            }
+          ];
+        }
+      },
+      immediate: true
     }
   },
   computed: {

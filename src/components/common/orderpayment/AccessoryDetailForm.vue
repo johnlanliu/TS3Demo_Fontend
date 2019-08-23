@@ -9,7 +9,7 @@
   >
     <div class="accessoryCode">
       <el-form ref="form" :model="form" size="mini" :rules="formRules" style="text-align: center">
-        <el-collapse v-model="form.activeName" accordion>
+        <el-collapse v-model="activeName" accordion>
           <el-collapse-item name="1">
             <template slot="title">{{ form.product }}</template>
             <el-row>
@@ -212,7 +212,7 @@
                   ></el-input-number>
                 </el-form-item>
                 <el-form-item label="Tax: ">
-                  <el-select v-model="form.tax" placeholder style="width: 150px">
+                  <el-select v-model="form.tax" placeholder style="width: 80px">
                     <el-option
                       v-for="option in taxOptions"
                       :key="option.value"
@@ -220,6 +220,12 @@
                       :value="option.value"
                     ></el-option>
                   </el-select>
+                  <el-input
+                    v-if="form.tax === 'Y'"
+                    v-model="taxRate"
+                    :min="1"
+                    style="width: 120px"
+                  ></el-input>{{ form.tax === 'Y' ? '%' : ''}}
                 </el-form-item>
                 <el-row>
                   <el-col :span="3">
@@ -262,7 +268,9 @@ export default {
         }
       ],
       tax: 0.3,
-      formRules: {}
+      taxRate: '7.75',
+      formRules: {},
+      activeName: '1'
       /* FORM RULES */
       // formRules: {
       //   rate: [
@@ -278,36 +286,6 @@ export default {
 
   props: {
     value: Boolean
-  },
-
-  methods: {
-    /* AUXILIARY FUNCTIONS */
-    clearValidate() {
-      this.visible = false;
-      this.form = {};
-      this.$refs.form.clearValidate();
-    },
-    /* HANDLER FUNCTIONS */
-    async handleNext(number) {
-      let tempNum = Number(this.form.activeName);
-      let nextNum = tempNum + number;
-      this.form.activeName = nextNum.toString();
-    },
-    async handleNameClick(num) {
-      this.form.product = num;
-      this.form.showPrice = true;
-      this.handleNext(1);
-    },
-    handleAddClick(event) {
-      this.$emit('accessoryAdded', {
-        product: this.form.product,
-        quantity: this.form.quantity,
-        rate: this.form.rate,
-        tax: this.form.tax,
-        amount: this.total
-      });
-      this.visible = false;
-    }
   },
 
   computed: {
@@ -340,7 +318,7 @@ export default {
           return (
             this.form.rate *
             Number(this.form.quantity) *
-            (1 + this.tax)
+            (1 + Number(this.taxRate) / 100)
           ).toFixed(2);
         } else {
           return (this.form.rate * Number(this.form.quantity)).toFixed(2);
@@ -354,6 +332,39 @@ export default {
       set(val) {
         this.$emit('input', val);
       }
+    }
+  },
+
+  methods: {
+    /* AUXILIARY FUNCTIONS */
+    clearValidate() {
+      this.visible = false;
+      this.form = {};
+      this.$refs.form.clearValidate();
+    },
+    /* HANDLER FUNCTIONS */
+    async handleNext(number) {
+      let tempNum = Number(this.activeName);
+      let nextNum = tempNum + number;
+      this.activeName = nextNum.toString();
+    },
+    async handleNameClick(num) {
+      this.form.product = num;
+      this.form.showPrice = true;
+      this.handleNext(1);
+    },
+    handleAddClick(event) {
+      if(this.form.tax === 'Y') {
+        this.form.tax = (this.form.rate * Number(this.form.quantity) * Number(this.taxRate) / 100).toFixed(2);
+      }
+      this.$emit('accessoryAdded', {
+        product: this.form.product,
+        quantity: this.form.quantity,
+        rate: this.form.rate,
+        tax: this.form.tax,
+        amount: this.total
+      });
+      this.visible = false;
     }
   }
 };

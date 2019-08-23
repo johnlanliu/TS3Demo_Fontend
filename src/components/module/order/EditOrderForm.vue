@@ -14,10 +14,8 @@
         <order-details-form
           :form="form"
           v-if="orderDetailsFormVisible"
-          :tableData="tableData"
-          :orderItemTable="orderItemTable"
-          @itemTax="fetchItemTax"
-         >
+          :itemTable="orderItemTable"
+          @setItemTable="setItemTable">
         </order-details-form>
         <logistics-info-form :form="form" v-if="logisticsInfoFormVisible"></logistics-info-form>
       </div>
@@ -239,119 +237,23 @@ export default {
     };
   },
 
-  methods: {
-    /* AUXILIARY FUNCTIONS */
-    handlePrev() {
-      this.active -= 1;
-    },
-    handleNext() {
-      this.active += 1;
-    },
+  computed: {
+    ...mapState([
+      'loginInfo',
+      'modelList',
+      'currentOrgId',
+      'lang',
+      'locale',
+      'currentOrg'
+    ]),
 
-    handleSameAsBilling() {
-      this.$emit('same-as-billing');
-    },
-
-    handleSubmit() {
-      this.getDates();
-      this.handleAddOrder();
-    },
-
-    async handleSave() {
-      // this.getDates();
-      this.handleEditOrder();
-    },
-
-    clearValidate() {
-      this.visible = false;
-      this.active = 1;
-      this.tableData = [];
-      // this.validInvoice = false;
-      // this.getLastOrder();
-    },
-
-    handleEditOrder() {
-      this.loading = true;
-      const param = Object.assign({}, this.form, {
-        orderItems: this.tableData
-      });
-      this.loading = false;
-      const res = editOrder({}, param);
-      if (!res || res.errorCode) return;
-      this.visible = false;
-      this.$message.success('Change Success!');
-      this.clearValidate();
-    },
-
-    async handleAddOrder() {
-      this.loading = true;
-      const param = Object.assign({}, this.form, {
-        orderItems: this.tableData
-      });
-      this.loading = false;
-      const res = await addOrder({}, param);
-      if (!res || res.errorCode) return;
-      this.visible = false;
-      this.$message.success('Submit Success!');
-      this.clearValidate();
-    },
-
-    async checkForOrder() {
-      this.validInvoice = await validInvoiceNo({
-        invoiceNo: this.form.invoiceNumber
-      });
-    },
-
-    /* FORMAT INVOICE AND DUE DATES */
-    getDates() {
-      if (
-        this.form.invoiceDate === null ||
-        this.form.paymentTerm === null ||
-        this.form.invoiceDate === '' ||
-        this.form.paymentTerm === '' ||
-        typeof this.form.invoiceDate === 'undefined' ||
-        typeof this.form.paymentTerm === 'undefined'
-      ) {
-        this.form.dueDate = null;
-        return;
+    visible: {
+      get() {
+        return this.value;
+      },
+      set(val) {
+        this.$emit('input', val);
       }
-      let invoice = new Date(this.form.invoiceDate);
-      let due = new Date(this.form.invoiceDate);
-
-      if (this.form.paymentTerm === 'Net15') {
-        due.setDate(this.form.invoiceDate.getDate() + 15);
-        // due.setDate( Number(this.form.invoiceDate) + 15);
-      } else {
-        due.setDate(this.form.invoiceDate.getDate() + 30);
-        // due.setDate( Number(this.form.invoiceDate) + 30);
-      }
-
-      this.form.invoiceDate =
-        invoice.getFullYear() +
-        '-' +
-        (invoice.getMonth() + 1) +
-        '-' +
-        invoice.getDate() +
-        ' ' +
-        invoice.getHours() +
-        ':' +
-        invoice.getMinutes();
-      this.form.dueDate =
-        due.getFullYear() +
-        '-' +
-        (due.getMonth() + 1) +
-        '-' +
-        due.getDate() +
-        ' ' +
-        due.getHours() +
-        ':' +
-        due.getMinutes();
-    },
-
-    fetchItemTax(value) {
-      this.tableData.forEach(item => {
-        item.tax = value;
-      });
     }
   },
 
@@ -412,23 +314,122 @@ export default {
     }
   },
 
-  computed: {
-    ...mapState([
-      'loginInfo',
-      'modelList',
-      'currentOrgId',
-      'lang',
-      'locale',
-      'currentOrg'
-    ]),
+  methods: {
+    /* AUXILIARY FUNCTIONS */
+    handlePrev() {
+      this.active -= 1;
+    },
+    handleNext() {
+      this.active += 1;
+    },
 
-    visible: {
-      get() {
-        return this.value;
-      },
-      set(val) {
-        this.$emit('input', val);
+    handleSameAsBilling() {
+      this.$emit('same-as-billing');
+    },
+
+    handleSubmit() {
+      this.getDates();
+      this.handleAddOrder();
+    },
+
+    async handleSave() {
+      // this.getDates();
+      this.handleEditOrder();
+    },
+
+    clearValidate() {
+      this.active = 1;
+      this.tableData = [];
+      // this.validInvoice = false;
+      // this.getLastOrder();
+    },
+
+    setItemTable(val) {
+      this.tableData = val;
+    },
+
+    handleEditOrder() {
+      this.loading = true;
+      const param = this.form;
+      this.loading = false;
+      const res = editOrder({}, param);
+      if (!res || res.errorCode) return;
+      this.visible = false;
+      this.$emit('reload-table');
+      this.$message.success('Change Success!');
+      this.visible = false;
+    },
+
+    async handleAddOrder() {
+      this.loading = true;
+      const param = Object.assign({}, this.form, {
+        orderItems: this.tableData
+      });
+      this.loading = false;
+      const res = await addOrder({}, param);
+      if (!res || res.errorCode) return;
+      this.visible = false;
+      this.$emit('reload-table');
+      this.$message.success('Submit Success!');
+      this.visible = false;
+    },
+
+    async checkForOrder() {
+      this.validInvoice = await validInvoiceNo({
+        invoiceNo: this.form.invoiceNumber
+      });
+    },
+
+    /* FORMAT INVOICE AND DUE DATES */
+    getDates() {
+      if (
+        this.form.invoiceDate === null ||
+        this.form.paymentTerm === null ||
+        this.form.invoiceDate === '' ||
+        this.form.paymentTerm === '' ||
+        typeof this.form.invoiceDate === 'undefined' ||
+        typeof this.form.paymentTerm === 'undefined'
+      ) {
+        this.form.dueDate = null;
+        return;
       }
+      let invoice = new Date(this.form.invoiceDate);
+      let due = new Date(this.form.invoiceDate);
+
+      if (this.form.paymentTerm === 'Net15') {
+        due.setDate(this.form.invoiceDate.getDate() + 15);
+        // due.setDate( Number(this.form.invoiceDate) + 15);
+      } else {
+        due.setDate(this.form.invoiceDate.getDate() + 30);
+        // due.setDate( Number(this.form.invoiceDate) + 30);
+      }
+
+      this.form.invoiceDate =
+        invoice.getFullYear() +
+        '-' +
+        (invoice.getMonth() + 1) +
+        '-' +
+        invoice.getDate() +
+        ' ' +
+        invoice.getHours() +
+        ':' +
+        invoice.getMinutes();
+      this.form.dueDate =
+        due.getFullYear() +
+        '-' +
+        (due.getMonth() + 1) +
+        '-' +
+        due.getDate() +
+        ' ' +
+        due.getHours() +
+        ':' +
+        due.getMinutes();
+    },
+
+    fetchItemTax(value) {
+      this.tableData.forEach(item => {
+        item.tax = value;
+      });
     }
   }
 };

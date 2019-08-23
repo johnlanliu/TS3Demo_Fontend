@@ -55,24 +55,20 @@
 
       <el-row>
         <el-col :span="18">
-              <el-form-item
-                label="Note:"
-                style="display: block; margin-left: 30px; margin-right: 30px"
-                prop="note"
-              >
-                <el-input
-                  type="textarea"
-                  :rows="2"
-                  placeholder="notes"
-                  v-model="form.note"
-                  style="width: 405px"
-                ></el-input>
-              </el-form-item>
+          <el-form-item label="Note:" prop="note">
+            <el-input
+              type="textarea"
+              :rows="2"
+              placeholder="notes"
+              v-model="form.note"
+              style="width: 405px"
+            ></el-input>
+          </el-form-item>
         </el-col>
         <el-col :span="5">
-          <el-form-item style="dispaly:inline" label="Tax: " :totalTax="totalTax">${{ totalTax }}</el-form-item>
+          <el-form-item label="Tax: " :totalTax="totalTax">${{ totalTax }}</el-form-item>
           <el-form-item label="Total: " :total="total" prop="total">${{ total }}</el-form-item>
-          <el-form-item class="plus" label="plus shipping fee"></el-form-item>
+          <el-form-item label="plus shipping fee"></el-form-item>
         </el-col>
       </el-row>
     </el-form>
@@ -80,17 +76,17 @@
     <accessory-detail-form
       :form="form"
       v-model="accessoryDetailFormVisible"
-      @accessoryAdded="HandleAccessoryAdded"
+      @accessoryAdded="handleAddItem"
     ></accessory-detail-form>
     <product-detail-form
       :form="form"
       v-model="productDetailFormVisible"
-      @productAdded="handleProductAdded"
+      @productAdded="handleAddItem"
     ></product-detail-form>
     <service-plan-form
       :form="form"
       v-model="servicePlanFormVisible"
-      @planAdded="handlePlanAdded"
+      @planAdded="handleAddItem"
     ></service-plan-form>
   </div>
 </template>
@@ -100,6 +96,7 @@ import ProductDetailForm from './ProductDetailForm.vue';
 import AccessoryDetailForm from './AccessoryDetailForm.vue';
 import ServicePlanForm from './ServicePlanForm.vue';
 import { mapState } from 'vuex';
+import { addOrderItem, deleteOrderItem, getOrderItem, addPaymentItem, deletePaymentItem, getPaymentItem } from '@/api/getData';
 
 export default {
   components: {
@@ -111,8 +108,8 @@ export default {
   props: {
     value: Boolean,
     form: [Object],
-    tableData: Array,
-    orderItemTable: Array
+    // tableData: Array,
+    itemTable: Array
   },
 
   data: function() {
@@ -129,6 +126,7 @@ export default {
       accessoryDetailFormVisible: false,
       servicePlanFormVisible: false,
       productDetailFormVisible: false,
+      tableData: [],
       /* FORM RULES */
       // formRules: {
       //   orderType: [
@@ -244,8 +242,13 @@ export default {
     },
 
     handleDeleteOrderItem(row, index) {
-      this.tableData.splice(index, 1);
-      this.fetchItemTax();
+      if(this.form.orderId) {
+        this.fetchDeleteOrderItem(row.itemId, index);
+      } else if(this.form.paymentId){
+        this.fetchDeletePaymentItem(row.itemId, index);
+      } else {
+        this.tableData.splice(index, 1);
+      }
     },
 
     /* HANDLERS FOR SHOWING PRODUCT FORMS */
@@ -260,38 +263,88 @@ export default {
     },
 
     HandleAccessoryAdded(value) {
-      this.tableData.push(value);
-      this.fetchItemTax();
+      if(this.form.orderId) {
+        this.fetchAddOrderItem(value);
+      } else if(this.form.paymentId){
+        this.fetchAddPaymentItem(value);
+      } else {
+        this.tableData.push(value);
+      }
+      // this.fetchItemTax();
     },
 
     handlePlanAdded(value) {
       this.tableData.push(value);
-      this.fetchItemTax();
+      // this.fetchItemTax();
     },
 
     handleProductAdded(value) {
       this.tableData.push(value);
-      // console.log(this.tableData);
-      this.fetchItemTax();
+      // this.fetchItemTax();
     },
 
-    async fetchItemTax() {
-     this.$emit('itemTax',this.tax);
+    handleAddItem(item) {
+      if(this.form.orderId) {
+        this.fetchAddOrderItem(item);
+      } else if(this.form.paymentId){
+        this.fetchAddPaymentItem(item);
+      } else {
+        this.tableData.push(item);
+      }
     },
+
+    fetchItemTax() {
+      this.$emit('itemTax', this.tax);
+    },
+
+    async fetchDeleteOrderItem(itemId, index) {
+      const res = await deleteOrderItem({itemId});
+      if(!res || res.errorCode) return false;
+      this.tableData.splice(index, 1);
+    },
+
+    async fetchDeletePaymentItem(itemId, index) {
+      const res = await deletePaymentItem({itemId});
+      if(!res || res.errorCode) return;
+      this.tableData.splice(index, 1);
+    },
+
+    async fetchAddOrderItem(item) {
+      const params = Object.assign({}, item, {orderId: this.form.orderId});
+      const res = await addOrderItem({}, params);
+      if(!res || res.errorCode) return false;
+      this.tableData.push(item);
+    },
+
+    async fetchAddPaymentItem(item) {
+      const params = Object.assign({}, item, {paymentId: this.form.paymentId});
+      const res = await addPaymentItem({}, params);
+      if(!res || res.errorCode) return false;
+      this.tableData.push(item);
+    },
+
+    // async fetcOrderItem(orderItemId) {
+    //   const res = await getOrderItem({orderItemId});
+    //   if(!res || res.errorCode) return;
+    // },
   },
 
   watch: {
-    orderItemTable: {
+    itemTable: {
       handler: function(val) {
-        if(this.form.orderId) {
-          this.orderItemTable.forEach(item => {
-            this.tableData.push(item);
-          })
+        if(this.form.paymentId || this.form.orderId) {
+          this.tableData = [...val];
         }
-        this.fetchItemTax();
       },
       immediate: true
     },
+
+    tableData: {
+      handler: function(val) {
+        this.$emit('setItemTable', val);
+      },
+      immediate: true
+    }
   },
 
   computed: {
@@ -300,23 +353,18 @@ export default {
       let et = 0;
       const copy = this.tableData || [];
       copy.forEach(function(item, index) {
-        if (item.tax === 'Y') {
-          et = Number(item.amount) * 0.0775;
-        } else {
-          et = 0;
-        }
-        t += et;
+        t += Number(item.tax);
       });
-      return Math.floor(t * 100) / 100;
+      return t.toFixed(2);
     },
     total: function() {
       let t = 0;
       const copy = this.tableData || [];
       copy.forEach(function(item, index) {
-        t += item.amount;
+        t += Number(item.amount);
       });
-      const tot = t + this.tax;
-      return Math.floor(tot * 100) / 100;
+      const tot = t + Number(this.totalTax);
+      return tot.toFixed(2);
     },
     ...mapState([
       'loginInfo',
